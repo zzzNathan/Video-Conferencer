@@ -1,0 +1,72 @@
+\documentclass{report}
+\usepackage{biblatex, fancyhdr, tcolorbox, xcolor, amsthm, xurl, xskak, tabularray}
+\usepackage{minted, hyperref, tikz, graphicx, amsmath, amssymb, amsfonts, titlesec}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage[toc, page]{appendix}
+\usepackage[document]{ragged2e}
+\hypersetup{
+  colorlinks = true,
+  urlcolor   = blue,
+  linkcolor  = blue,
+}
+\addbibresource{References.bib}
+\graphicspath{ {Images/} }
+\definecolor{lightgray}{gray}{0.93}
+\definecolor{lightestgray}{gray}{0.96}
+\definecolor{sallegreen}{rgb}{0.0, 0.61, 0.30}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\renewcommand{\footrulewidth}{0.4pt}
+\newcommand{\ita}[1]{\textit{#1}}
+\newcommand{\bld}[1]{\textbf{#1}}
+\tcbset {
+  base/.style={
+    arc=0mm, 
+    bottomtitle=0.5mm,
+    boxrule=0mm,
+    colbacktitle=black!10!white, 
+    coltitle=black, 
+    fonttitle=\bfseries, 
+    left=2.5mm,
+    leftrule=1mm,
+    right=3.5mm,
+    title={#1},
+    toptitle=0.75mm, 
+  }
+}
+
+\newtcolorbox{mainbox}[1]{
+  colframe=sallegreen, 
+  base={#1}
+}
+\newtcolorbox{proofbox}[1]{
+  colframe=red!20,
+  base={#1}
+}
+
+\author{Jonathan Kasongo}
+\title{\huge \bld{Video conferencing}}
+\date{
+  OCR A-level Computer Science NEA\\
+  \vspace{7cm}
+  \hspace*{-9.5cm}
+  \begin{tblr}{ll}
+    \textbf{Full name:} & Jonathan Kasongo\\
+    \textbf{Candidate number:} & N/A\\
+    \textbf{Centre number:} & N/A\\
+    \textbf{Centre name:} & Harris Academy Purley\\
+    \textbf{Qualification code:} & H446\\
+  \end{tblr}
+}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+\newpage
+
+\include{Analysis.tex}
+
+\printbibliography
+
+\end{document}
