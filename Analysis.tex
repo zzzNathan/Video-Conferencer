@@ -80,70 +80,86 @@ to worry about the complexity and difficulty in trying to get
 modern software to work correctly. The final solution will be
 appropiate to their needs as it will allow the user to access
 video conferences no matter what their experience level with 
-technology is.
+technology is.\vspace{0.2cm}
 
 \noindent
 \begin{tblr}{ll}
-  \textbf{Stakeholder: } & \\
-  \textbf{Category: } & \\
+  \textbf{Stakeholder: } & IT Staff\\
+  \textbf{Category: } & Support/Maintainers\\
 \end{tblr}
 \vspace{0.2cm}
 
-\textbf{Description: }
+\textbf{Description: } \\
 
-\subsection{Features that make the problem solvable through
+The IT Staff would be experienced in working with technology
+because of their qualifications in this field. This group of 
+users should be expected to be able to update and maintain the 
+system as required. To allow the staff to be able to properly 
+maintain the system independently it is important to ensure
+that the code is readable and clear, such that anyone reading
+it can have an idea on what is going on. This will then allow
+the relevant staff to make needed changes to the code without
+having to try and understand what each portion of the code is
+doing.\vspace{0.2cm}
+
+I now provide a transcript of an interview that took place 
+with my client.
+
+\begin{tcolorbox}[
+  boxrule=0pt, frame empty, colback=lightgray, arc=0pt
+]
+  \begin{tblr}{ll}
+    \textbf{Interview with Axel Alabi} & {}\\
+    \textbf{Date: } \texttt{29/06/24} &
+    {\hspace{-1.5cm} \textbf{Time: } \texttt{3.50pm}}
+  \end{tblr}
+
+  \vspace{0.2cm}
+
+  \textbf{Q:} What are some essential features that should be
+  required in the final application? \vspace{0.05cm}
+
+  \textbf{A:} Well to start the app should allow users to see 
+  and hear one another in real-time, there should be a focus on
+  simplicity and users should be able to raise their virtual 
+  "hand" to interact with the talk. \vspace{0.25cm}
+
+  \textbf{Q:} What are some non-essential features that would
+  be desirable in the final application? \vspace{0.05cm}
+
+  \textbf{A:} The app could perhaps provide a suite of 
+  accessibility features to allow disabled ones to have a 
+  comfortable viewing experience. This may include closed
+  captioning, volume control and a screen reader.
+  \vspace{0.25cm}
+
+  \textbf{Q:} What operating system should the application be 
+  for? \vspace{0.05cm}
+
+  \textbf{A:} There is no preference for operating systems.
+  \vspace{0.25cm}
+
+  \textbf{Q:} What are the software requirements? 
+  \vspace{0.05cm}
+
+  \textbf{A:} It should be a web-based application. Any 
+  suitable mainstream programming language is fine.
+  \vspace{0.25cm}
+
+  \textbf{Q:} What are the security requirements?
+  \vspace{0.05cm}
+
+  \textbf{A:} There should be some form of end to end 
+  encryption to ensure that hackers or others cannot access the  video feeds. There should also be some kind of username and 
+  password system in order to enter a call. Passwords should 
+  also be of a good strength e.g. at least 1 symbol, capital
+  and lowercase letters
+  \vspace{0.25cm}
+
+\end{tcolorbox}
+
+\subsection{Features that make the problem solvable via
 computational methods}
-
-Before examining the features that make this problem solvable
-through computational methods, it is necessary to first 
-establish a guideline for some of the basic requirements
-for features that should have to be included within the 
-application, based on our contextual knowledge of the problem
-discussed in 
-\ref{sec:1.1.1}. \vspace{0.2cm}
-
-\begin{tblr}{
-  colspec={XX},
-  row{1}={lightestgray}
-}
-  \hline 
-
-  \bld{Requirement} & \bld{Justification}\\
-
-  \hline
-  Real-time video footage from users webcam's. & {This is
-  necessary for a \ita{video} conferencing application by 
-  definition.}\\
-
-  Real-time audio from users microphone's & {This is also 
-  necessary by definition.}\\
-
-  End to end encryption. & {Users should be able to interact
-  freely without having to worry about anyone intercepting 
-  their data.}\\
-
-  A simplistic/intuitive design. & {We should ensure that the
-  client's main problem is solved.}\\
-
-  Reliability and robustness & {The application should be 
-  reliable enough so that it is performant (minimal lag) and
-  also has measures in place to handle any errors e.g. network
-  failure.}\\
-
-  Some accessibility features & {The application should have
-  some features that enable elderly people, or disabled
-  people to comfortably view the talks/conferences like 
-  everyone else. }\\
-
-  \hline
-\end{tblr}
-
-Now that we have defined some base requirements we can now
-describe the computational techniques that can be applyed to 
-solve the problem, and the features of the problem that make 
-the technique suitable in the context of our problem.\\
-
-\vspace{0.2cm}
 
 \begin{tblr}{
   colspec={|XX|},
@@ -155,27 +171,27 @@ the technique suitable in the context of our problem.\\
   
   \hline
 
-  Real-time audio/video feeds. & {To complete this part of the
-  application we could apply decomposition. This problem can 
-  be decomposed into multiple sub problems, for example:\\
+  Real-time audio/video feeds. & {To justify this feature, note
+  that \textit{video} and \textit{audio} feads should be 
+  nessecary for a \textit{video} chat application. It is also 
+  explicitly requested for by my client. To complete this part
+  of the application we could apply decomposition. This
+  problem can be decomposed into multiple sub problems, 
+  for example:\\
 
   \vspace{0.2cm}
 
   1) Establish a connection to server.\\
   2) Ensure user has connected a webcam.\\
   3) Access the webcam via the relevant API.\\
-  4) Send the video feed data to the server so that everyone 
+  4) Send the video feed data to the server/host so that
+  everyone 
   in the call may view the footage.\\
 
   \vspace{0.2cm}
 
   This idea of breaking the problem down into smaller steps 
   allows for a clear and logical approach to implementation. 
-  We can also apply a generalisation to the design of the 
-  application systems by making use of \ita{structured
-  analysis} where we break down an entire system into smaller
-  components with flow diagrams. \cite{struct}
-
   }\\
 
   \hline
