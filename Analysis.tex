@@ -12,7 +12,7 @@
 
 My client Axel Alabi has asked me to create an interactive
 video conferencing application to allow others to view talks 
-in realtime. The current solution is to use the \ita{Zoom} 
+in realtime. The current solution is to use the Zoom 
 video conferencing application. While it is true that the 
 application is technically sound and can work fine, there is a
 large number of elderly users that also try to connect to the 
@@ -23,7 +23,7 @@ forward we will avoid using "conference/talk", and simply
 replace it with "conference".}, by leaving their microphone's
 on, accidentally raising their hands and so on. This makes my
 client's job difficult since he is in charge of managing the 
-\ita{Zoom} call. To combat this situation he would like a 
+Zoom call. To combat this situation he would like a 
 simple and user friendly video conferencing application that
 provides the features needed for people to view and interact
 with the conferences in real time. This includes 
@@ -43,7 +43,7 @@ viewing for all, irrespective of one's age and/or disabilities.
 \end{tblr}
 \vspace{0.2cm}
 
-\textbf{Description:} \\ 
+\textbf{Description:} \\ \vspace{0.05cm}
 
 Axel Alabi is a $22$ year old male, and is currently in charge 
 of managing the video broadcasts for conferences.
@@ -72,7 +72,7 @@ broadcast. \vspace{0.2cm}
 \end{tblr}
 \vspace{0.2cm}
 
-\textbf{Description: } \\
+\textbf{Description: } \\ \vspace{0.05cm}
 
 This group of users typically have limited experience working 
 with technology. I aim to develop the system to be especially
@@ -94,7 +94,7 @@ comfortability with technology is. \vspace{0.2cm}
 \end{tblr}
 \vspace{0.2cm}
 
-\textbf{Description: } \\
+\textbf{Description: } \\ \vspace{0.05cm}
 
 The IT Staff would be experienced in working with technology
 because of their qualifications in this field. This group of 
@@ -111,74 +111,6 @@ better suite them and their situation. Furthermore the clear
 and readable code enables them to perform any necessary changes
 with ease, something they could not have done previously with 
 the closed-source off the shelf software they had before.
-\vspace{0.2cm}
-
-I now provide a transcript of an interview that took place 
-with my client.
-
-\begin{tcolorbox}[
-  boxrule=0pt, frame empty, colback=lightgray, arc=0pt
-]
-  \begin{tblr}{ll}
-    \textbf{Interview with Axel Alabi} & {}\\
-    \textbf{Date: } \texttt{29/06/24} &
-    {\hspace{-1.5cm} \textbf{Time: } \texttt{3.50pm}}
-  \end{tblr}
-
-  \vspace{0.2cm}
-
-  \textbf{Q:} What are some essential features that should be
-  required in the final application? \vspace{0.05cm}
-
-  \textbf{A:} Well to start the app should allow users to see 
-  and hear one another in real-time, there should be a focus on
-  simplicity and users should be able to raise their virtual 
-  "hand" to interact with the talk. \vspace{0.25cm}
-
-  \textbf{Q:} What are some non-essential features that would
-  be desirable in the final application? \vspace{0.05cm}
-
-  \textbf{A:} The app could perhaps provide a suite of 
-  accessibility features to allow disabled ones to have a 
-  comfortable viewing experience. This may include closed
-  captioning, volume control and a screen reader.
-  \vspace{0.25cm}
-
-  \textbf{Q:} What operating system should the application be 
-  designed for? \vspace{0.05cm}
-
-  \textbf{A:} There is no preference for operating systems.
-  \vspace{0.25cm}
-
-  \textbf{Q:} What are the software requirements? 
-  \vspace{0.05cm}
-
-  \textbf{A:} It should be a web-based application. Any 
-  suitable mainstream programming language is fine as long as 
-  the code is clear enough for me and the other IT staff to 
-  understand.
-  \vspace{0.25cm}
-
-  \textbf{Q:} What are the security requirements?
-  \vspace{0.05cm}
-
-  \textbf{A:} There should be some form of end to end 
-  encryption to ensure that hackers or others cannot access the  video feeds. There should also be some kind of username and 
-  password system in order to enter a call. Passwords should 
-  also be of a good strength e.g. at least 1 symbol, capital
-  and lowercase letters
-  \vspace{0.25cm}
-
-  \textbf{Q:} How will the new system benefit you? 
-  \vspace{0.05cm}
-
-  \textbf{A:} This new system will ensure that all video 
-  conferences I am in charge of managing will run much 
-  smoother, not only giving me more time to work on other 
-  essential tasks but also providing a better viewing
-  experience for all.
-
-\end{tcolorbox}
 
 \subsection{Features that make the problem solvable via
 computational methods}
@@ -223,11 +155,13 @@ provided.
 
   The application should be simple and user friendly. & {This
   is again one of the explicit requests made by my client. We 
-  may apply the technique of abstraction in implementing this
+  may apply abstraction in the implemention of this
   feature. By removing irrelevant information from the user
   interface we can ensure that the user only sees information
   that is relevant to them in a simple and clear manner, 
-  directly achieving one of our client's requests.}\\
+  directly achieving one of our client's requests. This should
+  aid those who are inexperienced with technology to easily
+  grasp how to properly use the software.}\\
 
   Usernames and passwords to enter a call & {Client has 
   explicitly requested this feature, as it ensures that nobody
@@ -251,7 +185,8 @@ provided.
   \vspace{0.2cm}
 
   Algorithmic thinking allows us to solve this problem using 
-  set procedures and rules exactly how a computer would have to  solve this problem. Thinking in this way therefore allows us
+  set procedures and rules exactly how a computer would have to
+  solve this problem. Thinking in this way therefore allows us
   to easily transition from ideas to code.}\\
 
   Screen reader & {During our interview client suggested this
@@ -267,15 +202,163 @@ provided.
   audio for the phrase "are you?" once we recognise that we 
   have just read the word "how". This improves the performance
   of the system overall as less resources have to be expended
-  on screen reading. In the event where I use an
-  existing API for this task I could apply abstraction to 
-  remove any unnecessary options or configurations to the 
-  screen reader leaving only essential options like reading 
-  pace and accent, available to the user. This improves user
-  experience as they are no longer overwhelmed by a multitude
-  of choices, leading to less stress and a more comfortable 
-  experience. \cite{overchoice}}
+  on screen reading. In the event where I use an existing API 
+  for this task I could apply abstraction to remove any unnecessary 
+  options or configurations to the screen reader leaving only
+  essential options like reading pace and accent, available to 
+  the user. This improves user experience as they are no longer
+  overwhelmed by a multitude of choices, leading to less stress
+  and a more comfortable experience. \cite{overchoice}}
 
 \end{longtblr}
 
 \subsection{Research}
+
+% Researched the problem in depth looking at existing solutions
+% to similar problems, identifying and justifying suitable 
+% approaches based on this research.
+
+To obtain a better understanding of the nature of the problem
+and what features should be implemented in the final solution,
+I decided to collect some qualititative data through an 
+interview with my client. This data should allow me to have an
+insight into what the final solution should look like based
+on my client's requirements and desires respectively.
+
+\begin{tcolorbox}[
+  boxrule=0pt, frame empty, colback=lightestgray, arc=0pt
+]
+  \begin{tblr}{ll}
+    \textbf{Interview with Axel Alabi} & {}\\
+    \textbf{Date: } \texttt{29/06/24} &
+    {\hspace{-1.5cm} \textbf{Time: } \texttt{3.50pm}}
+  \end{tblr}
+
+  \vspace{0.2cm}
+
+  \textbf{Q:} What are some of the limitations of the current
+  system used for video conferencing? \vspace{0.05cm}
+
+  \textbf{A:} It tends to be difficult for people who aren't 
+  experienced with technology to properly interact in the 
+  conferences. Often times participants will accidently turn 
+  their microphone on or are unable to turn their microphone
+  on when the speaker invites them to. \vspace{0.25cm}
+
+  \textbf{Q:} What are some essential features that should be
+  required in the final application? \vspace{0.05cm}
+
+  \textbf{A:} Well to start the app should allow users to see 
+  and hear one another in real-time, there should be a focus on
+  simplicity and users should be able to raise their virtual 
+  "hand" to interact with the talk. \vspace{0.25cm}
+
+  \textbf{Q:} What are some non-essential features that would
+  be desirable in the final application? \vspace{0.05cm}
+
+  \textbf{A:} The app could perhaps provide a suite of 
+  accessibility features to allow disabled ones to have a 
+  comfortable viewing experience. This may include closed
+  captioning, volume control and a screen reader.
+  \vspace{0.25cm}
+
+  \textbf{Q:} What operating system should the application be 
+  designed for? \vspace{0.05cm}
+
+  \textbf{A:} There is no preference for operating systems.
+  \vspace{0.25cm}
+
+  \textbf{Q:} What are the software requirements? 
+  \vspace{0.05cm}
+
+  \textbf{A:} It should be a web-based application. Any 
+  suitable mainstream programming language is fine as long as 
+  the code is clear enough for me and the other IT staff to 
+  understand.
+  \vspace{0.25cm}
+
+  \textbf{Q:} What are the security requirements?
+  \vspace{0.05cm}
+
+  \textbf{A:} There should be some form of end to end 
+  encryption to ensure that hackers or others cannot access the
+  video feeds. There should also be some kind of username and 
+  password system in order to enter a call. Passwords should 
+  also be of a good strength e.g. at least 1 symbol, capital
+  and lowercase letters
+  \vspace{0.25cm}
+
+  \textbf{Q:} How will the new system benefit you? 
+  \vspace{0.05cm}
+
+  \textbf{A:} This new system will ensure that all video 
+  conferences I am in charge of managing will run much 
+  smoother, not only giving me more time to work on other 
+  essential tasks but also providing a better viewing
+  experience for all.
+
+\end{tcolorbox}
+
+\subsection*{Zoom}
+
+\subsection*{Accessibility features}
+
+Zoom is a popular closed-source video chat application,
+developed by Zoom video communications. From their website 
+\cite{zoom} they implement 5 major features to ensure that 
+\textit{"Zoom is for everyone"}.
+
+\begin{itemize}
+  \item Live transcriptions
+  \item Automatic closed captioning
+  \item Customisation of font sizes
+  \item Keyboard shortcuts
+  \item Screen reader support
+\end{itemize}
+
+Some advantages of this software include the fact that there
+is a good amount of accessibility features able to help a wide
+variety of people. For instance for those who have limited 
+mobility keyboard shortcuts can be set up to conveniently 
+perform common tasks, whilst those who have trouble hearing
+well can enable closed captioning during the meeting.
+
+\vspace{0.2cm}
+
+However there are still a number of limitations with the way 
+these features are implemented. Automatically generated 
+closed captioning is unfortunately only available in english,
+and may have varying levels of accuracy depending on external
+factors such as background noise, speaker's clarity and 
+profiency in spoken english.
+
+\subsection*{Skype}
+
+\subsection*{Accessibility features}
+
+Skype is a proprietary messaging and video chat application
+developed by Skype technologies a subsidiary of Microsoft 
+\cite{skype}. From Microsoft's support webpage Skype for 
+Windows 8 and above has the 3 following key accessibility 
+features.
+
+\begin{itemize}
+  \item Narrator screen reader
+  \item High contrast colour settings
+  \item Magnifier
+\end{itemize}
+
+These features have the advantage of being especially 
+accessible for blind people or for those with low vision. The 
+combination of high contrast colours along with a magnifier 
+and/or screen reader ensures that low vision users can still 
+make use of Skype, independently. Skype also doubles up to be
+an instant messaging platform, permitting users to have all 
+their conversations and other communications in 1 place.
+
+\vspace{0.2cm}
+
+Whilst the features mentioned are very beneficial for those 
+with low vision, there is no true support for people who are
+hard of hearing or have low mobility. This set of features is 
+one-dimensional only catering to 1 group of less abled people.
