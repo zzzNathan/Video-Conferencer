@@ -9,7 +9,6 @@
 \section{Problem identification}
 
 \subsection{Context}
-\label{sec:1.1.1}
 
 My client Axel Alabi has asked me to create an interactive
 video conferencing application to allow others to view talks 
@@ -17,20 +16,22 @@ in realtime. The current solution is to use the \ita{Zoom}
 video conferencing application. While it is true that the 
 application is technically sound and can work fine, there is a
 large number of elderly users that also try to connect to the 
-talks. These users often don't fully understand how to 
+conferences. These users often don't fully understand how to 
 correctly use the application and then end up accidentally 
-disturbing the conference/talk, by leaving their microphone's
+disturbing the conference/talk \footnote{From this point 
+forward we will avoid using "conference/talk", and simply
+replace it with "conference".}, by leaving their microphone's
 on, accidentally raising their hands and so on. This makes my
 client's job difficult since he is in charge of managing the 
 \ita{Zoom} call. To combat this situation he would like a 
 simple and user friendly video conferencing application that
 provides the features needed for people to view and interact
-with the conferences/talks in real time. This includes 
+with the conferences in real time. This includes 
 features like (but not limited to) audience participation,
 the ability to speak to others via one's microphone and the
 ability to vote on polls. The application should be
 created specifically to help elderly people have a better 
-experience whilst watching any conferences/talks, so may also
+experience whilst watching any conferences, so may also
 include extra accessibility features to ensure comfortable
 viewing for all, irrespective of one's age and/or disabilities.
 
@@ -45,7 +46,7 @@ viewing for all, irrespective of one's age and/or disabilities.
 \textbf{Description:} \\ 
 
 Axel Alabi is a $22$ year old male, and is currently in charge 
-of managing the video broadcasts for conferences and/or talks.
+of managing the video broadcasts for conferences.
 He also works as a data analyst for a company specialising in
 analysing geographical data. Unfortunately, managing the
 broadcasts has become quite challenging because there is
@@ -64,7 +65,9 @@ broadcast. \vspace{0.2cm}
 
 \noindent
 \begin{tblr}{ll}
-  \textbf{Stakeholder: } & People aged $\sim 40$ and over\\
+  \textbf{Stakeholder: } & {People aged $\sim$ 
+  \hspace{-0.2cm} $50$ and over, with limited experience
+  working with technology}\\
   \textbf{Category: } & Target users/audience\\
 \end{tblr}
 \vspace{0.2cm}
@@ -77,10 +80,12 @@ suitable towards this category of people. These users will use
 the software to be able to interact and access their video 
 conferences in a simple and intuitive manner, without having 
 to worry about the complexity and difficulty in trying to get
-modern software to work correctly. The final solution will be
-appropiate to their needs as it will allow the user to access
-video conferences no matter what their experience level with 
-technology is.\vspace{0.2cm}
+modern software to work correctly. The product should also 
+enable any disabled ones to have a pleasant experience viewing
+and interacting in video conferences. The final solution will
+be appropiate to their needs as it will allow the user to be a 
+part of video conferences no matter what their level of
+comfortability with technology is. \vspace{0.2cm}
 
 \noindent
 \begin{tblr}{ll}
@@ -100,7 +105,13 @@ that the code is readable and clear, such that anyone reading
 it can have an idea on what is going on. This will then allow
 the relevant staff to make needed changes to the code without
 having to try and understand what each portion of the code is
-doing.\vspace{0.2cm}
+doing. This solution will be appropiate to their needs as the 
+staff will now be able to tweak and change the application to 
+better suite them and their situation. Furthermore the clear 
+and readable code enables them to perform any necessary changes
+with ease, something they could not have done previously with 
+the closed-source off the shelf software they had before.
+\vspace{0.2cm}
 
 I now provide a transcript of an interview that took place 
 with my client.
@@ -134,7 +145,7 @@ with my client.
   \vspace{0.25cm}
 
   \textbf{Q:} What operating system should the application be 
-  for? \vspace{0.05cm}
+  designed for? \vspace{0.05cm}
 
   \textbf{A:} There is no preference for operating systems.
   \vspace{0.25cm}
@@ -143,7 +154,9 @@ with my client.
   \vspace{0.05cm}
 
   \textbf{A:} It should be a web-based application. Any 
-  suitable mainstream programming language is fine.
+  suitable mainstream programming language is fine as long as 
+  the code is clear enough for me and the other IT staff to 
+  understand.
   \vspace{0.25cm}
 
   \textbf{Q:} What are the security requirements?
@@ -156,21 +169,35 @@ with my client.
   and lowercase letters
   \vspace{0.25cm}
 
+  \textbf{Q:} How will the new system benefit you? 
+  \vspace{0.05cm}
+
+  \textbf{A:} This new system will ensure that all video 
+  conferences I am in charge of managing will run much 
+  smoother, not only giving me more time to work on other 
+  essential tasks but also providing a better viewing
+  experience for all.
+
 \end{tcolorbox}
 
 \subsection{Features that make the problem solvable via
 computational methods}
 
-\begin{tblr}{
+A table of features, their justifications and how they are 
+amenable to be solved via computational methods is now
+provided. 
+
+\begin{longtblr}[
+  caption={Features and their justifications},
+  label={tblr:features}
+]{
   colspec={|XX|},
-  row{1}={lightestgray}
+  row{1}={lightestgray},
+  hlines,
 }
-  \hline
 
   \bld{Feature} & \bld{Justification}\\
   
-  \hline
-
   Real-time audio/video feeds. & {To justify this feature, note
   that \textit{video} and \textit{audio} feads should be 
   nessecary for a \textit{video} chat application. It is also 
@@ -194,18 +221,61 @@ computational methods}
   allows for a clear and logical approach to implementation. 
   }\\
 
-  \hline
-
-  The application should be simple and user friendly. & {We 
+  The application should be simple and user friendly. & {This
+  is again one of the explicit requests made by my client. We 
   may apply the technique of abstraction in implementing this
   feature. By removing irrelevant information from the user
   interface we can ensure that the user only sees information
   that is relevant to them in a simple and clear manner, 
   directly achieving one of our client's requests.}\\
 
-  \hline
+  Usernames and passwords to enter a call & {Client has 
+  explicitly requested this feature, as it ensures that nobody
+  who wasn't invited to the conference can join it. This 
+  problem is suitable to algorithmic thinking, we can utilise
+  a sequence of steps in order to ensure that each call has 
+  it's own distinct password, and to ensure that when the user
+  types in a password they are admitted into the correct 
+  call. For example:\\
+  
+  \vspace{0.2cm}
+  1) Upon creation of the call the user is given a randomly 
+  generated string to be used as a password for others to 
+  join.\\
 
-  Reliability and robustness & {}\\
+  2) This passcode is stored in a database on a server.\\
 
-  \hline
-\end{tblr}
+  3) When a user wants to join a call the password they enter 
+  is checked against entries into that database, and the user
+  is connected if a matching password is found.\\
+  \vspace{0.2cm}
+
+  Algorithmic thinking allows us to solve this problem using 
+  set procedures and rules exactly how a computer would have to  solve this problem. Thinking in this way therefore allows us
+  to easily transition from ideas to code.}\\
+
+  Screen reader & {During our interview client suggested this
+  to be one of the accessibility features that could be
+  implemented in the final application. It could help those 
+  who have poor eyesight to be able to navigate the application
+  independently without the need for assistance from others. 
+  This problem could be amenable to both pattern recognition 
+  and/or abstraction. In the event that I implement my own 
+  screen reader I could notice that some words are very likely
+  to occur in sequence. For example the word "how" may be 
+  followed by "are you?" frequently enough for us to prepare 
+  audio for the phrase "are you?" once we recognise that we 
+  have just read the word "how". This improves the performance
+  of the system overall as less resources have to be expended
+  on screen reading. In the event where I use an
+  existing API for this task I could apply abstraction to 
+  remove any unnecessary options or configurations to the 
+  screen reader leaving only essential options like reading 
+  pace and accent, available to the user. This improves user
+  experience as they are no longer overwhelmed by a multitude
+  of choices, leading to less stress and a more comfortable 
+  experience. \cite{overchoice}}
+
+\end{longtblr}
+
+\subsection{Research}
