@@ -9,6 +9,7 @@
 \section{Problem identification}
 
 \subsection{Context}
+\label{sec:context}
 
 My client Axel Alabi has asked me to create an interactive
 video conferencing application to allow others to view talks 
@@ -46,22 +47,27 @@ viewing for all, irrespective of one's age and/or disabilities.
 \textbf{Description:} \\ \vspace{0.05cm}
 
 Axel Alabi is a $22$ year old male, and is currently in charge 
-of managing the video broadcasts for conferences.
-He also works as a data analyst for a company specialising in
-analysing geographical data. Unfortunately, managing the
-broadcasts has become quite challenging because there is
-often a number of elderly people who join the broadcast and
-find difficulty in interacting with the broadcast. Axel would 
-use the proposed the solution to not only allow everyone to be
-able to access and interact with the broadcast no matter how 
-much experience they have with technology. He would also use 
-the solution to make his life easier and prevent people from 
-disturbing the conference, allowing him to never have to worry
-about manually muting individuals during the broadcast. The 
-proposed solution would be appropiate to his needs because it 
-simplifies his life significantly giving him less things to 
-worry about and allowing him to focus solely on managing the 
-broadcast. \vspace{0.2cm}
+of managing the video broadcasts for conferences. He also
+works as a data analyst for a company specialising in analysing
+geographical data. Unfortunately, managing the broadcasts
+has become quite challenging because there is often a number 
+of elderly people who join the broadcast and find difficulty
+in interacting with the broadcast. Axel would use the propose
+d the solution to not only allow everyone to be able to access 
+and interact with the broadcast no matter how much experience 
+they have with technology. He would also use the solution to
+make his life easier and prevent people from disturbing the 
+conference, allowing him to never have to worry about manually
+muting individuals during the broadcast. The proposed solution
+would be appropiate to his needs because he desires a new 
+simpler and more intuitive system in order to replace Zoom, the
+current system in use. Furthermore the new system would reduce
+the number of problems that people have so that Axel wouldn't 
+have to spend as much time troubleshooting and solving these 
+people's problems evidenced by the comments in \ref{sec:context}.
+This adequately shows how the new solution would be appropiate 
+to his needs.
+\vspace{0.2cm}
 
 \noindent
 \begin{tblr}{ll}
@@ -83,9 +89,14 @@ to worry about the complexity and difficulty in trying to get
 modern software to work correctly. The product should also 
 enable any disabled ones to have a pleasant experience viewing
 and interacting in video conferences. The final solution will
-be appropiate to their needs as it will allow the user to be a 
-part of video conferences no matter what their level of
-comfortability with technology is. \vspace{0.2cm}
+be appropiate to their needs as it will allow the user to take
+part in video conferences simply no matter what their level of
+comfortability with technology is. Futhermore the solution will
+also be specifically tailored towards this group of people, 
+that is the final product will be designed in such a manner so
+that it feels easy to grasp for those users with limited 
+experience with technology, immediately rectifiying the 
+shortcomings of the previous system. \vspace{0.2cm}
 
 \noindent
 \begin{tblr}{ll}
@@ -98,7 +109,7 @@ comfortability with technology is. \vspace{0.2cm}
 
 The IT Staff would be experienced in working with technology
 because of their qualifications in this field. This group of 
-users should be expected to be able to update and maintain the 
+users would be expected to be able to update and maintain the 
 system as required. To allow the staff to be able to properly 
 maintain the system independently it is important to ensure
 that the code is readable and clear, such that anyone reading
@@ -112,111 +123,117 @@ and readable code enables them to perform any necessary changes
 with ease, something they could not have done previously with 
 the closed-source off the shelf software they had before.
 
-\subsection{Features that make the problem solvable via
-computational methods}
-
-A table of features, their justifications and how they are 
-amenable to be solved via computational methods is now
-provided. 
-
-\begin{longtblr}[
-  caption={Features and their justifications},
-  label={tblr:features}
-]{
-  colspec={|XX|},
-  row{1}={lightestgray},
-  hlines,
-}
-
-  \bld{Feature} & \bld{Justification}\\
-  
-  Real-time audio/video feeds. & {To justify this feature, note
-  that \textit{video} and \textit{audio} feads should be 
-  nessecary for a \textit{video} chat application. It is also 
-  explicitly requested for by my client. To complete this part
-  of the application we could apply decomposition. This
-  problem can be decomposed into multiple sub problems, 
-  for example:\\
-
-  \vspace{0.2cm}
-
-  1) Establish a connection to server.\\
-  2) Ensure user has connected a webcam.\\
-  3) Access the webcam via the relevant API.\\
-  4) Send the video feed data to the server/host so that
-  everyone 
-  in the call may view the footage.\\
-
-  \vspace{0.2cm}
-
-  This idea of breaking the problem down into smaller steps 
-  allows for a clear and logical approach to implementation. 
-  }\\
-
-  The application should be simple and user friendly. & {This
-  is again one of the explicit requests made by my client. We 
-  may apply abstraction in the implemention of this
-  feature. By removing irrelevant information from the user
-  interface we can ensure that the user only sees information
-  that is relevant to them in a simple and clear manner, 
-  directly achieving one of our client's requests. This should
-  aid those who are inexperienced with technology to easily
-  grasp how to properly use the software.}\\
-
-  Usernames and passwords to enter a call & {Client has 
-  explicitly requested this feature, as it ensures that nobody
-  who wasn't invited to the conference can join it. This 
-  problem is suitable to algorithmic thinking, we can utilise
-  a sequence of steps in order to ensure that each call has 
-  it's own distinct password, and to ensure that when the user
-  types in a password they are admitted into the correct 
-  call. For example:\\
-  
-  \vspace{0.2cm}
-  1) Upon creation of the call the user is given a randomly 
-  generated string to be used as a password for others to 
-  join.\\
-
-  2) This passcode is stored in a database on a server.\\
-
-  3) When a user wants to join a call the password they enter 
-  is checked against entries into that database, and the user
-  is connected if a matching password is found.\\
-  \vspace{0.2cm}
-
-  Algorithmic thinking allows us to solve this problem using 
-  set procedures and rules exactly how a computer would have to
-  solve this problem. Thinking in this way therefore allows us
-  to easily transition from ideas to code.}\\
-
-  Screen reader & {During our interview client suggested this
-  to be one of the accessibility features that could be
-  implemented in the final application. It could help those 
-  who have poor eyesight to be able to navigate the application
-  independently without the need for assistance from others. 
-  This problem could be amenable to both pattern recognition 
-  and/or abstraction. In the event that I implement my own 
-  screen reader I could notice that some words are very likely
-  to occur in sequence. For example the word "how" may be 
-  followed by "are you?" frequently enough for us to prepare 
-  audio for the phrase "are you?" once we recognise that we 
-  have just read the word "how". This improves the performance
-  of the system overall as less resources have to be expended
-  on screen reading. In the event where I use an existing API 
-  for this task I could apply abstraction to remove any unnecessary 
-  options or configurations to the screen reader leaving only
-  essential options like reading pace and accent, available to 
-  the user. This improves user experience as they are no longer
-  overwhelmed by a multitude of choices, leading to less stress
-  and a more comfortable experience. \cite{overchoice}}
-
-\end{longtblr}
-
 \subsection{Research}
 
 % Researched the problem in depth looking at existing solutions
 % to similar problems, identifying and justifying suitable 
 % approaches based on this research.
+
+We begin our research by observing solutions to similar 
+problems. Then justifications of suitable approaches are given
+based on the existing solutions.
+
+\subsection*{Zoom}
+
+\subsection*{Accessibility features}
+
+Zoom is a popular closed-source video chat application,
+developed by Zoom video communications. From their website 
+\cite{zoom} they implement 5 major features to ensure that 
+\textit{"Zoom is for everyone"}. 
+
+\begin{itemize}
+  \item Live transcriptions
+  \item Automatic closed captioning
+  \item Customisation of font sizes
+  \item Keyboard shortcuts
+  \item Screen reader support
+\end{itemize}
+
+Some advantages of this software include the fact that there
+is a good amount of accessibility features able to help a wide
+variety of people. For instance for those who have limited 
+mobility keyboard shortcuts can be set up to conveniently 
+perform common tasks, whilst those who have trouble hearing
+well can enable closed captioning during the meeting.
+
+\vspace{0.2cm}
+
+However there are still a number of limitations with the way 
+these features are implemented. Automatically generated 
+closed captioning is unfortunately only available in english,
+and may have varying levels of accuracy depending on external
+factors such as background noise, speaker's clarity and 
+profiency in spoken english.
+
+\vspace{0.2cm}
+
+Zoom proposes a solution to the problem of exculsivity when in 
+the context of video conferencing applications. Instead of only
+designing the application to be usable for one group of people
+they aim to instead tailor it to cater towards 
+\textit{everyone}. I believe that the wide range of
+accessibility features is a big advantage of the system, and 
+this could motivate the descision to implement a similar set
+of features in my application. However while a good number of 
+features is appreciable, it is also necessary to ensure that 
+these features are simple to find and to use for an optimal 
+user experience. This is justified by the fact that my client
+is specifically requesting an application for those who aren't
+comfortable with modern technology. To solve this problem I 
+could perhaps implement a built-in tutorial that demonstrates 
+how to use the accessibility features to teach the user how 
+they can use the application to it's fullest potential.
+
+\subsection*{Skype}
+
+\subsection*{Accessibility features}
+
+Skype is a proprietary messaging and video chat application
+developed by Skype technologies a subsidiary of Microsoft 
+\cite{skype}. From Microsoft's support webpage Skype for 
+Windows 8 and above has the 3 following key accessibility 
+features.
+
+\begin{itemize}
+  \item Narrator screen reader
+  \item High contrast colour settings
+  \item Magnifier
+\end{itemize}
+
+These features have the advantage of being especially 
+accessible for blind people or for those with low vision. The 
+combination of high contrast colours along with a magnifier 
+and/or screen reader ensures that low vision users can still 
+make use of Skype, independently. Skype also doubles up to be
+an instant messaging platform, permitting users to have all 
+their conversations and other communications in 1 place.
+
+\vspace{0.2cm}
+
+Whilst the features mentioned are very beneficial for those 
+with low vision, there is no true support for people who are
+hard of hearing or have low mobility. This set of features is 
+one-dimensional only catering to 1 group of less abled people.
+
+\vspace{0.2cm}
+
+Skype proposes a solution to \textit{"help people with 
+disabilities navigate and control their device as well as get
+better access to online content."} 
+\footnote{Quote from \url{https://support.microsoft.com/en-gb/skype/what-accessibility-features-are-available-for-skype-89c34c52-f463-437a-b3be-2ea114c5de13}}
+The solution from Skype allows for disabled ones especially 
+those with reduced vision to benefit from Skype the most, as 
+previously discussed. Whilst Skype offers a good set of
+features for the disabled, the features that they mention on 
+their website are all already either implemented on most 
+popular operating systems, or can be installed as browser 
+extensions with a few clicks. Therefore I believe that there is
+insufficient justificaiton to take the time to implement any 
+of the features that Skype implements, and will not be 
+implementing any of those features.
+
+\vspace{0.2cm}
 
 To obtain a better understanding of the nature of the problem
 and what features should be implemented in the final solution,
@@ -226,7 +243,8 @@ insight into what the final solution should look like based
 on my client's requirements and desires respectively.
 
 \begin{tcolorbox}[
-  boxrule=0pt, frame empty, colback=lightestgray, arc=0pt
+  boxrule=0pt, frame empty, colback=lightestgray, arc=0pt,
+  breakable, colframe=white
 ]
   \begin{tblr}{ll}
     \textbf{Interview with Axel Alabi} & {}\\
@@ -285,7 +303,7 @@ on my client's requirements and desires respectively.
   video feeds. There should also be some kind of username and 
   password system in order to enter a call. Passwords should 
   also be of a good strength e.g. at least 1 symbol, capital
-  and lowercase letters
+  and lowercase letters.
   \vspace{0.25cm}
 
   \textbf{Q:} How will the new system benefit you? 
@@ -299,66 +317,158 @@ on my client's requirements and desires respectively.
 
 \end{tcolorbox}
 
-\subsection*{Zoom}
+From this interview, I can see that my client has some features
+that should definitely be included in the solution: real-time 
+audio and video as well as the ability to raise and lower one's
+virtual hand. Furthermore I believe that security should also 
+be very important when designing the final solution. This 
+should be a requirement because we don't want any of our users
+to have their important data stolen during their video
+conference. \vspace{0.2cm}
 
-\subsection*{Accessibility features}
-
-Zoom is a popular closed-source video chat application,
-developed by Zoom video communications. From their website 
-\cite{zoom} they implement 5 major features to ensure that 
-\textit{"Zoom is for everyone"}.
-
-\begin{itemize}
-  \item Live transcriptions
-  \item Automatic closed captioning
-  \item Customisation of font sizes
-  \item Keyboard shortcuts
-  \item Screen reader support
-\end{itemize}
-
-Some advantages of this software include the fact that there
-is a good amount of accessibility features able to help a wide
-variety of people. For instance for those who have limited 
-mobility keyboard shortcuts can be set up to conveniently 
-perform common tasks, whilst those who have trouble hearing
-well can enable closed captioning during the meeting.
-
-\vspace{0.2cm}
-
-However there are still a number of limitations with the way 
-these features are implemented. Automatically generated 
-closed captioning is unfortunately only available in english,
-and may have varying levels of accuracy depending on external
-factors such as background noise, speaker's clarity and 
-profiency in spoken english.
-
-\subsection*{Skype}
-
-\subsection*{Accessibility features}
-
-Skype is a proprietary messaging and video chat application
-developed by Skype technologies a subsidiary of Microsoft 
-\cite{skype}. From Microsoft's support webpage Skype for 
-Windows 8 and above has the 3 following key accessibility 
-features.
-
-\begin{itemize}
-  \item Narrator screen reader
-  \item High contrast colour settings
-  \item Magnifier
-\end{itemize}
-
-These features have the advantage of being especially 
-accessible for blind people or for those with low vision. The 
-combination of high contrast colours along with a magnifier 
-and/or screen reader ensures that low vision users can still 
-make use of Skype, independently. Skype also doubles up to be
-an instant messaging platform, permitting users to have all 
-their conversations and other communications in 1 place.
+Bearing this in mind we should also think about suitable 
+approaches to implementing a system with these features. In 
+order to implement the real-time video/audio I could make use
+of the WebRTC API from Google, which would enable me to 
+establish secure peer to peer connections from the browser. 
+Not only does this approach allow us to establish audio and 
+video, but it also ensures that these connections are secure 
+through the use of signalling servers. To justify 
+usage of the WebRTC API, I believe it is first necessary to 
+explain why I rejected the idea of implementing an API from
+scratch. Unfortunately implementations of fully functioning
+and secure peer to peer API's aren't trivial at all. The time
+it would take to fully understand how to implement peer to 
+peer connections using VP9 packetizers \cite{vp9} and SHA-256
+cryptography for data security would simply be too
+time-consuming and cannot be justified when fully functioning,
+tested and performant implementations already exist. The next 
+portion of the justification covers why did I choose the
+WebRTC API over other API's? WebRTC is from Google and it is 
+well known that Google is a credible technology company. 
+Therefore it is sensible to assume that their API is of 
+highest quality publicly available right now. However, there
+are alternatives to WebRTC like: VideoSDK, Twilio and 
+MirrorFly. Whilst it can be acknowledged that these API's could
+potentially be a better fit for my project in terms of
+performance, features and simplicity, all of these alternatives
+are paid for. I don't think it would be sensible to pay for
+commercial API's when there are free one's like WebRTC
+available that will work just fine.
 
 \vspace{0.2cm}
 
-Whilst the features mentioned are very beneficial for those 
-with low vision, there is no true support for people who are
-hard of hearing or have low mobility. This set of features is 
-one-dimensional only catering to 1 group of less abled people.
+When discussing security it is also important to discuss the 
+username and password management system that may be implemented
+since it is one of my client's requests. In order to design a 
+system that has secure password management it will be 
+beneficial to study how other industry applications have chosen
+to solve the problem of managing user passwords. I chose to 
+study Bitwarden, a freemium open source password management 
+service. The following information was found on their 
+architecture webpage \cite{Bitwarden}. As per their website 
+they use the \textit{"Command and Query Responsibility 
+Segregation (CQRS) pattern"}. The CQRS model developed by 
+Microsoft separates reads and writes into different models. 
+\textit{Commands} are used to write to the database, whilst 
+\textit{queries} are used to read from the database. Each 
+command and query has one \emph{single} responsibility and 
+should be based on actions rather than operations on data. For
+instance Microsoft give the example rather than use the
+data-based command: \code{SET ReservationStatus to Reserved}
+we should prefer to use the action-based command: \\
+\code{Book\_Hotel\_Room()} instead. Some of the benefits of 
+this model include: 
+
+\begin{itemize}
+  \item Security. It's easier to ensure that only people of authority are performing reads and writes to the database if 
+they're separated.
+
+  \item Separation of concerns. Splitting the read and write components makes the system more modular and more maintainable. 
+
+  \item Simplified commands. Instead of directly manipulating data commands should be based on the task they try to 
+achieve.
+\end{itemize}
+
+Bitwarden's servers use the MSSQL database and makes automated
+nightly backups to ensure data is protected. Furthermore the 
+company uses \textit{zero-knowledge encryption} so that the 
+company cannot see it's users data. Through this kind of 
+encryption the company is able to have it's users complete 
+trust as they are sure that their data is safe and cannot be
+read by anyone other than them. Our application could 
+definitely implement the CQRS model. The zero-knowledge 
+encryption could perhaps be implemented using an existing API,
+this is because the algorithms needed to implement 
+zero-knowledge encryption include SHA-256 as well as 
+AES-CBC 256 bit both algorithms which require large amounts of 
+higher mathematics.
+
+\subsection{Essential features and their justifications}
+
+\textbf{Real-time audio/video feeds} \\ \vspace{0.1cm}
+
+This will enable multiple users to connect to each other via
+their browsers and view each other's webcams, as well as hear
+each other in real-time. The justification for this feature is
+that it is explicitly requested for by my client in our
+interview, furthermore we don't have a \textit{video}
+conferencing application if we cannot actually see other 
+people's video feeds on our application.
+
+\vspace{0.2cm}
+
+\textbf{Raising one's virtual hand} \\ \vspace{0.1cm}
+
+This feature will allow people to be able to interact with the
+person giving the talk as if they were present in real life.
+The virtual hand will be made visible to all participants in 
+the conference so that the speaker/host will be able to ask 
+the audience members to speak when appropiate. This feature
+is sufficiently justified because of my client's specific 
+request to implement it as a feature in the interview. 
+Furthermore the implementation of this feature will help the 
+migration from Zoom to our new platform be familiar as this 
+feature is also found on Zoom.
+
+\vspace{0.2cm}
+
+\textbf{Designation of a host} \\ \vspace{0.1cm}
+
+This feature will allow the creator of the conference to 
+assign 1 or multiple people to be the \textit{host} of the 
+conference. That means that these people will be in charge of 
+managing the conference and will control who to admit into the
+conference call, who to unmute and who to remove from the call,
+and will be able to lower other's virtual hand. The
+justification of this feature is that I believe there should 
+always be someone of some sort of authority to coordinate and 
+manage these conferences. This is very common in real life also
+because without management and coordination people would be 
+clueless, and anarchy would run rampant. This phenomenon has
+been seen in other video chat applications more specifically,
+on Zoom \footnote{See 
+\url{https://en.wikipedia.org/wiki/Zoombombing} for more 
+information}, and in order to provide the best experience for
+our users it is vital that events like this aren't allowed to
+happen.
+
+\vspace{0.2cm}
+
+\textbf{Usernames and passwords} \\ \vspace{0.1cm}
+
+Each user will be able to choose their unique username so 
+that users can easily identify one another upon joining a call.
+Furthermore each user can set their own password so that their
+account is protected and others cannot pretend to be them. 
+Assigned to each user account will be their saved settings and
+options, so that if a user has a specific configuration of 
+settings that are adapted for their needs they don't have to 
+set these up each time they log onto a conference. Passwords 
+will be made to fit some set of requirements to ensure that 
+the password is of sufficient strength. The justification of 
+this feature is clearly evident enough for it to be considered
+essential to the final solution, and moreover the feature was
+also requested during my interview with the client.
+
+\subsection{Problems, issues and limitations}
