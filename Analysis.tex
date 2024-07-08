@@ -49,24 +49,31 @@ viewing for all, irrespective of one's age and/or disabilities.
 Axel Alabi is a $22$ year old male, and is currently in charge 
 of managing the video broadcasts for conferences. He also
 works as a data analyst for a company specialising in analysing
-geographical data. Unfortunately, managing the broadcasts
-has become quite challenging because there is often a number 
-of elderly people who join the broadcast and find difficulty
-in interacting with the broadcast. Axel would use the propose
-d the solution to not only allow everyone to be able to access 
-and interact with the broadcast no matter how much experience 
-they have with technology. He would also use the solution to
-make his life easier and prevent people from disturbing the 
-conference, allowing him to never have to worry about manually
-muting individuals during the broadcast. The proposed solution
-would be appropiate to his needs because he desires a new 
-simpler and more intuitive system in order to replace Zoom, the
-current system in use. Furthermore the new system would reduce
-the number of problems that people have so that Axel wouldn't 
-have to spend as much time troubleshooting and solving these 
-people's problems evidenced by the comments in \ref{sec:context}.
-This adequately shows how the new solution would be appropiate 
-to his needs.
+geographical data, and has experience working in computer 
+science. Unfortunately, managing the broadcasts has become 
+quite challenging because there is often a number of elderly
+people who join the broadcast and find difficulty in
+interacting with the broadcast. Axel would use the proposed 
+solution as a replacement for the Zoom videoconferences he uses
+currently. When asked to manage/set up a videoconference by 
+his company he would go onto his web browser onto my website,
+and begin a conference. He would be given a unique entrance
+code and then he would give this code to the people who are to 
+be invited to the videoconference. The solution would provide a
+simpler, more intuitive and more accessible alternative to
+Zoom. The proposed solution would be appropiate to Axel and his
+needs because the new system will be easier to use for his 
+audience and consequently he will have less trouble in managing
+the call. Instead of him having to worry about muting the 
+audience's microphone's and responding to any technical
+difficulties/issues, he would be able to run the conference 
+smoothly. This would improve his life greatly as he would be 
+able to now focus solely on ensuring that video and audio is 
+clear during the broadcast. In removing some of Axel's issues
+that he faces in his job, he should become more content and 
+calmer with his work life, adequately showing how this solution
+will be appropiate to his needs.
+
 \vspace{0.2cm}
 
 \noindent
@@ -124,6 +131,7 @@ with ease, something they could not have done previously with
 the closed-source off the shelf software they had before.
 
 \subsection{Research}
+\label{sec:research}
 
 % Researched the problem in depth looking at existing solutions
 % to similar problems, identifying and justifying suitable 
@@ -333,16 +341,29 @@ of the WebRTC API from Google, which would enable me to
 establish secure peer to peer connections from the browser. 
 Not only does this approach allow us to establish audio and 
 video, but it also ensures that these connections are secure 
-through the use of signalling servers. To justify 
-usage of the WebRTC API, I believe it is first necessary to 
-explain why I rejected the idea of implementing an API from
-scratch. Unfortunately implementations of fully functioning
-and secure peer to peer API's aren't trivial at all. The time
-it would take to fully understand how to implement peer to 
-peer connections using VP9 packetizers \cite{vp9} and SHA-256
-cryptography for data security would simply be too
-time-consuming and cannot be justified when fully functioning,
-tested and performant implementations already exist. The next 
+through the use of signalling servers. Signalling servers are
+servers that manage connections between peers. To understand 
+signalling servers we will go through an example. Consider 2 
+users, Alice and Bob that want to have a video call. Alice 
+creates an offer for Bob to connect. Consequently WebRTC 
+creates a session description protocol (SDP) object. The SDP 
+object holds information like media types, name of the
+session and the video codec being used. This data is then 
+saved to a \textit{signalling} server. Bob then reads this SDP
+offer from the server and WebRTC creates a SDP answer and
+writes this to the server. Alice and Bob have now established 
+a peer to peer connection. In essence, signalling allows for 
+users to exchange the metadata of their connection through the
+WebRTC API. To justify usage of the WebRTC API, I believe it 
+is first necessary to explain why I rejected the idea of
+implementing an API from scratch. Unfortunately
+implementations of fully functioning and secure peer to peer
+API's aren't trivial at all. The time it would take to fully
+understand how to implement peer to peer connections using 
+VP9 packetizers \cite{vp9} and SHA-256 cryptography for data
+security would simply be too time-consuming and cannot be
+justified when fully functioning, tested and performant 
+implementations already exist. The next 
 portion of the justification covers why did I choose the
 WebRTC API over other API's? WebRTC is from Google and it is 
 well known that Google is a credible technology company. 
@@ -401,8 +422,8 @@ definitely implement the CQRS model. The zero-knowledge
 encryption could perhaps be implemented using an existing API,
 this is because the algorithms needed to implement 
 zero-knowledge encryption include SHA-256 as well as 
-AES-CBC 256 bit both algorithms which require large amounts of 
-higher mathematics.
+AES-CBC 256 bit, both algorithms which require large amounts of 
+higher level mathematics.
 
 \subsection{Essential features and their justifications}
 
@@ -471,4 +492,17 @@ this feature is clearly evident enough for it to be considered
 essential to the final solution, and moreover the feature was
 also requested during my interview with the client.
 
+\vspace{0.2cm}
+
+\textbf{WebRTC for peer to peer connections} \\ \vspace{0.1cm}
+
+We will make use of the WebRTC API, in order to establish peer 
+to peer connections between all major web browsers, like
+Google, Firefox and Safari. This decision was fully justified 
+in \ref{sec:research}. The API will enable users to transfer
+their video and audio data between one another securely and
+efficiently, over the internet.
+
 \subsection{Problems, issues and limitations}
+
+\textbf{}
