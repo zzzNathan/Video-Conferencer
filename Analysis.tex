@@ -147,31 +147,6 @@ that the IT staff will not have to be unsure about answering
 user's queries, but rather they will be able to read the source
 code and give a correct response to the user every time.
 
-\subsection{How is the problem solvable via a computational
-method?}
-
-The population of elderly ones in the UK has seen a 52\% 
-increase in the last 40 years. This group of people includes
-a large number of those who are isolated and feel a sense of 
-loneliness in their lives. However through video conferencing
-these ones gain the ability to socialise and interact with 
-others from the comfort of their homes. This is especially 
-useful as many elderly ones have limited mobility or are bed 
-bound. Without regular opputunities to socialise and interact 
-humans become depressed and our mental health will begin to 
-decline. By developing software to enable those disabled 
-people to talk to others can improve the quality of their 
-mental health significantly. When people are limited by their 
-disabilities or by their illnesses the oppurtunities to go and
-talk to new people in real life are far and few between. For
-these people real physical interactions may not be possible,
-meaning that a computational solution to their problem is not
-just preferred but necessary. \vspace{0.2cm}
-
-Accessible video conferencing software is useful to young 
-people aswell. People like my client suffer from the issues 
-that current video conferencing software poses.
-
 \subsection{Research}
 \label{sec:research}
 
@@ -529,10 +504,13 @@ options, so that if a user has a specific configuration of
 settings that are adapted for their needs they don't have to 
 set these up each time they log onto a conference. Passwords 
 will be made to fit some set of requirements to ensure that 
-the password is of sufficient strength. The justification of 
-this feature is clearly evident enough for it to be considered
-essential to the final solution, and moreover the feature was
-also requested during my interview with the client.
+the password is of sufficient strength. When a user creates a 
+call they will be given a unique passcode that they will be 
+able to share with anyone else whom they would like to invite
+to the video conference. The justification of this feature is
+clearly sufficient enough thanks to my research, for it to be
+considered essential to the final solution, and moreover the
+feature was also requested during my interview with the client.
 
 \vspace{0.2cm}
 
@@ -544,6 +522,135 @@ Google, Firefox and Safari. This decision was fully justified
 in \ref{sec:research}. The API will enable users to transfer
 their video and audio data between one another securely and
 efficiently, over the internet.
+
+\subsection{How is the problem solvable via a computational
+method?}
+
+The population of elderly ones in the UK has seen a 52\% 
+increase in the last 40 years. This group of people includes
+a large number of those who are isolated and feel a sense of 
+loneliness in their lives. However through video conferencing
+these ones gain the ability to socialise and interact with 
+others from the comfort of their homes. This is especially 
+useful as many elderly ones have limited mobility or are bed 
+bound. Without regular opputunities to socialise and interact 
+humans become depressed and our mental health will begin to 
+decline. By developing software to enable those disabled 
+people to talk to others can improve the quality of their 
+mental health significantly. When people are limited by their 
+disabilities or by their illnesses the oppurtunities to go and
+talk to new people in real life are far and few between. For
+these people real physical interactions may not be possible,
+meaning that a computational solution to their problem is not
+just preferred but necessary. \vspace{0.2cm}
+
+Accessible video conferencing software is useful to young 
+people aswell. People like my client also have problems with 
+current systems. In order for him to carry out his job 
+effectively he requires a simple and reliable computational
+solution. Current systems pose a challenge for elderly people 
+to use, which in turn means that my client has to spend a good
+majority of his time helping people set up their webcams,
+microphones or other settings. If my client instead had access
+to video conferencing software that was easy for elderly people
+to understand how to use comfortably his job would be 
+simplified significantly, and in order to create that new 
+software it is evident that a computational method must be 
+used. Moreover we have evidence from the previous systems like 
+Zoom that were in use, that creating such an application is
+amenable to a computational approach. Applications such as 
+Zoom are able to transfer 1080p quality video and audio data
+at 30 FPS with millions of users worldwide. These results 
+demonstrate the validity of a computational approach towards 
+solving this problem, because we are able to see that the 
+desired solution is computationally feasible. \vspace{0.2cm}
+
+Decomposition is a computational method that involves breaking
+down complex problems into multiple smaller and more 
+manageable problems. The problem of sharing real-time 
+audio/video feeds between users can be decomposed into numerous
+sub-problems that are easier to accomplish. For example we 
+could break this problem into 4 sub-problems:
+
+\begin{enumerate}
+  \item Establish a connection to the other user's computers 
+  \item Ensure user has connected a suitable webcam/microphone
+  \item Access the webcam/microphone using the relevant API's
+  \item{Send the video/audio data to the other users in the 
+        conference}
+\end{enumerate}
+
+Breaking larger problems into multiple simpler problems 
+reduces the complexity of a system and allows for easier 
+debugging. Rather than trying to debug a large and complex 
+system, it is much easier to debug a single function or class
+that accomplishes only 1 task. This is because the large and 
+complex system may be throwing errors for a number of reasons, 
+perhaps it could also be throwing errors because of one 
+mistake that was written in the code some several hundred lines
+ago. With smaller and more concise code organised into
+functions and similar structures, we can tell exactly where the
+code is throwing an error and start working on resolving the 
+issue immediately. This problem is amenable to a computational 
+approach as we are able to improve the maintainability of our
+codebase by applying the technique of decomposition. Moreover
+decomposition allows for a much simpler approach to problem 
+solving in programming. When we face a large and complicated 
+task we can first decompose the problem as we did in the 
+example above, and then piece together those smaller solutions
+to the sub-problems, into 1 solution that achieves our intended
+goal. \vspace{0.2cm}
+
+Often once we have decomposed a problem, patterns emerge from 
+the smaller decomposed problems. In recognising these patterns
+we can reduce the amount of code needed to solve each 
+sub-problem by placing the common operations of each 
+function/class into a function/class of it's own. In order to 
+ensure these repetitive actions aren't found in my code I will
+employ the use of the DRY software development principle. 
+That is the "\textbf{D}on't \textbf{r}epeat \textbf{y}ourself"
+principle. The purpose of the DRY principle is to avoid 
+writing redundant code by replacing it with abstractions. This
+principle guarentees clear and concise code. One feature of 
+the problem that could benefit from pattern recognition is the 
+username and passcode system. There are 2 cases in which we 
+would need to check usernames and passwords, those are when the
+user initially logs into their account and when the user enters
+a passcode to enter a video conference. Instead of writing 2 
+seperate pieces of code to check for the correct username and 
+password I could apply pattern recognition and instead 
+implement 1 function called \code{Check\_User\_and\_passcode()}
+to be used in both cases. We have seen that this problem is
+definitely amenable to a computational approach, through the 
+application of pattern recognition to ensure clarity and 
+conciseness in our codebases. \vspace{0.2cm}
+
+As mentioned in the above paragraph abstraction is another 
+computational technique that is suited to being used in my 
+solution. Abstraction is the process of removing unnecessary
+details, and only keeping in the parts of the solution that are
+important. Abstraction could be applied to the design of the 
+UI of my application. The main focus of this application should
+be for it to be simple and easy to grasp as highlighted by my 
+client in \ref{sec:research}. So in the design of my UI I will 
+not give the user every single piece of information available
+about the call because the vast majority of that information 
+will be useless to them. Furthermore it can be argued that the 
+presentation of less pieces of information is better for the 
+user's mental health than the presentation of large amounts of 
+information \cite{overchoice}. When humans have too many 
+options we become unable to make descisions, so by limiting the
+amount of information available to the user we allow them to 
+focus on the few important configurations that they should be 
+in control of, in turn permitting them to give the majority of
+their attention to whomever they are having a call with. This 
+appropiately demonstrates the amenability of applying
+abstraction in our final application. This choice will enhance
+the user's experience while on our webpage and make the design
+less cluttered and more aesthetically pleasing, making the 
+application more desirable to use.  \vspace{0.2cm}
+
+The last computational technique is algorithmic thinking.
 
 \subsection{Problems, issues and limitations}
 
