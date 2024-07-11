@@ -663,8 +663,25 @@ they will have the ability to program a selected key/button to
 be able to perform pre-determined tasks like turning video
 on/off and muting/unmuting the microphone. Algorithmic thinking
 can be applied when implementing this feature. The task can 
-be broken into a number of finite steps like so:\\
+be broken into a number of finite steps like so: \\
+
+\begin{enumerate}
+  \item Ask the user what button they would like to use for the macro.
+  \item Update the relevant class to ensure that the action can now occur via the macro.
+  \item Save this configuration onto their account through the database.
+\end{enumerate}
 
 \subsection{Problems, issues and limitations}
 
-\textbf{}
+\textbf{Limitation 1: } \hspace{0.1cm} The application will 
+require an internet connection. Since the application makes use
+of the WebRTC API, we require internet access in order to 
+establish any peer to peer connections. Though accessibility
+is one of the main focuses of the system, this limitation only
+makes it less accessible. This is because people may not 
+always have access to the internet whether it be due to 
+monetary, geographical or other reasons. Hence in using the 
+WebRTC API we have limited the number of potential users for 
+our application as not everyone has consistent access to the 
+internet. More precisely, only 66\% of people have internet 
+access in the world according to Statista (2024).
