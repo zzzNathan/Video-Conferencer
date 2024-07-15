@@ -494,7 +494,8 @@ happen.
 
 \vspace{0.2cm}
 
-\textbf{Usernames and passwords} \\ \vspace{0.1cm}
+\textbf{Usernames and passwords to join a call} \\ 
+\vspace{0.1cm}
 
 Each user will be able to choose their unique username so 
 that users can easily identify one another upon joining a call.
@@ -515,14 +516,19 @@ feature was also requested during my interview with the client.
 
 \vspace{0.2cm}
 
-\textbf{WebRTC for peer to peer connections} \\ \vspace{0.1cm}
+\textbf{Simple and user friendly UI} \\ \vspace{0.1cm}
 
-We will make use of the WebRTC API, in order to establish peer 
-to peer connections between all major web browsers, like
-Google, Firefox and Safari. This decision was fully justified 
-in \ref{sec:research}. The API will enable users to transfer
-their video and audio data between one another securely and
-efficiently, over the internet.
+The UI should be designed in such a way that anyone could be 
+able to understand how to use the application. This feature
+aligns with the idea to have the system be accessible, through 
+ensuring that all users are able to navigate the interface 
+without asking others for help. Furthermore a nice and 
+user-friendly interface makes the app more pleasant to use and
+the user will only have essential information on their screens
+to make sure that the interface is not cluttered or 
+overcrowded. This feature is fully justified since my client 
+requested this as an "essential" feature during our interview
+in \ref{sec:research}.
 
 \subsection{How is the problem solvable via a computational
 method?}
@@ -557,14 +563,24 @@ to video conferencing software that was easy for elderly people
 to understand how to use comfortably his job would be 
 simplified significantly, and in order to create that new 
 software it is evident that a computational method must be 
-used. Moreover we have evidence from the previous systems like 
+used. To justify this claim we look at the average download
+speeds for UK resedentials and compare it to the amount of 
+data needed to transfer clear video and audio for 1 second.
+\textit{"The average download speed of a UK home broadband
+was 69.4 Mbit/s"} \cite{data}. For professional video 
+applications RGB true colour is the standard, where 24 bits are
+used to store the colour of each pixel. For a 720p display we 
+have $(1,280 \times 720) \times 24 = 22,118,400$ bits for one 
+image. Standard video chat applications all apply the
+\textit{discrete cosine transform} in order to compress video.
+\cite{cosine}
+Moreover we have evidence from the previous systems like 
 Zoom that were in use, that creating such an application is
 amenable to a computational approach. Applications such as 
 Zoom are able to transfer 1080p quality video and audio data
 at 30 FPS with millions of users worldwide. These results 
-demonstrate the validity of a computational approach towards 
-solving this problem, because we are able to see that the 
-desired solution is computationally feasible. \vspace{0.2cm}
+demonstrate the validity and feasability of a computational
+approach towards solving this problem.  \vspace{0.2cm}
 
 Decomposition is a computational method that involves breaking
 down complex problems into multiple smaller and more 
@@ -671,17 +687,44 @@ be broken into a number of finite steps like so: \\
   \item Save this configuration onto their account through the database.
 \end{enumerate}
 
+The approach to use algorithmic thinking is justified innately
+by the nature of problem-solving. Algorithmic thinking is not
+just convienient when applied in the example of implementing
+macros, rather it is essential to the implementation of nearly
+every feature that the finished system will include. If we did
+not need to apply the technique of algorithmic thinking when
+programming, in other words we did not require any finite
+sequence of steps to solve the problem, it means one of two
+things. Either the problem needed no sequence of steps because
+it was solved instantly or that the problem can be solved
+using an infinite sequence of steps. In the first case if the
+problem needed no steps to solve it, it must have been a
+trivial problem. This case wouldn't apply to this application
+because if it were trivial then my client Axel Alabi would 
+easily program the system himself, because of his expertise in 
+computer science. The second case implies that the problem will
+be solved in an infinite amount of time, however our clients
+do not have an infinite amount of time to wait for the 
+solution to their problems, ruling out the second case 
+entirely.
+
 \subsection{Problems, issues and limitations}
 
-\textbf{Limitation 1: } \hspace{0.1cm} The application will 
-require an internet connection. Since the application makes use
-of the WebRTC API, we require internet access in order to 
-establish any peer to peer connections. Though accessibility
-is one of the main focuses of the system, this limitation only
-makes it less accessible. This is because people may not 
-always have access to the internet whether it be due to 
-monetary, geographical or other reasons. Hence in using the 
-WebRTC API we have limited the number of potential users for 
-our application as not everyone has consistent access to the 
-internet. More precisely, only 66\% of people have internet 
-access in the world according to Statista (2024).
+\textbf{Limitation 1: } \\ \vspace{0.1cm} 
+
+The application will require an internet connection. Since the
+application makes use of the WebRTC API, we require internet 
+access in order to establish any peer to peer connections.
+Though accessibility is one of the main focuses of the system,
+this limitation actively makes the app less accessible. This
+is because people may not always have access to the internet 
+whether it be due to economic, geographical or other reasons.
+Hence in using the WebRTC API we have limited the number of 
+potential users for our application as not everyone has 
+constant access to the internet. More precisely, only 66\% of 
+people have internet access in the world according to Statista.
+\footnote{As of 2024.} \\ \vspace{0.2cm}
+
+\textbf{Limitation 2: } \\ \vspace{0.1cm}
+
+
