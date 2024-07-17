@@ -2,7 +2,8 @@
 \lhead{OCR A-Level Computer Science}
 \chead{\thepage}
 \rhead{Jonathan Kasongo}
-\lfoot{Qualification code: H446}
+\lfoot{Candidate number: N/A}
+\rfoot{Centre number: N/A}
 
 \chapter{Analysis}
 
@@ -321,6 +322,12 @@ on my client's requirements and desires respectively.
   understand.
   \vspace{0.25cm}
 
+  \textbf{Q:} What is your budget for the system?
+  \vspace{0.05cm}
+
+  \textbf{A:} I'd prefer the application to be completely free
+  if at all possible. \vspace{0.25cm}
+
   \textbf{Q:} What are the security requirements?
   \vspace{0.05cm}
 
@@ -443,7 +450,7 @@ zero-knowledge encryption include SHA-256 as well as
 AES-CBC 256 bit, both algorithms which require large amounts of 
 higher level mathematics.
 
-\subsection{Essential features and their justifications}
+\subsection{Essential features \& their justifications}
 
 \textbf{Real-time audio/video feeds} \\ \vspace{0.1cm}
 
@@ -486,11 +493,9 @@ manage these conferences. This is very common in real life also
 because without management and coordination people would be 
 clueless, and anarchy would run rampant. This phenomenon has
 been seen in other video chat applications more specifically,
-on Zoom \footnote{See 
-\url{https://en.wikipedia.org/wiki/Zoombombing} for more 
-information}, and in order to provide the best experience for
-our users it is vital that events like this aren't allowed to
-happen.
+on Zoom (Zoombombing), and in order to provide the best
+experience for our users it is vital that events like this 
+aren't allowed to occur.
 
 \vspace{0.2cm}
 
@@ -562,25 +567,25 @@ microphones or other settings. If my client instead had access
 to video conferencing software that was easy for elderly people
 to understand how to use comfortably his job would be 
 simplified significantly, and in order to create that new 
-software it is evident that a computational method must be 
-used. To justify this claim we look at the average download
+software it is evident that a computational method can be 
+used. To justify this claim we examine the average download
 speeds for UK resedentials and compare it to the amount of 
-data needed to transfer clear video and audio for 1 second.
-\textit{"The average download speed of a UK home broadband
-was 69.4 Mbit/s"} \cite{data}. For professional video 
-applications RGB true colour is the standard, where 24 bits are
-used to store the colour of each pixel. For a 720p display we 
-have $(1,280 \times 720) \times 24 = 22,118,400$ bits for one 
-image. Standard video chat applications all apply the
-\textit{discrete cosine transform} in order to compress video.
-\cite{cosine}
-Moreover we have evidence from the previous systems like 
-Zoom that were in use, that creating such an application is
-amenable to a computational approach. Applications such as 
-Zoom are able to transfer 1080p quality video and audio data
-at 30 FPS with millions of users worldwide. These results 
-demonstrate the validity and feasability of a computational
-approach towards solving this problem.  \vspace{0.2cm}
+download bandwidth needed to transfer clear video and audio 
+for 1 second. \textit{"Average download speed of UK home 
+broadband connections was 69.4 Mbit/s"} as of 2023 \cite{data}.
+To compare this speed we use data from a study that took place
+at the University of Chicago \textit{"On average, these
+applications used about 1-2 Mbits/s of download bandwidth"}
+\cite{chicago}. Even when taking the worst case of 2 Mbits/s
+of download bandwidth, only $\approx 2.88\%$ of the broadband
+is used. Moreover we have evidence from the previous systems 
+like Zoom that were in use, that creating such an application
+is definitely amenable to a computational approach.
+Applications such as Zoom are able to transfer 1080p quality
+video and audio data at 30 FPS with millions of users 
+worldwide. These results demonstrate the validity and
+feasability of a computational approach towards solving this
+problem. \vspace{0.2cm}
 
 Decomposition is a computational method that involves breaking
 down complex problems into multiple smaller and more 
@@ -708,7 +713,7 @@ do not have an infinite amount of time to wait for the
 solution to their problems, ruling out the second case 
 entirely.
 
-\subsection{Problems, issues and limitations}
+\subsection{Limitations}
 
 \textbf{Limitation 1: } \\ \vspace{0.1cm} 
 
@@ -727,4 +732,42 @@ people have internet access in the world according to Statista.
 
 \textbf{Limitation 2: } \\ \vspace{0.1cm}
 
+As specified in the essential features, each user will have to 
+create an account with a set username and password in order to 
+use the application. This means users will have to remember 
+their passwords which could be difficult for this application's
+target demographic. If a user has forgotten their password they
+may be forced to create a new account, which is a pain for the 
+user as they would have to use a new username and notify all of
+their contacts that their username has changed. It would also 
+be a pain for the database as each time someone forgets their 
+password a redundant account is left in the database, 
+increasing the size of the database exponentially, if a user 
+forgets their password multiple times. \\ \vspace{0.2cm}
 
+\textbf{Limitation 3: } \\ \vspace{0.1cm}
+
+In order to use the WebRTC API for peer to peer connections we
+will have to set up a signalling server as explained in 
+\ref{sec:research}. Signalling servers aren't available free
+of charge, for example Google Firebase charges nothing for the 
+first 360MB of data transfer per day and after this they charge
+\$0.15 per GB. From my interview with the client I know that 
+Axel would like the system to be \textit{"completely free if
+at all possible."} Whilst the prices from Firebase aren't 
+extortionate by any means, the reality that my client would
+prefer the application to be free means that the scalabilty of
+the system would be limited. After a certain amount of data is 
+transfered via the signalling server the system would no longer
+work meaning the number of users we could potentially have is 
+capped. To justify this being a limitation we can notice 
+the fact that we require a signalling server in order to
+establish a network connection means that one of the client's
+requests could perhaps, not be reasonably achieved. \\
+\vspace{0.2cm}
+
+\textbf{Limitation 4: } \\ \vspace{0.1cm}
+
+\subsection{Hardware \& software requirements}
+
+\subsection{Success criteria}
