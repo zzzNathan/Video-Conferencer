@@ -7,9 +7,7 @@
 
 \chapter{Analysis}
 
-\section{Problem identification}
-
-\subsection{Context}
+\section{Context}
 \label{sec:context}
 
 My client Axel Alabi has asked me to create an interactive
@@ -37,7 +35,193 @@ experience whilst watching any conferences, so may also
 include extra accessibility features to ensure comfortable
 viewing for all, irrespective of one's age and/or disabilities.
 
-\subsection{Stakeholders}
+\section{Justifying a computational method}
+
+The population of elderly ones in the UK has seen a 52\% 
+increase in the last 40 years. This group of people includes
+a large number of those who are isolated and feel a sense of 
+loneliness in their lives. However through video conferencing
+these ones gain the ability to socialise and interact with 
+others from the comfort of their homes. This is especially 
+useful as many elderly ones have limited mobility or are bed 
+bound. Without regular opputunities to socialise and interact 
+humans become depressed and our mental health will begin to 
+decline. By developing software to enable those disabled 
+people to talk to others can improve the quality of their 
+mental health significantly. When people are limited by their 
+disabilities or by their illnesses the oppurtunities to go and
+talk to new people in real life become far and few between. For
+these people real physical interactions may not be possible,
+meaning that a computational solution to their problem is not
+just preferred but necessary. \vspace{0.2cm}
+
+Accessible video conferencing software is useful to young 
+people aswell. People like my client also have problems with 
+current systems. In order for him to carry out his job 
+effectively he requires a simple and reliable computational
+solution. Current systems pose a challenge for elderly people 
+to use, which in turn means that my client has to spend a good
+majority of his time helping people set up their webcams,
+microphones or other settings. If my client instead had access
+to video conferencing software that was easy for elderly people
+to understand how to use comfortably his job would be 
+simplified significantly, and in order to create that new 
+software it is evident that a computational method can be 
+used. To justify this claim we examine the average download
+speeds for UK resedentials and compare it to the amount of 
+download bandwidth needed to transfer clear video and audio 
+for 1 second. \textit{"Average download speed of UK home 
+broadband connections was 69.4 Mbit/s"} as of 2023 \cite{data}.
+To compare this speed we use data from a study that took place
+at the University of Chicago \textit{"On average, these
+applications used about 1-2 Mbits/s of download bandwidth"}
+\cite{chicago}. Even when taking the worst case of 2 Mbits/s
+of download bandwidth, only $\approx 2.88\%$ of the broadband
+is used. Moreover we have evidence from the previous systems 
+like Zoom that were in use, that creating such an application
+is definitely amenable to a computational approach.
+Applications such as Zoom are able to transfer 1080p quality
+video and audio data at 30 FPS with millions of users 
+worldwide. These results demonstrate the validity and
+feasability of a computational approach towards solving this
+problem. \vspace{0.2cm}
+
+Decomposition is a computational method that involves breaking
+down complex problems into multiple smaller and more 
+manageable problems. Real-time video/audio feeds is the ability
+for a system to take the live video and audio from a user's 
+device share it to others with negligable latency. The problem
+of sharing real-time audio/video feeds between users can be 
+decomposed into numerous sub-problems that are easier to
+accomplish. For example we could break this problem into 4 
+sub-problems:
+
+\begin{enumerate}
+  \item Establish a connection to the other user's computers 
+  \item Ensure user has connected a suitable webcam/microphone
+  \item Access the webcam/microphone using the relevant API's
+  \item{Send the video/audio data to the other users in the 
+        conference}
+\end{enumerate}
+
+Breaking larger problems into multiple simpler problems 
+reduces the complexity of a system and allows for easier 
+debugging. Rather than trying to debug a large and complex 
+system, it is much easier to debug a single function or class
+that accomplishes only 1 task. This is because the large and 
+complex system may be throwing errors for a number of reasons, 
+perhaps it could also be throwing errors because of one 
+mistake that was written in the code some several hundred lines
+ago. With smaller and more concise code organised into
+functions and similar structures, we can tell exactly where the
+code is throwing an error and start working on resolving the 
+issue immediately. This problem is amenable to a computational 
+approach as we are able to improve the maintainability of our
+codebase by applying the technique of decomposition. Moreover
+decomposition allows for a much simpler approach to problem 
+solving in programming. When we face a large and complicated 
+task we can first decompose the problem as we did in the 
+example above, and then piece together those smaller solutions
+to the sub-problems, into 1 solution that achieves our intended
+goal. The feature of real-time audio and video is implicitly 
+necessary for a video conferencing application and is also 
+fully justified in the paragraph before this. \vspace{0.2cm}
+
+Often once we have decomposed a problem, patterns emerge from 
+the smaller decomposed problems. In recognising these patterns
+we can reduce the amount of code needed to solve each 
+sub-problem by placing the common operations of each 
+function/class into a function/class of it's own. In order to 
+ensure these repetitive actions aren't found in my code I will
+employ the use of the DRY software development principle. 
+That is the "\textbf{D}on't \textbf{r}epeat \textbf{y}ourself"
+principle. The purpose of the DRY principle is to avoid 
+writing redundant code by replacing it with abstractions. This
+principle guarentees clear and concise code. One feature of 
+the problem that could benefit from pattern recognition is the 
+username and passcode system. A detailed justificaiton for this
+feature is provided in section \ref{sec:features} under the
+sub-heading \textit{Usernames and passwords to join a call}.
+There are 2 cases in which we would need to check usernames
+and passwords, those are when the user initially logs into 
+their account and when the user enters a passcode to enter a
+video conference. Instead of writing 2 seperate pieces of
+code to check for the correct username and password I could
+apply pattern recognition and instead implement 1 function 
+called \code{Check\_User\_and\_passcode()} to be used in both 
+cases. We have seen that this problem is definitely amenable 
+to a computational approach, through the application of
+pattern recognition to ensure clarity and conciseness in our 
+codebases. \vspace{0.2cm}
+
+As mentioned in the above paragraph abstraction is another 
+computational technique that is suited to being used in my 
+solution. Abstraction is the process of removing unnecessary
+details, and only keeping in the parts of the solution that are
+important. Abstraction could be applied to the design of the 
+UI of my application. The main focus of this application should
+be for it to be simple and easy to grasp as highlighted by my 
+client in section \ref{sec:research}. So in the design of my
+UI I will not give the user every single piece of information
+available about the call because the vast majority of that 
+information will be useless to them. Furthermore it can be 
+argued that the presentation of less pieces of information is
+better for the user's mental health than the presentation of
+large amounts of information \cite{overchoice}. When humans 
+have too many options we become unable to make descisions, so
+by limiting the amount of information available to the user we
+allow them to focus on the few important configurations that
+they should be 
+in control of, in turn permitting them to give the majority of
+their attention to whomever they are having a call with. This 
+appropiately demonstrates the amenability of applying
+abstraction in our final application. This choice will enhance
+the user's experience while on our webpage and make the design
+less cluttered and more aesthetically pleasing, making the 
+application more desirable to use.  \\ \vspace{0.2cm}
+
+The final computational technique is algorithmic thinking. 
+Algorithmic thinking is the process of creating a finite 
+sequence of steps in order to solve a given problem. Another 
+one of the main objectives for the application is for it to be
+accessible to all. Adding the option to have macros, 
+(programmable keys that are set to perform common actions) 
+can prove to be very convienient for those with limited
+mobility. If the person cannot use a mouse comfortably, then 
+they will have the ability to program a selected key/button to 
+be able to perform pre-determined tasks like turning video
+on/off and muting/unmuting the microphone. Algorithmic thinking
+can be applied when implementing this feature. The task can 
+be broken into a number of finite steps like so: \\
+
+\begin{enumerate}
+  \item Ask the user what button they would like to use for the macro.
+  \item Update the relevant class to ensure that the action can now occur via the macro.
+  \item Save this configuration onto their account through the database.
+\end{enumerate}
+
+The approach to use algorithmic thinking is justified innately
+by the nature of problem-solving. Algorithmic thinking is not
+just convienient when applied in the example of implementing
+macros, rather it is essential to the implementation of nearly
+every feature that the finished system will include. If we did
+not need to apply the technique of algorithmic thinking when
+programming, in other words we did not require any finite
+sequence of steps to solve the problem, it means one of two
+things. Either the problem needed no sequence of steps because
+it was solved instantly or that the problem can be solved
+using an infinite sequence of steps. In the first case if the
+problem needed no steps to solve it, it must have been a
+trivial problem. This case wouldn't apply to this application
+because if it were trivial then my client Axel Alabi would 
+easily program the system himself, because of his expertise in 
+computer science. The second case implies that the problem will
+be solved in an infinite amount of time, however our clients
+do not have an infinite amount of time to wait for the 
+solution to their problems, ruling out the second case 
+entirely.
+
+\section{Stakeholders}
 
 \begin{tblr}{ll}
   \textbf{Stakeholder: } & Axel Alabi\\
@@ -149,7 +333,83 @@ that the IT staff will not have to be unsure about answering
 user's queries, but rather they will be able to read the source
 code and give a correct response to the user every time.
 
-\subsection{Research}
+\subsection{Current system DFD diagram level 0 - Zoom}
+
+\vspace{0.1cm}
+
+\begin{figure}[h]
+\label{fig:dfd}
+\centering
+\begin{tikzpicture}
+
+  \node[draw, rectangle, minimum width=4cm, minimum height=1cm,
+	fill=lightestgray]
+	(zoom) {\large Zoom};
+
+  \node[draw, ellipse, left=3.5cm, below=2cm,
+  minimum width=3cm, minimum height=1.5cm] (user) at (zoom)
+    {\large User}; 
+
+  \node[draw, ellipse, right=3.5cm, below=2cm,
+  minimum width=3cm, minimum height=1.5cm] (admin) at (zoom)
+    {\large Admin};
+
+\draw[black, -{Latex[length=2.5mm]}]
+	(zoom) edge["1"]  (user);
+
+\draw[black, -{Latex[length=2.5mm]}]
+	(admin) edge["3"] [bend left=0.5cm] (user);
+
+\draw[black, -{Latex[length=2.5mm]}]
+	(user) edge["2"] [bend left=0.5cm] (admin);
+
+\draw[black, -{Latex[length=2.5mm]}]
+	(admin) edge["4"]  (zoom);
+
+\end{tikzpicture}
+
+\caption{Zoom DFD diagram.}
+\end{figure}
+
+\textit{An explanation of the DFD is found below. The number 
+closest to each edge refers to the number in the left column of
+the explanation table below.}
+
+\begin{longtblr}[
+  caption={Explanation of DFD.}
+]{
+  colspec={lX}, hlines, row{1}={lightestgray}
+}
+
+Edge & Commentary \\
+
+1 & {Zoom allows user to join a video conference and gives
+     user live video and audio of all the other participants 
+     in the meeting. User has access to a number of 
+     configurations and settings after clicking on their
+     profile and then on settings.} \\
+
+2 & {If user encounters an issue they can contact the 
+     admin/host of the meeting for help. User can provide the
+     context or other relevant information about the issue via
+     the chat box.} \\
+
+3 & {Admin is able to read about the user's issue via the chat
+     box and they can then provide a solution to the user 
+     through the the chat box. Admin is also able to invite
+     other users to join the video conference by sending them
+     a link or a code to join.}\\
+
+4 & {Admin can start or stop the videoconference when
+     appropiate. Admin can also interact with the app in order
+     to manage the video conference. They can do things like
+     spotlight speakers, screenshare images/video and mute or
+     kick participants.}
+  
+\end{longtblr}
+
+
+\section{Research}
 \label{sec:research}
 
 % Researched the problem in depth looking at existing solutions
@@ -160,7 +420,7 @@ We begin our research by observing solutions to similar
 problems. Then justifications of suitable approaches are given
 based on the existing solutions.
 
-\subsection*{Zoom}
+\subsection{Zoom}
 
 \subsection*{Accessibility features}
 
@@ -212,7 +472,7 @@ could perhaps implement a built-in tutorial that demonstrates
 how to use the accessibility features to teach the user how 
 they can use the application to it's fullest potential.
 
-\subsection*{Skype}
+\subsection{Skype}
 
 \subsection*{Accessibility features}
 
@@ -268,6 +528,8 @@ I decided to collect some qualititative data through an
 interview with my client. This data should allow me to have an
 insight into what the final solution should look like based
 on my client's requirements and desires respectively.
+
+\subsection{Interview}
 
 \begin{tcolorbox}[
   boxrule=0pt, frame empty, colback=lightestgray, arc=0pt,
@@ -450,7 +712,8 @@ zero-knowledge encryption include SHA-256 as well as
 AES-CBC 256 bit, both algorithms which require large amounts of 
 higher level mathematics.
 
-\subsection{Essential features \& their justifications}
+\section{Essential features \& their justifications}
+\label{sec:features}
 
 \textbf{Real-time audio/video feeds} \\ \vspace{0.1cm}
 
@@ -515,9 +778,12 @@ the password is of sufficient strength. When a user creates a
 call they will be given a unique passcode that they will be 
 able to share with anyone else whom they would like to invite
 to the video conference. The justification of this feature is
-clearly sufficient enough thanks to my research, for it to be
-considered essential to the final solution, and moreover the
-feature was also requested during my interview with the client.
+clearly sufficient because it was explicitly requested during
+my interview with the client. Moreover without a passcode 
+system to enter a call anyone would be able to enter anyone
+else's call, giving users no privacy at all. It would also 
+cause issues very similar to the anarchy that was discussed in 
+the previous paragraph.
 
 \vspace{0.2cm}
 
@@ -533,187 +799,9 @@ the user will only have essential information on their screens
 to make sure that the interface is not cluttered or 
 overcrowded. This feature is fully justified since my client 
 requested this as an "essential" feature during our interview
-in \ref{sec:research}.
+in section \ref{sec:research}.
 
-\subsection{How is the problem solvable via a computational
-method?}
-
-The population of elderly ones in the UK has seen a 52\% 
-increase in the last 40 years. This group of people includes
-a large number of those who are isolated and feel a sense of 
-loneliness in their lives. However through video conferencing
-these ones gain the ability to socialise and interact with 
-others from the comfort of their homes. This is especially 
-useful as many elderly ones have limited mobility or are bed 
-bound. Without regular opputunities to socialise and interact 
-humans become depressed and our mental health will begin to 
-decline. By developing software to enable those disabled 
-people to talk to others can improve the quality of their 
-mental health significantly. When people are limited by their 
-disabilities or by their illnesses the oppurtunities to go and
-talk to new people in real life are far and few between. For
-these people real physical interactions may not be possible,
-meaning that a computational solution to their problem is not
-just preferred but necessary. \vspace{0.2cm}
-
-Accessible video conferencing software is useful to young 
-people aswell. People like my client also have problems with 
-current systems. In order for him to carry out his job 
-effectively he requires a simple and reliable computational
-solution. Current systems pose a challenge for elderly people 
-to use, which in turn means that my client has to spend a good
-majority of his time helping people set up their webcams,
-microphones or other settings. If my client instead had access
-to video conferencing software that was easy for elderly people
-to understand how to use comfortably his job would be 
-simplified significantly, and in order to create that new 
-software it is evident that a computational method can be 
-used. To justify this claim we examine the average download
-speeds for UK resedentials and compare it to the amount of 
-download bandwidth needed to transfer clear video and audio 
-for 1 second. \textit{"Average download speed of UK home 
-broadband connections was 69.4 Mbit/s"} as of 2023 \cite{data}.
-To compare this speed we use data from a study that took place
-at the University of Chicago \textit{"On average, these
-applications used about 1-2 Mbits/s of download bandwidth"}
-\cite{chicago}. Even when taking the worst case of 2 Mbits/s
-of download bandwidth, only $\approx 2.88\%$ of the broadband
-is used. Moreover we have evidence from the previous systems 
-like Zoom that were in use, that creating such an application
-is definitely amenable to a computational approach.
-Applications such as Zoom are able to transfer 1080p quality
-video and audio data at 30 FPS with millions of users 
-worldwide. These results demonstrate the validity and
-feasability of a computational approach towards solving this
-problem. \vspace{0.2cm}
-
-Decomposition is a computational method that involves breaking
-down complex problems into multiple smaller and more 
-manageable problems. The problem of sharing real-time 
-audio/video feeds between users can be decomposed into numerous
-sub-problems that are easier to accomplish. For example we 
-could break this problem into 4 sub-problems:
-
-\begin{enumerate}
-  \item Establish a connection to the other user's computers 
-  \item Ensure user has connected a suitable webcam/microphone
-  \item Access the webcam/microphone using the relevant API's
-  \item{Send the video/audio data to the other users in the 
-        conference}
-\end{enumerate}
-
-Breaking larger problems into multiple simpler problems 
-reduces the complexity of a system and allows for easier 
-debugging. Rather than trying to debug a large and complex 
-system, it is much easier to debug a single function or class
-that accomplishes only 1 task. This is because the large and 
-complex system may be throwing errors for a number of reasons, 
-perhaps it could also be throwing errors because of one 
-mistake that was written in the code some several hundred lines
-ago. With smaller and more concise code organised into
-functions and similar structures, we can tell exactly where the
-code is throwing an error and start working on resolving the 
-issue immediately. This problem is amenable to a computational 
-approach as we are able to improve the maintainability of our
-codebase by applying the technique of decomposition. Moreover
-decomposition allows for a much simpler approach to problem 
-solving in programming. When we face a large and complicated 
-task we can first decompose the problem as we did in the 
-example above, and then piece together those smaller solutions
-to the sub-problems, into 1 solution that achieves our intended
-goal. \vspace{0.2cm}
-
-Often once we have decomposed a problem, patterns emerge from 
-the smaller decomposed problems. In recognising these patterns
-we can reduce the amount of code needed to solve each 
-sub-problem by placing the common operations of each 
-function/class into a function/class of it's own. In order to 
-ensure these repetitive actions aren't found in my code I will
-employ the use of the DRY software development principle. 
-That is the "\textbf{D}on't \textbf{r}epeat \textbf{y}ourself"
-principle. The purpose of the DRY principle is to avoid 
-writing redundant code by replacing it with abstractions. This
-principle guarentees clear and concise code. One feature of 
-the problem that could benefit from pattern recognition is the 
-username and passcode system. There are 2 cases in which we 
-would need to check usernames and passwords, those are when the
-user initially logs into their account and when the user enters
-a passcode to enter a video conference. Instead of writing 2 
-seperate pieces of code to check for the correct username and 
-password I could apply pattern recognition and instead 
-implement 1 function called \code{Check\_User\_and\_passcode()}
-to be used in both cases. We have seen that this problem is
-definitely amenable to a computational approach, through the 
-application of pattern recognition to ensure clarity and 
-conciseness in our codebases. \vspace{0.2cm}
-
-As mentioned in the above paragraph abstraction is another 
-computational technique that is suited to being used in my 
-solution. Abstraction is the process of removing unnecessary
-details, and only keeping in the parts of the solution that are
-important. Abstraction could be applied to the design of the 
-UI of my application. The main focus of this application should
-be for it to be simple and easy to grasp as highlighted by my 
-client in \ref{sec:research}. So in the design of my UI I will 
-not give the user every single piece of information available
-about the call because the vast majority of that information 
-will be useless to them. Furthermore it can be argued that the 
-presentation of less pieces of information is better for the 
-user's mental health than the presentation of large amounts of 
-information \cite{overchoice}. When humans have too many 
-options we become unable to make descisions, so by limiting the
-amount of information available to the user we allow them to 
-focus on the few important configurations that they should be 
-in control of, in turn permitting them to give the majority of
-their attention to whomever they are having a call with. This 
-appropiately demonstrates the amenability of applying
-abstraction in our final application. This choice will enhance
-the user's experience while on our webpage and make the design
-less cluttered and more aesthetically pleasing, making the 
-application more desirable to use.  \\ \vspace{0.2cm}
-
-The final computational technique is algorithmic thinking. 
-Algorithmic thinking is the process of creating a finite 
-sequence of steps in order to solve a given problem. Another 
-one of the main objectives for the application is for it to be
-accessible to all. Adding the option to have macros, 
-(programmable keys that are set to perform common actions) 
-can prove to be very convienient for those with limited
-mobility. If the person cannot use a mouse comfortably, then 
-they will have the ability to program a selected key/button to 
-be able to perform pre-determined tasks like turning video
-on/off and muting/unmuting the microphone. Algorithmic thinking
-can be applied when implementing this feature. The task can 
-be broken into a number of finite steps like so: \\
-
-\begin{enumerate}
-  \item Ask the user what button they would like to use for the macro.
-  \item Update the relevant class to ensure that the action can now occur via the macro.
-  \item Save this configuration onto their account through the database.
-\end{enumerate}
-
-The approach to use algorithmic thinking is justified innately
-by the nature of problem-solving. Algorithmic thinking is not
-just convienient when applied in the example of implementing
-macros, rather it is essential to the implementation of nearly
-every feature that the finished system will include. If we did
-not need to apply the technique of algorithmic thinking when
-programming, in other words we did not require any finite
-sequence of steps to solve the problem, it means one of two
-things. Either the problem needed no sequence of steps because
-it was solved instantly or that the problem can be solved
-using an infinite sequence of steps. In the first case if the
-problem needed no steps to solve it, it must have been a
-trivial problem. This case wouldn't apply to this application
-because if it were trivial then my client Axel Alabi would 
-easily program the system himself, because of his expertise in 
-computer science. The second case implies that the problem will
-be solved in an infinite amount of time, however our clients
-do not have an infinite amount of time to wait for the 
-solution to their problems, ruling out the second case 
-entirely.
-
-\subsection{Limitations}
+\section{Limitations}
 
 \textbf{Limitation 1: } \\ \vspace{0.1cm} 
 
@@ -728,7 +816,12 @@ Hence in using the WebRTC API we have limited the number of
 potential users for our application as not everyone has 
 constant access to the internet. More precisely, only 66\% of 
 people have internet access in the world according to Statista.
-\footnote{As of 2024.} \\ \vspace{0.2cm}
+\footnote{Source: \url{https://www.statista.com/statistics/325706/global-internet-user-penetration/}}
+This limitation is sufficiently justified through the fact that
+we aim to have the app be as accessible as possible, but in 
+order for the application to function an internet connection is
+required, alienating 34\% of the world's population as they
+will be completely unable to use the system. \\ \vspace{0.2cm}
 
 \textbf{Limitation 2: } \\ \vspace{0.1cm}
 
@@ -736,21 +829,28 @@ As specified in the essential features, each user will have to
 create an account with a set username and password in order to 
 use the application. This means users will have to remember 
 their passwords which could be difficult for this application's
-target demographic. If a user has forgotten their password they
+target demographic. This means that the app will be
+potentially inaccessible for people suffering from conditions
+like amnesia or dementia, further restricting our possible 
+userbase. If a user has forgotten their password they
 may be forced to create a new account, which is a pain for the 
 user as they would have to use a new username and notify all of
 their contacts that their username has changed. It would also 
 be a pain for the database as each time someone forgets their 
 password a redundant account is left in the database, 
 increasing the size of the database exponentially, if a user 
-forgets their password multiple times. \\ \vspace{0.2cm}
+forgets their password multiple times. This limitation is 
+justified by the fact that if this limitation is left to be
+there will be consequences to both the user and also to the 
+database. \\ \vspace{0.2cm}
 
 \textbf{Limitation 3: } \\ \vspace{0.1cm}
 
 In order to use the WebRTC API for peer to peer connections we
 will have to set up a signalling server as explained in 
-\ref{sec:research}. Signalling servers aren't available free
-of charge, for example Google Firebase charges nothing for the 
+section \ref{sec:research}. Signalling servers aren't
+available free of charge, for example Google Firebase charges
+nothing for the 
 first 360MB of data transfer per day and after this they charge
 \$0.15 per GB. From my interview with the client I know that 
 Axel would like the system to be \textit{"completely free if
@@ -768,6 +868,41 @@ requests could perhaps, not be reasonably achieved. \\
 
 \textbf{Limitation 4: } \\ \vspace{0.1cm}
 
-\subsection{Hardware \& software requirements}
+If this system is to be an actual web app then I would have to 
+host it on a dedicated server, then purchase a domain name for
+my web app. The dedicated server would host the files needed 
+for the web app to run, and the domain name would have to be 
+purchased from a domain registrar so that whenever people type
+this domain name they are directed to the IP address of your 
+server. Unfortunately both of these things require money to
+be spent whilst my client would prefer to have spent no money 
+on this system. If I really want to fulfill the client's 
+requests then I would have to use localhost in order to host
+the website, and this may cause complications in the future, 
+like where will the database be hosted? These concerns fully 
+justify this limitation because it could cause great 
+inconveniences in the development of the system.\\
 
-\subsection{Success criteria}
+\section{Client requirements}
+% specify
+%justify why they are important
+
+\subsection{Data capture}
+
+\subsection{Data verification and validation}
+
+\subsection{Data processing}
+
+\subsection{Outputs}
+
+\subsection{User Interface}
+
+\subsection{Security Issues}
+
+\subsection{Backing up data}
+
+\subsection{Software requirements}
+
+\subsection{Hardware requirements}
+
+\section{Success criteria}
