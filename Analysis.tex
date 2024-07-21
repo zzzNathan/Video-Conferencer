@@ -36,6 +36,7 @@ include extra accessibility features to ensure comfortable
 viewing for all, irrespective of one's age and/or disabilities.
 
 \section{Justifying a computational method}
+\label{sec:computational}
 
 The population of elderly ones in the UK has seen a 52\% 
 increase in the last 40 years. This group of people includes
@@ -83,18 +84,28 @@ is definitely amenable to a computational approach.
 Applications such as Zoom are able to transfer 1080p quality
 video and audio data at 30 FPS with millions of users 
 worldwide. These results demonstrate the validity and
-feasability of a computational approach towards solving this
+feasability of a computational approach to solving this
 problem. \vspace{0.2cm}
 
 Decomposition is a computational method that involves breaking
 down complex problems into multiple smaller and more 
 manageable problems. Real-time video/audio feeds is the ability
 for a system to take the live video and audio from a user's 
-device share it to others with negligable latency. The problem
-of sharing real-time audio/video feeds between users can be 
-decomposed into numerous sub-problems that are easier to
-accomplish. For example we could break this problem into 4 
-sub-problems:
+device share it to others with negligable latency. We justify
+the feature of having real-time audio and video by examining 
+the client's request as in \ref{sec:context}. \textit{"My 
+client ... asked me to create an interactive video conferencing
+platform."} Oxford Languages define a videoconference to be 
+\textit{"a conference in which participants in different 
+locations are able to communicate with each other in sound and
+vision."} Hence in order to satisfy the client's request we 
+will need to have real-time video/audio feeds. A justification
+of whether or not real-time video/audio is computationally 
+feasible was given in the previous paragraph.
+The problem of sharing real-time audio/video feeds between
+users can be decomposed into numerous sub-problems that are
+easier to accomplish. For example we could break this problem
+into 4 sub-problems:
 
 \begin{enumerate}
   \item Establish a connection to the other user's computers 
@@ -105,14 +116,15 @@ sub-problems:
 \end{enumerate}
 
 Breaking larger problems into multiple simpler problems 
-reduces the complexity of a system and allows for easier 
-debugging. Rather than trying to debug a large and complex 
-system, it is much easier to debug a single function or class
+reduces the complexity of a system and promotes a  
+maintainable system. Rather than trying to debug a large and
+complex system, it is much easier to debug a single function 
+or class
 that accomplishes only 1 task. This is because the large and 
-complex system may be throwing errors for a number of reasons, 
-perhaps it could also be throwing errors because of one 
-mistake that was written in the code some several hundred lines
-ago. With smaller and more concise code organised into
+complex system may be throwing errors for a multitude of 
+reasons, perhaps it could also be throwing errors because of
+one mistake that was written in the code some several hundred
+lines ago. With smaller and more concise code organised into
 functions and similar structures, we can tell exactly where the
 code is throwing an error and start working on resolving the 
 issue immediately. This problem is amenable to a computational 
@@ -123,9 +135,7 @@ solving in programming. When we face a large and complicated
 task we can first decompose the problem as we did in the 
 example above, and then piece together those smaller solutions
 to the sub-problems, into 1 solution that achieves our intended
-goal. The feature of real-time audio and video is implicitly 
-necessary for a video conferencing application and is also 
-fully justified in the paragraph before this. \vspace{0.2cm}
+goal. \vspace{0.2cm}
 
 Often once we have decomposed a problem, patterns emerge from 
 the smaller decomposed problems. In recognising these patterns
@@ -879,7 +889,7 @@ be spent whilst my client would prefer to have spent no money
 on this system. If I really want to fulfill the client's 
 requests then I would have to use localhost in order to host
 the website, and this may cause complications in the future, 
-like where will the database be hosted? These concerns fully 
+like where should the database be hosted? These concerns fully 
 justify this limitation because it could cause great 
 inconveniences in the development of the system.\\
 
@@ -888,6 +898,29 @@ inconveniences in the development of the system.\\
 %justify why they are important
 
 \subsection{Data capture}
+
+A microphone and video camera will be used in order to get 
+video and audio footage from each user. This will enable the 
+users to communicate with one another and will allow my client
+to be able to host video conferences on the system. 
+Justification for audio and video were provided in 
+\ref{sec:computational}, so here we will justify the use of 
+cameras and microphones. The approach of using microphones and
+webcams to capture video and audio is fully justified by the
+fact that there exists no suitable alternatives to these 
+technologies. For video the only other known alternative to a
+camera is to use a photogram. A photogram is a black and white
+image \textit{"made by placing objects between a light 
+sensitive paper or film and light source."} \cite{photo}. This
+is unsuitable for video as if we want to achieve a standard
+frame rate of 30 FPS the users would have to buy a large
+quantity of photographic paper, costing the user a lot of
+money. Furthermore photograms take roughly 1 minute to
+develop, this means that the user would have to properly setup,
+develop and share photograms with others at a rate of 30 times
+per second, whilst waiting 1 minute for each photogram to
+develop. These reasons provide sufficient justification as for
+why cameras are the only suitable option.
 
 \subsection{Data verification and validation}
 
