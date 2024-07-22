@@ -743,14 +743,14 @@ checking a potential password's strength. I propose the usage
 of the \texttt{zxcvbn} algorithm \cite{pass} developed by
 Dropbox. This algorithm has been implemented into a number of
 programming languages by the author Daniel Wheeler, so we will
-simply import one of his implementations into our codebase 
-ensuring that only accurate and tested code is being used. To
-justify usage of the algorithm we should first 
-\textit{briefly} examine exactly what the algorithm is doing.
-\footnote{Note that Daniel Wheeler explains his algorithm at
-a much more in-depth level in his paper, which may be found
-in the citation above, if you wish to learn more.}
-\texttt{zxcvbn} consists of 3 main phases: 1) matching,
+simply import one of his implementations into our codebase as
+a module ensuring that only accurate and tested code is used 
+in the system. To justify usage of the algorithm we should
+first \textit{briefly} examine exactly what the algorithm is
+doing. \footnote{Note that Daniel Wheeler explains his
+algorithm at a much more in-depth level in his paper, which
+may be found in the citation above, if you wish to learn
+more.} \texttt{zxcvbn} consists of 3 main phases: 1) matching,
 2) estimation and 3) search. Throughout the rest of this
 paragraph define $p$ to be some arbitrary password of length
 $n$ characters. The matching phase takes contiguous
@@ -768,7 +768,7 @@ following example in his paper; the password
 Different methods are used to find each class of pattern, for 
 instance in order to match tokens the algorithm first takes
 a password $p$ it entirely lowercase, it then checks all 
-$n \cdot (n+1)/2$ non-empty substrings with a frequency ranked
+$n(n+1)/2$ non-empty substrings with a frequency ranked
 dictionary, if there are symbols in $p$ it creates extra 
 strings making leet substitutions \footnote{Leet substutions are symbols that are used to replace characters like the word
 \texttt{@pp1e} $\rightarrow$ \texttt{apple}.}
@@ -787,24 +787,38 @@ for an optimal sequence $s$ of length $\left|s\right|$, from
 a set $S$ of all the matches found in $p$ such that: the 
 sequence contiguously covers the entirety of $p$ and this 
 sequence $s$ has a minimal number of guesses $m_G$ over all
-matches $m$. More formally the algorithm computes
+matches in the sequence $m$. More formally the algorithm
+computes
 
 \[
   \argmin_{s \subseteq S} \left( D^{\left|s\right| -1} + 
   \left|s\right|! \prod_{m \in s} m_G \right)
 \]
 
-where $D$ is a constant that acts to bias against long
+with dynamic programming,
+where $D$ is a real constant that acts to bias against long
 sequences that unintentionally minimise the 
-$\prod_{m \in s} m_G$ term.
-
+$\prod_{m \in s} m_G$ term. Moreover the module provides other
+information about a given password in an object 
+\texttt{result}. For instance 
+\texttt{result.feedback.suggestions} provides a list of 
+suggestions that the user can implement in order to make their
+password stronger. Having now seen how the algorithm works
+the advantages of using this model are numerous. It implements
+rigorous and accurate mathematical models in order to estimate
+the number of attempts that a password can be guessed in and 
+therefore the strength of any given password in 
+\emph{milliseconds}. Additionally there is built-in help for 
+the user as they can consult the warnings and suggestions 
+provided by the \texttt{zxcvbn} module to ensure that their
+password isn't weak.
 \vspace{0.2cm}
 
 \textit{What are suitable approaches based on this research?}
 The features that Zoom provides like keyboard shortcuts and 
 custom font sizes would be suitable because they would aid the
-user and allow them to have a more comfortable tailored viewing
-experience. The interview also provided some valuable 
+user and allow them to have a more comfortable tailored 
+viewing experience. The interview also provided some valuable 
 information for essential features in the system, like the 
 focus on simplicity. This information guides the approach to 
 the design of the system, the design should be created to 
@@ -812,12 +826,16 @@ prioritse ease of use and simplicity. Moreover we have seen
 that using the WebRTC API for peer to peer video connections
 is a suitable approach because of it's security, credibility
 and it's alignment with the client's goal to have the system
-be free if possible. Additionally the previous paragraph 
-outlined an approach to reading/writing to databases, the 
+be free if possible. Additionally we also outlined an 
+approach to reading/writing to databases, the 
 CQRS model. Usage of this model will help streamline the 
 database for this system, because each command/query will be
 clearly named and let the developer know exactly what 
-processes are taking place at that moment. 
+processes are taking place at that moment. Lastly we selected
+the \texttt{zxcvbn} algorithm to verify password strength, 
+because of it's speed, accuracy and it's ability to guide the 
+user into selecting a strong password through the built-in 
+suggestions.
 
 \section{Essential features \& their justifications}
 \label{sec:features}
@@ -873,9 +891,10 @@ aren't allowed to occur.
 \vspace{0.1cm}
 
 Each user will be able to choose their unique username so 
-that users can easily identify one another upon joining a call.
-Furthermore each user can set their own password so that their
-account is protected and others cannot pretend to be them. 
+that users can easily identify one another upon joining a 
+call. Furthermore each user can set their own password so 
+that their account is protected and others cannot pretend to 
+be them. 
 Assigned to each user account will be their saved settings and
 options, so that if a user has a specific configuration of 
 settings that are adapted for their needs they don't have to 
@@ -889,8 +908,8 @@ clearly sufficient because it was explicitly requested during
 my interview with the client. Moreover without a passcode 
 system to enter a call anyone would be able to enter anyone
 else's call, giving users no privacy at all. It would also 
-cause issues very similar to the anarchy that was discussed in 
-the previous paragraph.
+cause issues very similar to the anarchy that was discussed
+in the previous paragraph.
 
 \vspace{0.2cm}
 
@@ -1030,15 +1049,63 @@ like this to be their password and that they have spelt it
 correctly. Moreover these passwords will be checked to 
 ensure that they are of suitable strength. Justification for 
 this feature was provided in \ref{sec:features} under 
-\textit{Usernames and passwords to join a call}.
+\textit{Usernames and passwords to join a call} and a
+potential implementation was discussed in \ref{sec:research}.
+
+\subsection{Data processing}
+
+In order to send video and audio data to others quickly the 
+system will have to compress both. This will be managed by the
+codecs that we choose to use in the beginning of the peer to
+peer connection. This will be handled by the WebRTC API once
+the video call starts. Audio and video compression is 
+important because without it we would have to send large 
+amounts of data to others over the internet by splitting the
+data up into a number of packets. Each frame would take a 
+considerable amount of time to arrive completely and the user
+would be presented with a slow and laggy experience.
+Furthermore the more data that we have to send per second 
+means that the user will require more bandwidth, and this 
+may not be economically possible for all users. If we wish 
+for our application to be accessible than we should develop it
+in such a way that there are minimal requirements to use the 
+application smoothly and compression will certainly reduce the
+system requirements needed to run this application.
 
 \subsection{Outputs}
 
+Outputs like the video and audio from other participants will 
+be displayed on the screen and played out of the user's 
+speakers respectively. Moreover the user will have access to 
+information like whether their mic is currently muted/unmuted,
+whether or not their camera is working and if their virtual 
+hand is currently raised. In an effort to satisfy the client's
+request to have \textit{"a focus on simplicity"} the GUI will
+be designed to present all this information in a clear, simple
+and professional manner. Justification for a simple GUI was
+given in \ref{sec:features} under \textit{Simple and user 
+friendly UI}.
+
 \subsection{User Interface}
+
+As discussed in the previous paragraph the user interface will
+be designed so that it is clear and simple to understand. The 
+colour scheme will consist of muted earthy greens, brown and
+white for accents, giving the application a calm forest-like 
+feel, and providing the users with a visually pleasant and 
+elegant UI to look at when using the system.
 
 \subsection{Security Issues}
 
+For the video and audio data security will be managed by 
+WebRTC developed by Google, a credible company that will have
+implemented all the necessary measures to ensure that this
+data is completly secure during video calls. 
+
 \subsection{Backing up data}
+
+Data backups will be made nightly (every 24 hours) to ensure
+that none of our user's data is lost.
 
 \subsection{Software requirements}
 
