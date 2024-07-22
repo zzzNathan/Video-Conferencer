@@ -733,7 +733,71 @@ derive one's encryption key."} \footnote{Source:
 \url{https://bitwarden.com/help/what-encryption-is-used/}} 
 Through this kind of encryption the company is able to have
 it's users complete trust as they are sure that their data is 
-safe and cannot be read by anyone other than them.
+safe and cannot be read by anyone other than them. Fortunately
+for our case we will not have to consider implementing these
+algotrithms because WebRTC provides built-in encryption.
+\vspace{0.2cm}
+
+Another concern pertaining to passwords is our method for 
+checking a potential password's strength. I propose the usage
+of the \texttt{zxcvbn} algorithm \cite{pass} developed by
+Dropbox. This algorithm has been implemented into a number of
+programming languages by the author Daniel Wheeler, so we will
+simply import one of his implementations into our codebase 
+ensuring that only accurate and tested code is being used. To
+justify usage of the algorithm we should first 
+\textit{briefly} examine exactly what the algorithm is doing.
+\footnote{Note that Daniel Wheeler explains his algorithm at
+a much more in-depth level in his paper, which may be found
+in the citation above, if you wish to learn more.}
+\texttt{zxcvbn} consists of 3 main phases: 1) matching,
+2) estimation and 3) search. Throughout the rest of this
+paragraph define $p$ to be some arbitrary password of length
+$n$ characters. The matching phase takes contiguous
+substrings of the input password and classifies
+each substring as a specific pattern like a \textit{token},
+\textit{date} or a \textit{repeat}. Wheeler provides the
+following example in his paper; the password
+\texttt{lenovo1111} will be pattern matched like so.
+
+\[
+  \underbrace{ \mathtt{lenovo} }_\text{token} \; \;
+  \underbrace{ \mathtt{1111} }_\text{repeat}
+\]
+
+Different methods are used to find each class of pattern, for 
+instance in order to match tokens the algorithm first takes
+a password $p$ it entirely lowercase, it then checks all 
+$n \cdot (n+1)/2$ non-empty substrings with a frequency ranked
+dictionary, if there are symbols in $p$ it creates extra 
+strings making leet substitutions \footnote{Leet substutions are symbols that are used to replace characters like the word
+\texttt{@pp1e} $\rightarrow$ \texttt{apple}.}
+and does the same check on these. The next phase is
+estimation where we estimate the number of guesses in order
+to successfully guess each match in some password. Again
+for the sake of brevity we will only consider the method to 
+estimate guesses for one class of pattern: \textit{bruteforce}
+patterns. \textit{Bruteforce} patterns are "patterns" with no
+obvious pattern and are a random string of characters like
+\texttt{ae\#U*\$gmi}. The algorithm assumes that each
+character will take $C := 10$ attempts to guess correctly and 
+subsequently estimates $C^n$ guesses to be required to guess
+the entire substring. Finally the last phase, the search looks
+for an optimal sequence $s$ of length $\left|s\right|$, from
+a set $S$ of all the matches found in $p$ such that: the 
+sequence contiguously covers the entirety of $p$ and this 
+sequence $s$ has a minimal number of guesses $m_G$ over all
+matches $m$. More formally the algorithm computes
+
+\[
+  \argmin_{s \subseteq S} \left( D^{\left|s\right| -1} + 
+  \left|s\right|! \prod_{m \in s} m_G \right)
+\]
+
+where $D$ is a constant that acts to bias against long
+sequences that unintentionally minimise the 
+$\prod_{m \in s} m_G$ term.
+
 \vspace{0.2cm}
 
 \textit{What are suitable approaches based on this research?}
@@ -954,14 +1018,19 @@ develop and share photograms with others at a rate of 30 times
 per second, whilst waiting 1 minute for each photogram to
 develop. These reasons provide sufficient justification as for
 why cameras are the only suitable option. As for audio my 
-research on this topic indicated that we have not yet found 
-alternatives to microphones for capturing sound. 
+independent research on this topic indicated that we have not
+yet found alternatives to microphones for capturing sound. 
 
 \subsection{Data verification and validation}
 
-
-
-\subsection{Data processing}
+In this system data will be verified upon the creation of a
+new account. Users will prompted to enter their desired
+password twice in order to ensure that the user would really 
+like this to be their password and that they have spelt it 
+correctly. Moreover these passwords will be checked to 
+ensure that they are of suitable strength. Justification for 
+this feature was provided in \ref{sec:features} under 
+\textit{Usernames and passwords to join a call}.
 
 \subsection{Outputs}
 
