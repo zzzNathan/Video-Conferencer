@@ -21,12 +21,14 @@ correctly use the application and then end up accidentally
 disturbing the conference/talk \footnote{From this point 
 forward we will avoid using "conference/talk", and simply
 replace it with "conference".}, by leaving their microphone's
-on, accidentally raising their hands and so on. This makes my
-client's job difficult since he is in charge of managing the 
-Zoom call. To combat this situation he would like a 
-simple and user friendly video conferencing application that
-provides the features needed for people to view and interact
-with the conferences in real time. This includes 
+on, accidentally raising their hands and having to ask Axel
+for help with their various technical issues and so on and so
+forth. This makes my client's job difficult since he is in 
+charge of managing the Zoom call. To combat this situation 
+he would like a simple and user friendly video conferencing 
+application that provides the features needed for people to 
+view and interact with the conferences in easily and
+comfortably in real time. This includes 
 features like (but not limited to) audience participation,
 the ability to speak to others via one's microphone and the
 ability to vote on polls. The application should be
@@ -211,15 +213,17 @@ be broken into a number of finite steps like so: \\
 \end{enumerate}
 
 The approach to use algorithmic thinking is justified innately
-by the nature of problem-solving. Algorithmic thinking is not
-just convienient when applied in the example of implementing
+by the nature of problem-solving itself. Algorithmic thinking
+is not just convienient when applied in the example of
+implementing
 macros, rather it is essential to the implementation of nearly
-every feature that the finished system will include. If we did
-not need to apply the technique of algorithmic thinking when
-programming, in other words we did not require any finite
-sequence of steps to solve the problem, it means one of two
-things. Either the problem needed no sequence of steps because
-it was solved instantly or that the problem can be solved
+every feature that the finished system will include. Suppose 
+we did not need to apply the technique of algorithmic
+thinking when programming, in other words we did not require
+any finite sequence of steps to solve the problem, it means 
+one of two things. Either the problem needed no sequence of 
+steps because it was solved instantly or that the problem
+can be solved
 using an infinite sequence of steps. In the first case if the
 problem needed no steps to solve it, it must have been a
 trivial problem. This case wouldn't apply to this application
@@ -229,7 +233,10 @@ computer science. The second case implies that the problem will
 be solved in an infinite amount of time, however our clients
 do not have an infinite amount of time to wait for the 
 solution to their problems, ruling out the second case 
-entirely.
+entirely. In showing that solving problems without algorithmic
+thinking is absurd we hence show that algorithmic thinking
+must be used when solving problems, sufficiently justifying 
+the use of algorithmic thinking as a computational method.
 
 \section{Stakeholders}
 
@@ -642,6 +649,8 @@ should be a requirement because we don't want any of our users
 to have their important data stolen during their video
 conference. \vspace{0.2cm}
 
+\subsection{Further research to examine suitable approaches}
+
 Bearing this in mind we should also think about suitable 
 approaches to implementing a system with these features. In 
 order to implement the real-time video/audio I could make use
@@ -738,6 +747,52 @@ for our case we will not have to consider implementing these
 algotrithms because WebRTC provides built-in encryption.
 \vspace{0.2cm}
 
+Given that our system will have to make use of a database we 
+need to select what database system we want to use and we also
+need somewhere to host this database. There are exactly 2 
+requirements for this database system as follows. The database 
+for this system must be held in the cloud, the reasoning for 
+this decision is based on the fact that both me and my client
+don't own any servers on which we could host the database on. 
+Secondly, the database hosting should be free
+\textit{if this is at all possible}, to be in line with my 
+client's desires for this system. It turns out that there are
+free database hosting systems available provided that users do
+not exceed some limit in storage capacity, however the 2 
+requirements given above do severely restrict our options. The
+following table provides information on some of the free 
+database hosting systems I found with independent research 
+\footnote{Source:
+\url{https://gist.github.com/bmaupin/0ce79806467804fdbbf8761970511b8c} Information here was personally fact-checked.}
+.
+
+\begin{longtblr}[
+  caption={Potential database hosting systems.}
+]{
+  colspec={lllX}, row{1}={lightestgray}
+}
+  \hline
+  Service & Type & Storage & Limitations\\  
+  \hline
+
+  Clever Cloud & PostgreSQL & 256 MiB & {Maximum of 5 database
+  connections.}\\
+
+  MongoDB Atlas & MongoDB & 512 MB & {N/A}\\
+
+  Fly.io & PostgreSQL & 3 GB & {Credit card required, No way
+  to avoid accidental overage fees.}\\
+
+  Oracle Cloud & Oracle & 20 GB & {Payment method required.}\\
+  
+  IBM Cloudant & Propietary & 1 GB & {Data deleted after 30 
+  days of no activity.}\\
+
+  \hline
+\end{longtblr}
+
+\vspace{0.2cm}
+
 Another concern pertaining to passwords is our method for 
 checking a potential password's strength. I propose the usage
 of the \texttt{zxcvbn} algorithm \cite{pass} developed by
@@ -787,7 +842,7 @@ for an optimal sequence $s$ of length $\left|s\right|$, from
 a set $S$ of all the matches found in $p$ such that: the 
 sequence contiguously covers the entirety of $p$ and this 
 sequence $s$ has a minimal number of guesses $m_G$ over all
-matches in the sequence $m$. More formally the algorithm
+matches $m$ in the sequence. More formally the algorithm
 computes
 
 \[
@@ -795,7 +850,7 @@ computes
   \left|s\right|! \prod_{m \in s} m_G \right)
 \]
 
-with dynamic programming,
+using a dynamic programming algorithm,
 where $D$ is a real constant that acts to bias against long
 sequences that unintentionally minimise the 
 $\prod_{m \in s} m_G$ term. Moreover the module provides other
@@ -991,23 +1046,6 @@ the fact that we require a signalling server in order to
 establish a network connection means that one of the client's
 requests could perhaps, not be reasonably achieved. \\
 \vspace{0.2cm}
-
-\textbf{Limitation 4: } \\ \vspace{0.1cm}
-
-If this system is to be an actual web app then I would have to 
-host it on a dedicated server, then purchase a domain name for
-my web app. The dedicated server would host the files needed 
-for the web app to run, and the domain name would have to be 
-purchased from a domain registrar so that whenever people type
-this domain name they are directed to the IP address of your 
-server. Unfortunately both of these things require money to
-be spent whilst my client would prefer to have spent no money 
-on this system. If I really want to fulfill the client's 
-requests then I would have to use localhost in order to host
-the website, and this may cause complications in the future, 
-like where should the database be hosted? These concerns fully 
-justify this limitation because it could cause great 
-inconveniences in the development of the system.\\
 
 \section{Client requirements}
 % specify
