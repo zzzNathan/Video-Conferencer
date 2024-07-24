@@ -744,10 +744,30 @@ achieve.
 Bitwarden's servers use the MSSQL database and makes automated
 nightly backups to ensure data is protected. Nightly backups 
 are backups that occur every 24 hours. Moreover the 
-company uses \textit{zero-knowledge encryption} so that the
-\footnote{Source:
+company uses \textit{zero-knowledge encryption} so that the 
+company cannot see it's users data. To ensure zero-knowledge 
+encryption the compnay uses \textit{"AES-CBC 256 bit 
+encryption for the data encryption and PBKDF2 SHA-256 to 
+derive one's encryption key."} \footnote{Source: 
+\url{https://bitwarden.com/help/what-encryption-is-used/}} 
+Through this kind of encryption the company is able to have
+it's users complete trust as they are sure that their data is 
+safe and cannot be read by anyone other than them. Fortunately
+for our case we will not have to consider implementing these
+algotrithms because WebRTC provides built-in encryption.
+\vspace{0.2cm}
+
+For this application's database we need a system that satifies
+the following 2 requirements. Firstly the system must be 
+cloud-based, this is because neither me or my client have 
+servers available for use in this application. Secondly the 
+system must be free \textit{"if at all possible"}. It turns 
+out that free database hosting systems do exist provided some 
+conditions, like storage limits are imposed. The following 
+table details the results from some of my independent research
+on this topic. \footnote{Source:
 \url{https://gist.github.com/bmaupin/0ce79806467804fdbbf8761970511b8c}, Information here was personally fact-checked.}
-.
+
 
 \begin{longtblr}[
   caption={Potential database hosting systems.}
