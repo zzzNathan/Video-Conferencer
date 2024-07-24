@@ -173,7 +173,7 @@ details, and only keeping in the parts of the solution that are
 important. Abstraction could be applied to the design of the 
 UI of my application. The main focus of this application should
 be for it to be simple and easy to grasp as highlighted by my 
-client in section \ref{sec:research}. So in the design of my
+client in section \ref{sec:interview}. So in the design of my
 UI I will not give the user every single piece of information
 available about the call because the vast majority of that 
 information will be useless to them. Furthermore it can be 
@@ -558,6 +558,7 @@ insight into what the final solution should look like based
 on my client's requirements and desires respectively.
 
 \subsection{Interview}
+\label{sec:interview}
 
 \begin{tcolorbox}[
   boxrule=0pt, frame empty, colback=lightestgray, arc=0pt,
@@ -629,6 +630,14 @@ on my client's requirements and desires respectively.
   and lowercase letters.
   \vspace{0.25cm}
 
+  \textbf{Q:} How often should database backups be made?
+  \vspace{0.05cm}
+
+  \textbf{A:} They should be made every 24 hours, so that no 
+  user data is lost.
+  \vspace{0.25cm}
+
+
   \textbf{Q:} How will the new system benefit you? 
   \vspace{0.05cm}
 
@@ -650,6 +659,7 @@ to have their important data stolen during their video
 conference. \vspace{0.2cm}
 
 \subsection{Further research to examine suitable approaches}
+\label{sec:further}
 
 Bearing this in mind we should also think about suitable 
 approaches to implementing a system with these features. In 
@@ -734,36 +744,9 @@ achieve.
 Bitwarden's servers use the MSSQL database and makes automated
 nightly backups to ensure data is protected. Nightly backups 
 are backups that occur every 24 hours. Moreover the 
-company uses \textit{zero-knowledge encryption} so that the 
-company cannot see it's users data. To ensure zero-knowledge 
-encryption the compnay uses \textit{"AES-CBC 256 bit 
-encryption for the data encryption and PBKDF2 SHA-256 to 
-derive one's encryption key."} \footnote{Source: 
-\url{https://bitwarden.com/help/what-encryption-is-used/}} 
-Through this kind of encryption the company is able to have
-it's users complete trust as they are sure that their data is 
-safe and cannot be read by anyone other than them. Fortunately
-for our case we will not have to consider implementing these
-algotrithms because WebRTC provides built-in encryption.
-\vspace{0.2cm}
-
-Given that our system will have to make use of a database we 
-need to select what database system we want to use and we also
-need somewhere to host this database. There are exactly 2 
-requirements for this database system as follows. The database 
-for this system must be held in the cloud, the reasoning for 
-this decision is based on the fact that both me and my client
-don't own any servers on which we could host the database on. 
-Secondly, the database hosting should be free
-\textit{if this is at all possible}, to be in line with my 
-client's desires for this system. It turns out that there are
-free database hosting systems available provided that users do
-not exceed some limit in storage capacity, however the 2 
-requirements given above do severely restrict our options. The
-following table provides information on some of the free 
-database hosting systems I found with independent research 
+company uses \textit{zero-knowledge encryption} so that the
 \footnote{Source:
-\url{https://gist.github.com/bmaupin/0ce79806467804fdbbf8761970511b8c} Information here was personally fact-checked.}
+\url{https://gist.github.com/bmaupin/0ce79806467804fdbbf8761970511b8c}, Information here was personally fact-checked.}
 .
 
 \begin{longtblr}[
@@ -790,6 +773,29 @@ database hosting systems I found with independent research
 
   \hline
 \end{longtblr}
+
+Fly.io provides "free" database hosting on the premise that
+you have to give your credit card information. Then once 
+your database uses a certain amount of storage the company
+automatically charges you based on the amount you used. For
+this reason I feel that it is justified to rule out the
+option of using Fly.io completely. If the application were
+to suddenly grow to have a large userbase the database could
+start charging me or my client whilst we weren't aware, this
+kind of mistake could be economically catastophic for either 
+one of us. IBM Cloudant delete data after 30 days of 
+inactivity, meaning that large amounts of user data could 
+be lost. Users should be able to use our application knowing
+that their data is safe and secure, if we chose to use IBM
+Cloudant then we wouldn't be able to make this guarentee. If
+users lose their data it may lead to complaints and 
+frustrations with the design of the new system, leading to 
+poor client satisfaction and users returning to the old 
+videoconferencing system. Hence I feel that it is justified 
+to rule out the use of IBM Cloudant aswell. The remaining 3 
+options all have their relevant advantages and no very
+significant disadvantages so all 3 of them could potentially
+be used in this application.
 
 \vspace{0.2cm}
 
@@ -1047,6 +1053,17 @@ establish a network connection means that one of the client's
 requests could perhaps, not be reasonably achieved. \\
 \vspace{0.2cm}
 
+\textbf{Limitation 4: } \\ \vspace{0.1cm}
+
+Users must have access to a computer or some other device that
+allows them to connect to the internet and access websites. 
+Consequently if the user logs into their account on a public 
+computer they may be susceptible to various forms of social 
+engineering, for example someone may be shoulder surfing the 
+user whilst they are typing in their password. These kinds of 
+issues may lead to a breach of data protection regulations and
+users having their private information stolen.
+
 \section{Client requirements}
 % specify
 %justify why they are important
@@ -1089,14 +1106,28 @@ ensure that they are of suitable strength. Justification for
 this feature was provided in \ref{sec:features} under 
 \textit{Usernames and passwords to join a call} and a
 potential implementation was discussed in \ref{sec:research}.
+Data will also have to be verified before it is put into the 
+database. We should ensure that all data that is being entered
+into the database is of the correct data type and that
+\texttt{NULL} values aren't permitted if a particular 
+attribute is mandatory. The verification of data entering our
+database is justified because it prevents a host of problems 
+arising later on in the development of the system. For example
+if we don't verify that the data in the username column is 
+only of the string data type, it could be possible that 
+someone's username is a \texttt{NULL} field. In this case we 
+will never be able to log this user in because their account
+isn't accessed by their username and we will never be able to
+verify that the password that they have inputted is the 
+correct password that is stored in the database.
 
 \subsection{Data processing}
 
 In order to send video and audio data to others quickly the 
 system will have to compress both. This will be managed by the
-codecs that we choose to use in the beginning of the peer to
-peer connection. This will be handled by the WebRTC API once
-the video call starts. Audio and video compression is 
+video/audio codecs that we choose to use in the beginning of
+the peer to peer connection. This is handled by the
+WebRTC API. Audio and video compression is 
 important because without it we would have to send large 
 amounts of data to others over the internet by splitting the
 data up into a number of packets. Each frame would take a 
@@ -1138,15 +1169,50 @@ elegant UI to look at when using the system.
 For the video and audio data security will be managed by 
 WebRTC developed by Google, a credible company that will have
 implemented all the necessary measures to ensure that this
-data is completly secure during video calls. 
+data is completly secure during video calls. To keep the 
+database secure the database password won't be written in any
+of the viewable website files and will instead be read in from
+separate file that won't be viewable to anyone except 
+authorised users. Security of the database is especially 
+important because personal user information will be stored 
+there, if an attacker gains access to this information it 
+would be a breach of data protection regulations.
 
 \subsection{Backing up data}
 
 Data backups will be made nightly (every 24 hours) to ensure
-that none of our user's data is lost.
+that none of our user's data is lost, as per the request of
+my client in \ref{sec:interview}.
 
 \subsection{Software requirements}
 
+This system will be hosted on Google Firebase a cloud hosting
+platform. Google Firebase allows for webapps to be hosted on 
+the cloud, we will be making use of their free plan which 
+allows us to host our app on the cloud within some limits. 
+This will allow any user with access to a internet
+browser the ability to use this web app. We will use MongoDB
+Atlas in order to host our database for this system where 
+information like usernames, passwords and account
+configurations will be stored. Multiple database hosting 
+systems were discussed in \ref{sec:further} but I ultimately 
+decided on MongoDB because of it's lack of limitations and 
+it's satisfactory storage limits.
+
 \subsection{Hardware requirements}
+
+The application will be accessible on any device that has an
+internet connection and access to a standard web browser. For 
+a video conference with 2 participants a minimum download
+speed of 5 Mbit/s and a minimum upload speed of 3 Mbit/s will
+be required. For optimal performance we recommend having a 
+device with the following specifaction or better:
+
+\begin{itemize}
+  \item Processor: Dual core 2 GHz processor
+  \item Ram: 5 GB of RAM
+\end{itemize}
+
+\section{Solutions to client requirements}
 
 \section{Success criteria}
