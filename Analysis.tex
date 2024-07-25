@@ -1137,8 +1137,8 @@ if we don't verify that the data in the username column is
 only of the string data type, it could be possible that 
 someone's username is a \texttt{NULL} field. In this case we 
 will never be able to log this user in because their account
-isn't accessed by their username and we will never be able to
-verify that the password that they have inputted is the 
+isn't accessed by their username meaning that we will never be
+able to verify that the password that they have inputted is the 
 correct password that is stored in the database.
 
 \subsection{Data processing}
@@ -1196,7 +1196,11 @@ separate file that won't be viewable to anyone except
 authorised users. Security of the database is especially 
 important because personal user information will be stored 
 there, if an attacker gains access to this information it 
-would be a breach of data protection regulations.
+would be a breach of data protection regulations. Finally 
+the user's will be prompted to use a strong password that 
+meets a set of requirements, they will also recieve 
+suggestions on how to improve the strength of their password
+via the \texttt{zxcvbn} module.
 
 \subsection{Backing up data}
 
@@ -1233,6 +1237,64 @@ device with the following specifaction or better:
   \item Ram: 5 GB of RAM
 \end{itemize}
 
-\section{Solutions to client requirements}
+These requirements are based on the old systems requirements.
+\footnote{Source: \url{https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0060748}}
+Since we are creating a similar system to Zoom we can justify
+the use of similar performance requirements in our 
+application because our application will utilise similar 
+amounts of RAM and CPU time when it is being used for it's 
+main purpose, video conferencing.
+
+\subsection{Summary of requirements}
+
+\begin{longtblr}[
+  caption={Summary of requirements.}
+]{
+  colspec={lXX}, hlines, row{1}={lightestgray}
+}
+
+Requirement & Proposed solution & Alternative solution\\
+
+Data capture & {A videocamera and a microphone that are connected
+	        to the device can be used to record video and audio 
+                data respectively.} & {A virtual reality headset
+		system may be used such that the headset
+	        provides live video/audio of the person in real life
+		or live video of a persons 3D model interacting with 
+		the real world. (See: \url{https://www.apple.com/apple-vision-pro/})
+	        }\\
+
+Data verification & {Users will be promted to enter their passwords twice.
+                     The table in the database will be created such that 
+                     only data of the relevant correct type may be entered.} &
+		    {Users will enter their phone number or email address and
+		     information will be sent to them verifying whether or not 
+		     they would like to update/set their password. Data will be
+	             checked for the correct data type in the codebase before
+	             it is entered into the database.}\\
+
+Data processing & {Video and audio data will be compressed and packetized
+                   by the WebRTC API, so that it can be sent to others over the 
+                   internet quickly.} & {Develop my own algorithm to compress
+		   and format video/audio data into packets.}\\
+
+Outputs & {Video data from other participants will be displayed on screen,
+           audio data will be played on the user's speakers. The GUI will 
+           present important information to the user and will be designed
+           with simplicity in mind.} & {Alternatively, audio data could be 
+	   played in the user's headphones potentially providing a better 
+           sounding experience.}\\
+
+Security & {The video/audio data being sent over the internet will 
+            be sufficiently encrypted by WebRTC. Only authorised users
+            will have access to the database's password. Users will 
+	    \emph{have to} choose an adequately strong password, 
+            satisfying some set of requirements. This will be 
+            implemented with the \texttt{zxcvbn} module.} & 
+	    {Multi-factor authentication could be implemented so that
+	     an attacker would require more than just someone's 
+             password in order to access their account.}\\
+
+\end{longtblr}
 
 \section{Success criteria}
