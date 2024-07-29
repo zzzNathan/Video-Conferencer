@@ -1224,6 +1224,7 @@ decided on MongoDB because of it's lack of limitations and
 it's satisfactory storage limits.
 
 \subsection{Hardware requirements}
+\label{sec:hardware}
 
 The application will be accessible on any device that has an
 internet connection and access to a standard web browser. For 
@@ -1298,3 +1299,121 @@ Security & {The video/audio data being sent over the internet will
 \end{longtblr}
 
 \section{Success criteria}
+
+\subsection{Qualitative criteria}
+
+\textbf{1 - The system should be intuitive and easy to grasp.}
+\vspace{0.2cm}
+
+\textit{Explanation:}
+The system should feel and be easy to use, such that anyone
+and everyone will be able to use the app without any learning
+curve. This criterion should also apply not only to the front
+end design of the system but also to the relevant backend 
+infrastructure. That is a competent programmer should be able to 
+read the codebase and understand roughly what each function or 
+class is doing. Furthermore a logically structured and neat 
+documentation should be produced alongside the system to 
+ensure that any developer will be able to understand what 
+a piece of code does if they are unsure.
+
+\vspace{0.2cm}
+
+\textit{Justification:} 
+My client explicitly asked for the system to be simple and 
+easy to grasp in \ref{sec:interview}. Moreover the target 
+demographic for this application is older people who are 
+lacking in experience with technology, therefore in order to 
+ensure a comfortable experience for these people the system 
+should be designed with their background in mind and should
+hence be simple for everyone to be able to use. Finally the 
+source code of this project will also be provided to the 
+client, so in the scenario that he would like to make any 
+tweaks or changes he may do so with ease by using the clearly 
+written documentation.
+
+\vspace{0.2cm}
+
+\textbf{2 - The user's data should be properly secured.} 
+
+\vspace{0.2cm}
+
+\textit{Explanation:} 
+All user's should be able to make video calls and be able to 
+use the system however they would like whilst knowing that all
+their personal data is secure and cannot be accessed by anyone
+but themselves.
+
+\vspace{0.2cm}
+
+\textit{Justification:}
+If our users and clients are having their data stolen by
+hackers or other malicous internet users, not only would this 
+generate massive client dissatisfaction but it may also create
+a horde of legal issues for all parties involved. The 
+\textit{General Data Protection Regulation (GDPR)} is the
+current legislation in act as of 2016 \cite{gdpr}. In chapter 4 
+article 32 it reads \textit{"The processor shall implement
+appropriate technical and organisational measures to ensure
+a level of security appropriate to the risk"}. Therefore by 
+ensuring that user data is properly secured we are complying 
+with the GDPR saving myself and the client from data-related
+legal issues.
+
+\vspace{0.2cm}
+
+\textbf{3 - The webpage design should be aesthetically
+pleasing}
+
+\vspace{0.2cm}
+
+\textit{Explanation:} 
+The frontend of the system should be professional looking and
+should be aesthetically pleasing, this means that the app
+will be more inviting and that users will naturally spend more
+time on this application. The aesthetics of the system will be
+rated via a collection of different people through a survey.
+If $\geq 85\%$ of people give a positive opinion on the 
+design of the application we will consider the system to be 
+"aesthetically pleasing".
+
+\vspace{0.2cm}
+
+\textit{Justification:}
+If the application looks and feels nice to use then our 
+clients and users will naturally feel more inclined to use it,
+a professional design will also promote a sensation of trust,
+robustness and reliability of the system. We will hence be
+able to ensure that our user's have a nice experience using 
+this system improving client satisfaction.
+
+\vspace{0.2cm}
+
+%\textbf{4 - }
+
+\subsection{Quantitative criteria}
+
+\textbf{1 - The video call latency should not exceed 150 ms}
+
+\vspace{0.2cm}
+
+\textit{Explanation:}
+The delay between a packet of data being sent the packet 
+being recieved should not exceed 150 ms provided the minimum
+hardware and bandwidth requirements in \ref{sec:hardware} 
+are met.
+
+\vspace{0.2cm}
+
+\textit{Justification:}
+The new system should provide better or equal amounts of 
+latency than the old system. Hence users will not only enjoy
+a more accessible and comfortable video conferencing 
+experience but they will also be able to video conference 
+whilst knowing that the video/audio they are seeing is
+occuring in real-time as explicitly requested in 
+\ref{sec:interview}. The old system recommended a latency of
+\textit{"150 ms or less"} \footnote{Source:
+\url{https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0070504}} so we will seek to match this
+value.
+
