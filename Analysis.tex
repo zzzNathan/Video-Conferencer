@@ -1,9 +1,9 @@
 \pagestyle{fancy}
-\lhead{OCR A-Level Computer Science}
-\chead{\thepage}
-\rhead{Jonathan Kasongo}
-\lfoot{Candidate number: N/A}
-\rfoot{Centre number: N/A}
+\lhead{\sffamily OCR A-Level Computer Science}
+\chead{\sffamily \thepage}
+\rhead{\sffamily Jonathan Kasongo}
+\lfoot{\sffamily Candidate number: N/A}
+\rfoot{\sffamily Centre number: N/A}
 
 \chapter{Analysis}
 
@@ -432,7 +432,7 @@ Edge & Commentary \\
      appropiate. Admin can also interact with the app in order
      to manage the video conference. They can do things like
      spotlight speakers, screenshare images/video and mute or
-     kick participants.}
+     kick participants.}\\
   
 \end{longtblr}
 
@@ -921,7 +921,7 @@ suggestions.
 \section{Essential features \& their justifications}
 \label{sec:features}
 
-\textbf{Real-time audio/video feeds} \\ \vspace{0.1cm}
+\textbf{1 - Real-time audio/video feeds} \\ \vspace{0.1cm}
 
 This will enable multiple users to connect to each other via
 their browsers and view each other's webcams, as well as hear
@@ -933,7 +933,7 @@ people's video feeds on our application.
 
 \vspace{0.2cm}
 
-\textbf{Raising one's virtual hand} \\ \vspace{0.1cm}
+\textbf{2 - Raising one's virtual hand} \\ \vspace{0.1cm}
 
 This feature will allow people to be able to interact with the
 person giving the talk as if they were present in real life.
@@ -948,7 +948,7 @@ feature is also found on Zoom.
 
 \vspace{0.2cm}
 
-\textbf{Designation of a host} \\ \vspace{0.1cm}
+\textbf{3 - Designation of a host} \\ \vspace{0.1cm}
 
 This feature will allow the creator of the conference to 
 assign 1 or multiple people to be the \textit{host} of the 
@@ -968,7 +968,7 @@ aren't allowed to occur.
 
 \vspace{0.2cm}
 
-\textbf{Usernames and passwords to join a call} \\ 
+\textbf{4 - Usernames and passwords to join a call} \\ 
 \vspace{0.1cm}
 
 Each user will be able to choose their unique username so 
@@ -994,7 +994,7 @@ in the previous paragraph.
 
 \vspace{0.2cm}
 
-\textbf{Simple and user friendly UI} \\ \vspace{0.1cm}
+\textbf{5 - Simple and user friendly UI} \\ \vspace{0.1cm}
 
 The UI should be designed in such a way that anyone could be 
 able to understand how to use the application. This feature
@@ -1006,11 +1006,27 @@ the user will only have essential information on their screens
 to make sure that the interface is not cluttered or 
 overcrowded. This feature is fully justified since my client 
 requested this as an "essential" feature during our interview
-in section \ref{sec:research}.
+in section \ref{sec:research}. \vspace{0.2cm}
+
+\textbf{6 - Text-chat box} \\ \vspace{0.1cm}
+
+Users should be able to communicate with each other via text
+as well as face to face through the application. On every
+video conference there will be a text chat box available for
+every particpant to use. In the potential situation that a user
+lacks a microphone or forgets to turn on their microphone other 
+users will still be able to communicate with them through the 
+built-in chat box. This feature falls in harmony with one of 
+the primary motivations for this application, that is, to have 
+the system be accessible to everyone. Even if a user doesn't
+have the required financial situation to be able to afford a 
+microphone, they are not isolated from others, and can still 
+make use of the system to talk to their colleagues, friends
+or loved ones.
 
 \section{Limitations}
 
-\textbf{Limitation 1: } \\ \vspace{0.1cm} 
+\textbf{1 - Internet} \\ \vspace{0.1cm} 
 
 The application will require an internet connection. Since the
 application makes use of the WebRTC API, we require internet 
@@ -1030,7 +1046,7 @@ order for the application to function an internet connection is
 required, alienating 34\% of the world's population as they
 will be completely unable to use the system. \\ \vspace{0.2cm}
 
-\textbf{Limitation 2: } \\ \vspace{0.1cm}
+\textbf{2 - Passwords} \\ \vspace{0.1cm}
 
 As specified in the essential features, each user will have to 
 create an account with a set username and password in order to 
@@ -1051,7 +1067,7 @@ justified by the fact that if this limitation is left to be
 there will be consequences to both the user and also to the 
 database. \\ \vspace{0.2cm}
 
-\textbf{Limitation 3: } \\ \vspace{0.1cm}
+\textbf{3 - Signalling servers} \\ \vspace{0.1cm}
 
 In order to use the WebRTC API for peer to peer connections we
 will have to set up a signalling server as explained in 
@@ -1073,7 +1089,7 @@ establish a network connection means that one of the client's
 requests could perhaps, not be reasonably achieved. \\
 \vspace{0.2cm}
 
-\textbf{Limitation 4: } \\ \vspace{0.1cm}
+\textbf{4 - Social engineering} \\ \vspace{0.1cm}
 
 Users must have access to a computer or some other device that
 allows them to connect to the internet and access websites. 
@@ -1083,6 +1099,8 @@ engineering, for example someone may be shoulder surfing the
 user whilst they are typing in their password. These kinds of 
 issues may lead to a breach of data protection regulations and
 users having their private information stolen.
+
+
 
 \section{Client requirements}
 % specify
@@ -1227,16 +1245,32 @@ it's satisfactory storage limits.
 \label{sec:hardware}
 
 The application will be accessible on any device that has an
-internet connection and access to a standard web browser. For 
-a video conference with 2 participants a minimum download
-speed of 5 Mbit/s and a minimum upload speed of 3 Mbit/s will
-be required. For optimal performance we recommend having a 
-device with the following specifaction or better:
+internet connection and access to a standard web browser. The
+\textit{Minimum} column provides the minimum hardware
+requirements needed for the application to run with acceptable
+quality, and the \textit{Recommended} column provides the 
+minimum hardware requirements needed for the application to
+run smoothly with high quality.
 
-\begin{itemize}
-  \item Processor: Dual core 2 GHz processor
-  \item Ram: 5 GB of RAM
-\end{itemize}
+\begin{longtblr}[
+  caption={Hardware requirements.}
+]{
+  colspec={lXX},  row{1}={lightestgray}
+}
+  \hline
+  Hardware & Minimum & Recommended\\
+  \hline
+
+  Processor & 1 GHz & 2 GHz Dual core\\
+
+  Ram & 1 GB & 5 GB\\
+
+  Download speed & 5 Mbit/s & 7 Mbit/s\\
+
+  Upload speed & 3 Mbit/s & 5 Mbit/s\\
+  \hline
+
+\end{longtblr}
 
 These requirements are based on the old systems requirements.
 \footnote{Source: \url{https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0060748}}
@@ -1262,7 +1296,7 @@ Data capture & {A videocamera and a microphone that are connected
 		system may be used such that the headset
 	        provides live video/audio of the person in real life
 		or live video of a persons 3D model interacting with 
-		the real world. (See: \url{https://www.apple.com/apple-vision-pro/})
+		the real world.
 	        }\\
 
 Data verification & {Users will be promted to enter their passwords twice.
@@ -1303,7 +1337,7 @@ Security & {The video/audio data being sent over the internet will
 \subsection{Qualitative criteria}
 
 \textbf{1 - The system should be intuitive and easy to grasp.}
-\vspace{0.2cm}
+\vspace{0.1cm}
 
 \textit{Explanation:}
 The system should feel and be easy to use, such that anyone
@@ -1336,7 +1370,7 @@ written documentation.
 
 \textbf{2 - The user's data should be properly secured.} 
 
-\vspace{0.2cm}
+\vspace{0.1cm}
 
 \textit{Explanation:} 
 All user's should be able to make video calls and be able to 
@@ -1363,9 +1397,9 @@ legal issues.
 \vspace{0.2cm}
 
 \textbf{3 - The webpage design should be aesthetically
-pleasing}
+pleasing.}
 
-\vspace{0.2cm}
+\vspace{0.1cm}
 
 \textit{Explanation:} 
 The frontend of the system should be professional looking and
@@ -1389,13 +1423,11 @@ this system improving client satisfaction.
 
 \vspace{0.2cm}
 
-%\textbf{4 - }
-
 \subsection{Quantitative criteria}
 
-\textbf{1 - The video call latency should not exceed 150 ms}
+\textbf{4 - The video call latency should not exceed 150 ms}
 
-\vspace{0.2cm}
+\vspace{0.1cm}
 
 \textit{Explanation:}
 The delay between a packet of data being sent the packet 
@@ -1414,6 +1446,37 @@ whilst knowing that the video/audio they are seeing is
 occuring in real-time as explicitly requested in 
 \ref{sec:interview}. The old system recommended a latency of
 \textit{"150 ms or less"} \footnote{Source:
-\url{https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0070504}} so we will seek to match this
-value.
+\url{https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0070504}} 
+so we will seek to match or better this value.
 
+\vspace{0.2cm}
+
+\textbf{5 - The system should be able to handle video 
+conferences with more than 2 participants.}
+
+\vspace{0.1cm}
+
+\textit{Explanation:}
+The system should be able to maintain acceptable performance
+whilst there are more than 2 participants in the video 
+conference, whose respective devices all satisfy the minimum
+hardware and bandwidth requirements outlined in 
+\ref{sec:hardware}. We will measure the success of this 
+criterion by running a test video conference with 6 
+participants, if average latency is less than 150 ms then we
+will consider the system to be sufficiently performant as to 
+be able to handle $\geq 2$ participants in each video
+conference.
+\vspace{0.2cm}
+
+\textit{Justification:}
+My client often has to manage video conferences with more than
+2 participants, so the new system should be able to handle an 
+acceptable number of participants in each conference, without
+any significant performance degradation. In
+\ref{sec:interview} my client said that the new system should 
+be smoother and provide a better viewing experience for all.
+In order to achieve this the performance of the system should
+be optimised so that the application runs smoothly for my 
+client and all other users even if the number of participants
+in their video call far exceeds 2 people.
