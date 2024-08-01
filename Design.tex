@@ -1,9 +1,25 @@
 \pagestyle{fancy}
-\lhead{OCR A-Level Computer Science}
-\chead{\thepage}
-\rhead{Jonathan Kasongo}
-\lfoot{Candidate number: N/A}
-\rfoot{Centre number: N/A}
+\lhead{\sffamily OCR A-Level Computer Science}
+\chead{\sffamily \thepage}
+\rhead{\sffamily Jonathan Kasongo}
+\lfoot{\sffamily Candidate number: N/A}
+\rfoot{\sffamily Centre number: N/A}
 
 \chapter{Design}
 
+\section{Breaking the problem down}
+\label{sec:breakdown}
+
+\begin{figure}[h]
+\label{fig:decomp}
+\centering
+\begin{tikzpicture}
+ 
+  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, fill=lightestgray]
+    (video) {\large Our system};
+
+  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=2cm ]
+    (home) at (video) {\large Home page};
+
+\end{tikzpicture}
+\end{figure}
