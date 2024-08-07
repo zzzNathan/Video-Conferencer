@@ -5,21 +5,138 @@
 \lfoot{\sffamily Candidate number: N/A}
 \rfoot{\sffamily Centre number: N/A}
 
+\usetikzlibrary{positioning}
+
 \chapter{Design}
 
 \section{Breaking the problem down}
 \label{sec:breakdown}
 
+We now provide a simple visual decomposition of the problem at 
+hand. We let \textit{DB} denote our database for size reasons.
+
 \begin{figure}[h]
 \label{fig:decomp}
 \centering
-\begin{tikzpicture}
- 
-  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, fill=lightestgray]
-    (video) {\large Our system};
 
-  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=2cm ]
-    (home) at (video) {\large Home page};
+\scalebox{1.0}
+{
+\begin{tikzpicture}[every node/.style={scale=0.6}]
+
+  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, fill=lightestgray]
+    (home) {\large Home page};
+
+  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of home ]
+    (login) {\large Login page};
+
+  \node[draw, diamond, aspect=2, below=of login ]
+    (new) {\large First time user?};
+
+  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below left=of new ]
+    (acc) {\large Create account};
+
+  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of acc ]
+    (add) {\large Add account to \textit{DB}};
+
+  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below right=of new ]
+    (back) {\large Log back in};
+
+  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of back ]
+    (main) {\large Main page};
+
+  \node[draw, diamond, aspect=2, minimum width=4cm, minimum height=1cm, below=of main ]
+    (join) {\large Join call?};
+
+  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below right=of join ]
+    (code) {\large Enter passcode};
+
+  \node[draw, diamond, aspect=2, minimum width=4cm, minimum height=1cm, below=of code ]
+    (codegood) {\large Is code valid?};
+
+  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below right=of codegood ]
+    (connect) {\large Connect to call};
+
+  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below left=of codegood ]
+    (error) {\large Raise error};
+
+  \node[draw, diamond, aspect=2, minimum width=4cm, minimum height=1cm, below left=of join ]
+    (create) {\large Create call?};
+
+  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of create ]
+    (invite) {\large Invite others};
+
+  \node[draw, diamond, aspect=2, minimum width=4cm, minimum height=1cm, left=of create ]
+    (config) {\large Settings?};
+
+  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of config ]
+    (settings) {\large Settings page};
+
+  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, left=of config ]
+    (b) {\large Back to main page};
+
+  \coordinate[left=2cm of code.west] (here);
+
+  \draw[black, -{Latex[length=2.5mm]}] 
+    (home) -- (login);
+
+  \draw[black, -{Latex[length=2.5mm]}] 
+    (login) -- (new);
+
+  \draw[black, -{Latex[length=2.5mm]}] 
+    (new) -| node[above] {Yes} (acc);
+
+  \draw[black, -{Latex[length=2.5mm]}] 
+    (new) -| node[above] {No} (back);
+
+  \draw[black, -{Latex[length=2.5mm]}] 
+    (acc) -- (add);
+
+  \draw[black, -{Latex[length=2.5mm]}] 
+    (add) -| (new);
+  
+  \draw[black, -{Latex[length=2.5mm]}] 
+    (back) -- (main);
+
+\draw[black, -{Latex[length=2.5mm]}] 
+    (main) -- (join);
+
+  \draw[black, -{Latex[length=2.5mm]}] 
+    (back) -- (main);
+
+  \draw[black, -{Latex[length=2.5mm]}] 
+    (code) -- (codegood);
+
+  \draw[black, -{Latex[length=2.5mm]}] 
+    (join) -| node[above] {Yes} (code);
+
+  \draw[black, -{Latex[length=2.5mm]}] 
+    (codegood) -| node[above] {Yes} (connect);
+
+  \draw[black, -{Latex[length=2.5mm]}] 
+    (codegood) -| node[above] {No} ([xshift=0.1cm] error);
+
+  \draw[black, -{Latex[length=2.5mm]}] 
+    ([xshift=-0.1cm] error.north) -| (here) -- (code);
+
+  \draw[black, -{Latex[length=2.5mm]}] 
+    (join) -| node[above] {No} (create);
+
+  \draw[black, -{Latex[length=2.5mm]}] 
+    (create) -- node[above, fill=white] {Yes} (invite);
+
+  \draw[black, -{Latex[length=2.5mm]}] 
+    (create) -- node[fill=white] {No} (config);
+
+  \draw[black, -{Latex[length=2.5mm]}] 
+    (config) -- node[above, fill=white] {Yes} (settings);
+
+  \draw[black, -{Latex[length=2.5mm]}] 
+    (config) -- node[fill=white] {No} (b);
 
 \end{tikzpicture}
+}
+
+\caption{Decomposition of the problem.}
 \end{figure}
+
+\subsection*{Explaining the breakdown}
