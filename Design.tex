@@ -12,8 +12,11 @@
 \section{Breaking the problem down}
 \label{sec:breakdown}
 
+\textit
+{
 We now provide a simple visual decomposition of the problem at 
-hand. We let \textit{DB} denote our database for size reasons.
+hand. We let DB denote our database for size reasons.
+}
 
 \begin{figure}[h]
 \label{fig:decomp}
@@ -21,7 +24,7 @@ hand. We let \textit{DB} denote our database for size reasons.
 
 \scalebox{1.0}
 {
-\begin{tikzpicture}[every node/.style={scale=0.6}]
+\begin{tikzpicture}[every node/.style={scale=0.54}]
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, fill=lightestgray]
     (home) {\large Home page};
@@ -44,37 +47,48 @@ hand. We let \textit{DB} denote our database for size reasons.
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of back ]
     (main) {\large Main page};
 
-  \node[draw, diamond, aspect=2, minimum width=4cm, minimum height=1cm, below=of main ]
-    (join) {\large Join call?};
+  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below right=of main ]
+    (join) {\large Join call page};
 
-  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below right=of join ]
+  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of join ]
     (code) {\large Enter passcode};
 
   \node[draw, diamond, aspect=2, minimum width=4cm, minimum height=1cm, below=of code ]
-    (codegood) {\large Is code valid?};
+    (valid) {\large Is code valid?};
 
-  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below right=of codegood ]
-    (connect) {\large Connect to call};
+  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below left=of valid ]
+    (codegood) {\large Connect to call};
 
-  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below left=of codegood ]
-    (error) {\large Raise error};
+  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below right=of valid ]
+    (codebad) {\large Raise error};
 
-  \node[draw, diamond, aspect=2, minimum width=4cm, minimum height=1cm, below left=of join ]
-    (create) {\large Create call?};
+  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of main ]
+    (create) {\large Create call page};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of create ]
     (invite) {\large Invite others};
 
-  \node[draw, diamond, aspect=2, minimum width=4cm, minimum height=1cm, left=of create ]
-    (config) {\large Settings?};
-
-  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of config ]
+  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below left=of main ]
     (settings) {\large Settings page};
 
-  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, left=of config ]
-    (b) {\large Back to main page};
+  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below left=of settings ]
+    (video) {\large Video settings};
 
-  \coordinate[left=2cm of code.west] (here);
+  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of settings ]
+    (access) {\large Accessibility settings};
+
+  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, left=of video ]
+    (audio) {\large Audio settings};
+
+  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of video ]
+   (save) {\large Save settings to \textit{DB}};
+
+
+  \coordinate[right=2cm of code.east] (here);
+
+  \coordinate[below=1.26cm of access.south] (a);
+
+  \coordinate[below=1.26cm of audio.south] (b);
 
   \draw[black, -{Latex[length=2.5mm]}] 
     (home) -- (login);
@@ -92,46 +106,58 @@ hand. We let \textit{DB} denote our database for size reasons.
     (acc) -- (add);
 
   \draw[black, -{Latex[length=2.5mm]}] 
-    (add) -| (new);
+    ([yshift=0.25cm]add) -| (new);
   
   \draw[black, -{Latex[length=2.5mm]}] 
     (back) -- (main);
 
-\draw[black, -{Latex[length=2.5mm]}] 
-    (main) -- (join);
-
   \draw[black, -{Latex[length=2.5mm]}] 
     (back) -- (main);
 
   \draw[black, -{Latex[length=2.5mm]}] 
-    (code) -- (codegood);
+    (main) -| (join);
 
   \draw[black, -{Latex[length=2.5mm]}] 
-    (join) -| node[above] {Yes} (code);
+    (join) -- (code) ;
 
   \draw[black, -{Latex[length=2.5mm]}] 
-    (codegood) -| node[above] {Yes} (connect);
+    (code) -- (valid) ;
+ 
+  \draw[black, -{Latex[length=2.5mm]}] 
+    (valid) -| node[above] {Yes} (codegood) ;
 
   \draw[black, -{Latex[length=2.5mm]}] 
-    (codegood) -| node[above] {No} ([xshift=0.1cm] error);
+    (valid) -| node[above] {No} (codebad); 
 
   \draw[black, -{Latex[length=2.5mm]}] 
-    ([xshift=-0.1cm] error.north) -| (here) -- (code);
+    ([xshift=0.4cm]codebad.north) -- (here) -- (code.east); 
+  
+  \draw[black, -{Latex[length=2.5mm]}] 
+    (main) -- (create) ;
 
   \draw[black, -{Latex[length=2.5mm]}] 
-    (join) -| node[above] {No} (create);
+    (create) -- (invite) ;
 
   \draw[black, -{Latex[length=2.5mm]}] 
-    (create) -- node[above, fill=white] {Yes} (invite);
+    ([yshift=-0.25cm]main) -| (settings);
 
   \draw[black, -{Latex[length=2.5mm]}] 
-    (create) -- node[fill=white] {No} (config);
+    (settings) -- (access);
 
   \draw[black, -{Latex[length=2.5mm]}] 
-    (config) -- node[above, fill=white] {Yes} (settings);
+    (settings) -| (video);
 
   \draw[black, -{Latex[length=2.5mm]}] 
-    (config) -- node[fill=white] {No} (b);
+    (settings) -| (audio);
+
+  \draw[black, -{Latex[length=2.5mm]}] 
+    (video) -- (save);
+
+  \draw[black, -{Latex[length=2.5mm]}] 
+    (audio.south) -- (b) -- (save.west);
+
+  \draw[black, -{Latex[length=2.5mm]}] 
+    (access.south) -- (a) -- (save.east);
 
 \end{tikzpicture}
 }
@@ -140,3 +166,10 @@ hand. We let \textit{DB} denote our database for size reasons.
 \end{figure}
 
 \subsection*{Explaining the breakdown}
+
+As discussed in \ref{sec:computational} decomposition can 
+reduce the complexity of a system by providing clear sub-tasks
+that need to be achieved in order to solve a larger more 
+complicated task. Starting from the top of the diagram I
+chose to display a home page once the user initially accesses 
+our website. 

@@ -863,13 +863,18 @@ obvious pattern and are a random string of characters like
 \texttt{ae\#U*\$gmi}. The algorithm assumes that each
 character will take $C := 10$ attempts to guess correctly and 
 subsequently estimates $C^n$ guesses to be required to guess
-the entire substring. Finally the last phase, the search looks
-for an optimal sequence $s$ of length $\left|s\right|$, from
-a set $S$ of all the matches found in $p$ such that: the 
-sequence contiguously covers the entirety of $p$ and this 
-sequence $s$ has a minimal number of guesses $m_G$ over all
-matches $m$ in the sequence. More formally the algorithm
-computes
+the entire substring. Finally for the last phase, we define a
+match-sequence to be a sequence $s_1, s_2, ...$ of matches, 
+such that no matches intersect with one another and the
+matches contigously cover the \textit{entirety} of $p$. 
+The search looks
+for an optimal match-sequence $s_1, s_2, ...$ of length
+$\left|s\right|$, from a set $S$ of all the match-sequences
+found in $p$ such that this sequence $s$ has a minimal number
+of guesses $m_G$ over all matches $m$ in the sequence, where 
+$m_G$ is the estimated number of guesses for an attacker to 
+successfully guess match $m$. More formally the algorithm 
+computes;
 
 \[
   \argmin_{s \subseteq S} \left( D^{\left|s\right| -1} + 
