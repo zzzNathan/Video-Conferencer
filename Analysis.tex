@@ -661,6 +661,8 @@ conference. \vspace{0.2cm}
 \subsection{Further research to examine suitable approaches}
 \label{sec:further}
 
+\subsubsection{WebRTC}
+
 Bearing this in mind we should also think about suitable 
 approaches to implementing a system with these features. In 
 order to implement the real-time video/audio I could make use
@@ -707,7 +709,8 @@ harmony with my client's request to have the application
 \textit{"be completely free if at all possible."} as seen in 
 the interview. 
 
-\vspace{0.2cm}
+
+\subsubsection{Username \& password management}
 
 When discussing security it is also important to discuss the 
 username and password management system that may be implemented
@@ -819,7 +822,7 @@ options all have their relevant advantages and no very
 significant disadvantages so all 3 of them could potentially
 be used in this application.
 
-\vspace{0.2cm}
+\subsubsection{Ensuring password strength}
 
 Another concern pertaining to passwords is our method for 
 checking a potential password's strength. I propose the usage
@@ -902,7 +905,15 @@ therefore the strength of any given password in
 the user as they can consult the warnings and suggestions 
 provided by the \texttt{zxcvbn} module to ensure that their
 password isn't weak.
-\vspace{0.2cm}
+
+\subsubsection{Preventing botnet attacks}
+
+In September 2016 a fleet of distributed denial of service 
+attacks (DDoS) were launched on multiple company's websites 
+some of which exceeded 600 Gbps making it one of the largest 
+DDoS attacks ever recorded \cite{mirai}.
+
+\subsubsection{Conclusions}
 
 \textit{What are suitable approaches based on this research?}
 The features that Zoom provides like keyboard shortcuts and 
