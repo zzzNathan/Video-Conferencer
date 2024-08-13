@@ -32,6 +32,12 @@ hand. We let DB denote our database for size reasons.
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of home ]
     (login) {\large Login page};
 
+  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below right=of home]
+    (docs) {\large Documentation};
+
+  \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below left=of home]
+    (help) {\large Help page};
+
   \node[draw, diamond, aspect=2, below=of login ]
     (new) {\large First time user?};
 
@@ -92,6 +98,12 @@ hand. We let DB denote our database for size reasons.
 
   \draw[black, -{Latex[length=2.5mm]}] 
     (home) -- (login);
+
+  \draw[black, -{Latex[length=2.5mm]}] 
+    (home) -| (docs);
+
+  \draw[black, -{Latex[length=2.5mm]}] 
+    (home) -| (help);
 
   \draw[black, -{Latex[length=2.5mm]}] 
     (login) -- (new);
@@ -170,6 +182,23 @@ hand. We let DB denote our database for size reasons.
 As discussed in \ref{sec:computational} decomposition can 
 reduce the complexity of a system by providing clear sub-tasks
 that need to be achieved in order to solve a larger more 
-complicated task. Starting from the top of the diagram I
-chose to display a home page once the user initially accesses 
-our website. 
+complicated task. Moreover this method of organising tasks 
+motivates a more modular approach to the implementation of our
+system; each one of the main sub-tasks is neatly and clearly 
+visualised and the overall presentation shows how each
+sub-task relates to the others. \\ \vspace{0.2cm}
+
+Starting from the top of the diagram I chose to display a
+home page once the user initially accesses our website. The 
+home page will be primarly used to greet the user, show them 
+what the web-app can do and get them to login. However from
+the home page users will also be able to access the system 
+documentation as well as a help page if users are having issues
+with using the system. We justify the need for a homepage by 
+highlighting the importance of a first impression. A 
+well-designed homepage can capture the attention of the user
+and encourage them to explore our web-app. If the homepage is
+able to provide a good first impression we will be able to 
+garner a larger userbase, and simultaneously ensure an 
+excellent user experience as they move around the UI. Moreover
+if our users are satisfied then our client will be too.

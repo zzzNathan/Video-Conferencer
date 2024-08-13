@@ -752,7 +752,9 @@ derive one's encryption key."} \footnote{Source:
 \url{https://bitwarden.com/help/what-encryption-is-used/}} 
 Through this kind of encryption the company is able to have
 it's users complete trust as they are sure that their data is 
-safe and cannot be read by anyone other than them. Fortunately
+safe and cannot be read by anyone other than them. Both of 
+these algorithms require large amounts of higher mathematics
+in order to implement them. Fortunately
 for our case we will not have to consider implementing these
 algotrithms because WebRTC provides built-in encryption.
 \vspace{0.2cm}
@@ -889,8 +891,10 @@ information about a given password in an object
 \texttt{result}. For instance 
 \texttt{result.feedback.suggestions} provides a list of 
 suggestions that the user can implement in order to make their
-password stronger. Having now seen how the algorithm works
-the advantages of using this model are numerous. It implements
+password stronger; e.g. \textit{"Add another word or two.
+Uncommon words are better."} Having now seen how the 
+algorithm works the advantages of using this model are clearly
+numerous. It employs the use of
 rigorous and accurate mathematical models in order to estimate
 the number of attempts that a password can be guessed in and 
 therefore the strength of any given password in 
@@ -1492,7 +1496,7 @@ this system improving client satisfaction.
 
 \subsection{Quantitative criteria}
 
-\textbf{4 - The video call latency should not exceed 150 ms}
+\textbf{4 - The video call latency should not exceed 150 ms.}
 
 \vspace{0.1cm}
 
