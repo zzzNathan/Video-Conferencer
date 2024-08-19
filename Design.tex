@@ -177,7 +177,7 @@ hand. We let DB denote our database for typographical reasons.
 \caption{Decomposition of the problem.}
 \end{figure}
 
-\subsection*{Explaining the breakdown}
+\subsection*{Explaining and justifying the breakdown}
 
 As discussed in \ref{sec:computational} decomposition can 
 reduce the complexity of a system by providing clear sub-tasks
@@ -266,6 +266,50 @@ create 1 system that is able to accommodate for a large
 number of people enhancing the accessibility of our platform, 
 a request outlined by my client in \ref{sec:interview}. 
 
+\newpage
 \subsection{Defining the structure of the solution}
+
+\subsubsection{Proposed system level 0 DFD}
+
+\begin{figure}[h]
+\label{fig:dfd0}
+\centering
+\begin{tikzpicture}
+
+  \node[draw, rectangle, minimum width=4cm, minimum height=1cm,
+	fill=lightestgray]
+    (sys) {\large Proposed system};
+
+  \node[draw, ellipse, minimum width=3cm, minimum height=1.5cm,
+	below right=of sys]
+    (user) {\large Users};
+
+  \node[draw, ellipse, minimum width=3cm, minimum height=1.5cm,
+	below left=of sys]
+    (host) {\large Host};
+
+  \node[draw, ellipse, minimum width=3cm, minimum height=1.5cm,
+	above=of sys]
+    (main) {\large Maintainers};
+
+  \draw[black, bend left=0.5cm, -{Latex[length=2.5mm]}]
+	  (sys) edge["1"] (main);
+  \draw[black, bend left=0.5cm, -{Latex[length=2.5mm]}]
+	  (main) edge["2"] (sys);
+  \draw[black, bend left=0.5cm, -{Latex[length=2.5mm]}]
+	  (host) edge["3"] (sys);
+  \draw[black, bend left=0.5cm, -{Latex[length=2.5mm]}]
+	  (sys) edge["4"] (host);
+  \draw[black, bend left=0.5cm, -{Latex[length=2.5mm]}]
+	  (sys) edge["5"] (user);
+  \draw[black, bend left=0.5cm, -{Latex[length=2.5mm]}]
+	  (user) edge["6"] (sys);
+  \draw[black, bend right=0.5cm, -{Latex[length=2.5mm]}]
+	  (host) edge["7"] (user);
+
+\end{tikzpicture}
+
+\caption{Proposed system level 0 DFD diagram.}
+\end{figure}
 
 \subsection{Proposed algorithms}
