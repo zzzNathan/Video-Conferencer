@@ -292,24 +292,74 @@ a request outlined by my client in \ref{sec:interview}.
 	above=of sys]
     (main) {\large Maintainers};
 
-  \draw[black, bend left=0.5cm, -{Latex[length=2.5mm]}]
+  \draw[black,  -{Latex[length=2.5mm]}]
 	  (sys) edge["1"] (main);
   \draw[black, bend left=0.5cm, -{Latex[length=2.5mm]}]
-	  (main) edge["2"] (sys);
+	  (host) edge["2"] (sys);
   \draw[black, bend left=0.5cm, -{Latex[length=2.5mm]}]
-	  (host) edge["3"] (sys);
+	  (sys) edge["3"] (host);
   \draw[black, bend left=0.5cm, -{Latex[length=2.5mm]}]
-	  (sys) edge["4"] (host);
+	  (sys) edge["3"] (user);
   \draw[black, bend left=0.5cm, -{Latex[length=2.5mm]}]
-	  (sys) edge["5"] (user);
-  \draw[black, bend left=0.5cm, -{Latex[length=2.5mm]}]
-	  (user) edge["6"] (sys);
+	  (user) edge["4"] (sys);
   \draw[black, bend right=0.5cm, -{Latex[length=2.5mm]}]
-	  (host) edge["7"] (user);
+	  (host) edge["5"] (user);
+  \draw[black, bend left=0.5cm, -{Latex[length=2.5mm]}]
+          (user) edge (host);
 
 \end{tikzpicture}
 
 \caption{Proposed system level 0 DFD diagram.}
 \end{figure}
 
-\subsection{Proposed algorithms}
+\textit{An explanation of the DFD is found below. The number 
+closest to each edge refers to the number in the left column
+of the explanation table below.} \vspace{-0.2cm}
+
+%recieve feedback from users
+\begin{longtblr}[
+  caption={Explanation of proposed system DFD.}
+]{
+  colspec={lX}, hlines, row{1}={lightestgray}
+}
+
+Edge & Commentary \\
+
+1 & {Maintainers recieve and analyse information relating to 
+     the performance of the proposed system, and use the
+     documentation provided with the system to suggest and 
+     make any necessary changes.} \\
+
+2 & {The host uses the proposed system in order to commence
+     video conferences and to invite all those whom they would
+     like to. Moreover the host will use the system to admit 
+     or remove people from the video conference, as they 
+     wish.} \\
+
+3 & {The system provides the host with audio and video from 
+     all the other participants in the video conference.}\\
+
+4 & {The user connects to video conferences via a code that 
+     was given to them by the host of the meeting. They can 
+     also raise their hand and tailor their experience via
+     the settings page.}\\
+
+5 & {Hosts and users are both able to communicate either via 
+     their microphones or via the built-in chat box on every 
+     video conference.}\\
+  
+\end{longtblr}
+
+\textit{Justifying the DFD.} The DFD above allows me and my 
+client to be able to clearly understand the plans for the 
+proposed system, in terms of some of it's main features and 
+functionalities. Furthermore the DFD diagram can be compared to
+the previous system's DFD diagram to ensure that the new 
+system is an adequate replacement, as discussed in
+\ref{sec:currdfd}. The usage of primitive shapes and clear 
+labelling ensures that the diagram is easily digestible, such 
+that even those who don't understand anything about software
+architecture will be able to grasp the structure of the 
+proposed solution.
+
+\subsection{\textsf Proposed algorithms}
