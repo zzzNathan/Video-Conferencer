@@ -68,15 +68,16 @@ quotes}
 \renewcommand{\mkbibnameprefix}[1]{\textsc{#1}}
 \renewcommand{\mkbibnamesuffix}[1]{\textsc{#1}}
 
-\titleformat{\chapter}[display]{}{\filleft\scshape\chaptername\enspace\thechapter}{-2pt}{\filright \Huge \bfseries \sffamily 
-\color{orange!35!black} \S \enskip \color{black}}[\vskip4.5pt\titlerule]
- \titleformat{name=\chapter, numberless}[block]{}{}{0pt}{\filright \Huge \bfseries \sffamily}[\vskip4.5pt\titlerule]
+\titleformat{\chapter}[display]{}{\filleft\scshape\chaptername\enspace\thechapter}{-2pt}
+{\filright \Huge \bfseries \sffamily \color{orange!35!black} 
+\color{black}}[\vskip4.5pt\titlerule]
+\titleformat{name=\chapter, numberless}[block]{}{}{0pt}{\filright \Huge \bfseries \sffamily}[\vskip4.5pt\titlerule]
 
- \titlespacing{\chapter}{0pt}{-15pt}{25.5pt}
- \titlespacing{name=\chapter, numberless}{0pt}{16pt}{15pt}
+\titlespacing{\chapter}{0pt}{-15pt}{25.5pt}
+\titlespacing{name=\chapter, numberless}{0pt}{16pt}{15pt}
 
-\titleformat*{\section}{\Large\bfseries\sffamily}
-\titleformat*{\subsection}{\large\bfseries\sffamily}
+\titleformat{\section}[hang]{\Large\bfseries\sffamily}{\color{orange!35!black}\S\thesection}{1em}{}[]
+\titleformat{\subsection}[hang]{\large\bfseries\sffamily}{\color{orange!35!black}\P\thesubsection}{1em}{}[]
 \titleformat*{\subsubsection}{\bfseries\sffamily}
 
 \newtcolorbox{mainbox}[1]{
@@ -109,6 +110,7 @@ quotes}
 \tableofcontents
 \newpage
 
+\listoffigures
 \listoftables
 
 \include{Analysis.tex}

@@ -780,8 +780,8 @@ system must be free \textit{"if at all possible"}. It turns
 out that free database hosting systems do exist provided some 
 conditions, like storage limits are imposed. The following 
 table details the results from some of my independent research
-on this topic. \footnote{Source:
-\url{https://gist.github.com/bmaupin/0ce79806467804fdbbf8761970511b8c}, Information here was personally fact-checked.}
+on this topic. 
+%Source: https://gist.github.com/bmaupin/0ce79806467804fdbbf8761970511b8c
 
 
 \begin{longtblr}[
@@ -841,10 +841,7 @@ simply import one of his implementations into our codebase as
 a module ensuring that only accurate and tested code is used 
 in the system. To justify usage of the algorithm we should
 first \textit{briefly} examine exactly what the algorithm is
-doing. \footnote{Note that Daniel Wheeler explains his
-algorithm at a much more in-depth level in his paper, which
-may be found in the citation above, if you wish to learn
-more.} \texttt{zxcvbn} consists of 3 main phases: 1) matching,
+doing. \texttt{zxcvbn} consists of 3 main phases: 1) matching,
 2) estimation and 3) search. Throughout the rest of this
 paragraph define $p$ to be some arbitrary password of length
 $n$ characters. The matching phase takes contiguous
@@ -855,8 +852,10 @@ following example in his paper; the password
 \texttt{lenovo1111} will be pattern matched like so.
 
 \[
-  \underbrace{ \mathtt{lenovo} }_\text{token} \; \;
-  \underbrace{ \mathtt{1111} }_\text{repeat}
+  \Large
+  \underbrace{ \mathtt{lenovo} }_\text{\small Token} 
+  \; \; \;
+  \underbrace{ \mathtt{1111} }_\text{\small Repeat}
 \]
 
 Different methods are used to find each class of pattern, for 
@@ -864,8 +863,10 @@ instance in order to match tokens the algorithm first takes
 a password $p$ it entirely lowercase, it then checks all 
 $n(n+1)/2$ non-empty substrings with a frequency ranked
 dictionary, if there are symbols in $p$ it creates extra 
-strings making leet substitutions \footnote{Leet substutions are symbols that are used to replace characters like the word
-\texttt{@pp1e} $\rightarrow$ \texttt{apple}.}
+strings making leet substitutions \footnote{A \textit{Leet}
+substution is a symbol that is used to replace characters in words
+to create a stylised version of that word. For example,
+\texttt{apple} $\rightarrow$ \texttt{@pp1e}.}
 and does the same check on these. The next phase is
 estimation where we estimate the number of guesses in order
 to successfully guess each match in some password. Again
@@ -980,8 +981,9 @@ are generous my final descision is motivated by my client's
 words in our interview, \textit{I'd prefer the application to
 be completely free if at all possible.} Altcha is completely
 free and poses no limitations or restrictions on it's use 
-because it is self-hosted and this API aligns itself fully 
-with the requests of my client.
+because it is self-hosted and we have seen that this API's 
+philosophy aligns itself fully with the requests of my
+client, justifying it as a suitable choice for this project.
 
 \subsubsection{Conclusions}
 
@@ -1378,7 +1380,12 @@ via the \texttt{zxcvbn} module.
 
 Data backups will be made nightly (every 24 hours) to ensure
 that none of our user's data is lost, as per the request of
-my client in \ref{sec:interview}.
+my client in \ref{sec:interview}. Throughout this project I 
+will always prioritise the requests of my client in reference
+to the design choices that are made. This improves client 
+satisfaction because my client will feel more in-control of
+the design process as well as ensure that my client is happy
+with the software created at the end of this project.
 
 \subsection{Software requirements}
 
