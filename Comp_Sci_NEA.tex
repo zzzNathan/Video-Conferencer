@@ -1,7 +1,7 @@
 \documentclass{report}
-\usepackage{fancyhdr, tcolorbox, xcolor, amsthm, xurl, xskak, tabularray}
-\usepackage{minted, hyperref, tikz, graphicx, amsmath, amssymb, amsfonts, titlesec}
-\usepackage{biblatex}
+\usepackage{fancyhdr, tcolorbox, xcolor, amsthm, xurl, tabularray}
+\usepackage{minted, hyperref, tikz, graphicx, amsmath, amssymb, amsfonts, titlesec, lmodern}
+\usepackage{biblatex, erd}
 \usetikzlibrary{shapes.geometric, arrows.meta, automata,
 quotes}
 \renewcommand{\chaptername}{Section}
@@ -89,9 +89,10 @@ quotes}
   base={#1}
 }
 
-\author{\bfseries{Jonathan Kasongo}}
-\title{\huge\sffamily{\bfseries Video conferencing}}
+\author{\Large \bfseries{Jonathan Kasongo}}
+\title{\Huge\sffamily{\bfseries Video conferencing}}
 \date{
+  \vspace{0.5cm}
   \sffamily{\bfseries OCR A-level Computer Science NEA}\\
   \vspace{12cm}
   \hspace*{-9.5cm}

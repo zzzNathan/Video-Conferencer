@@ -1,11 +1,12 @@
 \pagestyle{fancy}
 \rhead{\bfseries OCR A-Level Computer Science}
 \chead{\bfseries \thepage}
-\lhead{\bfseries Jonathan Kasongo}
+\lhead{\bfseries Jonathan Kasongo \mdseries — 2025/26}
 \lfoot{\sffamily Candidate number: N/A}
 \rfoot{\sffamily Centre number: N/A}
 
 \usetikzlibrary{positioning}
+\usetikzlibrary{calc}
 
 \chapter{Design}
 
@@ -88,7 +89,6 @@ hand. We let DB denote our database for typographical reasons.
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of video ]
    (save) {\large Save settings to \textit{DB}};
-
 
   \coordinate[right=2cm of code.east] (here);
 
@@ -266,12 +266,62 @@ create 1 system that is able to accommodate for a large
 number of people enhancing the accessibility of our platform, 
 a request outlined by my client in \ref{sec:interview}. 
 
-\newpage
 \subsection{Defining the structure of the solution}
+
+\subsubsection{Entity relationship diagram — \textit{Draft}}
+
+% We need to store user logins, 
+% user configurations say video, audio and accessibility 
+% so 3 tables, one with logins, one with configurations, 
+% etc... 
+
+\begin{figure}[H]
+\label{fig:dfd1}
+\centering
+
+\begin{tikzpicture}
+
+  \pic{entity={logins}{\sffamily Logins}{
+    \underline{\textbf{UserID}} & \texttt{int} \\
+    Username & \texttt{string} \\
+    Password & \texttt{string} \\
+  }};
+
+  \pic[below right=of logins]{entity={video}{\sffamily Video\_cfg}{
+    \textit{UserID} & \texttt{int} \\
+    Video quality & \texttt{int} \\
+    Video on by default & \texttt{bool} \\
+  }};
+
+  \pic[below left=of logins]{entity={audio}{\sffamily Audio\_cfg}{
+    \textit{UserID} & \texttt{int} \\
+    Speaker volume & \texttt{int} \\
+    Microphone volume & \texttt{int} \\
+    Mic on by default & \texttt{bool} \\
+    Hide self-view & \texttt{bool} \\
+  }};
+
+  \pic[below=of logins]{entity={access}{\sffamily Accessibility\_cfg}{
+    \textit{UserID} & \texttt{int} \\
+    Font size & \texttt{int} \\
+    Macros & \texttt{string} \\
+    Closed captioning & \texttt{bool} \\ 
+  }};
+
+  \draw[-{crow's foot}] (logins) -| (video);
+  \draw[-{crow's foot}] (logins) -| (audio);
+  \draw[-{crow's foot}] (logins) -- (access);
+
+\end{tikzpicture}
+
+\caption{The draft ER diagram.}
+\end{figure}
+
+\subsubsection{Explaining and justifying the ER diagram}
 
 \subsubsection{Proposed system level 0 DFD}
 
-\begin{figure}[h]
+\begin{figure}[H]
 \label{fig:dfd0}
 \centering
 \begin{tikzpicture}
