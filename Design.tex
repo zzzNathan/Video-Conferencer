@@ -1,6 +1,6 @@
 \pagestyle{fancy}
 \rhead{\bfseries OCR A-Level Computer Science}
-\chead{\bfseries \thepage}
+\chead{\mdseries \thepage}
 \lhead{\bfseries Jonathan Kasongo \mdseries — 2025/26}
 \lfoot{\sffamily Candidate number: N/A}
 \rfoot{\sffamily Centre number: N/A}
@@ -266,6 +266,7 @@ create 1 system that is able to accommodate for a large
 number of people enhancing the accessibility of our platform, 
 a request outlined by my client in \ref{sec:interview}. 
 
+\newpage
 \subsection{Defining the structure of the solution}
 
 \subsubsection{Entity relationship diagram — \textit{Draft}}
@@ -274,6 +275,8 @@ a request outlined by my client in \ref{sec:interview}.
 % user configurations say video, audio and accessibility 
 % so 3 tables, one with logins, one with configurations, 
 % etc... 
+
+\textit{The acronym "cfg" denotes configuration.}
 
 \begin{figure}[H]
 \label{fig:dfd1}
@@ -296,7 +299,7 @@ a request outlined by my client in \ref{sec:interview}.
   \pic[below left=of logins]{entity={audio}{\sffamily Audio\_cfg}{
     \textit{UserID} & \texttt{int} \\
     Speaker volume & \texttt{int} \\
-    Microphone volume & \texttt{int} \\
+    Mic volume & \texttt{int} \\
     Mic on by default & \texttt{bool} \\
     Hide self-view & \texttt{bool} \\
   }};
@@ -317,7 +320,72 @@ a request outlined by my client in \ref{sec:interview}.
 \caption{The draft ER diagram.}
 \end{figure}
 
+% config id so that configs that are the same use same id
+
 \subsubsection{Explaining and justifying the ER diagram}
+
+This entity relationship (ER) diagram was my first attempt at
+designing the database for this project. It captures the 
+general structure and idea that I had in mind for how the
+database of my system should work. Loosely there are 4 main 
+categories of data, login data, audio configurations,
+video configurations and accessibility configurations, that
+would have to be stored in our database. Naturally I decided 
+to split these 4 categories into 4 individual tables, such 
+that each table should hold 1 category of data. This should 
+make life simpler once I begin implementation, for example 
+when I have to make a queries about a collection of related
+pieces of data I will only need to query the 1 table whose 
+label should cover the data I need at that point. I make use 
+of a unique numeric ID in order to identify each user and this
+is seen as the primary key in the table {\sffamily Logins}.
+These IDs are then used to link each user account to their 
+relevant configurations via the 3 tables ending in 
+{\sffamily \_cfg}. Though this design choice was ok for a 
+first draft I soon realised that there were obvious
+improvements that could be made. I present some of the flaws
+of our current design with an illustration. Suppose that you 
+wish to find \emph{all} the configurations that a specific 
+user has tied to their account.
+
+\begin{algorithm}
+\caption{Pseudo code for finding all configurations tied to a
+user.}
+\label{alg:long}
+\sffamily
+
+\begin{algorithmic}[1]
+  \Function{Get\_All\_Configs}{ID}
+    \Let{User\_ID}{ID}
+    \Let{Configs}{$\{\}$} \Comment{Let Configs be an array.}
+    \State{}
+    
+    \State{Configs.insert( Query\_tbl(Audio\_cfg, User\_ID, Speaker volume) )}
+    \State{Configs.insert( Query\_tbl(Audio\_cfg, User\_ID, Mic volume) )}
+    \State{Configs.insert( Query\_tbl(Audio\_cfg, User\_ID, Mic on by default) )}
+    \State{\ldots}
+    \State{}
+
+    \State{\textbf{return} Configs}
+  \EndFunction
+\end{algorithmic}
+
+\end{algorithm}
+
+\mdseries
+
+Algorithm \ref{alg:long} shows a sketch of the algorithm
+necessary to solve our problem in pseudo-code. Unfortunately
+with our database approach this request is tedious and
+inelegant. The function will call the \code{Query\_tbl()}
+function 9 times! Not only will this function be slow, due to
+the repeated queries to an external database, but it
+also violates the DRY software development principle we are
+adhering to, as discussed in \ref{sec:computational}. We now 
+propose a solution to this issue that allows us to use at most
+1 call to the \code{Query\_tbl()} function.
+
+\subsubsection{Entity relationship diagram — \textit{Final}}
 
 \subsubsection{Proposed system level 0 DFD}
 

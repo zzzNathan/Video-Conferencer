@@ -1,7 +1,8 @@
 \documentclass{report}
-\usepackage{fancyhdr, tcolorbox, xcolor, amsthm, xurl, tabularray}
+\usepackage{fancyhdr, tcolorbox, xcolor, amsthm, xurl, tabularray, algorithmicx, algorithm}
 \usepackage{minted, hyperref, tikz, graphicx, amsmath, amssymb, amsfonts, titlesec, lmodern}
 \usepackage{biblatex, erd}
+\usepackage[noend]{algpseudocode}
 \usetikzlibrary{shapes.geometric, arrows.meta, automata,
 quotes}
 \renewcommand{\chaptername}{Section}
@@ -43,6 +44,8 @@ quotes}
     toptitle=0.75mm, 
   }
 }
+
+\newcommand*\Let[2]{\State #1 $\gets$ #2}
 
 \newcommand\code[2][]{
     \tikz[baseline=(s.base)]{
