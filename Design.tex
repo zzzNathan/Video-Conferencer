@@ -23,8 +23,6 @@ hand. We let DB denote our database for typographical reasons.
 \label{fig:decomp}
 \centering
 
-\scalebox{1.0}
-{
 \begin{tikzpicture}[every node/.style={scale=0.54}]
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, fill=lightestgray]
@@ -172,7 +170,6 @@ hand. We let DB denote our database for typographical reasons.
     (access.south) -- (a) -- (save.east);
 
 \end{tikzpicture}
-}
 
 \caption{Decomposition of the problem.}
 \end{figure}
@@ -270,6 +267,7 @@ a request outlined by my client in \ref{sec:interview}.
 \subsection{Defining the structure of the solution}
 
 \subsubsection{Entity relationship diagram — \textit{Draft}}
+\label{sec:erdd}
 
 % We need to store user logins, 
 % user configurations say video, audio and accessibility 
@@ -279,13 +277,12 @@ a request outlined by my client in \ref{sec:interview}.
 \textit{The acronym "cfg" denotes configuration.}
 
 \begin{figure}[H]
-\label{fig:dfd1}
 \centering
 
 \begin{tikzpicture}
 
   \pic{entity={logins}{\sffamily Logins}{
-    \underline{\textbf{UserID}} & \texttt{int} \\
+    \underline{UserID} & \texttt{int} \\
     Username & \texttt{string} \\
     Password & \texttt{string} \\
   }};
@@ -311,19 +308,19 @@ a request outlined by my client in \ref{sec:interview}.
     Closed captioning & \texttt{bool} \\ 
   }};
 
-  \draw[-{crow's foot}] (logins) -| (video);
-  \draw[-{crow's foot}] (logins) -| (audio);
-  \draw[-{crow's foot}] (logins) -- (access);
+  \draw[] (logins) -| (video);
+  \draw[] (logins) -| (audio);
+  \draw[] (logins) -- (access);
 
 \end{tikzpicture}
 
 \caption{The draft ER diagram.}
+\label{fig:erdd}
 \end{figure}
 
 % config id so that configs that are the same use same id
 
-\subsubsection{Explaining and justifying the ER diagram}
-
+\textit{Explaining and justifying the ER diagram draft.}
 This entity relationship (ER) diagram was my first attempt at
 designing the database for this project. It captures the 
 general structure and idea that I had in mind for how the
@@ -363,6 +360,7 @@ user.}
     \State{Configs.insert( Query\_tbl(Audio\_cfg, User\_ID, Speaker volume) )}
     \State{Configs.insert( Query\_tbl(Audio\_cfg, User\_ID, Mic volume) )}
     \State{Configs.insert( Query\_tbl(Audio\_cfg, User\_ID, Mic on by default) )}
+    \State{Configs.insert( Query\_tbl(Audio\_cfg, User\_ID, Hide self-view) )}
     \State{\ldots}
     \State{}
 
@@ -383,9 +381,146 @@ the repeated queries to an external database, but it
 also violates the DRY software development principle we are
 adhering to, as discussed in \ref{sec:computational}. We now 
 propose a solution to this issue that allows us to use at most
-1 call to the \code{Query\_tbl()} function.
+2 calls to the \code{Query\_tbl()} function.
 
 \subsubsection{Entity relationship diagram — \textit{Final}}
+
+\begin{figure}[H]
+\centering
+
+\begin{tikzpicture}
+
+  \pic{entity={logins}{\sffamily Logins}{
+    \underline{UserID} & \texttt{int} \\
+    \textit{ConfigID} & \texttt{int} \\
+    Username & \texttt{string} \\
+    Password & \texttt{string} \\
+  }};
+
+  \pic[below=of logins]{entity={configs}{\sffamily Configs}{
+    \underline{ConfigID} & \texttt{int} \\
+    \textit{VideoID} & \texttt{int} \\
+    \textit{AudioID} & \texttt{int} \\
+    \textit{AccessID} & \texttt{int} \\
+    Cfg data & \texttt{string (JSON)} \\
+  }};
+
+  \pic[below right=of configs]{entity={video}{\sffamily Video\_cfg}{
+    \underline{VideoID} & \texttt{int} \\
+    Video quality & \texttt{int} \\
+    Video on by default & \texttt{bool} \\
+    Video data & \texttt{string (JSON)}\\
+  }};
+
+  \pic[below left=of configs]{entity={audio}{\sffamily Audio\_cfg}{
+    \underline{AudioID} & \texttt{int} \\
+    Speaker volume & \texttt{int} \\
+    Mic volume & \texttt{int} \\
+    Mic on by default & \texttt{bool} \\
+    Hide self-view & \texttt{bool} \\
+    Audio data & \texttt{string (JSON)}\\
+  }};
+
+  \pic[below=of configs]{entity={access}{\sffamily Accessibility\_cfg}{
+    \underline{AccessID} & \texttt{int} \\
+    Font size & \texttt{int} \\
+    Macros & \texttt{string (JSON)} \\
+    Closed captioning & \texttt{bool} \\ 
+    Access data & \texttt{string (JSON)}\\
+  }};
+
+  \coordinate[right=7.5em of configs.east] (v);
+  \coordinate[left=7.5em of configs.west] (a);
+
+  \draw[] (configs) -- (logins);
+  \draw[-{crow's foot}] (audio.north) -| (a) -- (configs.west);
+  \draw[-{crow's foot}] (access) -- (configs);
+  \draw[-{crow's foot}] (video.north) -| (v) -- (configs.east);
+
+\end{tikzpicture}
+
+\caption{The final ER diagram.}
+\label{fig:erdf}
+\end{figure}
+
+\textit{Explaining and justifying the final ER diagram.}
+As a pre-requisite to the discussion of our final ER diagram, 
+we will first explain exactly what a JSON string is and why we
+chose to use it here. A JavaScript object notation (JSON) 
+string is a string of key value pairs similar to a hashmap or 
+a dictionary. As we can see in the name the format of the
+string is based on JavaScript's syntax. One advantage of this
+format is that we can quickly turn it into a JavaScript object
+with JavaScript's built-in \code{JSON.parse()} function. JSON
+syntax is straightforward and easy for developers to read and
+understand;
+
+\begin{minted}[
+  linenos, bgcolor=codebg, frame=lines, framesep=15\fboxrule,
+  framerule=1pt, rulecolor=\color{gray!40}]{js}
+  // 32 is the key code for space, 13 is the key code for enter.
+  var Access_data = JSON.parse('{
+    "Font size": 18,
+    "Macros": {
+      "Unmute": 32,
+      "Cam off": 13 
+    },
+    "Closed captioning": false
+  }');
+\end{minted}
+
+the example above presents how the JSON string in the Access 
+data attribute may look. Thanks to the JSON syntax our data 
+is clear and easily understood, this enables developers to be
+able to look at the data that is being stored in these 
+JavaScript objects, so that they can have an easier time 
+debugging any unintentional results or errors that may occur 
+in our database system. Hence the application of JSON strings 
+provides a neat and structured format to store data as well as
+improves the maintainability of the database portion of our
+system. Moreover the format works very nicely in harmony with
+the JavaScript programming language, a language that we will
+make use of extensively seeing as our system is a web-app, 
+because of the close relationship between JavaScript and JSON
+syntax. \\ \vspace{0.2cm}
+
+The changes in the final ER diagram all revolve around the new
+ConfigID attribute. The user's complete configuration used to 
+be comprised of numerous attributes that were stored across
+multiple tables. Now each collection of configuration
+attributes has been given it's own table in the
+{\sffamily Configs} table. This table stores a string, more 
+precisely a JSON string, that maps each configuration
+attribute to it's corresponding value. In essence instead of 
+treating each configuration attribute as it's own seperate
+object, we now store all of a user's configurations together
+in one object, like how a bag stores a collection of items. 
+This approach to our database design allows us to solve the 
+problem we had in \ref{fig:erdd}, now in order to request 
+\textit{all} of a user's configurations we may use the 
+following two-liner;\\
+
+\begin{center}
+\begin{tblr}{colspec={l}, rowsep=0pt}
+  {\sffamily Config\_ID} $\gets$ {\sffamily Query\_tbl(Logins, UserID, ConfigID)}\\
+  {\sffamily \textbf{return} Query\_tbl(Configs, Config\_ID, Cfg data)}\\
+\end{tblr}
+\end{center}
+
+Not only is this code much shorter and more clear than the 
+code in algorithm \ref{alg:long} but it will also run much
+faster, with just 2 calls to \code{Query\_tbl()}. Moreover
+with this new approach we can still adhere to the DRY software
+development principle, since we are no longer forced to repeat
+code unnecessarily. Another issue that this new design solves
+is duplicate configurations. For instance in figure 
+\ref{fig:erdd} if 2 users happen to have the same
+configuration then this data will simply be duplicated in our 
+table and take up unnecessary space in our table. However 
+with the design in figure \ref{fig:erdf} if 2 users have for
+example the same audio settings then they can simply use the
+same audio ID, meaning that this specific audio configuration 
+only needs to be stored once in our database.
 
 \subsubsection{Proposed system level 0 DFD}
 
