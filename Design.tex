@@ -432,7 +432,7 @@ propose a solution to this issue that allows us to use at most
   \coordinate[right=7.5em of configs.east] (v);
   \coordinate[left=7.5em of configs.west] (a);
 
-  \draw[] (configs) -- (logins);
+  \draw[-{crow's foot}] (configs) -- (logins);
   \draw[-{crow's foot}] (audio.north) -| (a) -- (configs.west);
   \draw[-{crow's foot}] (access) -- (configs);
   \draw[-{crow's foot}] (video.north) -| (v) -- (configs.east);
@@ -512,7 +512,10 @@ code in algorithm \ref{alg:long} but it will also run much
 faster, with just 2 calls to \code{Query\_tbl()}. Moreover
 with this new approach we can still adhere to the DRY software
 development principle, since we are no longer forced to repeat
-code unnecessarily. Another issue that this new design solves
+code unnecessarily. The database is also in 3rd normal form
+enhancing the efficiency of our system as 
+well as ensuring that data integrity is achieved.
+Another issue that this new design solves
 is duplicate configurations. For instance in figure 
 \ref{fig:erdd} if 2 users happen to have the same
 configuration then this data will simply be duplicated in our 
@@ -520,7 +523,93 @@ table and take up unnecessary space in our table. However
 with the design in figure \ref{fig:erdf} if 2 users have for
 example the same audio settings then they can simply use the
 same audio ID, meaning that this specific audio configuration 
-only needs to be stored once in our database.
+only needs to be stored once in our database. It is clear to 
+see that with this new approach we not only save memory in 
+the long term, at the cost of 1 extra table, but we also 
+improve the performance of our system dramatically. \\
+\vspace{0.2cm}
+
+Although the
+database system will increase in size temporarily I argue that
+the size of the database will be smaller as compared to the 
+draft database design as the number of users increases. All of
+our configuration options take a discrete set of values, for 
+instance font size will only be able to take on an integer
+value $12 \leq f \leq 40$. For each configuration option let
+$c_1, c_2, \ldots, c_N$ be the of length $N$ sequence of all
+the possible configurations for our 
+system (note that this is allowed because all of configuration
+options are numerical, the \texttt{bool} data type can simply
+be represented by a number that is either 0 or 1). Denote
+$c_i$ to be the $i$-th configuration and $|c_i| \in \mathbb{N}$
+to be the number of possible options that this configuration 
+can take on. Suppose that we have $n$ users in our system,
+for each configuration option let
+$X_{i, 1}, X_{i, 2}, \ldots, X_{i, n}$ a sequence of $n$
+independent discrete uniform random variables, 
+where $X_{i, j}$ denotes the value of the $i$-th configuration
+option for the $j$-th user. Let $\mu_i$ be the finite expected
+value of the $i$-th configuration. Denote $\overline{X_i}$ to 
+be the sample mean of the $i$-th configuration for all or our
+$n$ users. By \textit{Kolmogorov's strong law} \cite{thm}
+we have,
+
+\begin{equation} \label{eq:kol}
+  Pr \left(\lim_{n \to \infty} \overline{X_i} = \mu_i \right) = 1
+\end{equation}
+
+over all valid values of $i$. From the definition of a limit
+we can conclude that as $n$ grows larger the sample mean 
+converges almost surely to it's expected value. Whilst
+equation \ref{eq:kol} can provide some motivation for the 
+direction of our arguement \textit{Kolmogorov's strong law}
+cannot be applied because we can never have an infinite number
+of users in our system. Instead we will consider the
+configuration option $c_m$ where this configuration option is
+able to take on the largest number of values. Formally, we
+take a configuration option $c_m$ such that
+$\max_{i=1}^{N} |c_i| = m$. We will then show that with a 
+sufficiently large userbase that users will inevitably start
+picking the same values for their configuration options. The 
+options that are able to take on the largest number of values 
+are the 2 volume options in {\sffamily Audio\_cfg}. We let 
+users choose some integer volume $0 \leq v \leq 100$. By the 
+\textit{pigeonhole principle} once we have 102 users we 
+must have at least 2 users who have chosen the same 
+volume $v$. This is because we have 101 different options for 
+the value that $v$ could take on, and in the worst case 
+scenario each user would take on a unique value of $v$. Above
+the threshold of 101 users every value of $v$ would already 
+have at least 1 user who has selected this value and hence the
+$102^{nd}$ user has to choose a volume value which someone else
+has already chosen. More generally starting from user 1, every
+$101^{th}$ user must choose a volume that has already been 
+chosen before causing a new duplicate. This is seen by 
+repeatedly applying the \textit{pigeonhole principle}. As the
+number of users increase the number of duplicates for volume
+grows linearly. For instance if we have just 
+$1011 = 101 \cdot 10 + 1$ users then we must
+have at least 10 duplicates for values of $v$. More worryingly
+since the volume example was the worst case scenario (because
+volume has the largest number of options that a user can 
+choose) we can see that every other configuration option will 
+also have to have $\geq 10$ duplicates. We have 9 options 
+total so across all tables there has to be at least 90
+duplicates, and in fact the number of duplicates will be much 
+greater in reality. The 4 boolean options will have
+duplicates every 2 users! Hence these options will at least
+505 duplicates (from the calculation $2 \cdot 505 + 1 = 1011$).
+Multiplying by the 4 boolean options yields 2020 duplicates
+\textit{minimum} over the 4 boolean options only! It is not 
+hard to see that once the number of users starts to grow our
+database will rapidly fill up with duplicates resulting in
+catastrophically large database sizes and hence users will be
+unable to use our system as their data simply can no longer  
+recorded in our database. With our final database design we 
+can guarantee that our database won't have any duplicates 
+saving me and my client from a multitude of economical and 
+logistical issues in the future. \\ \vspace{0.2cm}
+%mumble mumble Central limit thm, lots of collisions mumble 
 
 \subsubsection{Proposed system level 0 DFD}
 
