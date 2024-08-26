@@ -568,7 +568,7 @@ of users in our system. Instead we will consider the
 configuration option $c_m$ where this configuration option is
 able to take on the largest number of values. Formally, we
 take a configuration option $c_m$ such that
-$\max_{i=1}^{N} |c_i| = m$. We will then show that with a 
+$\max_{i=1}^{N} |c_i| = |c_m|$. We will then show that with a 
 sufficiently large userbase that users will inevitably start
 picking the same values for their configuration options. The 
 options that are able to take on the largest number of values 
@@ -720,5 +720,67 @@ innovation and improvement of our system namely via it's
 future maintainers.
 
 \subsubsection{Proposed system level 1 DFD}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+
+\node[draw, rectangle, minimum width=2.8cm, minimum height=0.8cm,
+	fill=lightestgray]
+    (login) {Login page};
+
+\node[draw, rectangle, minimum width=2.8cm, minimum height=0.8cm,
+	fill=lightestgray, right=of login]
+    (help) {Help page};
+
+\node[draw, rectangle, minimum width=2.8cm, minimum height=0.8cm,
+	fill=lightestgray, left=of login]
+    (docs) {Documentation};
+
+\node[draw, rectangle, minimum width=2.8cm, minimum height=0.8cm,
+	fill=lightestgray, below=of login]
+    (main) {Main page};
+
+\node[draw, ellipse, minimum width=2.8cm, minimum height=1.0cm,
+	above=5cm of docs]
+    (fix) {Maintainers};
+
+\node[draw, ellipse, minimum width=2.8cm, minimum height=1.0cm,
+	above=5cm of login]
+    (user) {Users};
+
+\node[draw, ellipse, minimum width=2.8cm, minimum height=1.0cm,
+	above=5cm of help]
+    (host) {Host};
+
+% \faClipboard for forms
+\draw[black, -{Latex[length=2.5mm]}]
+  (fix) -- node[rectangle split, 
+	        rectangle split parts=2,
+                text height=1.0ex, text width=8.0em,
+                text centered, fill=white] 
+	{\nodepart[font=\scriptsize]{second}
+	\begin{tblr}{colspec={X},vlines,hlines}
+	  \faSearch \space Search\\
+	  Maintainers may search the documentation in order to 
+	  understand parts of the system\\
+        \end{tblr}
+        } (docs);
+
+\draw[black, -{Latex[length=2.5mm]}]
+  (user) -- node[rectangle split, 
+	        rectangle split parts=2,
+                text height=1.0ex, text width=8.0em,
+                text centered, fill=white] 
+	{\nodepart[font=\scriptsize]{second}
+	\begin{tblr}{colspec={X},vlines,hlines}
+	  \faClipboard \space Form\\
+	  Users may login/sign up with their own account
+	  details\\
+        \end{tblr}
+        } (login);
+
+\end{tikzpicture}
+\end{figure}
 
 \subsection{\textsf Proposed algorithms}
