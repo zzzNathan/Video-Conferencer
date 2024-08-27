@@ -1339,15 +1339,21 @@ system requirements needed to run this application.
 
 Outputs like the video and audio from other participants will 
 be displayed on the screen and played out of the user's 
-speakers respectively. Moreover the user will have access to 
+speakers respectively. If a users volume is at 0 (or some 
+other very low value) then we will 
+notify them so that they aren't confused on why they hear no 
+audio. Moreover the user will have access to 
 information like whether their mic is currently muted/unmuted,
 whether or not their camera is working and if their virtual 
-hand is currently raised. In an effort to satisfy the client's
-request to have \textit{"a focus on simplicity"} the GUI will
-be designed to present all this information in a clear, simple
-and professional manner. Justification for a simple GUI was
-given in \ref{sec:features} under \textit{Simple and user 
-friendly UI}.
+hand is currently raised. These pieces of information are
+some of the most important in the context of video
+conferencing, so it is essential to ensure that the user can 
+clealy access these outputs. Finally in an effort to satisfy
+the client's request to have \textit{"a focus on simplicity"}
+the GUI will be designed to present all this information in a
+clear, simple and professional manner. Justification for a
+simple GUI was given in \ref{sec:features} under 
+\textit{Simple and user friendly UI}.
 
 \subsection{User Interface}
 
@@ -1483,7 +1489,8 @@ Data processing & {Video and audio data will be compressed and packetized
 		   and format video/audio data into packets.}\\
 
 Outputs & {Video data from other participants will be displayed on screen,
-           audio data will be played on the user's speakers. The GUI will 
+           audio data will be played on the user's speakers. User will be 
+	   notified if their current volume level is 0 or very low. The GUI will 
            present important information to the user and will be designed
            with simplicity in mind.} & {Alternatively, audio data could be 
 	   played in the user's headphones potentially providing a better 

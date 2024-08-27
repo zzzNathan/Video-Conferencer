@@ -1,96 +1,14 @@
-\documentclass{report}
-\usepackage{fancyhdr, tcolorbox, xcolor, amsthm, xurl, tabularray, algorithmicx, algorithm}
-\usepackage{minted, hyperref, tikz, graphicx, amssymb, amsfonts, titlesec, lmodern}
-\usepackage{biblatex, erd, amsmath, fontawesome}
-\usepackage[noend]{algpseudocode}
-\usetikzlibrary{shapes.geometric, arrows.meta, automata,
-quotes}
-\renewcommand{\chaptername}{Section}
-\tcbuselibrary{breakable}
-\usepackage[a4paper, bottom=1in, top=1in, left=0.6in,
-            right=0.6in]{geometry}
-\usepackage[toc, page]{appendix}
-\usepackage[document]{ragged2e}
-\usepackage{microtype}
-\hypersetup{
-  colorlinks = true,
-  urlcolor   = blue,
-  linkcolor  = blue,
-}
-\addbibresource{References.bib}
-\graphicspath{ {Images/} }
-\definecolor{lightgray}{gray}{0.93}
-\definecolor{lightestgray}{gray}{0.96}
-\definecolor{sallegreen}{rgb}{0.0, 0.61, 0.30}
-\definecolor{codebg}{RGB}{241, 241, 241}
-\definecolor{codebd}{RGB}{225, 225, 225}
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}[theorem]{Lemma}
-\renewcommand{\footrulewidth}{0.4pt}
-\newcommand{\ita}[1]{\textit{#1}}
-\newcommand{\bld}[1]{\textbf{#1}}
-\tcbset {
-  base/.style={
-    arc=0mm, 
-    bottomtitle=0.5mm,
-    boxrule=0mm,
-    colbacktitle=black!10!white, 
-    coltitle=black, 
-    fonttitle=\bfseries, 
-    left=2.5mm,
-    leftrule=1mm,
-    right=3.5mm,
-    title={#1},
-    toptitle=0.75mm, 
-  }
-}
+%&preamble
 
-\newcommand*\Let[2]{\State #1 $\gets$ #2}
+% Precompiles the preamble,
+% Source: https://tex.stackexchange.com/questions/15604/how-to-speed-up-pdflatex-for-a-very-large-document-on-macos-x/15606#15606
 
-\newcommand\code[2][]{
-    \tikz[baseline=(s.base)]{
-        \node(s)[
-            rounded corners,
-            fill=gray!13,        % background color
-            draw=gray!19,         % border of box
-            text=gray!50!black, % text color
-            inner xsep =3pt,    % horizontal space between text and border
-            inner ysep =0pt,    % vertical space between text and border
-            text height=2ex,    % height of box
-            text depth =1ex,    % depth of box
-            #1                  % other options
-        ]{\sffamily #2};
-    }
-}
-
-\DeclareMathOperator*{\argmin}{arg\,min}
-
- \usepackage{titlesec}
-\renewcommand{\mkbibnamegiven}[1]{\textsc{#1}}
-\renewcommand{\mkbibnamefamily}[1]{\textsc{#1}}
-\renewcommand{\mkbibnameprefix}[1]{\textsc{#1}}
-\renewcommand{\mkbibnamesuffix}[1]{\textsc{#1}}
-
-\titleformat{\chapter}[display]{}{\filleft\scshape\chaptername\enspace\thechapter}{-2pt}
-{\filright \Huge \bfseries \sffamily \color{orange!35!black} 
-\color{black}}[\vskip4.5pt\titlerule]
-\titleformat{name=\chapter, numberless}[block]{}{}{0pt}{\filright \Huge \bfseries \sffamily}[\vskip4.5pt\titlerule]
-
-\titlespacing{\chapter}{0pt}{-15pt}{25.5pt}
-\titlespacing{name=\chapter, numberless}{0pt}{16pt}{15pt}
-
-\titleformat{\section}[hang]{\Large\bfseries\sffamily}{\color{purple}\S\thesection}{0.8em}{}[]
-\titleformat{\subsection}[hang]{\large\bfseries\sffamily}{\color{purple}\P\thesubsection}{0.8em}{}[]
-\titleformat*{\subsubsection}{\bfseries\sffamily}
-
-\newtcolorbox{mainbox}[1]{
-  colframe=sallegreen, 
-  base={#1}
-}
-\newtcolorbox{proofbox}[1]{
-  colframe=red!20,
-  base={#1}
-}
+% Setup:
+% ——————
+% 1) Place all your packages into a file called preamble.tex
+% 2) Execute this in your command line <pdflatex -shell-escape -ini -jobname="preamble" "&pdflatex preamble.tex\dump">
+% 3) Add this to the top of your main tex file <%&preamble>
+% 4) Compile your document with <pdflatex -shell-escape <file_name_here>.tex>
 
 \author{\Large \bfseries{Jonathan Kasongo}}
 \title{\Huge\sffamily{\bfseries Video conferencing}}

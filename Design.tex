@@ -722,6 +722,8 @@ future maintainers.
 \subsubsection{Proposed system level 1 DFD}
 
 \begin{figure}[h]
+\scalebox{1.0}
+{
 \centering
 \begin{tikzpicture}
 
@@ -742,11 +744,11 @@ future maintainers.
     (main) {Main page};
 
 \node[draw, rectangle, minimum width=2.8cm, minimum height=0.8cm,
-	fill=lightestgray, below left=of main]
+	fill=lightestgray, below=of main]
     (settings) {Settings page};
 
 \node[draw, rectangle, minimum width=2.8cm, minimum height=0.8cm,
-	fill=lightestgray, below=of main]
+	fill=lightestgray, below left=of main]
     (join) {Join call page};
 
 \node[draw, rectangle, minimum width=2.8cm, minimum height=0.8cm,
@@ -765,20 +767,30 @@ future maintainers.
 	above=5cm of help]
     (host) {Host};
 
+\node[draw, ellipse, minimum width=2.8cm, minimum height=1.0cm,
+	below=5cm of join]
+    (userp) {Users};
+
+\node[draw, ellipse, minimum width=2.8cm, minimum height=1.0cm,
+	below=5cm of create]
+    (hostp) {Host};
+
 \coordinate[below=1em of user] (m1);
 \coordinate[below=1em of host] (m2);
+\coordinate[left=7.4em of userp] (b);
+\coordinate[right=7.4em of hostp] (c);
 
 \draw[black] (m1) -- (m2);
 
-\draw[black, -{Latex[length=2.5mm]}] (main) -| (settings);
-\draw[black, -{Latex[length=2.5mm]}] (main) -- (join);
+\draw[black, -{Latex[length=2.5mm]}] (main) -- (settings);
+\draw[black, -{Latex[length=2.5mm]}] (main) -| (join);
 \draw[black, -{Latex[length=2.5mm]}] (main) -| (create);
 
 % \faClipboard for forms
 \draw[black, -{Latex[length=2.5mm]}]
   (fix) -- node[rectangle split, 
 	        rectangle split parts=2,
-                text height=1.0ex, text width=8.0em,
+                text height=1.0ex, text width=7.5em,
                 text centered, fill=white] 
 	{\nodepart[font=\scriptsize]{second}
 	\begin{tblr}{colspec={X},vlines,hlines}
@@ -804,7 +816,7 @@ future maintainers.
 \draw[black, -{Latex[length=2.5mm]}]
   (host) -- node[rectangle split, 
 	        rectangle split parts=2,
-                text height=1.0ex, text width=8.0em,
+                text height=1.0ex, text width=7.5em,
                 text centered, fill=white] 
 	{\nodepart[font=\scriptsize]{second}
 	\begin{tblr}{colspec={X},vlines,hlines}
@@ -814,10 +826,97 @@ future maintainers.
         \end{tblr}
         } (help);
 
+\draw[black, -{Latex[length=2.5mm]}]
+  (userp) -- node[rectangle split, 
+	        rectangle split parts=2,
+                text height=1.0ex, text width=8.0em,
+                text centered, fill=white] 
+	{\nodepart[font=\scriptsize]{second}
+	\begin{tblr}{colspec={X},vlines,hlines}
+	  \faClipboard \space Form\\
+	  Users may enter the join code they were given 
+	  in order to join a call.\\
+        \end{tblr}
+        } (join);
+
+
+\draw[black, -{Latex[length=2.5mm]}]
+  (userp) -| (settings);
+
+\draw[black, -{Latex[length=2.5mm]}]
+  (hostp) -| (settings);
+
+\draw[black, -{Latex[length=2.5mm]}]
+  (hostp) -- node[rectangle split, rectangle 
+                  split parts=2, text height=1.0ex, 
+		  text width=7.5em, text centered, fill=white] 
+        {\nodepart[font=\scriptsize]{second}
+        \begin{tblr}{colspec={X},vlines,hlines}
+        \faPhone \space Start call\\
+        Hosts may use the create call page to start a new call.\\
+        \end{tblr}
+        } (create);
+
+  \node[rectangle split, 
+	rectangle split parts=2,
+	text height=1.0ex, text width=7.5em,
+	text centered, fill=white, below=1.0cm of settings] 
+        {\nodepart[font=\scriptsize]{second}
+        \begin{tblr}{colspec={X},vlines,hlines}
+        \faGear \space Settings\\
+        Users/Hosts may configure and adjust settings to 
+	suit them and improve their user experience.\\
+        \end{tblr}
+        };
+
 \draw[black, -{Latex[length=2.5mm]}] (login) -- (main);
+\draw[black, -{Latex[length=2.5mm]}] (join) -| (b) -- (userp);
+\draw[black, -{Latex[length=2.5mm]}] (create) -| (c) -- (hostp);
+
+\node[rectangle split, 
+      rectangle split parts=2,
+	text height=1.0ex, text width=7.5em,
+	text centered, fill=white, below left=of join] 
+        {\nodepart[font=\scriptsize]{second}
+        \begin{tblr}{colspec={X},vlines,hlines}
+        \faPhone \space Chat\\
+        Users may communicate with other users in their 
+	video conference either via the chat box or their
+	microphone.\\
+        \end{tblr}
+        };
+
+\node[rectangle split, 
+      rectangle split parts=2,
+	text height=1.0ex, text width=7.5em,
+	text centered, fill=white, below right=of create] 
+        {\nodepart[font=\scriptsize]{second}
+        \begin{tblr}{colspec={X},vlines,hlines}
+        \faHandOUp \space Select\\
+        Hosts may admit or remove users from the video
+	conference, mute or un-mute users and lower other
+	user's hands.\\
+        \end{tblr}
+        };
 
 \end{tikzpicture}
+}
 \caption{Proposed system level 1 DFD diagram.}
 \end{figure}
+
+\textit{The DFD is explained via the dialog boxes in 
+the figure above}.\\ \vspace{0.2cm}
+
+\textit{Justifying the DFD.} The level 1 data flow diagram 
+exists to present a more in-depth look at the functionality of
+the proposed system, specifically in regards to the inputs and 
+outputs of the system. The level 1 DFD diagram can help 
+us to get a general understanding of the various inputs and 
+outputs that our software will have to produce. Through these
+diagrams we can layout and clearly view the structure and
+design of our system holistically and see how each component
+of our system links to the other components. Finally we can 
+see that the level 1 DFD diagram provides a neat, cohesive 
+visual representation of our system's architecture.
 
 \subsection{\textsf Proposed algorithms}
