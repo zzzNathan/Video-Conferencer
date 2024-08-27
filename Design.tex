@@ -741,6 +741,18 @@ future maintainers.
 	fill=lightestgray, below=of login]
     (main) {Main page};
 
+\node[draw, rectangle, minimum width=2.8cm, minimum height=0.8cm,
+	fill=lightestgray, below left=of main]
+    (settings) {Settings page};
+
+\node[draw, rectangle, minimum width=2.8cm, minimum height=0.8cm,
+	fill=lightestgray, below=of main]
+    (join) {Join call page};
+
+\node[draw, rectangle, minimum width=2.8cm, minimum height=0.8cm,
+	fill=lightestgray, below right=of main]
+    (create) {Create call page};
+
 \node[draw, ellipse, minimum width=2.8cm, minimum height=1.0cm,
 	above=5cm of docs]
     (fix) {Maintainers};
@@ -753,6 +765,15 @@ future maintainers.
 	above=5cm of help]
     (host) {Host};
 
+\coordinate[below=1em of user] (m1);
+\coordinate[below=1em of host] (m2);
+
+\draw[black] (m1) -- (m2);
+
+\draw[black, -{Latex[length=2.5mm]}] (main) -| (settings);
+\draw[black, -{Latex[length=2.5mm]}] (main) -- (join);
+\draw[black, -{Latex[length=2.5mm]}] (main) -| (create);
+
 % \faClipboard for forms
 \draw[black, -{Latex[length=2.5mm]}]
   (fix) -- node[rectangle split, 
@@ -763,7 +784,7 @@ future maintainers.
 	\begin{tblr}{colspec={X},vlines,hlines}
 	  \faSearch \space Search\\
 	  Maintainers may search the documentation in order to 
-	  understand parts of the system\\
+	  understand parts of the system.\\
         \end{tblr}
         } (docs);
 
@@ -775,12 +796,28 @@ future maintainers.
 	{\nodepart[font=\scriptsize]{second}
 	\begin{tblr}{colspec={X},vlines,hlines}
 	  \faClipboard \space Form\\
-	  Users may login/sign up with their own account
-	  details\\
+	  Users/Host may login/sign up with their own account
+	  details.\\
         \end{tblr}
         } (login);
 
+\draw[black, -{Latex[length=2.5mm]}]
+  (host) -- node[rectangle split, 
+	        rectangle split parts=2,
+                text height=1.0ex, text width=8.0em,
+                text centered, fill=white] 
+	{\nodepart[font=\scriptsize]{second}
+	\begin{tblr}{colspec={X},vlines,hlines}
+	  \faSearch \space Search\\
+	  Host/Users may search the help page for
+	  a tutorial or to troubleshoot their issues.\\
+        \end{tblr}
+        } (help);
+
+\draw[black, -{Latex[length=2.5mm]}] (login) -- (main);
+
 \end{tikzpicture}
+\caption{Proposed system level 1 DFD diagram.}
 \end{figure}
 
 \subsection{\textsf Proposed algorithms}
