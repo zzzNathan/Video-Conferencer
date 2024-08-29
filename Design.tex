@@ -902,6 +902,7 @@ future maintainers.
 \end{tikzpicture}
 }
 \caption{Proposed system level 1 DFD diagram.}
+\label{fig:l1}
 \end{figure}
 
 \textit{The DFD is explained via the dialog boxes in 
@@ -910,13 +911,47 @@ the figure above}.\\ \vspace{0.2cm}
 \textit{Justifying the DFD.} The level 1 data flow diagram 
 exists to present a more in-depth look at the functionality of
 the proposed system, specifically in regards to the inputs and 
-outputs of the system. The level 1 DFD diagram can help 
+outputs of the system. Additionally the level 1 DFD diagram can help 
 us to get a general understanding of the various inputs and 
 outputs that our software will have to produce. Through these
 diagrams we can layout and clearly view the structure and
 design of our system holistically and see how each component
-of our system links to the other components. Finally we can 
-see that the level 1 DFD diagram provides a neat, cohesive 
-visual representation of our system's architecture.
+of our system links to and integrates in with the other components.
+Moreover data flow diagrams can also help us in the testing our 
+software. Through a study of the diagram we can notice that the
+figure \ref{fig:l1} acts a guide for the expected inputs and
+outputs (I/O) of our system, which we can use to compare against
+the actual I/O of our system during the development process.
+Indeed the level 1 DFD coupled with the problem decomposition 
+diagram serve as the "blueprints" of our system, visually 
+illustrating the structure of our proposed system in a manner 
+that is clear and simple to understand for both me and my client 
+to refer to in the future.
+Finally we have seen that the level 1 DFD diagram provides a
+neat, cohesive visual representation of our system's architecture.
 
 \subsection{\textsf Proposed algorithms}
+
+\subsubsection{Account creation}
+
+\begin{algorithm}
+\caption{Pseudo code for creating a new user account.}
+\label{alg:new}
+\sffamily
+
+\begin{algorithmic}[1]
+  \Function{Add\_Account}{Username, Password}
+    \If{Query\_tbl(Logins, Username) $\neq$ \textbf{NULL}} \Comment{Cannot create account if username is taken.}
+      \State{\textbf{return} False}
+    \EndIf
+   
+    \State{Update\_tbl(Logins, Username, Password)}
+    \State{Create\_cfgs(Username)}
+
+    \State{\textbf{return} True}
+  \EndFunction
+\end{algorithmic}
+
+\end{algorithm}
+
+\mdseries
