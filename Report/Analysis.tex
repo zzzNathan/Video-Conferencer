@@ -832,6 +832,43 @@ options all have their relevant advantages and no very
 significant disadvantages so all 3 of them could potentially
 be used in this application. \\ \vspace{0.2cm}
 
+After a careful consideration of all the available options 
+I selected MongoDB Atlas as the database hosting system. We 
+commence by explaining how MongoDB Atlas works and then 
+justify it's usage in this project afterwards. MongoDB Atlas
+roughly organsises it's data in the following manner. MongoDB
+provides each user with a cluster which they can use to host
+and store multiple collections. The system stores it's data
+as BSON documents. BSON is a binary format that stores
+Javascript object notation (JSON) documents. A document is 
+essentially just a row in a database. Groups of documents 
+are stored as a collection, where a collection can 
+essentially be thought as a table. We can interact with our
+cluster via MongoDB's NodeJS API. Since the system stores
+it's data via BSON, when we make queries on our collection it
+returns the result as a JSON object. The format works very 
+nicely in harmony with the JavaScript programming language, 
+a language that we will make use of extensively seeing as our
+system is a web-app, because of the close relationship
+between JavaScript and JSON syntax. I could not justify using 
+Clever cloud's database hosting service, simply because it 
+offered the least amount of storage and there were other 
+options available that offered more. If the database doesn't 
+have enough storage space then it would be a pain to move over
+all of our data onto another system. Though this is subjective
+I personally found the Oracle Cloud API documentation a pain 
+to navigate through and understand. They provide so much 
+information on each page that it becomes overwhelming and 
+difficult to find what you're looking for. Moreover they 
+require you to add a payment method, even to use their free 
+tier. Though Oracle can only charge you if you switch to a 
+pay as you go plan, MongoDB remains to be the safer option
+as they cannot charge you at all without your payment 
+information. In light of my client's remarks in the previous
+section, it is clear that we should select MongoDB since 
+it ensures that the application remains free of charge.
+\\ \vspace{0.2cm}
+
 Another concern pertaining to passwords is our method for 
 checking a potential password's strength. I propose the usage
 of the \texttt{zxcvbn} algorithm \cite{pass} developed by
@@ -1409,11 +1446,10 @@ Atlas in order to host our database for this system where
 information like usernames, passwords and account
 configurations will be stored. Multiple database hosting 
 systems were discussed in \ref{sec:further} but I ultimately 
-settled on MongoDB because of it's lack of limitations and 
-it's satisfactory storage limits. It was the safest of the 5 
-available options, and will hence allow me and my client to 
-be able to use this system without any risk of incurring 
-unwanted hidden costs.
+settled on MongoDB as was justified in that section. It was
+the safest of the 5 available options, and will hence allow
+me and my client to be able to use this system without any
+risk of incurring unwanted hidden costs.
 
 \subsection{Hardware requirements}
 \label{sec:hardware}

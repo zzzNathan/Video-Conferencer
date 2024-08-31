@@ -402,14 +402,12 @@ propose a solution to this issue that allows us to use at most
     \textit{VideoID} & \texttt{int} \\
     \textit{AudioID} & \texttt{int} \\
     \textit{AccessID} & \texttt{int} \\
-    Cfg data & \texttt{string (JSON)} \\
   }};
 
   \pic[below right=of configs]{entity={video}{\sffamily Video\_cfg}{
     \underline{VideoID} & \texttt{int} \\
     Video quality & \texttt{int} \\
     Video on by default & \texttt{bool} \\
-    Video data & \texttt{string (JSON)}\\
   }};
 
   \pic[below left=of configs]{entity={audio}{\sffamily Audio\_cfg}{
@@ -418,15 +416,15 @@ propose a solution to this issue that allows us to use at most
     Mic volume & \texttt{int} \\
     Mic on by default & \texttt{bool} \\
     Hide self-view & \texttt{bool} \\
-    Audio data & \texttt{string (JSON)}\\
   }};
 
   \pic[below=of configs]{entity={access}{\sffamily Accessibility\_cfg}{
     \underline{AccessID} & \texttt{int} \\
     Font size & \texttt{int} \\
-    Macros & \texttt{string (JSON)} \\
     Closed captioning & \texttt{bool} \\ 
-    Access data & \texttt{string (JSON)}\\
+    Toggle mute & \texttt{int} \\
+    Toggle camera & \texttt{int} \\
+    {$\cdots$} & {$\cdots$} \\
   }};
 
   \coordinate[right=7.5em of configs.east] (v);
@@ -444,66 +442,28 @@ propose a solution to this issue that allows us to use at most
 \end{figure}
 
 \textit{Explaining and justifying the final ER diagram.}
-As a pre-requisite to the discussion of our final ER diagram, 
-we will first explain exactly what a JSON string is and why we
-chose to use it here. A JavaScript object notation (JSON) 
-string is a string of key value pairs similar to a hashmap or 
-a dictionary. As we can see in the name the format of the
-string is based on JavaScript's syntax. One advantage of this
-format is that we can quickly turn it into a JavaScript object
-with JavaScript's built-in \code{JSON.parse()} function. JSON
-syntax is straightforward and easy for developers to read and
-understand;
-
-\begin{minted}[
-  linenos, bgcolor=codebg, frame=lines, framesep=15\fboxrule,
-  framerule=1pt, rulecolor=\color{gray!40}]{js}
-  // 32 is the key code for space, 13 is the key code for enter.
-  var Access_data = JSON.parse('{
-    "Font size": 18,
-    "Macros": {
-      "Unmute": 32,
-      "Cam off": 13 
-    },
-    "Closed captioning": false
-  }');
-\end{minted}
-
-the example above presents how the JSON string in the Access 
-data attribute may look. Thanks to the JSON syntax our data 
-is clear and easily understood, this enables developers to be
-able to look at the data that is being stored in these 
-JavaScript objects, so that they can have an easier time 
-debugging any unintentional results or errors that may occur 
-in our database system. Hence the application of JSON strings 
-provides a neat and structured format to store data as well as
-improves the maintainability of the database portion of our
-system. Moreover the format works very nicely in harmony with
-the JavaScript programming language, a language that we will
-make use of extensively seeing as our system is a web-app, 
-because of the close relationship between JavaScript and JSON
-syntax. \\ \vspace{0.2cm}
+The dots in the {\sffamily Accessibility\_cfg} table indicate
+that there are more fields in this table. \\ \vspace{0.2cm}
 
 The changes in the final ER diagram all revolve around the new
 ConfigID attribute. The user's complete configuration used to 
 be comprised of numerous attributes that were stored across
 multiple tables. Now each collection of configuration
 attributes has been given it's own table in the
-{\sffamily Configs} table. This table stores a string, more 
-precisely a JSON string, that maps each configuration
-attribute to it's corresponding value. In essence instead of 
-treating each configuration attribute as it's own seperate
-object, we now store all of a user's configurations together
-in one object, like how a bag stores a collection of items. 
-This approach to our database design allows us to solve the 
-problem we had in \ref{fig:erdd}, now in order to request 
-\textit{all} of a user's configurations we may use the 
-following two-liner;\\
+{\sffamily Configs} table. This table stores a number of IDs
+that each map to a collection of configuration attributes.
+In essence instead of treating each configuration attribute as
+it's own seperate object, we now store all of a user's 
+configurations together in one object, like how a bag stores
+a collection of items. This approach to our database design
+allows us to solve the problem we had in \ref{fig:erdd}, now
+in order to request \textit{all} of a user's configurations
+we may use the following two-liner;\\
 
 \begin{center}
 \begin{tblr}{colspec={l}, rowsep=0pt}
   {\sffamily Config\_ID} $\gets$ {\sffamily Query\_tbl(Logins, UserID, ConfigID)}\\
-  {\sffamily \textbf{return} Query\_tbl(Configs, Config\_ID, Cfg data)}\\
+  {\sffamily \textbf{return} Query\_tbl(Configs, Config\_ID)}\\
 \end{tblr}
 \end{center}
 
@@ -721,7 +681,7 @@ future maintainers.
 
 \subsubsection{Proposed system level 1 DFD}
 
-\begin{figure}[h]
+\begin{figure}[H]
 \scalebox{1.0}
 {
 \centering
@@ -932,7 +892,24 @@ neat, cohesive visual representation of our system's architecture.
 
 \subsection{\textsf Proposed algorithms}
 
+% Use appropiate and accurate algorithms, justifying how these
+% algorithms justifying how these algorithms form a complete
+% solution to the problem.
+
+% Identified and justified any further data to be used in the
+% post development phase.
+
 \subsubsection{Account creation}
+
+\begin{tblr}{colspec={lX}}
+
+\textit{Function name:} & {\scshape Add\_Account(\texttt{string} Username, \texttt{string} Password)}\\
+\textit{Description:}  & {This function will recieve in a username and password and add these details 
+into the login table, provided that the username is not taken. We assume that the username and 
+password have already been properly validated via the algorithm in the previous subheading. It returns
+false if the username is taken and true if it is not.}\\
+
+\end{tblr}
 
 \begin{algorithm}
 \caption{Pseudo code for creating a new user account.}
@@ -944,14 +921,24 @@ neat, cohesive visual representation of our system's architecture.
     \If{Query\_tbl(Logins, Username) $\neq$ \textbf{NULL}} \Comment{Cannot create account if username is taken.}
       \State{\textbf{return} False}
     \EndIf
+    \State{}
    
-    \State{Update\_tbl(Logins, Username, Password)}
-    \State{Create\_cfgs(Username)}
+    \State{Update\_tbl(Logins, Username, Password)} 
+    \State{Set\_cfgs(Username, DEFAULT)} \Comment{Set default settings for new user.}
+    \State{}
 
     \State{\textbf{return} True}
   \EndFunction
 \end{algorithmic}
 
 \end{algorithm}
-
 \mdseries
+
+\textit{Iterative test plan:}
+
+\begin{tblr}{colspec={lXXX}}
+
+Test type & Input & Expected Output & Justification \\
+
+\end{tblr}
+
