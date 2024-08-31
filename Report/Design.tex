@@ -354,7 +354,7 @@ user.}
 \begin{algorithmic}[1]
   \Function{Get\_All\_Configs}{ID}
     \Let{User\_ID}{ID}
-    \Let{Configs}{$\{\}$} \Comment{Let Configs be an array.}
+    \Let{Configs}{$[]$} \Comment{Let Configs be an array.}
     \State{}
     
     \State{Configs.insert( Query\_tbl(Audio\_cfg, User\_ID, Speaker volume) )}
@@ -899,26 +899,108 @@ neat, cohesive visual representation of our system's architecture.
 % Identified and justified any further data to be used in the
 % post development phase.
 
+\subsubsection{Validate username and password}
+
+\begin{tblr}{colspec={lX}}
+
+\textit{Function name:} & {\scshape Validate\_Account}(\texttt{string} {\sffamily Username}, \texttt{string} {\sffamily Password})\\
+
+\textit{Description:} & {This function will recieve in a username and password and check whether the
+given password is strong enough and whether or not the username is acceptable. A username is considered
+acceptable if it is at least 3 characters long, doesn't start with a special character, and only consists of 
+the characters a-z, A-Z, 0-9, "\_" or "-". Function should return true if the given username and password are 
+acceptable.}\\
+
+\textit{Justification:} & {We should ensure that the user uses a strong password, and has a username that can be read. For 
+instance if we had no restrictions on the username, the user could choose the username "\texttt{   }" which is obviously not 
+readable, as it only consists of white spaces.}\\
+
+\end{tblr}
+
+\begin{algorithm}
+\caption{Pseudo code for validating a username and password.}
+\sffamily
+
+\begin{algorithmic}[1]
+  \State{\textbf{import} zxcvbn}
+  \Function{Validate\_Account}{Username, Password}
+    \If{Username.length $<$ 3} 
+      \State{\textbf{return} false}
+    \EndIf
+
+    \State{}
+    \State{Pass\_strength $\gets$ zxcvbn(Password)}
+    \State{Legal\_chars $\gets$ \{'a', 'b', 'c', $\ldots$\}} \Comment{Set of acceptable characters}
+    \State{}
+    \If{Pass\_strength.score $<$ 2} \Comment{Password is too weak}
+      \State{\textbf{return} false}
+    \EndIf
+
+    \State{}
+    \For{char \textbf{in} Username}
+      \If{\textbf{not} char \textbf{in} Legal\_chars}
+        \State{\textbf{return} false}
+      \EndIf
+    \EndFor
+    
+    \State{}
+    \State{\textbf{return} true}
+  \EndFunction
+\end{algorithmic}
+
+\end{algorithm}
+\mdseries
+
+\textit{Iterative test plan:} \\ \vspace{0.2cm}
+
+\begin{tblr}{colspec={lXXX}}
+
+\hline
+
+Test type & Input & Expected Output & Justification \\
+
+\hline
+
+Normal & \texttt{("David\_Hilbert1", "i\#1Go8")} & \texttt{True} & {The
+function should return true if the username fits the criteria stated and 
+if the password is strong enough.}\\
+
+Extreme & \texttt{("Dav", "i\#1Go8")} & \texttt{True} & {The 
+function should still return true if the username given is 3 acceptable
+characters.}\\
+
+Erroneous & \texttt{("c", "123")} & \texttt{False} & {The function
+should return false if the password is too weak and the username is not
+considered acceptable.}\\
+
+\hline
+
+\end{tblr}
+
+
 \subsubsection{Account creation}
 
 \begin{tblr}{colspec={lX}}
 
-\textit{Function name:} & {\scshape Add\_Account(\texttt{string} Username, \texttt{string} Password)}\\
+\textit{Function name:} & {\scshape Add\_Account}(\texttt{string} {\sffamily Username}, \texttt{string} {\sffamily Password})\\
+
 \textit{Description:}  & {This function will recieve in a username and password and add these details 
 into the login table, provided that the username is not taken. We assume that the username and 
 password have already been properly validated via the algorithm in the previous subheading. It returns
 false if the username is taken and true if it is not.}\\
 
+\textit{Justification:} & {Users need to create an account in order to be able to save their configurations.
+For a detailed justification, refer to section \ref{sec:features}}\\
+
 \end{tblr}
 
 \begin{algorithm}
 \caption{Pseudo code for creating a new user account.}
-\label{alg:new}
 \sffamily
 
 \begin{algorithmic}[1]
   \Function{Add\_Account}{Username, Password}
-    \If{Query\_tbl(Logins, Username) $\neq$ \textbf{NULL}} \Comment{Cannot create account if username is taken.}
+    \If{Query\_tbl(Logins, Username) $\neq$ \textbf{null}} \Comment{Cannot create account if username is taken.}
       \State{\textbf{return} False}
     \EndIf
     \State{}
@@ -934,11 +1016,23 @@ false if the username is taken and true if it is not.}\\
 \end{algorithm}
 \mdseries
 
-\textit{Iterative test plan:}
+\textit{Iterative test plan: (These tests take place assuming that the logins table is empty each time)} \\ \vspace{0.2cm}
 
 \begin{tblr}{colspec={lXXX}}
 
+\hline
+
 Test type & Input & Expected Output & Justification \\
+
+\hline
+
+Normal & \texttt{(TerryTao, re\%k91)} & \texttt{True} & {The 
+system should correctly be able to add a new user.}\\
+
+Erroneous & Call the function 2 times with this input \texttt{(TerryTao, re\%k91)} & \texttt{False} & {The
+system should not be able to add a user that already exists.}\\
+
+\hline
 
 \end{tblr}
 
