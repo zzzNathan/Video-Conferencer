@@ -1,7 +1,7 @@
 \pagestyle{fancy}
 \rhead{\bfseries OCR A-Level Computer Science}
 \chead{\mdseries \thepage}
-\lhead{\bfseries Jonathan Kasongo \mdseries — 2025/26}
+\lhead{\bfseries Jonathan Kasongo \mdseries — May 2025/26}
 \lfoot{\sffamily Candidate number: N/A}
 \rfoot{\sffamily Centre number: N/A}
 
@@ -1005,8 +1005,7 @@ For a detailed justification, refer to section \ref{sec:features}}\\
     \EndIf
     \State{}
    
-    \State{Update\_tbl(Logins, Username, Password)} 
-    \State{Set\_cfgs(Username, DEFAULT)} \Comment{Set default settings for new user.}
+    \State{Insert\_tbl(Logins, Username, Password, ConfigID $=$ Default\_cfg)} \Comment{Set default settings for new user.}
     \State{}
 
     \State{\textbf{return} True}
@@ -1036,3 +1035,4 @@ system should not be able to add a user that already exists.}\\
 
 \end{tblr}
 
+\subsubsection{o}
