@@ -1035,4 +1035,21 @@ system should not be able to add a user that already exists.}\\
 
 \end{tblr}
 
-\subsubsection{o}
+\subsubsection{Log user in}
+
+\begin{tblr}{colspec={lX}}
+
+\textit{Function name:} & {\scshape Log\_User\_In}(\texttt{string} {\sffamily Username}, \texttt{string} {\sffamily Password})\\
+
+\textit{Description:}  & {This function should take in a user's username and password and then set up their relevant 
+                          configurations. Their customised settings should all be correctly loaded into the system, once we have
+			  confirmed that the user has successfully logged in.}\\
+
+\textit{Justification:} & {The initiative to provide accessibility options and configurations was suggested by my client as a 
+                           non-essential feature as was seen in section \ref{sec:interview}. We justify confirming that the
+		           user has logged in by noting that in order for the user to be able to access their configurations 
+		           we must know this user's UserID. Without the UserID we will not be able to query the database and 
+		           therefore we won't be able to load their configurations.}\\
+
+\end{tblr}
+

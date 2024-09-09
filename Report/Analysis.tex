@@ -262,6 +262,17 @@ issues, rather he will be able to focus solely on the
 conference and whether or not the visuals and the audio are
 clear. \vspace{0.2cm}
 
+\textit{Explain how they will use the solution.}
+Axel would open his web browser and navigate to our system's
+website. He would log in to his personal account then go to
+the create call page. After starting a video call he would 
+then recieve a code to allow others to be able to join the
+call. Axel would then share this code with the people who
+were invited to join the video conference. Finally he would 
+manage the video conference, muting/unmuting, admitting 
+and removing users into the call when necessary.
+\vspace{0.2cm}
+
 \textit{Why is it appropiate to their needs?} % \vspace{0.05cm}
 The proposed solution would be appropiate for my client as it
 would provide a smoother and simpler system in order to host 
@@ -277,7 +288,6 @@ broadcast. In removing some of Axel's issues that he faces in
 his job, he should become more content and calmer with his
 work life, further demonstrating how this solution will be 
 appropiate to his needs.
-
 \vspace{0.2cm}
 
 \noindent
@@ -296,7 +306,7 @@ their life without modern technologies. This will be my
 application's target audience, so it is important that the 
 final solution is appropiate to their needs. \vspace{0.2cm}
 
-\textit{How will they use it?}
+\textit{How will they use the solution?}
 These users will make use of the proposed solution by joining
 videoconferences that they were invited to and interacting with
 them in a manner that is convienient for them. They will be 
@@ -307,6 +317,11 @@ converse with their virtual audience. Moreover the solution
 will also enrich their experience by providing options for
 things like macros, enabling them to perform common tasks,
 like muting/unmuting a microphone with a set button.
+\vspace{0.2cm}
+
+\textit{Explain how they will use the solution.}
+These users will navigate to our system's webpage and then
+log in to their account.
 \vspace{0.2cm}
 
 \textit{Why is it appropiate to their needs?}
@@ -1023,10 +1038,10 @@ free and poses no limitations or restrictions on it's use
 because it is self-hosted and we have seen that this API's 
 philosophy aligns itself fully with the requests of my
 client, justifying it as a suitable choice for this project.
+\\ \vspace{0.2cm}
 
-\subsubsection{Conclusions}
-
-\textit{What are suitable approaches based on this research?}
+\textit{Concluding remarks.}
+What are suitable approaches based on this research?
 The features that Zoom provides like keyboard shortcuts and 
 custom font sizes would be suitable because they would aid the
 user and allow them to have a more comfortable tailored 
@@ -1435,11 +1450,18 @@ separate file that won't be viewable to anyone except
 authorised users. Security of the database is especially 
 important because personal user information will be stored 
 there, if an attacker gains access to this information it 
-would be a breach of data protection regulations. Finally 
-the user's will be prompted to use a strong password that 
-meets a set of requirements, they will also recieve 
-suggestions on how to improve the strength of their password
-via the \texttt{zxcvbn} module.
+would be a breach of data protection regulations. 
+The user's will be required to set a strong password that 
+meets a set of criteria, they will also recieve suggestions
+on how to improve the strength of their password via the 
+\texttt{zxcvbn} module. Additionally, the entirety of the
+project's source code will be available on github 
+ensuring that there is full transparency between my client 
+and the software's users. By having full access to the source
+code of this software, users will be able to know exactly how
+we deal with the security their personal data and look at the 
+approaches we have taken to ensure the security of this
+system. 
 
 \subsection{Backing up data}
 
@@ -1685,7 +1707,7 @@ to the client, hence justifying it's inclusion in this list.\\
 
 \subsection{Quantitative criteria}
 
-\textsf{\bfseries 5 - The video call latency should not exceed 150 ms.}
+\textsf{\bfseries 5 - The video call latency should not exceed 150 ms}
 
 \vspace{0.1cm}
 
@@ -1712,7 +1734,7 @@ so we will seek to match or better this value.
 \vspace{0.2cm}
 
 \textsf{\bfseries 6 - The system should be able to handle video 
-conferences with more than 2 participants.}
+conferences with more than 2 participants}
 
 \vspace{0.1cm}
 
@@ -1734,9 +1756,33 @@ My client often has to manage video conferences with more than
 2 participants, so the new system should be able to handle an 
 acceptable number of participants in each conference, without
 any significant performance degradation. In
-\ref{sec:interview} my client said that the new system should 
-be smoother and provide a better viewing experience for all.
-In order to achieve this the performance of the system should
-be optimised so that the application runs smoothly for my 
-client and all other users even if the number of participants
-in their video call far exceeds 2 people.
+\ref{sec:interview} my client said that the new system 
+should be smoother and provide a better viewing experience 
+for all. In order to achieve this the performance of the 
+system should be optimised so that the application runs 
+smoothly for my client and all other users even if the
+number of participants in their video call far exceeds 2 
+people.
+
+\vspace{0.2cm}
+
+\textsf{\bfseries 7 - The system should be able to store at 
+least 500 user accounts}
+
+\vspace{0.1cm}
+
+\textit{Explanation:}
+The system database should be able to cope with 500 user 
+accounts, whilst still performing at an acceptable level.
+That is the speed of database reads and writes, shouldn't
+be comprimised. We will say that read/write speed has been 
+comprimised if read/write speed exceeds 500ms.
+\vspace{0.1cm}
+
+\textit{Justification:}
+The system should be able to handle a good number of user 
+accounts. 500 users will allow us to have a good amount of 
+levarage, concerning the growth of our application. If the 
+application happens to gain large amounts of traction
+suddenly, we can have confidence that the system will not 
+fail or experience significant performance degradation.
