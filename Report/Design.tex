@@ -305,7 +305,6 @@ a request outlined by my client in \ref{sec:interview}.
     \textit{UserID} & \texttt{int} \\
     Font size & \texttt{int} \\
     Macros & \texttt{string} \\
-    Closed captioning & \texttt{bool} \\ 
   }};
 
   \draw[] (logins) -| (video);
@@ -346,8 +345,8 @@ wish to find \emph{all} the configurations that a specific
 user has tied to their account.
 
 \begin{algorithm}
-\caption{Pseudo code for finding all configurations tied to a
-user.}
+\caption*{\textbf{Algorithm} Pseudo code for finding all 
+configurations tied to a user.}
 \label{alg:long}
 \sffamily
 
@@ -372,7 +371,7 @@ user.}
 
 \mdseries
 
-Algorithm \ref{alg:long} shows a sketch of the algorithm
+The algorithm above shows a sketch of the algorithm
 necessary to solve our problem in pseudo-code. Unfortunately
 with our database approach this request is tedious and
 inelegant. The function will call the \code{Query\_tbl()}
@@ -421,7 +420,6 @@ propose a solution to this issue that allows us to use at most
   \pic[below=of configs]{entity={access}{\sffamily Accessibility\_cfg}{
     \underline{AccessID} & \texttt{int} \\
     Font size & \texttt{int} \\
-    Closed captioning & \texttt{bool} \\ 
     Toggle mute & \texttt{int} \\
     Toggle camera & \texttt{int} \\
     {$\cdots$} & {$\cdots$} \\
@@ -468,7 +466,7 @@ we may use the following two-liner;\\
 \end{center}
 
 Not only is this code much shorter and more clear than the 
-code in algorithm \ref{alg:long} but it will also run much
+code in the algorithm above but it will also run much
 faster, with just 2 calls to \code{Query\_tbl()}. Moreover
 with this new approach we can still adhere to the DRY software
 development principle, since we are no longer forced to repeat
@@ -678,6 +676,11 @@ software feel motivated to do the same we can ensure that our
 software will maximise it's longevity, through the constant 
 innovation and improvement of our system namely via it's 
 future maintainers.
+
+\subsection{Navigation via speech to text}
+
+One idea I had for an extra feature was navigation of the
+system using one's voice.
 
 \subsubsection{Proposed system level 1 DFD}
 
@@ -1042,7 +1045,8 @@ system should not be able to add a user that already exists.}\\
 \textit{Function name:} & {\scshape Log\_User\_In}(\texttt{string} {\sffamily Username}, \texttt{string} {\sffamily Password})\\
 
 \textit{Description:}  & {This function should take in a user's username and password and then load in their relevant 
-                          configurations. Their customised settings should all be correctly loaded into the system, once we have
+                          configurations. We should check that the password given matches the password stored in the database.
+			  Their customised settings should all be correctly loaded into the system, once we have
 			  confirmed that the user has successfully logged in. The function should return true if the user 
 		          has successfully logged in and false if they have not.}\\
 
@@ -1067,10 +1071,61 @@ system should not be able to add a user that already exists.}\\
       \State{\textbf{return} False} 
     \EndIf
 
+    \State{}
+
+    \If{Query\_tbl(Logins, Username, Password) $\neq$ Password} \Comment{Wrong password.}
+      \State{\textbf{return} False}
+    \EndIf
+
+    \State{}
+
+    \Let{Config\_ID}{Query\_tbl(Logins, Username, ConfigID)}
+    \Let{Video\_ID}{Query\_tbl(Configs, ConfigID, VideoID)}
+    \Let{Audio\_ID}{Query\_tbl(Configs, ConfigID, AudioID)}
+    \Let{Access\_ID}{Query\_tbl(Configs, ConfigID, AccessID)}
+
+    \State{}
+
+    \State{Set\_Video(VideoID)}
+    \State{Set\_Audio(AudioID)}
+    \State{Set\_Access(AccessID)}
+
+    \State{}
+
     \State{\textbf{return} True}
   \EndFunction
 \end{algorithmic}
 
 \end{algorithm}
 \mdseries
+
+\textit{Iterative test plan (These tests take
+place assuming that the logins table only has
+one account setup with the name 
+\texttt{TestAcc1} and password \texttt{A2d£l!}):} \vspace{0.2cm} \\
+
+\begin{tblr}{colspec={lXXX}}
+
+\hline
+
+Test type & Input & Expected Output & Justification \\
+
+\hline
+
+Normal & \texttt{(TestAcc1, A2d£l!)} & \texttt{True} & {The
+system should function correctly when loading in a an actual
+user's configurations with correct information.}\\
+
+Extreme & \texttt{(TestAcc1, password)} & \texttt{False} & {The
+system should recognise that the password inputted is incorrect
+and should not allow the user to log in.}\\
+
+Erroneous & \texttt{(kirishkiwi, password)} & \texttt{False} & {The
+system should recognise that this user doesn't exist and should not
+allow them to log in.}\\
+
+\hline
+
+\end{tblr}
+
 
