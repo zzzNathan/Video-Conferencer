@@ -263,7 +263,70 @@ create 1 system that is able to accommodate for a large
 number of people enhancing the accessibility of our platform, 
 a request outlined by my client in \ref{sec:interview}. 
 
-\newpage
+\subsection{Navigation via speech to text}
+
+Suppose that we have a user that is blind or has some form 
+of visual impairment. How would they use the system? Though 
+these people may have limited vision, we often find that 
+their other senses are heightened \cite{blind}. The person's
+sense of touch, smell, hearing or taste may be better in order
+to make up for the lack of vision. To allow our visually 
+impaired users to be able to navigate the system comfortably 
+we make use of their improved sense of hearing by allowing the
+user to talk to the system in order to navigate to different 
+pages and perform various actions. In implementing this 
+feature we prevent the alienation of visually impaired users
+by designing a system that allows them to be able to video
+conference when they perhaps couldn't have before. This will 
+not only expand our potential user base but it could also 
+help these people to connect with others, by creating more 
+opportunities for social interactions. Moreover 
+we directly achieve one of the client's requests to create 
+an \textit{accessible} video conferencing system. \\
+\vspace{0.2cm}
+
+One approach to the implementation of this feature could
+be to have a set of phrases that we recognise as commands 
+for the system, once 
+the user says one of these commands our system should
+recognise this and perform the corresponding action. An 
+alternative may be to use some form of machine learning in 
+order to process the user's speech and use natural language
+processing to determine the user's intentions. This method is
+arguably easiser for the user, instead of memorise some set
+phrases for commands they can simply talk normally and the
+system would recognise what the user would like to do. 
+Although this approach may seem more attractive it is not 
+without it's downsides. It is well known that machine 
+learning is not perfect and that it can make mistakes from 
+time to time. In this case the system making mistakes and
+performing the wrong actions for the user could be extremely
+confusing since the user may believe that they are on a
+different webpage to the one that they actually are on. Since 
+the model would have to pick up on a few very specific
+commands in the user's speech it is unlikely that datasets 
+would exist in order for us to use for the training of our 
+machine learning model. Collecting the data on 
+which to train the model on may be very time consuming for me.
+Considering all of the downsides mentioned it seems 
+reasonable to go with the safer option and use the set
+phrases approach. In order to combat the potential problem of
+having the system misunderstand the user's command we could 
+make the user confirm their command before it is executed.
+The system would read out the command that it has detected and
+then the user could say "confirm" or "cancel" in order to 
+go through with the action or stop the action respectively.
+\\ \vspace{0.2cm}
+
+We also need a method to actually recognise the user's speech.
+As justified in the previous paragraph this method will need
+to recognise certain set phrases and identify them correctly.
+Mozilla firefox offers a Web speech API that implements 
+features such as speech recognition, speech synthesis, and
+speech to text. We could make use of their speech recognition
+to turn their voice into text and then compare the text
+produced to a each of the set phrases that we chose. 
+
 \subsection{Defining the structure of the solution}
 
 \subsubsection{Entity relationship diagram — \textit{Draft}}
@@ -677,12 +740,9 @@ software will maximise it's longevity, through the constant
 innovation and improvement of our system namely via it's 
 future maintainers.
 
-\subsection{Navigation via speech to text}
 
-One idea I had for an extra feature was navigation of the
-system using one's voice.
 
-\subsubsection{Proposed system level 1 DFD}
+\subsubsection{Proposed system level 1 DFD} 
 
 \begin{figure}[H]
 \scalebox{1.0}
