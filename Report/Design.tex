@@ -315,7 +315,10 @@ having the system misunderstand the user's command we could
 make the user confirm their command before it is executed.
 The system would read out the command that it has detected and
 then the user could say "confirm" or "cancel" in order to 
-go through with the action or stop the action respectively.
+go through with the action or stop the action respectively. 
+Finally in the case that the user forgets what they have to 
+say in order to perform an action they can say "help" to be 
+reminded of these set phrases.
 \\ \vspace{0.2cm}
 
 We also need a method to actually recognise the user's speech.
@@ -325,7 +328,25 @@ Mozilla firefox offers a Web speech API that implements
 features such as speech recognition, speech synthesis, and
 speech to text. We could make use of their speech recognition
 to turn their voice into text and then compare the text
-produced to a each of the set phrases that we chose. 
+produced to a each of the set phrases that we chose. Using an
+API to implement this feature ensures that the speech recognition
+code is robust and efficient as API's from large and reputable
+companies are thoroughly tested. The use of an API also 
+improves the maintainability of the software. Since the
+implementation of the web speech functions has been abstracted 
+away from the developer, the code is simpler, shorter and easier
+to understand. We are able to directly benefit one of our
+stakeholders, the IT staff (see section \ref{sec:stakeholders}),
+through making the code clear and easy to understand.\\ \vspace{0.2cm}
+
+To briefly summarise our research, we will make use of Mozilla
+firefox's Web speech API to enable people with low vision to be 
+able to navigate our system using their voice. In order to navigate
+the system the user will say one of the set phrases, after which the 
+system will repeat the phrase that it has heard and ask the user 
+to confirm. If the user happens to forget which phrase to say in 
+order to perform a certan action they may say "help" in order to 
+hear a list of all of the set phrases and their actions.
 
 \subsection{Defining the structure of the solution}
 
