@@ -1209,4 +1209,40 @@ allow them to log in.}\\
 
 \end{tblr}
 
+\subsubsection{Update user settings}
+
+\begin{tblr}{colspec={lX}}
+
+\textit{Function name:} & {\scshape Set\_User\_cfgs}(\texttt{string} {\sffamily Username},
+	                                             \texttt{string} {\sffamily Option},
+						     \texttt{int} {\sffamily Value})\\
+
+\textit{Description:}  & {This function will update the user's current settings. It will save
+                          these changes to the database so that they can be retrieved later. If the 
+		          specific configuration is already stored in the database than the user's 
+		          config id will change to the id of the configuration already stored in the
+		          database. Otherwise a new configuration id will be created and assigned to
+		          the user.}\\
+
+\textit{Justification:} & {By allowing the user to be able to save their customised settings we 
+                           save them a deal of time. Users won't have to repetitively re-configure
+		           their settings each time they log in, instead their settings are saved 
+		           in our database to be loaded in.}\\
+
+\end{tblr}
+
+\begin{algorithm}
+\caption{Pseudo code for updating a user's settings.}
+\sffamily
+
+\begin{algorithmic}[1]
+  \Function{Set\_User\_cfgs}{Username, Option, Value}
+    
+     
+
+  \EndFunction
+\end{algorithmic}
+
+\end{algorithm}
+\mdseries
 
