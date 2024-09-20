@@ -54,6 +54,7 @@
 \DeclareMathOperator*{\argmin}{arg\,min}
 
 \newcommand*\Let[2]{\State #1 $\gets$ #2}
+\algrenewcommand\algorithmiccomment[1]{\hfill {$\triangleright$ \color{gray} #1} \color{black}}
 \newcommand\code[2][]{
     \tikz[baseline=(s.base)]{
         \node(s)[

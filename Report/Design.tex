@@ -1227,7 +1227,11 @@ allow them to log in.}\\
 \textit{Justification:} & {By allowing the user to be able to save their customised settings we 
                            save them a deal of time. Users won't have to repetitively re-configure
 		           their settings each time they log in, instead their settings are saved 
-		           in our database to be loaded in.}\\
+		           in our database to be loaded in. Since our target user base is the elderly
+		           it is also likely that their memory is poor, by enabling these ones to 
+		           set their configurations once and then have these settings be saved
+			   automatically we also save them from having any issues remembering how to 
+		           set up their config.}\\
 
 \end{tblr}
 
@@ -1237,8 +1241,26 @@ allow them to log in.}\\
 
 \begin{algorithmic}[1]
   \Function{Set\_User\_cfgs}{Username, Option, Value}
-    
-     
+
+    \Let{ConfigID}{Query\_tbl(Logins, Username, ConfigID)}
+    \Let{Config}{Create\_cfg(ConfigID)} \Comment{Let Config be an object storing the user's current settings.}
+
+    \State{}
+
+    \State{Config.Option $\gets$ Value}
+
+    \State{}
+
+    \If{Config exists in \textit{DB}}
+      \Let{ConfigID}{Find\_ConfigID(Config)}
+      \State{\textbf{return}} 
+    \EndIf
+
+    \State{}
+
+    \Let{ConfigID}{New\_ConfigID()} \Comment{Create a new unique config id.}
+
+    \State{\textbf{return}}
 
   \EndFunction
 \end{algorithmic}
@@ -1246,3 +1268,6 @@ allow them to log in.}\\
 \end{algorithm}
 \mdseries
 
+\subsubsection{Create call}
+
+\subsubsection{Join call}
