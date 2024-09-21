@@ -350,7 +350,7 @@ hear a list of all of the set phrases and their actions.
 
 \subsection{Defining the structure of the solution}
 
-\subsubsection{Entity relationship diagram — \textit{Draft}}
+\subsubsection{Entity relationship diagram — \textit{1st draft}}
 \label{sec:erdd}
 
 % We need to store user logins, 
@@ -397,13 +397,13 @@ hear a list of all of the set phrases and their actions.
 
 \end{tikzpicture}
 
-\caption{The draft ER diagram.}
+\caption{The 1st draft ER diagram.}
 \label{fig:erdd}
 \end{figure}
 
 % config id so that configs that are the same use same id
 
-\textit{Explaining and justifying the ER diagram draft.}
+\textit{Explaining and justifying the 1st ER diagram draft.}
 This entity relationship (ER) diagram was my first attempt at
 designing the database for this project. It captures the 
 general structure and idea that I had in mind for how the
@@ -466,7 +466,7 @@ adhering to, as discussed in \ref{sec:computational}. We now
 propose a solution to this issue that allows us to use at most
 2 calls to the \code{Query\_tbl()} function.
 
-\subsubsection{Entity relationship diagram — \textit{Final}}
+\subsubsection{Entity relationship diagram — \textit{2nd draft}}
 
 \begin{figure}[H]
 \centering
@@ -519,11 +519,11 @@ propose a solution to this issue that allows us to use at most
 
 \end{tikzpicture}
 
-\caption{The final ER diagram.}
+\caption{The 2nd draft ER diagram.}
 \label{fig:erdf}
 \end{figure}
 
-\textit{Explaining and justifying the final ER diagram.}
+\textit{Explaining and justifying the 2nd draft ER diagram.}
 The dots in the {\sffamily Accessibility\_cfg} table indicate
 that there are more fields in this table. \\ \vspace{0.2cm}
 
@@ -602,13 +602,18 @@ we have,
 
 over all valid values of $i$. From the definition of a limit
 we can conclude that as $n$ grows larger the sample mean 
-converges almost surely to it's expected value. Whilst
+converges almost surely to it's expected value. That means
+that as the number of users increases the likelyhood that 
+users will choose the same configuration option increases 
+significantly. Whilst
 equation \ref{eq:kol} can provide some motivation for the 
 direction of our arguement \textit{Kolmogorov's strong law}
 cannot be applied because we can never have an infinite number
 of users in our system. Instead we will consider the
 configuration option $c_m$ where this configuration option is
-able to take on the largest number of values. Formally, we
+able to take on the largest number of values.\\ \vspace{0.2cm}
+
+Formally, we
 take a configuration option $c_m$ such that
 $\max_{i=1}^{N} |c_i| = |c_m|$. We will then show that with a 
 sufficiently large userbase that users will inevitably start
@@ -652,6 +657,129 @@ can guarantee that our database won't have any duplicates
 saving me and my client from a multitude of economical and 
 logistical issues in the future. \\ \vspace{0.2cm}
 %mumble mumble Central limit thm, lots of collisions mumble 
+
+\subsubsection{Entity relationship diagram — \textit{3rd draft}}
+
+\begin{figure}[H]
+\centering
+
+\begin{tikzpicture}
+
+  \pic{entity={logins}{\sffamily Logins}{
+    \underline{UserID} & \texttt{int} \\
+    \textit{AudioID} & \texttt{int} \\
+    \textit{AccessID} & \texttt{int} \\
+    \textit{VideoID} & \texttt{int} \\
+    Username & \texttt{string} \\
+    Password & \texttt{string} \\
+  }};
+
+  \pic[below right=of logins]{entity={video}{\sffamily Video\_cfg}{
+    \underline{VideoID} & \texttt{int} \\
+    Video quality & \texttt{int} \\
+    Video on by default & \texttt{bool} \\
+  }};
+
+  \pic[below left=of logins]{entity={audio}{\sffamily Audio\_cfg}{
+    \underline{AudioID} & \texttt{int} \\
+    Speaker volume & \texttt{int} \\
+    Mic volume & \texttt{int} \\
+    Mic on by default & \texttt{bool} \\
+    Hide self-view & \texttt{bool} \\
+  }};
+
+  \pic[below=of logins]{entity={access}{\sffamily Accessibility\_cfg}{
+    \underline{AccessID} & \texttt{int} \\
+    Font size & \texttt{int} \\
+    Toggle mute & \texttt{int} \\
+    Toggle camera & \texttt{int} \\
+    {$\cdots$} & {$\cdots$} \\
+  }};
+
+  \coordinate[right=7.5em of configs.east] (v);
+  \coordinate[left=7.5em of configs.west] (a);
+
+  \draw[-{crow's foot}] (logins) -| (audio);
+  \draw[-{crow's foot}] (logins) -- (access);
+  \draw[-{crow's foot}] (logins) -| (video);
+
+\end{tikzpicture}
+
+\caption{The final ER diagram.}
+\label{fig:erd3}
+\end{figure}
+
+\textit{Explaining and justifying the final ER diagram.} We
+will first explain the shortcomings of the 2nd database
+design and then explain how the 3rd design was created in 
+order to resolve these issues. The intention in creating the 
+ConfigID key was to provide a clearer and more organised way
+to store data on the user's configuration options. In this way 
+we wouldn't have to set up queries that ask for the value
+each option individually, we could instead simply query for the 
+ID of the category of configuration we would like 
+(audio, accessibility or video) and then use an object to store
+all the attributes in that category and their corresponding values.
+This means that we will reduce the number of queries that we would
+need to make to the database, improving the performance of our 
+application. Additionally through employing this approach to the 
+database design we make the configuration system more modular. 
+Indeed if 2 users happen to have the same accessibility
+configurations then instead of storing a duplicate entry in our
+table the users can simply use the same AccessID. \\ \vspace{0.2cm}
+
+Suppose that a user would like to change their configuration. 
+How would we know whether this configuration is already taken,
+(so we should give this user the same ConfigID as the one already 
+found in the database) or whether this configuration is new 
+(so we should give this user a new unique ConfigID). The most
+obvious naive solution would be to iterate over all configurations
+checking whether or not configuration is the same as the one created
+by the user. Since different ConfigID's may have the same AudioID 
+or the same VideoID, and etc \footnote{Only 1 of the AccessID,
+AudioID, VideoID has to be different in order to create a new
+ConfigID.}, we will spend a lot of time performing redundant
+checks. Let's reinforce this arguement using a concrete example,
+suppose that the 2 ConfigID's \texttt{001} and \texttt{002} are set up like so.
+
+\begin{center}
+\begin{tblr}{cccc}
+  \hline
+  ConfigID & AudioID & VideoID & AccessID \\
+  \hline
+  \texttt{001} & \texttt{521} & \texttt{126} & \texttt{078} \\
+  \texttt{002} & \texttt{521} & \texttt{126} & \texttt{024} \\
+\end{tblr}
+\end{center}
+
+Clearly the 2 configurations are exactly the same apart from 
+their different accessibility settings. Now imagine that 
+another user changes their configuration. We first check 
+whether or not this user's configuration is the same as
+ConfigID \texttt{001}. We check all the attributes in Audio
+config \texttt{521} then all attributes in Video config
+\texttt{126} and then all the attributes in Accessibility config
+\texttt{078}. Suppose that the configurations happened to be 
+different. We now have to check whether or not this user's 
+configuration is the same as ConfigID \texttt{002}. We check 
+again check all the attributes in Audio config \texttt{521},
+then all the attributes in Video config \texttt{126} and then
+all the attributes in Accessibility config \texttt{024}. Now 
+the problem is clear: we have checked over the same audio and 
+video configuration twice! This is a huge waste of resources and 
+the issue will become worse as more user configs are added to 
+the database. \\ \vspace{0.2cm}
+
+The solution: to remove the ConfigID attribute. In studying this 
+example we will find that the ConfigID attribute is unnecessary.
+Although it's addtion was intended to provide clarity and
+organisation it ended up creating redundancies and needlessly
+complicating the system. Now in order to solve the problem of 
+changing a user's configuration we can simply do checks against
+all audio configs, then all video configs and then all
+accessibility configs. Through this approach we know that each 
+of the configs that we check is unique, and we ultimately avoid 
+the downfall of the 2nd database draft, redundancies. 
 
 \subsubsection{Proposed system level 0 DFD}
 
@@ -983,9 +1111,67 @@ neat, cohesive visual representation of our system's architecture.
 % Identified and justified any further data to be used in the
 % post development phase.
 
+\subsubsection{Account creation}
+
+\begin{tblr}{colspec={lX}, row{1}={lightestgray}}
+
+\textit{Function name:} & {\scshape Add\_Account}(\texttt{string} {\sffamily Username}, \texttt{string} {\sffamily Password})\\
+
+\textit{Description:}  & {This function will recieve in a username and password and add these details 
+into the login table, provided that the username is not taken. We assume that the username and 
+password have already been properly validated via the algorithm in the previous subheading. It returns
+false if the username is taken and true if it is not.}\\
+
+\textit{Justification:} & {Users need to create an account in order to be able to save their configurations.
+For a detailed justification, refer to section \ref{sec:features}}\\
+
+\end{tblr}
+
+\begin{algorithm}
+\caption{Pseudo code for creating a new user account.}
+\sffamily
+
+\begin{algorithmic}[1]
+  \Function{Add\_Account}{Username, Password}
+    \If{Query\_tbl(Logins, Username) $\neq$ \textbf{null}} \Comment{Cannot create account if username is taken.}
+      \State{\textbf{return} False}
+    \EndIf
+    \State{}
+   
+    \State{Insert\_tbl(Logins, Username, Password, Default\_cfg)} \Comment{Set default settings for new user.}
+    \State{}
+
+    \State{\textbf{return} True}
+  \EndFunction
+\end{algorithmic}
+
+\end{algorithm}
+\mdseries
+
+\textit{Iterative test plan: (These tests take place assuming that the logins table is empty each time)} \\ \vspace{0.2cm}
+
+\begin{tblr}{colspec={lXXX}}
+
+\hline
+
+Test type & Input & Expected Output & Justification \\
+
+\hline
+
+Normal & \texttt{(TerryTao, re\%k91)} & \texttt{True} & {The 
+system should correctly be able to add a new user.}\\
+
+Erroneous & Call the function 2 times with this input \texttt{(TerryTao, re\%k91)} & \texttt{False} & {The
+system should not be able to add a user that already exists.}\\
+
+\hline
+
+\end{tblr}
+
+
 \subsubsection{Validate username and password}
 
-\begin{tblr}{colspec={lX}}
+\begin{tblr}{colspec={lX}, row{1}={lightestgray}}
 
 \textit{Function name:} & {\scshape Validate\_Account}(\texttt{string} {\sffamily Username}, \texttt{string} {\sffamily Password})\\
 
@@ -1035,7 +1221,7 @@ readable, as it only consists of white spaces.}\\
 \end{algorithm}
 \mdseries
 
-\textit{Iterative test plan:} \\ \vspace{0.2cm}
+\textit{Iterative test plan:}\\ \vspace{0.2cm}
 
 \begin{tblr}{colspec={lXXX}}
 
@@ -1061,67 +1247,9 @@ considered acceptable.}\\
 
 \end{tblr}
 
-
-\subsubsection{Account creation}
-
-\begin{tblr}{colspec={lX}}
-
-\textit{Function name:} & {\scshape Add\_Account}(\texttt{string} {\sffamily Username}, \texttt{string} {\sffamily Password})\\
-
-\textit{Description:}  & {This function will recieve in a username and password and add these details 
-into the login table, provided that the username is not taken. We assume that the username and 
-password have already been properly validated via the algorithm in the previous subheading. It returns
-false if the username is taken and true if it is not.}\\
-
-\textit{Justification:} & {Users need to create an account in order to be able to save their configurations.
-For a detailed justification, refer to section \ref{sec:features}}\\
-
-\end{tblr}
-
-\begin{algorithm}
-\caption{Pseudo code for creating a new user account.}
-\sffamily
-
-\begin{algorithmic}[1]
-  \Function{Add\_Account}{Username, Password}
-    \If{Query\_tbl(Logins, Username) $\neq$ \textbf{null}} \Comment{Cannot create account if username is taken.}
-      \State{\textbf{return} False}
-    \EndIf
-    \State{}
-   
-    \State{Insert\_tbl(Logins, Username, Password, ConfigID $=$ Default\_cfg)} \Comment{Set default settings for new user.}
-    \State{}
-
-    \State{\textbf{return} True}
-  \EndFunction
-\end{algorithmic}
-
-\end{algorithm}
-\mdseries
-
-\textit{Iterative test plan: (These tests take place assuming that the logins table is empty each time)} \\ \vspace{0.2cm}
-
-\begin{tblr}{colspec={lXXX}}
-
-\hline
-
-Test type & Input & Expected Output & Justification \\
-
-\hline
-
-Normal & \texttt{(TerryTao, re\%k91)} & \texttt{True} & {The 
-system should correctly be able to add a new user.}\\
-
-Erroneous & Call the function 2 times with this input \texttt{(TerryTao, re\%k91)} & \texttt{False} & {The
-system should not be able to add a user that already exists.}\\
-
-\hline
-
-\end{tblr}
-
 \subsubsection{Log user in}
 
-\begin{tblr}{colspec={lX}}
+\begin{tblr}{colspec={lX}, row{1}={lightestgray}}
 
 \textit{Function name:} & {\scshape Log\_User\_In}(\texttt{string} {\sffamily Username}, \texttt{string} {\sffamily Password})\\
 
@@ -1211,7 +1339,7 @@ allow them to log in.}\\
 
 \subsubsection{Update user settings}
 
-\begin{tblr}{colspec={lX}}
+\begin{tblr}{colspec={lX}, row{1}={lightestgray}}
 
 \textit{Function name:} & {\scshape Set\_User\_cfgs}(\texttt{string} {\sffamily Username},
 	                                             \texttt{string} {\sffamily Option},
@@ -1235,7 +1363,7 @@ allow them to log in.}\\
 
 \end{tblr}
 
-\begin{algorithm}
+\begin{algorithm}[H]
 \caption{Pseudo code for updating a user's settings.}
 \sffamily
 
@@ -1268,6 +1396,23 @@ allow them to log in.}\\
 \end{algorithm}
 \mdseries
 
+\textit{Iterative test plan: (Assume that the user "Warren2" exist in the database).} \vspace{0.2cm} \\
+
+\begin{tblr}{colspec={lXXX}}
+
+\hline
+Test type & Input & Expected Output & Justification \\
+\hline
+
+Normal & \texttt{("Warren2", "Font size", 24)} & \texttt{None} & {The system should be able 
+to update a user's configuration without crashing.}\\
+
+\hline
+
+\end{tblr}
+
 \subsubsection{Create call}
 
 \subsubsection{Join call}
+
+\subsection{Usability features}
