@@ -1187,7 +1187,7 @@ readable, as it only consists of white spaces.}\\
 
 \end{tblr}
 
-\begin{algorithm}
+\begin{algorithm}[H]
 \caption{Pseudo code for validating a username and password.}
 \sffamily
 
@@ -1269,7 +1269,7 @@ considered acceptable.}\\
 
 \end{tblr}
 
-\begin{algorithm}
+\begin{algorithm}[H]
 \caption{Pseudo code for logging a user in.}
 \sffamily
 
@@ -1288,10 +1288,10 @@ considered acceptable.}\\
 
     \State{}
 
-    \Let{Config\_ID}{Query\_tbl(Logins, Username, ConfigID)}
-    \Let{Video\_ID}{Query\_tbl(Configs, ConfigID, VideoID)}
-    \Let{Audio\_ID}{Query\_tbl(Configs, ConfigID, AudioID)}
-    \Let{Access\_ID}{Query\_tbl(Configs, ConfigID, AccessID)}
+    \Let{UserID}{Query\_tbl(Logins, Username, UserID)}
+    \Let{Video\_ID}{Query\_tbl(Logins, UserID, VideoID)}
+    \Let{Audio\_ID}{Query\_tbl(Logins, UserID, AudioID)}
+    \Let{Access\_ID}{Query\_tbl(Logins, UserID, AccessID)}
 
     \State{}
 
@@ -1342,6 +1342,7 @@ allow them to log in.}\\
 \begin{tblr}{colspec={lX}, row{1}={lightestgray}}
 
 \textit{Function name:} & {\scshape Set\_User\_cfgs}(\texttt{string} {\sffamily Username},
+						     \texttt{string} {\sffamily Category},
 	                                             \texttt{string} {\sffamily Option},
 						     \texttt{int} {\sffamily Value})\\
 
@@ -1368,12 +1369,23 @@ allow them to log in.}\\
 \sffamily
 
 \begin{algorithmic}[1]
-  \Function{Set\_User\_cfgs}{Username, Option, Value}
-
-    \Let{ConfigID}{Query\_tbl(Logins, Username, ConfigID)}
-    \Let{Config}{Create\_cfg(ConfigID)} \Comment{Let Config be an object storing the user's current settings.}
+  \Function{Set\_User\_cfgs}{Username, Category, Option, Value}
+    
+    \Let{UserID}{Query\_tbl(Logins, Username, UserID)}
+    \Let{AudioID}{Query\_tbl(Logins, UserID, AudioID)}
+    \Let{VideoID}{Query\_tbl(Logins, UserID, VideoID)}
+    \Let{AccessID}{Query\_tbl(Logins, UserID, AccessID)}
 
     \State{}
+    \Let{Audio\_cfg}{Create\_Audio\_cfg(AudioID)} \Comment{These are objects storing the user's current settings.}
+    \Let{Access\_cfg}{Create\_Access\_cfg(AccessID)}
+    \Let{Video\_cfg}{Create\_Video\_cfg(VideoID)}
+
+    \State{}
+
+    \State{\textbf{If} Category $=$ "Audio": Config $\gets$ Audio\_cfg} \Comment{Config is the configuration object being updated.}
+    \State{\textbf{If} Category $=$ "Video": Config $\gets$ Video\_cfg}
+    \State{\textbf{If} Category $=$ "Access": Config $\gets$ Access\_cfg}
 
     \State{Config.Option $\gets$ Value}
 
@@ -1412,6 +1424,60 @@ to update a user's configuration without crashing.}\\
 \end{tblr}
 
 \subsubsection{Create call}
+
+\begin{tblr}{colspec={lX}, row{1}={lightestgray}}
+
+\textit{Function name:} & {\scshape Create\_Call}(\texttt{string} {\sffamily Username})\\
+
+\textit{Description:}  & {This function will start a new call for the user. It will 
+                          return a unique passcode that the user can share in order 
+		          to invite others to join the call.}\\
+
+\textit{Justification:} & {The ability to be able to create a call is a necessity for 
+                           this application. It is one of the primary requests from 
+		           my client, and without it this software would not 
+		           be a \textit{video conferencing} system.}\\
+
+\end{tblr}
+
+\textit{Note: This is a modified, pseudo-code version of the code 
+found at the article} \url{https://www.100ms.live/blog/webrtc-video-call}.
+\textit{All credit goes to it's author, Karthikeyan S.}
+
+\begin{algorithm}[H]
+\caption{Pseudo code for starting a new call.}
+\sffamily
+
+\begin{algorithmic}[1]
+  \State{\textbf{import} WebRTC}
+  \Function{Create\_Call}{Username}
+    \Let{Local\_Stream}{GetUserMedia(video $=$ true, audio $=$ true)}
+    \Let{Connection}{RTCPeerConnection()}
+    \State{}
+
+    \State{Connection.addTrack(Local\_Stream.get\_track(), Local\_Stream)} \Comment{Add the local stream to the connection.}
+    \State{Connection.createOffer()} \Comment{Create a SDP
+    offer. (See \ref{sec:further} for details.)}
+    \State{}
+
+    \State{\textbf{Try}}
+    \State{\hspace{\algorithmicindent}Signal(Connection.offer)} 
+    \Comment{Send the offer
+    to the signalling server.}
+
+    \State{\textbf{Catch}(error)}
+    \State{\hspace{\algorithmicindent} \textbf{print}("Error creating offer!", error)}
+
+    \State{}
+    \State{\textbf{return} New\_Call\_Code()}
+  \EndFunction
+\end{algorithmic}
+
+\end{algorithm}
+\mdseries
+
+
+
 
 \subsubsection{Join call}
 
