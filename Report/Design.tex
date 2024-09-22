@@ -1102,7 +1102,7 @@ to refer to in the future.
 Finally we have seen that the level 1 DFD diagram provides a
 neat, cohesive visual representation of our system's architecture.
 
-\subsection{\textsf Proposed algorithms}
+\subsection{Key algorithms}
 
 % Use appropiate and accurate algorithms, justifying how these
 % algorithms justifying how these algorithms form a complete
@@ -1346,7 +1346,8 @@ allow them to log in.}\\
 	                                             \texttt{string} {\sffamily Option},
 						     \texttt{int} {\sffamily Value})\\
 
-\textit{Description:}  & {This function will update the user's current settings. It will save
+\textit{Description:}  & {This function will update the user's current settings. If the given user 
+	                  doesn't exist the function will return false. It will save
                           these changes to the database so that they can be retrieved later. If the 
 		          specific configuration is already stored in the database than the user's 
 		          config id will change to the id of the configuration already stored in the
@@ -1370,6 +1371,8 @@ allow them to log in.}\\
 
 \begin{algorithmic}[1]
   \Function{Set\_User\_cfgs}{Username, Category, Option, Value}
+    \State{\textbf{If} Check\_User\_exists(Username) $\neq$ True: \textbf{return} False} \Comment{User doesn't exist.}
+    \State{}
     
     \Let{UserID}{Query\_tbl(Logins, Username, UserID)}
     \Let{AudioID}{Query\_tbl(Logins, UserID, AudioID)}
@@ -1408,7 +1411,7 @@ allow them to log in.}\\
 \end{algorithm}
 \mdseries
 
-\textit{Iterative test plan: (Assume that the user "Warren2" exist in the database).} \vspace{0.2cm} \\
+\textit{Iterative test plan: (Assume that only the user "Warren2" exist in the database).} \vspace{0.2cm} \\
 
 \begin{tblr}{colspec={lXXX}}
 
@@ -1419,6 +1422,9 @@ Test type & Input & Expected Output & Justification \\
 Normal & \texttt{("Warren2", "Font size", 24)} & \texttt{None} & {The system should be able 
 to update a user's configuration without crashing.}\\
 
+Erroneous & \texttt{("Howard9", "Font size", 24)} & \texttt{False} & {The function should return false if
+the user doesn't exist.}\\
+
 \hline
 
 \end{tblr}
@@ -1427,7 +1433,7 @@ to update a user's configuration without crashing.}\\
 
 \begin{tblr}{colspec={lX}, row{1}={lightestgray}}
 
-\textit{Function name:} & {\scshape Create\_Call}(\texttt{string} {\sffamily Username})\\
+\textit{Function name:} & {\scshape Create\_Call}()\\
 
 \textit{Description:}  & {This function will start a new call for the user. It will 
                           return a unique passcode that the user can share in order 
@@ -1450,7 +1456,7 @@ found at the article} \url{https://www.100ms.live/blog/webrtc-video-call}.
 
 \begin{algorithmic}[1]
   \State{\textbf{import} WebRTC}
-  \Function{Create\_Call}{Username}
+  \Function{Create\_Call}{}
     \Let{Local\_Stream}{GetUserMedia(video $=$ true, audio $=$ true)}
     \Let{Connection}{RTCPeerConnection()}
     \State{}
@@ -1476,9 +1482,35 @@ found at the article} \url{https://www.100ms.live/blog/webrtc-video-call}.
 \end{algorithm}
 \mdseries
 
+\textit{Iterative test plan: }  \\
 
+\begin{itemize}
 
+\item{Ensure the function can be called without crashing.} 
+
+\item{Verify whether a video call was setup correctly.}
+
+\item{Verify whether a unique code was generated.}
+
+\end{itemize}
 
 \subsubsection{Join call}
+
+\begin{tblr}{colspec={lX}, row{1}={lightestgray}}
+
+\textit{Function name:} & {\scshape Join\_Call}(\texttt{int} {\sffamily Code})\\
+
+\textit{Description:}  & {This function will allow the user 
+to join the video call associated with the code that they 
+entered. If no such video call exists, it will return false.}\\
+
+\textit{Justification:} & {Again in order for my client's 
+primary request to be fulfilled, we must be able to have 
+multiple users join a video call with each other.}\\
+
+\end{tblr}
+
+\subsubsection{Justify how these algorithms form a complete
+solution}
 
 \subsection{Usability features}
