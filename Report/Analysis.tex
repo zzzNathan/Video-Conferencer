@@ -9,11 +9,10 @@
 
 This docuement is my coursework component for the OCR A-Level
 Computer Science course. It is all my own work, and the parts
-which are not mine have all been referenced accordingly. \\ 
-\vspace{0.2cm}
-
-\textit{If you have printed this document the following
-2 points will not apply to you.}\\ \vspace{0.2cm}
+which are not mine have all been referenced accordingly. This 
+document was intended to be read as a pdf so if you have 
+physically printed this document the following
+2 points will not apply to you.\\ \vspace{0.2cm}
 
 In this work { \color{blue} \textbf{blue} } text indicates a
 link either to a website or to another section in this pdf. \\
@@ -27,6 +26,14 @@ can be found in the bibliography at the end of this pdf.\\
 This was achieved using the \LaTeX \ typesetting language.
 For more information see \url{https://www.latex-project.org/}.
 \\ \vspace{0.2cm}
+
+Finally in this document we frequently make references to
+later/previous sections, figures and algorithms using the
+{ \color{blue} \textbf{blue} } in-document hyperlinks. So
+that the reader does not lose their current page, it 
+is recommended that they make use of the bookmark functionality 
+in their pdf viewer to mark their current page 
+(if available your pdf viewer). \\ \vspace{0.2cm}
 
 Thank you for reading, \textit{Jonathan Kasongo}.
 
@@ -261,7 +268,57 @@ solution to their problems, ruling out the second case
 entirely. In showing that solving problems without algorithmic
 thinking is absurd we hence show that algorithmic thinking
 must be used when solving problems, sufficiently justifying 
-the use of algorithmic thinking as a computational method.
+the use of algorithmic thinking as a computational method.\\
+\vspace{0.2cm}
+
+\textit{Explaining why the problem is amenable to a
+computational approach.} We have already seen that the 
+problem is definitely computationally feasible thanks to
+our research in paragraph 2 of this section. So we now 
+explain why the main component of our problem is amenable
+to a computational approach. Indeed many API's do already 
+exist to provide a way for developers to implement video
+conferencing on the web browser, and we examine such API's 
+in depth in section \ref{sec:further}. The existence of these 
+API's allows us to implement real-time video conferencing
+using efficient, robust and well-tested algorithms. Without
+them we would have to spend unjustifiable amounts of time 
+studying the necessary security requirements, developing and
+rigourously testing all of the relevant algorithms ensuring 
+that they are all efficient enough for commercial usage and
+reading 
+through the specifications on how data should be formatted 
+in order to send it over a network to the other users in the 
+call. \\ \vspace{0.2cm}
+
+Visualisation can be used to present data in a more 
+understandble format, hence we make use of it in this report 
+too. For example we provide a visualisation of the decomposition
+of our problem in section \ref{sec:breakdown}. Indeed by 
+visualising the problem we have at hand we can more easily 
+identify components of the problem that are amenable to 
+abstraction, decomposition and etc. After applying our 
+computational techniques the one main problem splits into many
+smaller sub-problems each of which we can solve by using an
+algorithm, demonstrating that our problem is indeed amenable to 
+a computational approach. To provide an explicit example of how 
+we can use a computational approach to solve a sub-problem we refer 
+to figure \ref{fig:decomp}. The collection of 4 nodes in the
+bottom right form a decomposition of the sub-problem: allowing other
+users to join a call. From our figure we can clearly see that we
+need a finite sequence of steps in order to solve this problem and
+so we can use an algorithm to solve this sub-problem, indeed a 
+psuedo-code algorithm is then created in response to this sub-problem 
+using our visualisation as a guide in algorithm listing \ref{alg:join}.
+Finally we reinforce our arguement that the problem is amenable to a
+computational approach by looking at effective existing 
+approaches to this problem. Applications like Skype, Zoom, 
+Whatsapp and many more are all very successful video conferencing
+applications all built using computational approaches (see
+section \ref{sec:research}), if all of these applications
+have been 
+built to great success then it in turn shows that the problem 
+at hand must be amenable to a computational approach.
 
 \section{Stakeholders}
 \label{sec:stakeholders}
@@ -1421,32 +1478,16 @@ will then be able to retrieve the password later.
 % specify
 %justify why they are important
 
+
 \subsection{Data capture}
 
 A microphone and video camera will be used in order to get 
 video and audio footage from each user. This will enable the 
 users to communicate with one another and will allow my client
-to be able to host video conferences on the system. 
+to be able to host video conferences on the system. \\ \vspace{0.2cm}
+
 Justification for audio and video were provided in 
-\ref{sec:computational}, so here we will justify the use of 
-cameras and microphones. The approach of using microphones and
-webcams to capture video and audio is fully justified by the
-fact that there exists no suitable alternatives to these 
-technologies. For video the only other known alternative to a
-camera is to use a photogram. A photogram is a black and white
-image \textit{"made by placing objects between a light 
-sensitive paper or film and light source."} \cite{photo}. This
-is unsuitable for video as if we want to achieve a standard
-frame rate of 30 FPS the users would have to buy a large
-quantity of photographic paper, costing the user a lot of
-money. Furthermore photograms take roughly 1 minute to
-develop, this means that the user would have to properly setup,
-develop and share photograms with others at a rate of 30 times
-per second, whilst waiting 1 minute for each photogram to
-develop. These reasons provide sufficient justification as for
-why cameras are the only suitable option. As for audio my 
-independent research on this topic indicated that we have not
-yet found alternatives to microphones for capturing sound. 
+\ref{sec:computational}.
 
 \subsection{Data verification and validation}
 
@@ -1462,13 +1503,13 @@ potential implementation was discussed in \ref{sec:research}.
 Data will also have to be verified before it is put into the 
 database. We should ensure that all data that is being entered
 into the database is of the correct data type and that
-\texttt{NULL} values aren't permitted if a particular 
+\code{NULL} values aren't permitted if a particular 
 attribute is mandatory. The verification of data entering our
 database is justified because it prevents a host of problems 
 arising later on in the development of the system. For example
 if we don't verify that the data in the username column is 
 only of the string data type, it could be possible that 
-someone's username is a \texttt{NULL} field. In this case we 
+someone's username is a \code{NULL} field. In this case we 
 will never be able to log this user in because their account
 isn't accessed by their username meaning that we will never be
 able to verify that the password that they have inputted is the 
