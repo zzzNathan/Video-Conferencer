@@ -700,17 +700,18 @@ on my client's requirements and desires respectively.
 From this interview, I can see that my client has some features
 that should definitely be included in the solution: real-time 
 audio and video as well as the ability to raise and lower one's
-virtual hand. Furthermore I believe that security should also 
-be very important when designing the final solution. This 
-should be a requirement because we don't want any of our users
+virtual hand. Moreover I believe that security should also 
+be a serious concern when designing the final solution. Indeed
+this we should have a requirement to ensure that our user's data 
+remains safe, because we don't want any of our users
 to have their important data stolen during their video
 conference. \vspace{0.2cm}
 
 \subsection{Further research to examine suitable approaches}
 \label{sec:further}
 
-Bearing this in mind we should also think about suitable 
-approaches to implementing a system with these features. In 
+We now take the time to discuss suitable approaches to
+implementing real-time video conferencing. In 
 order to implement the real-time video/audio I could make use
 of the WebRTC API from Google, which would enable me to 
 establish secure peer to peer connections from the browser. 
@@ -723,22 +724,35 @@ users, Alice and Bob that want to have a video call. Alice
 creates an offer for Bob to connect. Consequently WebRTC 
 creates a session description protocol (SDP) object. The SDP 
 object holds information like media types, name of the
-session and the video codec being used. This data is then 
+session and the video codec being used.  This data is then 
 saved to a \textit{signalling} server. Bob then reads this SDP
 offer from the server and WebRTC creates a SDP answer and
 writes this to the server. Alice and Bob have now established 
-a peer to peer connection. In essence, signalling allows for 
+a peer to peer connection. Once Alice and Bob have connected,
+they still need to establish how they will send each other data.
+Indeed this is a problem because most devices' IP addresses are
+changed or hidden by firewalls or by network address translation 
+(NAT). In order to combat this issue WebRTC uses the interactivity 
+connectivity establishment (ICE) protocol. ICE allows WebRTC
+traverse NATs and firewalls by enabling devices to find and 
+the most efficient network path between them, regardless of
+how the network is configured. \footnote{This definition is not mine. 
+Source: \url{https://www.digitalsamba.com/blog/ice-and-sdp-in-webrtc}}
+Alice and Bob then send each other their ICE candidates, where an ICE 
+candidate is an address of a device that knows how to reach the 
+other user. In essence, signalling allows for 
 users to exchange the metadata of their connection through the
 WebRTC API. To justify usage of the WebRTC API, I believe it 
 is first necessary to explain why I rejected the idea of
 implementing an API from scratch. Unfortunately
 implementations of fully functioning and secure peer to peer
 API's aren't trivial at all. The time it would take to fully
-understand how to implement peer to peer connections using 
+understand how to implement peer to peer connections using the
+multitude of obscure and highly optimised algorithms like 
 VP9 packetizers \cite{vp9} and SHA-256 cryptography for data
 security would simply be too time-consuming and cannot be
 justified when fully functioning, tested and performant 
-implementations already exist. The next 
+implementations already exist through API's. The next 
 portion of the justification covers why did I choose the
 WebRTC API over other API's? WebRTC is from Google and it is 
 well known that Google is a credible technology company. 

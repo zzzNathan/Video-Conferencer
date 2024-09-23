@@ -603,9 +603,10 @@ we have,
 over all valid values of $i$. From the definition of a limit
 we can conclude that as $n$ grows larger the sample mean 
 converges almost surely to it's expected value. That means
-that as the number of users increases the likelyhood that 
+that as the number of users increases, the likelyhood that 
 users will choose the same configuration option increases 
-significantly. Whilst
+significantly meaning the number of redundancies in our table 
+increases significantly too. Whilst
 equation \ref{eq:kol} can provide some motivation for the 
 direction of our arguement \textit{Kolmogorov's strong law}
 cannot be applied because we can never have an infinite number
@@ -1464,6 +1465,10 @@ found at the article} \url{https://www.100ms.live/blog/webrtc-video-call}.
     \State{Connection.addTrack(Local\_Stream.get\_track(), Local\_Stream)} \Comment{Add the local stream to the connection.}
     \State{Connection.createOffer()} \Comment{Create a SDP
     offer. (See \ref{sec:further} for details.)}
+
+    \State{Signal(Connection.icecandidate)} \Comment{Send the ICE candidates.
+    (See \ref{sec:further} for details.)}
+
     \State{}
 
     \State{\textbf{Try}}
@@ -1502,7 +1507,9 @@ found at the article} \url{https://www.100ms.live/blog/webrtc-video-call}.
 
 \textit{Description:}  & {This function will allow the user 
 to join the video call associated with the code that they 
-entered. If no such video call exists, it will return false.}\\
+entered. If no such video call exists, it will return false. 
+Otherwise if the call was joined successfully it will return
+true.}\\
 
 \textit{Justification:} & {Again in order for my client's 
 primary request to be fulfilled, we must be able to have 
@@ -1510,7 +1517,66 @@ multiple users join a video call with each other.}\\
 
 \end{tblr}
 
-\subsubsection{Justify how these algorithms form a complete
-solution}
+\textit{Note: This is a modified, pseudo-code version of the code 
+found at the article} \url{https://www.100ms.live/blog/webrtc-video-call}.
+\textit{All credit goes to it's author, Karthikeyan S.}
+
+\begin{algorithm}[H]
+\caption{Pseudo code for joining a call.}
+\sffamily
+
+\begin{algorithmic}[1]
+  \State{\textbf{import} WebRTC}
+
+  \Function{Join\_Call}{Code}
+    \State{\textbf{If} Call\_Exists(Code) $=$ False: \textbf{return} False}
+    \State{}
+
+    \Let{Local\_Stream}{GetUserMedia(video $=$ true, audio $=$ true)}
+    \Let{Connection}{RTCPeerConnection()}
+    \State{}
+
+    \State{Connection.addTrack(Local\_Stream.get\_track(), Local\_Stream)} \Comment{Add the local stream to the connection.}
+    
+    \State{Connection.createAnswer()} \Comment{Create a SDP answer.}
+
+    \State{Signal(Connection.icecandidate)} \Comment{Send the ICE candidates.}
+
+    \State{}
+
+    \State{\textbf{Try}}
+    \State{\hspace{\algorithmicindent}Signal(Connection.answer)} 
+    \Comment{Send the answer
+    to the signalling server.}
+
+    \State{\textbf{Catch}(error)}
+    \State{\hspace{\algorithmicindent} \textbf{print}("Error creating answer!", error)}
+
+    \State{}
+
+    \State{\textbf{return} True}
+  \EndFunction
+\end{algorithmic}
+
+\end{algorithm}
+\mdseries
+
+\textit{Iterative test plan: }  \\
+
+\begin{itemize}
+
+\item{Ensure the function can be called without crashing.} 
+
+\item{Verify whether a video call was joined correctly, 
+provided a call with that code exists.}
+
+\item{Verify whether the function correctly returns false 
+if a call doesn't exist with this code.}
+
+\end{itemize}
+
+
+%\subsubsection{Justify how these algorithms form a complete
+%solution}
 
 \subsection{Usability features}
