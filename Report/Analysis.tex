@@ -1478,19 +1478,27 @@ will then be able to retrieve the password later.
 % specify
 %justify why they are important
 
-
 \subsection{Data capture}
 
+\textit{Description:}
 A microphone and video camera will be used in order to get 
-video and audio footage from each user. This will enable the 
+video and audio footage from each user. These video/audio feeds
+will then be sent to all the other participants in the video 
+conference in real-time. This will enable the 
 users to communicate with one another and will allow my client
 to be able to host video conferences on the system. \\ \vspace{0.2cm}
 
-Justification for audio and video were provided in 
-\ref{sec:computational}.
+\textit{Justification:} By allowing our users to be able to 
+see and hear the people who they are in the video conference with 
+we facilitate the communication between users who do not have to 
+be in the same physical place. In doing so we achieve the client's
+main priority, that is to create a simple video conferencing platform 
+that will allow him to set up and host the online streams of the 
+conferences he has been asked to manage.
 
 \subsection{Data verification and validation}
 
+\textit{Description:}
 In this system data will be verified upon the creation of a
 new account. Users will prompted to enter their desired
 password twice in order to ensure that the user would really 
@@ -1504,24 +1512,30 @@ Data will also have to be verified before it is put into the
 database. We should ensure that all data that is being entered
 into the database is of the correct data type and that
 \code{NULL} values aren't permitted if a particular 
-attribute is mandatory. The verification of data entering our
-database is justified because it prevents a host of problems 
-arising later on in the development of the system. For example
-if we don't verify that the data in the username column is 
-only of the string data type, it could be possible that 
-someone's username is a \code{NULL} field. In this case we 
-will never be able to log this user in because their account
-isn't accessed by their username meaning that we will never be
-able to verify that the password that they have inputted is the 
-correct password that is stored in the database.
+attribute is mandatory. \\ \vspace{0.2cm}
+
+\textit{Justification:}
+Since security is an imperative in this software, we cannot 
+allow our users to choose weak passwords for their accounts.
+By ensuring that users choose an adequately strong password
+we improve the security of user data. If we take all of the
+necessary measures to strengthen the security of our users'
+data then they can be confident that their data is fully 
+private whilst using our application, eliminating one of
+their potential concerns and in turn improving the mental 
+well-being of our user-base.
 
 \subsection{Data processing}
 
+\textit{Description:}
 In order to send video and audio data to others quickly the 
 system will have to compress both. This will be managed by the
 video/audio codecs that we choose to use in the beginning of
 the peer to peer connection. This is handled by the
-WebRTC API. Audio and video compression is 
+WebRTC API. \\ \vspace{0.2cm}
+
+\textit{Justification:} 
+Audio and video compression is 
 important because without it we would have to send large 
 amounts of data to others over the internet by splitting the
 data up into a number of packets. Each frame would take a 
@@ -1529,14 +1543,18 @@ considerable amount of time to arrive completely and the user
 would be presented with a slow and laggy experience.
 Furthermore the more data that we have to send per second 
 means that the user will require more bandwidth, and this 
-may not be economically possible for all users. If we wish 
-for our application to be accessible than we should develop it
-in such a way that there are minimal requirements to use the 
-application smoothly and compression will certainly reduce the
-system requirements needed to run this application.
+may not be economically possible for all users.
+If we wish for our application to be accessible,
+as per the wish of my client see section \ref{sec:interview},
+than we should develop it in such a way that there 
+are minimal requirements to use the 
+application smoothly and video/audio compression will
+certainly reduce the system and network requirements needed to run
+this application.
 
 \subsection{Outputs}
 
+\textit{Description:}
 Outputs like the video and audio from other participants will 
 be displayed on the screen and played out of the user's 
 speakers respectively. If a users volume is at 0 (or some 
@@ -1545,7 +1563,10 @@ notify them so that they aren't confused on why they hear no
 audio. Moreover the user will have access to 
 information like whether their mic is currently muted/unmuted,
 whether or not their camera is working and if their virtual 
-hand is currently raised. These pieces of information are
+hand is currently raised. \\ \vspace{0.2cm}
+
+\textit{Justification:}
+These pieces of information are
 some of the most important in the context of video
 conferencing, so it is essential to ensure that the user can 
 clealy access these outputs. Finally in an effort to satisfy
