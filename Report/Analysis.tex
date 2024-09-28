@@ -14,14 +14,22 @@ document was intended to be read as a pdf so if you have
 physically printed this document the following
 2 points will not apply to you.\\ \vspace{0.2cm}
 
+\begin{itemize}
+
+\item{
 In this work { \color{blue} \textbf{blue} } text indicates a
 link either to a website or to another section in this pdf. \\
 \vspace{0.2cm}
+}
 
+\item{
 In this work { \color{green} \textbf{green} } text indicates a
 reference to another piece of work, details on this reference
 can be found in the bibliography at the end of this pdf.\\
 \vspace{0.2cm}
+}
+
+\end{itemize}
 
 This was achieved using the \LaTeX \ typesetting language.
 For more information see \url{https://www.latex-project.org/}.
@@ -552,7 +560,7 @@ Edge & Commentary \\
 \end{longtblr}
 
 \textit{Justifying the DFD.} This level 0 DFD allows me to 
-preseent a broad overview of the previous system's
+present a broad overview of the previous system's
 functionality and how it intended to work. The DFD is crucial
 to ensure that my client fully understands what the previous 
 system offered to the user, this information will enable me 
@@ -574,9 +582,275 @@ system, simultaneously improving client satisfaction.
 % to similar problems, identifying and justifying suitable 
 % approaches based on this research.
 
-We begin our research by observing solutions to similar 
-problems. Then justifications of suitable approaches are given
-based on the existing solutions.
+\subsection{Questionnaire}
+
+I asked a number of questions to gauge the scope of the 
+problem. This research method would allow me to get 
+information from a wide range of people. \\ \newpage
+
+\textit{Video conferencing habits questionnaire.} \\
+\vspace{1em}
+
+\begin{tblr}{colspec={lX}, row{1}={lightestgray}}
+\textbf{(1)} & How often do you video conference with others?\\
+
+(A) & Every day\\
+
+(B) & Two to three times a week\\
+
+(C) & Once or twice a month\\
+
+(D) & Very rarely\\
+
+\end{tblr}
+
+\vspace{1em}
+
+\begin{tblr}{colspec={lX}, row{1}={lightestgray}}
+\textbf{(2)} & What software do you use to video conference?\\
+
+(A) & Whatsapp\\
+
+(B) & Skype\\
+
+(C) & Zoom\\
+
+(D) & Microsoft teams\\
+
+\end{tblr}
+
+\vspace{1em}
+
+\begin{tblr}{colspec={lX}, row{1}={lightestgray}}
+\textbf{(3)} & {How would you rate the accessibility in the
+app you use for video conferencing?}\\
+
+(A) & Excellent\\
+
+(B) & Good\\
+
+(C) & Adequate\\
+
+(D) & Poor\\
+
+\end{tblr}
+
+\vspace{1em}
+
+\begin{tblr}{colspec={lX}, row{1}={lightestgray}}
+\textbf{(4)} & {How would you rate navigating the UI in 
+the app you use for video conferencing?}\\
+
+(A) & Excellent\\
+
+(B) & Good\\
+
+(C) & Adequate\\
+
+(D) & Poor\\
+
+\end{tblr}
+
+\vspace{1em}
+
+\begin{tblr}{colspec={lX}, row{1}={lightestgray}}
+\textbf{(5)} & {How do you feel about the current level of
+visual clarity and size of video feeds?}\\
+
+(A) & Excellent\\
+
+(B) & Good\\
+
+(C) & Adequate\\
+
+(D) & Poor\\
+
+\end{tblr}
+
+\vspace{1em}
+
+\begin{tblr}{colspec={lX}, row{1}={lightestgray}}
+\textbf{(6)} & {How important is closed captioning for 
+your video conferencing needs?}\\
+
+(A) & Very important\\
+
+(B) & Important\\
+
+(C) & Neutral\\
+
+(D) & Not Important\\
+
+\end{tblr}
+
+\vspace{1em}
+
+\begin{tblr}{colspec={lX}, row{1}={lightestgray}}
+\textbf{(7)} & {Would you benefit from a text chat function during video conferencing?}\\
+
+(A) & Yes\\
+
+(B) & No\\
+
+\end{tblr}
+
+\twocolumn
+
+\textit{Results. (Question statements are abridged).}
+
+\begin{tikzpicture}[scale=0.7]
+\begin{axis}[
+title={\textbf{(1)} How often do you video 
+conference with others?},
+xbar, xmin=0,
+xlabel={Votes},
+symbolic y coords={%
+  {(D) \ \ \ \ \ \ \ \ \ Very rarely},
+  {(C) 1-2 times a month},
+  {(B) \ \ 2-3 times a week},
+  {(A) \ \ \ \ \ \ \ \ \ \ Every day}},  
+ytick=data,
+nodes near coords, 
+nodes near coords align={horizontal},
+ytick=data,
+every axis plot/.append style={fill},
+]
+\addplot[gray!75!purple]coordinates{
+  (3,{(D) \ \ \ \ \ \ \ \ \ Very rarely})
+  (4,{(C) 1-2 times a month})
+  (10,{(B) \ \ 2-3 times a week})
+  (3,{(A) \ \ \ \ \ \ \ \ \ \ Every day})}; 
+\end{axis}
+\end{tikzpicture}
+
+\begin{tikzpicture}[scale=0.7]
+\begin{axis}[
+title={\textbf{(2)} What software do you use to video 
+conference?},
+xbar, xmin=0,
+xlabel={Votes},
+symbolic y coords={%
+  {(D) \ \ \ Microsoft teams},
+  {(C) \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Zoom},
+  {(B) \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Skype},
+  {(A) \ \ \ \ \ \ \ \ \ \ Whatsapp}}, 
+ytick=data,
+nodes near coords, 
+nodes near coords align={horizontal},
+ytick=data,
+every axis plot/.append style={fill},
+]
+\addplot[gray!75!purple] coordinates{
+  (7,{(D) \ \ \ Microsoft teams})
+  (10,{(C) \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Zoom})
+  (0,{(B) \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Skype})
+  (3,{(A) \ \ \ \ \ \ \ \ \ \ Whatsapp})};
+\end{axis}
+\end{tikzpicture}
+
+\begin{tikzpicture}[scale=0.7]
+\begin{axis}[
+title={\textbf{(3)} Rate the
+accessibility in the app you use.},
+xbar, xmin=0,
+xlabel={Votes},
+symbolic y coords={%
+  {(D) \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  Poor},
+  {(C) \ \ \ \ \ \ \ \ \ \ \ \  Adequate},
+  {(B) \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  Good},
+  {(A) \ \ \ \ \ \ \ \ \ \ \ \  Excellent}},  
+ytick=data,
+nodes near coords, 
+nodes near coords align={horizontal},
+ytick=data,
+every axis plot/.append style={fill},
+]
+\addplot[gray!75!purple]coordinates{
+  (3,{(D) \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  Poor})
+  (10,{(C) \ \ \ \ \ \ \ \ \ \ \ \  Adequate})
+  (6,{(B) \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  Good})
+  (1,{(A) \ \ \ \ \ \ \ \ \ \ \ \  Excellent})}; 
+\end{axis}
+\end{tikzpicture}
+
+\begin{tikzpicture}[scale=0.7]
+\begin{axis}[
+title={\textbf{(4)} Rate navigating
+the UI in the app you use.},
+xbar, xmin=0,
+xlabel={Votes},
+symbolic y coords={%
+  {(D) \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  Poor},
+  {(C) \ \ \ \ \ \ \ \ \ \ \ \  Adequate},
+  {(B) \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  Good},
+  {(A) \ \ \ \ \ \ \ \ \ \ \ \  Excellent}},  
+ytick=data,
+nodes near coords, 
+nodes near coords align={horizontal},
+ytick=data,
+every axis plot/.append style={fill},
+]
+\addplot[gray!75!purple] coordinates{
+  (1,{(D) \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Poor})
+  (1,{(C) \ \ \ \ \ \ \ \ \ \ \ \ Adequate})
+  (7,{(B) \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Good})
+  (11,{(A) \ \ \ \ \ \ \ \ \ \ \ \ Excellent})}; 
+\end{axis}
+\end{tikzpicture}
+
+\begin{tikzpicture}[scale=0.7]
+\begin{axis}[
+title={\small{\textbf{(5)} How do you feel about
+the level of visual clarity of video feeds?}},
+xbar, xmin=0,
+xlabel={Votes},
+symbolic y coords={%
+  {(D) \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  Poor},
+  {(C) \ \ \ \ \ \ \ \ \ \ \ \  Adequate},
+  {(B) \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  Good},
+  {(A) \ \ \ \ \ \ \ \ \ \ \ \  Excellent}},  
+ytick=data,
+nodes near coords, 
+nodes near coords align={horizontal},
+ytick=data,
+every axis plot/.append style={fill},
+]
+\addplot[gray!75!purple]coordinates{
+  (5,{(D) \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Poor})
+  (6,{(C) \ \ \ \ \ \ \ \ \ \ \ \ Adequate})
+  (6,{(B) \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Good})
+  (3,{(A) \ \ \ \ \ \ \ \ \ \ \ \ Excellent})}; 
+\end{axis}
+\end{tikzpicture}
+
+\begin{tikzpicture}[scale=0.7]
+\begin{axis}[
+title={\small{\textbf{(6)} How important is
+CC for your video
+conferencing needs?
+}},
+xbar, xmin=0,
+xlabel={Votes},
+symbolic y coords={%
+  {(D) \ \ \ \ \ Not Important},
+  {(C) \ \ \ \ \ \ \ \ \ \ \ \ \ Neutral},
+  {(B) \ \ \ \ \ \ \ \ \ \ \ Important},
+  {(A) \ \ \ \ Very Important}},  
+ytick=data,
+nodes near coords, 
+nodes near coords align={horizontal},
+ytick=data,
+every axis plot/.append style={fill},
+]
+\addplot[gray!75!purple] coordinates{
+  (14,{(D) \ \ \ \ \ Not Important})
+  (4,{(C) \ \ \ \ \ \ \ \ \ \ \ \ \ Neutral})
+  (2,{(B) \ \ \ \ \ \ \ \ \ \ \ Important})
+  (0,{(A) \ \ \ \ Very Important})}; 
+\end{axis}
+\end{tikzpicture}
+
+\onecolumn
 
 \subsection{Zoom}
 
