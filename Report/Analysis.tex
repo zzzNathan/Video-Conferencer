@@ -906,12 +906,6 @@ data may be skewed.
 
 \onecolumn
 
-\subsection{Microsoft Teams}
-
-\subsection*{Design}
-
-\subsection*{Accessibility features}
-
 \subsection{Zoom}
 
 \subsection*{Design}
@@ -968,7 +962,15 @@ like toggle mute and toggle video. \\ \vspace{0.2cm}
 \textit{Negative:} The options to change the layout of the
 video feeds and the speaker we are looking at currently are
 tucked away in the top right of the screen, some users may 
-have trouble locating these options.
+have trouble locating these options. \\ \vspace{0.2cm}
+
+Zoom's UI is clearly designed with clarity in mind. In this 
+project we can draw inspiration from the simplistic approach 
+that Zoom takes to design whilst reorganising the layouts in 
+order to be more accessible and easier on the eyes. Zoom also 
+has quite natural spacing between their buttons, the icons aren't
+too clumped together neither are they too far apart from each
+other. I will keep this example in mind whilst designing the UI.
 
 \subsection*{Accessibility features}
 
@@ -1022,9 +1024,67 @@ they can use the application to it's fullest potential.
 
 \subsection{Skype}
 
+Skype employs an information-centric approach towards their UI 
+design.
+
 \subsection*{Design}
 
+\begin{figure}[H]
 
+\centering
+    \subfloat[\centering Messages.]{{\includegraphics[scale=0.5]{Images/SkypeUI_1.png}}}%
+    \qquad
+\centering
+    \subfloat[\centering During a video call.]{{\includegraphics[scale=0.3]{Images/SkypeUI_2.png}}}%
+
+\caption{Skype's UI.}
+\label{fig:Skype}
+\end{figure}
+
+Part (a) of figure \ref{fig:Skype} shows the messaging
+component of Skype. The right side of the screen shows the 
+current conversation, whilst the left side shows a thinner 
+pane with information like the user's current status, 
+previews of other ongoing conversations and various buttons
+that display recent notifications, calls, messages and etc.
+\\ \vspace{0.2cm}
+
+\textit{Positive:} This design allows users to see more
+information at once also allowing them to navigate the UI
+quicker since most of the options or information they need is 
+on 1 page. \\ \vspace{0.2cm}
+
+\textit{Negative:} This amount of information being layed out
+so compactly may be overwhelming for the user. It is well 
+known that having too many choices be taxing on our cognitive
+system, so much so that it may even slow down our decision 
+making. \footnote{This information was paraphrased from:
+\url{https://thedecisionlab.com/biases/choice-overload-bias}} \\ \vspace{0.2cm}
+
+Part (b) of figure \ref{fig:Skype} shows the video call
+component of Skype. The UI design is fairly similar to Zoom's
+design with the two sharing the same bottom control panel. 
+Skype positions it's most important buttons in the centre of the
+control panel, that is the toggle mute and video buttons as well 
+as the leave call button. The combination of the black and gray 
+colours work to distinguish between the software and the actual
+video call.\\ \vspace{0.2cm}
+
+\textit{Positive:} The most important features are positioned in 
+the middle, so that the user's attention is drawn there.
+\\ \vspace{0.2cm}
+
+\textit{Negative:} The space for the video conference is
+encroached upon by the icons at the top showing the other
+attendees. This makes the video call experience feel cramped.\\ 
+\vspace{0.2cm}
+
+Skype makes nice use of colours to guide the user's eyes. Red 
+bubbles are used to draw the user's attention to an alert or 
+something of similar importance. The black and dark gray 
+compliment each other and allow each component of the UI to 
+be noticable without disturbing the user's attention. I will 
+apply these same colour scheming ideas to my final application.
 
 \subsection*{Accessibility features}
 
@@ -1060,7 +1120,8 @@ one-dimensional only catering to 1 group of less abled people.
 Skype proposes a solution to \textit{"help people with 
 disabilities navigate and control their device as well as get
 better access to online content."} 
-\footnote{Quote from \url{https://support.microsoft.com/en-gb/skype/what-accessibility-features-are-available-for-skype-89c34c52-f463-437a-b3be-2ea114c5de13}}
+\footnote{Quote from
+\url{https://support.microsoft.com/en-gb/skype/what-accessibility-features-are-available-for-skype-89c34c52-f463-437a-b3be-2ea114c5de13}}
 The solution from Skype allows for disabled ones especially 
 those with reduced vision to benefit from Skype the most, as 
 previously discussed. Whilst Skype offers a good set of
@@ -1072,7 +1133,33 @@ insufficient justification to take the time to implement any
 of the features that Skype implements, and will not be 
 implementing any of those features.
 
-\vspace{0.2cm}
+\subsection{Microsoft Teams}
+
+\subsection*{Design}
+
+Microsoft's UI design provides a similar design to the last 
+2 case studies, with a few changes to the layout.
+
+\begin{figure}[H]
+
+\centering
+\includegraphics[scale=0.12]{Images/MSTeams.png}
+
+\caption{MS Teams's UI.}
+\label{fig:Teams}
+
+\end{figure}
+
+\subsection*{Accessibility features}
+
+Microsoft Teams is a team collaboration application developed by 
+Microsoft as part of their Microsoft 365 family of products, it offers
+workspace chat, video conferencing and many more features.
+\footnote{This information was paraphrased from:
+\url{https://en.wikipedia.org/wiki/Microsoft_Teams}}
+
+\subsection{Interview}
+\label{sec:interview}
 
 To obtain a better understanding of the nature of the problem
 and what features should be implemented in the final solution,
@@ -1080,9 +1167,6 @@ I decided to collect some qualititative data through an
 interview with my client. This data should allow me to have an
 insight into what the final solution should look like based
 on my client's requirements and desires respectively.
-
-\subsection{Interview}
-\label{sec:interview}
 
 \begin{tcolorbox}[
   boxrule=0pt, frame empty, colback=lightestgray, arc=0pt,
