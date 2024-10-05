@@ -1738,7 +1738,7 @@ order to prevent bot attacks on our website because it is
 fully compliant with GDPR, self-hosted and most importantly 
 completely free.
 
-\section{Essential features \& their justifications}
+\section{Essential features and their justifications}
 \label{sec:features}
 
 \textsf{\bfseries 1 - Real-time audio/video feeds} \\ \vspace{0.1cm}
@@ -2039,6 +2039,10 @@ will then be able to retrieve the password later.
 
 \textsf{\bfseries Client} \\ \vspace{0.1cm}
 
+\textit{Requirement(s):} PC, Mouse, Keyboard, Video Camera and Microphone.
+\\ \vspace{0.1cm}
+
+\textit{Justification:}
 My client has his own PC with access to a microphone 
 and video camera and this is indeed what he uses to 
 video conference. Hence data will be captured 
@@ -2052,6 +2056,11 @@ into the site like his username and password.
 
 \textsf{\bfseries Target audience} \\ \vspace{0.1cm}
 
+\textit{Requirement(s):} A device with access to a standard web browser, 
+along with a microphone and video camera.
+\\ \vspace{0.1cm}
+
+\textit{Justification:}
 The people in my target audience may not necessarily 
 own a PC and may use devices such as a phone, tablet 
 or something else in order to access video conferences.
@@ -2067,77 +2076,104 @@ the software instead of a mouse and keyboard.
 
 \textsf{\bfseries Maintainers} \\ \vspace{0.1cm}
 
+\textit{Requirement(s):} PC, Mouse, Keyboard, Video Camera, Microphone and Github.
+\\ \vspace{0.1cm}
+
+\textit{Justification:}
+Since this group of people will be working with the source
+code of this project, it is expected that they will have 
+access to a PC/laptop. The maintainers my want to use the 
+application themselves for testing purposes and to achieve 
+this they will use a microphone and video camera to interact 
+with others during video conferences. In the context of 
+maintaining this project our maintainers will use their 
+mouse and keyboard in order to edit the source code. They 
+may then wish to commit the changes that they make to 
+github, allowing them to automatically track and save the 
+changes made to the source code.
 
 \subsection{Data verification and validation}
 
-\textit{Description:}
-In this system data will be verified upon the creation of a
-new account. Users will prompted to enter their desired
-password twice in order to ensure that the user would really 
-like this to be their password and that they have spelt it 
-correctly. Moreover these passwords will be checked to 
-ensure that they are of suitable strength. Justification for 
-this feature was provided in \ref{sec:features} under 
-\textit{Usernames and passwords to join a call} and a
-potential implementation was discussed in \ref{sec:research}.
-Data will also have to be verified before it is put into the 
-database. We should ensure that all data that is being entered
-into the database is of the correct data type and that
-\code{NULL} values aren't permitted if a particular 
-attribute is mandatory. \\ \vspace{0.2cm}
+\textsf{\bfseries Client and audience} \\ \vspace{0.1cm}
+
+\textit{Requirement(s):} Passwords to be of an adequate strength.
+\\ \vspace{0.1cm}
 
 \textit{Justification:}
-Since security is an imperative in this software, we cannot 
-allow our users to choose weak passwords for their accounts.
-By ensuring that users choose an adequately strong password
-we improve the security of user data. If we take all of the
-necessary measures to strengthen the security of our users'
-data then they can be confident that their data is fully 
-private whilst using our application, eliminating one of
-their potential concerns and in turn improving the mental 
-well-being of our user-base.
+We are dealing with our user's personal data in this project
+so in order for us to fully comply with GDPR, we should 
+take the initiative to ensure the security of our user's
+accounts. Since security is an imperative in this software,
+we cannot allow our users to choose weak passwords
+for their accounts. By ensuring that users choose an
+adequately strong password we set up the necessary
+security of user data. If we take all of the necessary
+measures to strengthen the security of our users’ data 
+then they can be confident that their data is fully
+private whilst using our application, eliminating
+one of their potential concerns: privacy.
+\\ \vspace{0.2cm}
+
+\textsf{\bfseries Maintainers} \\ \vspace{0.1cm}
+
+\textit{Requirement(s):} Regularly check that the code passes 
+all test cases, create new test cases as the code is added to.
+\\ \vspace{0.1cm}
+
+\textit{Justification:}
+In the context of updating our sytem, we would like to avoid
+deploying a system that is bugged or broken in some way 
+because of a change that a maintainer has pushed. In setting 
+up systems that prevent the update from being deployed if the 
+code does not pass all test cases, we ensure that it isn't 
+possible to accidentally deploy a system riddled with 
+mistakes/errors in it's source code. The verification of
+test cases can be achieved automatically
+using github's CI/CD (continuous integration/continuous 
+delivery) pipeline. This descision may save us from 
+catastrophic repercussions in the future. 
 
 \subsection{Data processing}
 
-\textit{Description:}
-In order to send video and audio data to others quickly the 
-system will have to compress both. This will be managed by the
-video/audio codecs that we choose to use in the beginning of
-the peer to peer connection. This is handled by the
-WebRTC API. \\ \vspace{0.2cm}
+\textsf{\bfseries Client and audience} \\ \vspace{0.1cm}
 
-\textit{Justification:} 
-Audio and video compression is 
-important because without it we would have to send large 
-amounts of data to others over the internet by splitting the
-data up into a number of packets. Each frame would take a 
-considerable amount of time to arrive completely and the user
-would be presented with a slow and laggy experience.
-Furthermore the more data that we have to send per second 
-means that the user will require more bandwidth, and this 
-may not be economically possible for all users.
-If we wish for our application to be accessible,
-as per the wish of my client see section \ref{sec:interview},
-than we should develop it in such a way that there 
-are minimal requirements to use the 
-application smoothly and video/audio compression will
-certainly reduce the system and network requirements needed to run
+\textit{Requirement(s):} Audio and video compression. \\ \vspace{0.1cm}
+
+\textit{Justification:}
+Audio and video compression is important because 
+without it we would have to send large amounts
+of data to others over the internet by splitting
+the data up into a number of packets. Each frame
+would take a considerable amount of time to arrive
+completely and the user would be presented with a
+slow and laggy experience. Furthermore the more
+data that we have to send per second means that 
+the user will require more bandwidth, and this may
+not be economically possible for all users. If we 
+wish for our application to be accessible, as per 
+the wish of my client, than we should develop it in 
+such a way that there are minimal requirements
+to use the application smoothly and video/audio
+compression will certainly reduce the
+system and network requirements needed to run 
 this application.
+\\ \vspace{0.2cm}
 
 \subsection{Outputs}
 
-\textit{Description:}
-Outputs like the video and audio from other participants will 
-be displayed on the screen and played out of the user's 
-speakers respectively. If a users volume is at 0 (or some 
+\textsf{\bfseries Client and audience} \\ \vspace{0.1cm}
+
+\textit{Requirement(s):} Video and audio from other participants
+are displayed on screen and played out of the user's speakers.\\ \vspace{0.1cm}
+
+\textit{Justification:}
+ If a users volume is at 0 (or some 
 other very low value) then we will 
 notify them so that they aren't confused on why they hear no 
 audio. Moreover the user will have access to 
 information like whether their mic is currently muted/unmuted,
 whether or not their camera is working and if their virtual 
-hand is currently raised. \\ \vspace{0.2cm}
-
-\textit{Justification:}
+hand is currently raised.
 These pieces of information are
 some of the most important in the context of video
 conferencing, so it is essential to ensure that the user can 
@@ -2150,15 +2186,26 @@ simple GUI was given in \ref{sec:features} under
 
 \subsection{User Interface}
 
+\textsf{\bfseries Client and audience} \\ \vspace{0.1cm}
+
+\textit{Requirement(s):} Clear and simple user interface.\\ \vspace{0.1cm}
+
+\textit{Justification:}
 As discussed in the previous paragraph the user interface will
 be designed so that it is clear and simple to understand. The 
 colour scheme will consist of muted earthy greens, brown and
 white for accents, giving the application a calm forest-like 
 feel, and providing the users with a visually pleasant and 
-elegant UI to look at when using the system.
+elegant UI to look at when using the system.\\
 
-\subsection{Security Issues}
+\subsection{Security}
 
+\textsf{\bfseries Client and audience} \\ \vspace{0.1cm}
+
+\textit{Requirement(s):} Strong passwords, secure data 
+transfer. \\ \vspace{0.1cm}
+
+\textit{Justification:}
 For the video and audio data security will be managed by 
 WebRTC developed by Google, a credible company that will have
 implemented all the necessary measures to ensure that this
@@ -2184,6 +2231,11 @@ system.
 
 \subsection{Backing up data}
 
+\textsf{\bfseries Client and audience} \\ \vspace{0.1cm}
+
+\textit{Requirement(s):} Nightly data backups. \\ \vspace{0.1cm}
+
+\textit{Justification:}
 Data backups will be made nightly (every 24 hours) to ensure
 that none of our user's data is lost, as per the request of
 my client in \ref{sec:interview}. Throughout this project I 
@@ -2195,6 +2247,35 @@ with the software created at the end of this project.
 
 \subsection{Software requirements}
 
+\textsf{\bfseries Client and audience} \\ \vspace{0.1cm}
+
+\textit{Requirement(s):} A standard web browser. \\ \vspace{0.1cm}
+
+\textit{Justification:}
+Since this software is a web application, the user will 
+have to access it via a web browser. 
+\\ \vspace{0.2cm}
+
+\textsf{\bfseries Maintainers} \\ \vspace{0.1cm}
+
+\textit{Requirement(s):} Github, any text editor. \\ \vspace{0.1cm}
+
+\textit{Justification:}
+Github will host the source code for this project hence,
+in order for our maintainers to be able to make changes 
+they must be able to access github. Moreover git give us 
+the ability to we can keep track of changes, requests,
+bug reports all in one place without any hassle so it is 
+important that our maintainers can access it. To actually 
+edit the source code of the software the maintainers will 
+have to have access to a text editing program. 
+\\ \vspace{0.2cm}
+
+\textsf{\bfseries System} \\ \vspace{0.1cm}
+
+\textit{Requirement(s):} Google Firebase, MongoDB. \\ \vspace{0.1cm}
+
+\textit{Justification:}
 This system will be hosted on Google Firebase a cloud hosted, 
 web-app development platform. As discussed in paragraph 4 of
 \ref{sec:further}, neither me or my client have access to 
@@ -2217,6 +2298,8 @@ risk of incurring unwanted hidden costs.
 \subsection{Hardware requirements}
 \label{sec:hardware}
 
+\textsf{\bfseries General} \\ \vspace{0.1cm}
+
 The application will be accessible on any device that has an
 internet connection and access to a standard web browser. The
 \textit{Minimum} column provides the minimum hardware
@@ -2226,7 +2309,7 @@ minimum hardware requirements needed for the application to
 run smoothly with high quality.
 
 \begin{longtblr}[
-  caption={Hardware requirements.}
+  caption={General hardware requirements.}
 ]{
   colspec={lXX},  row{1}={lightestgray}
 }
@@ -2242,9 +2325,9 @@ run smoothly with high quality.
 
   Upload speed & 3 Mbit/s & 5 Mbit/s\\
   \hline
-
 \end{longtblr}
 
+\textit{Justification:}
 These requirements are based on the old systems requirements.
 \footnote{Source: 
 \url{https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0060748}}
@@ -2252,7 +2335,74 @@ Since we are creating a similar system to Zoom we can justify
 the use of similar performance requirements in our 
 application because our application will utilise similar 
 amounts of RAM and CPU time when it is being used for it's 
-main purpose, video conferencing.
+main purpose, video conferencing.\\ \vspace{0.2cm}
+
+\textsf{\bfseries Client and audience} \\ \vspace{0.1cm}
+
+My client Axel Alabi also owns his own PC with a video camera
+and microphone. The minimum and recommended requirements for 
+these 2 peripherals are given below. 
+
+\begin{longtblr}[
+  caption={Client hardware requirements.}
+]{
+  colspec={lXX},  row{1}={lightestgray}
+}
+  \hline
+  Hardware & Minimum & Recommended\\
+  \hline
+
+  Video Camera & 720p at 24fps & 1080p at 30fps \\
+
+  Microphone & 50Hz - 12kHz frequency response & {50Hz - 15kHz frequency response} \\
+  
+  \hline
+\end{longtblr}
+
+\textit{Justification:}
+For video quality 720p is the lowest resolution 
+that you can achieve whilst still maintaining 
+acceptable clarity in the video. Below this
+resolution video starts to become grainy. In the 
+movie industry 24 fps is usually the minimum 
+frame rate utilised for video, because it was the
+lowest frame rate that our brains could interpret
+as smooth motion. According to American 
+neuroscientist Dale Purves \cite{hear}, the human
+hearing frequency range is about 20Hz to 20kHz.
+However we generally will never need frequencies
+on the extreme high or low end of this range 
+for a video conferecing application, since the 
+frequency of a human voice ranges from 90Hz to 
+255Hz.\\ \vspace{0.2cm}
+
+\textsf{\bfseries Target Audience} \vspace{0.1cm}
+
+Our target audience may be using this software on their PC,
+laptop, tablet or mobile phone. If they are using a laptop/PC
+then the requirements and justifications are the same as the 
+ones discussed above.
+
+\begin{longtblr}[
+  caption={Target audience device requirements.}
+]{
+  colspec={lXX},  row{1}={lightestgray}
+}
+  \hline
+  Feature & Minimum & Recommended\\
+  \hline
+
+  Screen Dimensions & 5 x 2 In & 6 x 2.7 In \\
+
+  Resolution & 720p & 1080p \\
+  
+  Camera & 12MP & 40MP \\ 
+
+  \hline
+\end{longtblr}
+
+\textit{Justification:}
+
 
 \subsection{Summary of requirements}
 
