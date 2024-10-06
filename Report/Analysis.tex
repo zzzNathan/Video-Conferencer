@@ -7,10 +7,10 @@
 
 \section*{How to read this document}
 
-This docuement is my coursework component for the OCR A-Level
+This document is my coursework component for the OCR A-Level
 Computer Science course. It is all my own work, and the parts
 which are not mine have all been referenced accordingly. This 
-document was intended to be read as a pdf so if you have 
+document was intended to be read as a PDF so if you have 
 physically printed this document the following
 2 points will not apply to you.\\ \vspace{0.2cm}
 
@@ -18,14 +18,14 @@ physically printed this document the following
 
 \item{
 In this work { \color{blue} \textbf{blue} } text indicates a
-link either to a website or to another section in this pdf. \\
+link either to a website or to another section in this PDF. \\
 \vspace{0.2cm}
 }
 
 \item{
 In this work { \color{green} \textbf{green} } text indicates a
 reference to another piece of work, details on this reference
-can be found in the bibliography at the end of this pdf.\\
+can be found in the bibliography at the end of this PDF.\\
 \vspace{0.2cm}
 }
 
@@ -40,8 +40,8 @@ later/previous sections, figures and algorithms using the
 { \color{blue} \textbf{blue} } in-document hyperlinks. So
 that the reader does not lose their current page, it 
 is recommended that they make use of the bookmark functionality 
-in their pdf viewer to mark their current page 
-(if available in your pdf viewer). \\ \vspace{0.2cm}
+in their PDF viewer to mark their current page 
+(if available in your PDF viewer). \\ \vspace{0.2cm}
 
 Thank you for reading, \textit{Jonathan Kasongo}.
 
@@ -52,7 +52,7 @@ Thank you for reading, \textit{Jonathan Kasongo}.
 
 My client Axel Alabi has asked me to create an interactive
 video conferencing application to allow others to view talks 
-in realtime. The current solution is to use the Zoom 
+in real time. The current solution is to use the Zoom 
 video conferencing application. While it is true that the 
 application is technically sound and can work fine, there is a
 large number of elderly users that also try to connect to the 
@@ -87,19 +87,19 @@ loneliness in their lives. However through video conferencing
 these ones gain the ability to socialise and interact with 
 others from the comfort of their homes. This is especially 
 useful as many elderly ones have limited mobility or are bed 
-bound. Without regular opputunities to socialise and interact 
+bound. Without regular opportunities to socialise and interact 
 humans become depressed and our mental health will begin to 
 decline. By developing software to enable those disabled 
 people to talk to others can improve the quality of their 
 mental health significantly. When people are limited by their 
-disabilities or by their illnesses the oppurtunities to go and
+disabilities or by their illnesses the opportunities to go and
 talk to new people in real life become far and few between. For
 these people real physical interactions may not be possible,
 meaning that a computational solution to their problem is not
 just preferred but necessary. \vspace{0.2cm}
 
 Accessible video conferencing software is useful to young 
-people aswell. People like my client also have problems with 
+people as well. People like my client also have problems with 
 current systems. In order for him to carry out his job 
 effectively he requires a simple and reliable computational
 solution. Current systems pose a challenge for elderly people 
@@ -111,7 +111,7 @@ to understand how to use comfortably his job would be
 simplified significantly, and in order to create that new 
 software it is evident that a computational method can be 
 used. To justify this claim we examine the average download
-speeds for UK resedentials and compare it to the amount of 
+speeds for UK residentials and compare it to the amount of 
 download bandwidth needed to transfer clear video and audio 
 for 1 second. \textit{"Average download speed of UK home 
 broadband connections was 69.4 Mbit/s"} as of 2023 \cite{data}.
@@ -126,18 +126,18 @@ is definitely amenable to a computational approach.
 Applications such as Zoom are able to transfer 1080p quality
 video and audio data at 30 FPS with millions of users 
 worldwide. These results demonstrate the validity and
-feasability of a computational approach to solving this
+feasibility of a computational approach to solving this
 problem. \\ \vspace{0.2cm}
 
 Decomposition is a computational method that involves breaking
 down complex problems into multiple smaller and more 
 manageable problems. Real-time video/audio feeds is the ability
 for a system to take the live video and audio from a user's 
-device share it to others with negligable latency. We justify
+device share it to others with negligible latency. We justify
 the feature of having real-time audio and video by examining 
 the client's request as in \ref{sec:context}. \textit{"My 
 client ... asked me to create an interactive video conferencing
-platform."} Oxford Languages define a videoconference to be 
+platform."} Oxford Languages define a video conference to be 
 \textit{"a conference in which participants in different 
 locations are able to communicate with each other in sound and
 vision."} Hence in order to satisfy the client's request we 
@@ -189,15 +189,15 @@ employ the use of the DRY software development principle.
 That is the "\textbf{D}on't \textbf{r}epeat \textbf{y}ourself"
 principle. The purpose of the DRY principle is to avoid 
 writing redundant code by replacing it with abstractions. This
-principle guarentees clear and concise code. One feature of 
+principle guarantees clear and concise code. One feature of 
 the problem that could benefit from pattern recognition is the 
-username and passcode system. A detailed justificaiton for this
+username and passcode system. A detailed justification for this
 feature is provided in section \ref{sec:features} under the
 sub-heading \textit{Usernames and passwords to join a call}.
 There are 2 cases in which we would need to check usernames
 and passwords, those are when the user initially logs into 
 their account and when the user enters a passcode to enter a
-video conference. Instead of writing 2 seperate pieces of
+video conference. Instead of writing 2 separate pieces of
 code to check for the correct username and password I could
 apply pattern recognition and instead implement 1 function 
 called \code{Check\_User\_and\_passcode()} to be used in both 
@@ -220,13 +220,13 @@ information will be useless to them. Furthermore it can be
 argued that the presentation of less pieces of information is
 better for the user's mental health than the presentation of
 large amounts of information \cite{overchoice}. When humans 
-have too many options we become unable to make descisions, so
+have too many options we become unable to make decisions, so
 by limiting the amount of information available to the user we
 allow them to focus on the few important configurations that
 they should be 
 in control of, in turn permitting them to give the majority of
 their attention to whomever they are having a call with. This 
-appropiately demonstrates the amenability of applying
+appropriately demonstrates the amenability of applying
 abstraction in our final application. This choice will enhance
 the user's experience while on our webpage and make the design
 less cluttered and more aesthetically pleasing, making the 
@@ -238,7 +238,7 @@ sequence of steps in order to solve a given problem. Another
 one of the main objectives for the application is for it to be
 accessible to all. Adding the option to have macros, 
 (programmable keys that are set to perform common actions) 
-can prove to be very convienient for those with limited
+can prove to be very convenient for those with limited
 mobility. If the person cannot use a mouse comfortably, then 
 they will have the ability to program a selected key/button to 
 be able to perform pre-determined tasks like turning video
@@ -254,7 +254,7 @@ be broken into a number of finite steps like so: \\
 
 The approach to use algorithmic thinking is justified innately
 by the nature of problem-solving itself. Algorithmic thinking
-is not just convienient when applied in the example of
+is not just convenient when applied in the example of
 implementing
 macros, rather it is essential to the implementation of nearly
 every feature that the finished system will include. Suppose 
@@ -292,7 +292,7 @@ API's allows us to implement real-time video conferencing
 using efficient, robust and well-tested algorithms. Without
 them we would have to spend unjustifiable amounts of time 
 studying the necessary security requirements, developing and
-rigourously testing all of the relevant algorithms ensuring 
+rigorously testing all of the relevant algorithms ensuring 
 that they are all efficient enough for commercial usage and
 reading 
 through the specifications on how data should be formatted 
@@ -300,7 +300,7 @@ in order to send it over a network to the other users in the
 call. \\ \vspace{0.2cm}
 
 Visualisation can be used to present data in a more 
-understandble format, hence we make use of it in this report 
+understandable format, hence we make use of it in this report 
 too. For example we provide a visualisation of the decomposition
 of our problem in section \ref{sec:breakdown}. Indeed by 
 visualising the problem we have at hand we can more easily 
@@ -316,9 +316,9 @@ bottom right form a decomposition of the sub-problem: allowing other
 users to join a call. From our figure we can clearly see that we
 need a finite sequence of steps in order to solve this problem and
 so we can use an algorithm to solve this sub-problem, indeed a 
-psuedo-code algorithm is then created in response to this sub-problem 
+pseudo-code algorithm is then created in response to this sub-problem 
 using our visualisation as a guide in algorithm listing \ref{alg:join}.
-Finally we reinforce our arguement that the problem is amenable to a
+Finally we reinforce our argument that the problem is amenable to a
 computational approach by looking at effective existing 
 approaches to this problem. Applications like Skype, Zoom, 
 Whatsapp and many more are all very successful video conferencing
@@ -346,8 +346,8 @@ science and related fields. \vspace{0.2cm}
 
 \textit{How will they use the solution?} % \vspace{0.05cm}
 He would use the proposed solution in order to host
-videoconferences. The new system would help the 
-videoconferences run smoother as he wouldn't need to worry 
+video conferences. The new system would help the 
+video conferences run smoother as he wouldn't need to worry 
 about spending his time in helping users solve their technical
 issues, rather he will be able to focus solely on the
 conference and whether or not the visuals and the audio are
@@ -357,17 +357,17 @@ clear. \vspace{0.2cm}
 Axel would open his web browser and navigate to our system's
 website. He would log in to his personal account then go to
 the create call page. After starting a video call he would 
-then recieve a code to allow others to be able to join the
+then receive a code to allow others to be able to join the
 call. Axel would then share this code with the people who
 were invited to join the video conference. Finally he would 
 manage the video conference, muting/unmuting, admitting 
 and removing users into the call when necessary.
 \vspace{0.2cm}
 
-\textit{Why is it appropiate to their needs?} % \vspace{0.05cm}
-The proposed solution would be appropiate for my client as it
+\textit{Why is it appropriate to their needs?} % \vspace{0.05cm}
+The proposed solution would be appropriate for my client as it
 would provide a smoother and simpler system in order to host 
-videoconferences on. Furthermore the new system would ensure
+video conferences on. Furthermore the new system would ensure
 that he no longer faces the challenges that were discussed
 in \ref{sec:context}, like users leaving their microphone's.
 This will no longer happen as the new system will have a 
@@ -378,7 +378,7 @@ solely on ensuring that video and audio is clear during the
 broadcast. In removing some of Axel's issues that he faces in
 his job, he should become more content and calmer with his
 work life, further demonstrating how this solution will be 
-appropiate to his needs.
+appropriate to his needs.
 \vspace{0.2cm}
 
 \noindent
@@ -395,13 +395,13 @@ This group of users typically have limited experience working
 with technology, because they will have spent the majority of
 their life without modern technologies. This will be my 
 application's target audience, so it is important that the 
-final solution is appropiate to their needs. \vspace{0.2cm}
+final solution is appropriate to their needs. \vspace{0.2cm}
 
 \textit{How will they use the solution?}
 These users will make use of the proposed solution by joining
 videoconferences that they were invited to and interacting with
-them in a manner that is convienient for them. They will be 
-able to interact with the videoconference by raising their 
+them in a manner that is convenient for them. They will be 
+able to interact with the videoconferences by raising their 
 virtual hand, indicating to the speaker that they wish to talk.
 The speaker can then give them permission to talk and properly
 converse with their virtual audience. Moreover the solution
@@ -420,17 +420,17 @@ instead in order to improve their experience by changing audio,
 video settings or perhaps by setting up macros.
 \vspace{0.2cm}
 
-\textit{Why is it appropiate to their needs?}
+\textit{Why is it appropriate to their needs?}
 The solution will benefit them greatly as they will now no 
 longer have to ask for help from others to resolve issues with
 their video conferencing application. Rather they will be able
 to experience a simple, easy to work with and intuitive system
 for their video conferencing. Moreover the users will now gain
-the oppurtunity to improve their social lifes as they will be
-able to chat withtheir loved ones and friends over their web 
+the opportunity to improve their social lifes as they will be
+able to chat with their loved ones and friends over their web 
 browsers easily. Not only will the final solution make their 
-lives more convinient but it will also provide the user with
-the oppurtunity to improve their mental health through
+lives more convenient but it will also provide the user with
+the opportunity to improve their mental health through
 socialising and engaging in conversation with others.
 \cite{social}
 \vspace{0.2cm}
@@ -461,7 +461,7 @@ they could not have done previously with the off the shelf
 software they had before. \vspace{0.2cm}
 
 \textit{Explain how they will use the solution.}
-After recieving feedback from the client or other users the 
+After receiving feedback from the client or other users the 
 IT staff would then brainstorm ideas on how they could 
 improve the system. They would then access the code of this
 system via it's github repository, and open the documentation
@@ -469,11 +469,11 @@ available on the website itself. Once the IT staff has cloned
 the system's github repository, they would be able to modify 
 and update the source code as they please, implementing these 
 new ideas that they brainstormed in order to improve this
-system's suitablility in regards to my client and the userbase. 
+system's suitability in regards to my client and the user base. 
 \vspace{0.2cm}
 
-\textit{Why is it appropiate to their needs?}
-The solution will be appropiate to their needs as they will be
+\textit{Why is it appropriate to their needs?}
+The solution will be appropriate to their needs as they will be
 able to access the source code of the final application and 
 change the application to be tailored to work well for their 
 specific needs. Additionally users who enquire about the 
@@ -552,7 +552,7 @@ Edge & Commentary \\
      a link or a code to join.}\\
 
 4 & {Admin can start or stop the videoconference when
-     appropiate. Admin can also interact with the app in order
+     appropriate. Admin can also interact with the app in order
      to manage the video conference. They can do things like
      spotlight speakers, screenshare images/video and mute or
      kick participants.}\\
@@ -878,7 +878,7 @@ Question \textbf{(3)} demonstrates the potential of our
 product, the majority of surveyees think that the 
 accessibility features in the software they use is adequate
 at best. Hence in developing this app we are tapping into 
-a heavily undersaturated market with not a lot of 
+a heavily under saturated market with not a lot of 
 competition. \\ \vspace{0.2cm}
 
 Question \textbf{(4)} highlights the excellence of the UI
@@ -967,13 +967,15 @@ video feeds and the speaker we are looking at currently are
 tucked away in the top right of the screen, some users may 
 have trouble locating these options. \\ \vspace{0.2cm}
 
-Zoom's UI is clearly designed with clarity in mind. In this 
-project we can draw inspiration from the simplistic approach 
+Zoom's UI is clearly designed with clarity in mind. In the 
+design of this project
+project we draw inspiration from the simplistic approach 
 that Zoom takes to design whilst reorganising the layouts in 
 order to be more accessible and easier on the eyes. Zoom also 
-has quite natural spacing between their buttons, the icons aren't
-too clumped together neither are they too far apart from each
-other. I will keep this example in mind whilst designing the UI.
+employs very natural spacing between their buttons, the icons 
+aren't too clumped together neither are they too far apart from
+each other and I will keep this excellent example of spacing
+in mind whilst designing the UI.
 
 \subsection*{Accessibility features}
 
@@ -1002,20 +1004,20 @@ well can enable closed captioning during the meeting.
 \textit{Negative:}
 However there are still a number of limitations with the way 
 these features are implemented. Automatically generated 
-closed captioning is unfortunately only available in english,
+closed captioning is unfortunately only available in English,
 and may have varying levels of accuracy depending on external
 factors such as background noise, speaker's clarity and 
-profiency in spoken english.
+proficiency in spoken English.
 
 \vspace{0.2cm}
 
-Zoom proposes a solution to the problem of exculsivity when in 
+Zoom proposes a solution to the problem of exclusivity when in 
 the context of video conferencing applications. Instead of only
 designing the application to be usable for one group of people
 they aim to instead tailor it to cater towards 
 \textit{everyone}. I believe that the wide range of
 accessibility features is a big advantage of the system, and 
-this could motivate the descision to implement a similar set
+this could motivate the decision to implement a similar set
 of features in my application. However while a good number of 
 features is appreciable, it is also necessary to ensure that 
 these features are simple to find and to use for an optimal 
@@ -1087,12 +1089,15 @@ encroached upon by the icons at the top showing the other
 attendees. This makes the video call experience feel cramped.\\ 
 \vspace{0.2cm}
 
-Skype makes nice use of colours to guide the user's eyes. Red 
-bubbles are used to draw the user's attention to an alert or 
+Skype makes good use of colours to guide the user's eyes. Since red 
+is the complimentary colour of blue, the red 
+bubbles indeed stand out from the ocean of grays and blues found in
+Skype's main colour scheme
+and are therefore used to draw the user's attention to an alert or 
 something of similar importance. The black and dark gray 
 compliment each other and allow each component of the UI to 
-be noticably seperate without disturbing the user's attention.
-I may think to use these same colour scheming ideas in my final 
+be noticeably separate without disturbing the user's attention.
+I may apply a similar colour scheming approach in my final 
 UI design.
 
 \subsection*{Accessibility features}
@@ -1186,9 +1191,9 @@ since the main purpose of this software is to allow users to
 video conference, the video conference itself should take up 
 the majority of the screen. Moreover I will also make sure to 
 avoid the smaller positioning of Microsoft team's control 
-panel, due to the high likelyhood that my target audience 
+panel, due to the high likelihood that my target audience 
 will have trouble seeing the icons when they are so small. 
-Finally I will make steps to avoid the issue of having too 
+Finally I will take steps to avoid the issue of having too 
 many accessibility features to ensure that our user's do not
 feel overwhelmed with the amount of choices that they have.
 
@@ -1242,7 +1247,7 @@ implementing this feature in our final software.
 
 To obtain a better understanding of the nature of the problem
 and what features should be implemented in the final solution,
-I decided to collect some qualititative data through an 
+I decided to collect some qualitative data through an 
 interview with my client. This data should allow me to have an
 insight into what the final solution should look like based
 on my client's requirements and desires respectively.
@@ -1264,7 +1269,7 @@ on my client's requirements and desires respectively.
 
   \textbf{A:} It tends to be difficult for people who aren't 
   experienced with technology to properly interact in the 
-  conferences. Often times participants will accidently turn 
+  conferences. Often times participants will accidentally turn 
   their microphone on or are unable to turn their microphone
   on when the speaker invites them to. \vspace{0.25cm}
 
