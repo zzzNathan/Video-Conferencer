@@ -39,7 +39,6 @@
 \definecolor{codebd}{RGB}{225, 225, 225}
 
 % Miscellaneous
-\renewcommand{\chaptername}{Section}
 \tcbuselibrary{breakable}
 \hypersetup{
   colorlinks = true,
@@ -50,9 +49,10 @@
 \graphicspath{Images/}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
+\renewcommand{\chaptername}{Section}
 \renewcommand{\footrulewidth}{0.4pt}
 \DeclareMathOperator*{\argmin}{arg\,min}
-
+\newcommand{\circled}[1]{{\setlength\fboxrule{0pt}\fbox{\tcbox[colframe=black,colback=white,shrink tight,boxrule=0.5pt,extrude by=1mm]{\small #1}}}}
 \newcommand*\Let[2]{\State #1 $\gets$ #2}
 \algrenewcommand\algorithmiccomment[1]{\hfill {$\triangleright$ \color{gray} #1} \color{black}}
 \newcommand\code[2][]{

@@ -25,67 +25,67 @@ hand. We let DB denote our database for typographical reasons.
 \begin{tikzpicture}[every node/.style={scale=0.54}]
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, fill=lightestgray]
-    (home) {\large Home page};
+  (home) {\large \circled{1} Home page};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of home ]
-    (login) {\large Login page};
+    (login) {\large \circled{3} Login page};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below right=of home]
-    (docs) {\large Documentation};
+    (docs) {\large \circled{4} Documentation};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below left=of home]
-    (help) {\large Help page};
+    (help) {\large \circled{2} Help page};
 
   \node[draw, diamond, aspect=2, below=of login ]
     (new) {\large First time user?};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below left=of new ]
-    (acc) {\large Create account};
+    (acc) {\large \circled{4} Create account};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of acc ]
-    (add) {\large Add account to \textit{DB}};
+    (add) {\large \circled{6} Add account to \textit{DB}};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below right=of new ]
-    (back) {\large Log back in};
+    (back) {\large \circled{5} Log back in};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of back ]
-    (main) {\large Main page};
+    (main) {\large \circled{7} Main page};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below right=of main ]
-    (join) {\large Join call page};
+    (join) {\large \circled{10} Join call page};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of join ]
-    (code) {\large Enter passcode};
+    (code) {\large \circled{15} Enter passcode};
 
   \node[draw, diamond, aspect=2, minimum width=4cm, minimum height=1cm, below=of code ]
     (valid) {\large Is code valid?};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below left=of valid ]
-    (codegood) {\large Connect to call};
+    (codegood) {\large \circled{17} Connect to call};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below right=of valid ]
-    (codebad) {\large Raise error};
+    (codebad) {\large \circled{18} Raise error};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of main ]
-    (create) {\large Create call page};
+    (create) {\large \circled{9} Create call page};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of create ]
-    (invite) {\large Invite others};
+    (invite) {\large \circled{14} Invite others};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below left=of main ]
-    (settings) {\large Settings page};
+    (settings) {\large \circled{8} Settings page};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below left=of settings ]
-    (video) {\large Video settings};
+    (video) {\large \circled{12} Video settings};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of settings ]
-    (access) {\large Accessibility settings};
+    (access) {\large \circled{13} Accessibility settings};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, left=of video ]
-    (audio) {\large Audio settings};
+    (audio) {\large \circled{11} Audio settings};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of video ]
-   (save) {\large Save settings to \textit{DB}};
+    (save) {\large \circled{16} Save settings to \textit{DB}};
 
   \coordinate[right=2cm of code.east] (here);
 
@@ -1112,7 +1112,11 @@ neat, cohesive visual representation of our system's architecture.
 % Identified and justified any further data to be used in the
 % post development phase.
 
-\subsubsection{Account creation}
+\textit{The boxed number in front of each subheading refers 
+to the corresponding boxed number found in the system 
+decomposition in \ref{fig:decomp}.}
+
+\subsubsection{\circled{6} Account creation}
 
 \begin{tblr}{colspec={lX}, row{1}={lightestgray}}
 
@@ -1170,7 +1174,7 @@ system should not be able to add a user that already exists.}\\
 \end{tblr}
 
 
-\subsubsection{Validate username and password}
+\subsubsection{\circled{4} Validate username and password}
 
 \begin{tblr}{colspec={lX}, row{1}={lightestgray}}
 
@@ -1248,7 +1252,7 @@ considered acceptable.}\\
 
 \end{tblr}
 
-\subsubsection{Log user in}
+\subsubsection{\circled{5} Log user in}
 
 \begin{tblr}{colspec={lX}, row{1}={lightestgray}}
 
@@ -1338,7 +1342,7 @@ allow them to log in.}\\
 
 \end{tblr}
 
-\subsubsection{Update user settings}
+\subsubsection{\circled{16} Update user settings}
 
 \begin{tblr}{colspec={lX}, row{1}={lightestgray}}
 
@@ -1430,7 +1434,7 @@ the user doesn't exist.}\\
 
 \end{tblr}
 
-\subsubsection{Create call}
+\subsubsection{\circled{9} and \circled{14} Create call}
 
 \begin{tblr}{colspec={lX}, row{1}={lightestgray}}
 
@@ -1499,7 +1503,7 @@ found at the article} \url{https://www.100ms.live/blog/webrtc-video-call}.
 
 \end{itemize}
 
-\subsubsection{Join call}
+\subsubsection{\circled{10} Join call}
 
 \begin{tblr}{colspec={lX}, row{1}={lightestgray}}
 
@@ -1576,6 +1580,10 @@ if a call doesn't exist with this code.}
 
 \end{itemize}
 
+Finally in relating each of these algorithms (with the 
+numbering) to the system decomposition in \ref{fig:decomp}
+we have demonstrated fully how these algorithms form a 
+complete solution to the problem at hand.
 
 %\subsubsection{Justify how these algorithms form a complete
 %solution}
