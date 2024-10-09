@@ -525,7 +525,7 @@ propose a solution to this issue that allows us to use at most
 
 \textit{Explaining and justifying the 2nd draft ER diagram.}
 The dots in the {\sffamily Accessibility\_cfg} table indicate
-that there are more fields in this table. \\ \vspace{0.2cm}
+that there are potentially more fields in this table. \\ \vspace{0.2cm}
 
 The changes in the final ER diagram all revolve around the new
 ConfigID attribute. The user's complete configuration used to 
@@ -706,11 +706,11 @@ logistical issues in the future. \\ \vspace{0.2cm}
 
 \end{tikzpicture}
 
-\caption{The final ER diagram.}
+\caption{The 3rd ER diagram.}
 \label{fig:erd3}
 \end{figure}
 
-\textit{Explaining and justifying the final ER diagram.} We
+\textit{Explaining and justifying the 3rd ER diagram.} We
 will first explain the shortcomings of the 2nd database
 design and then explain how the 3rd design was created in 
 order to resolve these issues. The intention in creating the 
@@ -782,6 +782,73 @@ accessibility configs. Through this approach we know that each
 of the configs that we check is unique, and we ultimately avoid 
 the downfall of the 2nd database draft, redundancies. 
 
+\subsubsection{Entity relationship diagram — \textit{4th draft}}
+
+\begin{figure}[H]
+\centering
+
+\begin{tikzpicture}
+
+  \pic{entity={logins}{\sffamily Logins}{
+    \underline{UserID} & \texttt{int} \\
+    \textit{AudioID} & \texttt{int} \\
+    \textit{VideoID} & \texttt{int} \\
+    \textit{AccessID} & \texttt{int} \\
+    Username & \texttt{string} \\
+    Password & \texttt{string} \\
+  }};
+
+  \pic[below right=of logins]{entity={video}{\sffamily Video\_cfg}{
+    \underline{VideoID} & \texttt{int} \\
+    Video quality & \texttt{int} \\
+    Video on by default & \texttt{bool} \\
+    {$\cdots$} & {$\cdots$} \\
+  }};
+
+  \pic[below left=of logins]{entity={audio}{\sffamily Audio\_cfg}{
+    \underline{AudioID} & \texttt{int} \\
+    Speaker volume & \texttt{int} \\
+    Mic volume & \texttt{int} \\
+    Mic on by default & \texttt{bool} \\
+    Hide self-view & \texttt{bool} \\
+    {$\cdots$} & {$\cdots$} \\
+  }};
+
+  \pic[below=of logins]{entity={access}{\sffamily Accessibility\_cfg}{
+    \underline{AccessID} & \texttt{int} \\
+    Font size & \texttt{int} \\
+    Toggle mute & \texttt{int} \\
+    Toggle camera & \texttt{int} \\
+    {$\cdots$} & {$\cdots$} \\
+  }};
+
+  \coordinate[left=13.6em of logins.west] (v);
+  \coordinate[above=0.4cm of v] (al);
+
+  \coordinate[left=1.45em of logins] (p);
+  \coordinate[below=0.5cm of p] (acl);
+
+  \coordinate[right=1.45em of logins] (j);
+
+  \draw[-{crow's foot}] ([yshift=1.5cm]audio.west) -| (al) -- ([yshift=0.4cm]logins.west);
+  \draw[-{crow's foot}] ([yshift=1cm]access.west) -| (acl) -- ([yshift=-0.5cm]logins.west);
+  \draw[-{crow's foot}] ([yshift=1cm]video) -| (j) -- (logins);
+
+\end{tikzpicture}
+
+\caption{The 4th ER diagram.}
+\label{fig:erd4}
+\end{figure}
+
+\textit{Explaining and justifying the 4th ER diagram.} 
+In the 4th draft, the logical relations between the
+attributes in each of the tables has changed as well
+as the manner in which we have presented these 
+relationships, due to requests from my client, Axel.
+Each primary to foreign key relationship is now 
+represented with an arrow that points directly to 
+to the name of it's corresponding key.
+
 \subsubsection{Proposed system level 0 DFD}
 
 \begin{figure}[H]
@@ -805,6 +872,8 @@ the downfall of the 2nd database draft, redundancies.
 	above=of sys]
     (main) {\large Maintainers};
 
+  \coordinate[below=1cm of sys.north] (A);
+
   \draw[black,  -{Latex[length=2.5mm]}]
 	  (sys) edge["1"] (main);
   \draw[black, bend left=0.5cm, -{Latex[length=2.5mm]}]
@@ -815,11 +884,11 @@ the downfall of the 2nd database draft, redundancies.
 	  (sys) edge["3"] (user);
   \draw[black, bend left=0.5cm, -{Latex[length=2.5mm]}]
 	  (user) edge["4"] (sys);
-  \draw[black, bend right=0.5cm, -{Latex[length=2.5mm]}]
-	  (host) edge["5"] (user);
-  \draw[black, bend left=0.5cm, -{Latex[length=2.5mm]}]
-          (user) edge (host);
 
+  \draw[black, bend left=1.75cm, -{Latex[length=2.5mm]}]
+          (A) edge["5"] (host);
+  \draw[black, bend right=1.75cm, -{Latex[length=2.5mm]}]
+          (A) edge["5"] (user);
 \end{tikzpicture}
 
 \caption{Proposed system level 0 DFD diagram.}
@@ -890,190 +959,50 @@ software will maximise it's longevity, through the constant
 innovation and improvement of our system namely via it's 
 future maintainers.
 
-
-
 \subsubsection{Proposed system level 1 DFD} 
 
 \begin{figure}[H]
-\scalebox{1.0}
-{
 \centering
+
 \begin{tikzpicture}
 
-\node[draw, rectangle, minimum width=2.8cm, minimum height=0.8cm,
-	fill=lightestgray]
-    (login) {Login page};
+\node[draw, rectangle, minimum width=2.8cm, minimum height=1cm,
+      fill=lightestgray]
+  (logins) {Logins};
 
-\node[draw, rectangle, minimum width=2.8cm, minimum height=0.8cm,
-	fill=lightestgray, right=of login]
-    (help) {Help page};
+\node[draw, rectangle, minimum width=2.8cm, minimum height=1cm,
+      below=of logins, fill=lightestgray]
+  (access) {Accessibility};
 
-\node[draw, rectangle, minimum width=2.8cm, minimum height=0.8cm,
-	fill=lightestgray, left=of login]
-    (docs) {Documentation};
+\node[draw, rectangle, minimum width=2.8cm, minimum height=1cm,
+      below left=of logins, fill=lightestgray]
+  (audio) {Audio};
 
-\node[draw, rectangle, minimum width=2.8cm, minimum height=0.8cm,
-	fill=lightestgray, below=of login]
-    (main) {Main page};
+\node[draw, rectangle, minimum width=2.8cm, minimum height=1cm,
+      below right=of logins, fill=lightestgray]
+  (video) {Video};
 
-\node[draw, rectangle, minimum width=2.8cm, minimum height=0.8cm,
-	fill=lightestgray, below=of main]
-    (settings) {Settings page};
+\node[draw, ellipse, minimum width=2.8cm, minimum height=1cm,
+      above=5cm of logins]
+  (user) {Users};
 
-\node[draw, rectangle, minimum width=2.8cm, minimum height=0.8cm,
-	fill=lightestgray, below left=of main]
-    (join) {Join call page};
+\node[draw, ellipse, minimum width=2.8cm, minimum height=1cm,
+      above=7cm of audio]
+  (it) {Maintainers};
 
-\node[draw, rectangle, minimum width=2.8cm, minimum height=0.8cm,
-	fill=lightestgray, below right=of main]
-    (create) {Create call page};
+\node[draw, ellipse, minimum width=2.8cm, minimum height=1cm,
+      above=7cm of video]
+  (host) {Host};
 
-\node[draw, ellipse, minimum width=2.8cm, minimum height=1.0cm,
-	above=5cm of docs]
-    (fix) {Maintainers};
+\coordinate[left=2.4cm of logins]  (a);
+\coordinate[right=2.4cm of logins] (v);
 
-\node[draw, ellipse, minimum width=2.8cm, minimum height=1.0cm,
-	above=5cm of login]
-    (user) {Users};
-
-\node[draw, ellipse, minimum width=2.8cm, minimum height=1.0cm,
-	above=5cm of help]
-    (host) {Host};
-
-\node[draw, ellipse, minimum width=2.8cm, minimum height=1.0cm,
-	below=5cm of join]
-    (userp) {Users};
-
-\node[draw, ellipse, minimum width=2.8cm, minimum height=1.0cm,
-	below=5cm of create]
-    (hostp) {Host};
-
-\coordinate[below=1em of user] (m1);
-\coordinate[below=1em of host] (m2);
-\coordinate[left=7.4em of userp] (b);
-\coordinate[right=7.4em of hostp] (c);
-
-\draw[black] (m1) -- (m2);
-
-\draw[black, -{Latex[length=2.5mm]}] (main) -- (settings);
-\draw[black, -{Latex[length=2.5mm]}] (main) -| (join);
-\draw[black, -{Latex[length=2.5mm]}] (main) -| (create);
-
-% \faClipboard for forms
-\draw[black, -{Latex[length=2.5mm]}]
-  (fix) -- node[rectangle split, 
-	        rectangle split parts=2,
-                text height=1.0ex, text width=7.5em,
-                text centered, fill=white] 
-	{\nodepart[font=\scriptsize]{second}
-	\begin{tblr}{colspec={X},vlines,hlines}
-	  \faSearch \space Search\\
-	  Maintainers may search the documentation in order to 
-	  understand parts of the system.\\
-        \end{tblr}
-        } (docs);
-
-\draw[black, -{Latex[length=2.5mm]}]
-  (user) -- node[rectangle split, 
-	        rectangle split parts=2,
-                text height=1.0ex, text width=8.0em,
-                text centered, fill=white] 
-	{\nodepart[font=\scriptsize]{second}
-	\begin{tblr}{colspec={X},vlines,hlines}
-	  \faClipboard \space Form\\
-	  Users/Host may login/sign up with their own account
-	  details.\\
-        \end{tblr}
-        } (login);
-
-\draw[black, -{Latex[length=2.5mm]}]
-  (host) -- node[rectangle split, 
-	        rectangle split parts=2,
-                text height=1.0ex, text width=7.5em,
-                text centered, fill=white] 
-	{\nodepart[font=\scriptsize]{second}
-	\begin{tblr}{colspec={X},vlines,hlines}
-	  \faSearch \space Search\\
-	  Host/Users may search the help page for
-	  a tutorial or to troubleshoot their issues.\\
-        \end{tblr}
-        } (help);
-
-\draw[black, -{Latex[length=2.5mm]}]
-  (userp) -- node[rectangle split, 
-	        rectangle split parts=2,
-                text height=1.0ex, text width=8.0em,
-                text centered, fill=white] 
-	{\nodepart[font=\scriptsize]{second}
-	\begin{tblr}{colspec={X},vlines,hlines}
-	  \faClipboard \space Form\\
-	  Users may enter the join code they were given 
-	  in order to join a call.\\
-        \end{tblr}
-        } (join);
-
-
-\draw[black, -{Latex[length=2.5mm]}]
-  (userp) -| (settings);
-
-\draw[black, -{Latex[length=2.5mm]}]
-  (hostp) -| (settings);
-
-\draw[black, -{Latex[length=2.5mm]}]
-  (hostp) -- node[rectangle split, rectangle 
-                  split parts=2, text height=1.0ex, 
-		  text width=7.5em, text centered, fill=white] 
-        {\nodepart[font=\scriptsize]{second}
-        \begin{tblr}{colspec={X},vlines,hlines}
-        \faPhone \space Start call\\
-        Hosts may use the create call page to start a new call.\\
-        \end{tblr}
-        } (create);
-
-  \node[rectangle split, 
-	rectangle split parts=2,
-	text height=1.0ex, text width=7.5em,
-	text centered, fill=white, below=1.0cm of settings] 
-        {\nodepart[font=\scriptsize]{second}
-        \begin{tblr}{colspec={X},vlines,hlines}
-        \faGear \space Settings\\
-        Users/Hosts may configure and adjust settings to 
-	suit them and improve their user experience.\\
-        \end{tblr}
-        };
-
-\draw[black, -{Latex[length=2.5mm]}] (login) -- (main);
-\draw[black, -{Latex[length=2.5mm]}] (join) -| (b) -- (userp);
-\draw[black, -{Latex[length=2.5mm]}] (create) -| (c) -- (hostp);
-
-\node[rectangle split, 
-      rectangle split parts=2,
-	text height=1.0ex, text width=7.5em,
-	text centered, fill=white, below left=of join] 
-        {\nodepart[font=\scriptsize]{second}
-        \begin{tblr}{colspec={X},vlines,hlines}
-        \faPhone \space Chat\\
-        Users may communicate with other users in their 
-	video conference either via the chat box or their
-	microphone.\\
-        \end{tblr}
-        };
-
-\node[rectangle split, 
-      rectangle split parts=2,
-	text height=1.0ex, text width=7.5em,
-	text centered, fill=white, below right=of create] 
-        {\nodepart[font=\scriptsize]{second}
-        \begin{tblr}{colspec={X},vlines,hlines}
-        \faHandOUp \space Select\\
-        Hosts may admit or remove users from the video
-	conference, mute or un-mute users and lower other
-	user's hands.\\
-        \end{tblr}
-        };
+\draw[-{crow's foot}] (access) -- (logins);
+\draw[-{crow's foot}] (audio) -- (a) -- (logins);
+\draw[-{crow's foot}] (video) -- (v) -- (logins);
 
 \end{tikzpicture}
-}
+
 \caption{Proposed system level 1 DFD diagram.}
 \label{fig:l1}
 \end{figure}
@@ -1112,7 +1041,7 @@ neat, cohesive visual representation of our system's architecture.
 % Identified and justified any further data to be used in the
 % post development phase.
 
-\textit{The boxed number in front of each subheading refers 
+\textbf{Note:} \textit{The boxed number in front of each subheading refers 
 to the corresponding boxed number found in the system 
 decomposition in \ref{fig:decomp}.}
 
@@ -1434,7 +1363,7 @@ the user doesn't exist.}\\
 
 \end{tblr}
 
-\subsubsection{\circled{9} and \circled{14} Create call}
+\subsubsection{\circled{9} / \circled{14} Create call}
 
 \begin{tblr}{colspec={lX}, row{1}={lightestgray}}
 
