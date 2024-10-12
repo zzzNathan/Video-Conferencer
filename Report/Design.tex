@@ -841,13 +841,13 @@ the downfall of the 2nd database draft, redundancies.
 \end{figure}
 
 \textit{Explaining and justifying the 4th ER diagram.} 
-In the 4th draft, the logical relations between the
-attributes in each of the tables has changed as well
-as the manner in which we have presented these 
-relationships, due to requests from my client, Axel.
-Each primary to foreign key relationship is now 
-represented with an arrow that points directly to 
-to the name of it's corresponding key.
+In the 4th draft, the manner in which we have presented 
+the database design has changed due to requests from my 
+client. Each primary to foreign key relationship
+is now represented with an arrow that points directly to 
+to the name of it's corresponding key. Moreover the 
+logical relationships between attributes have been 
+corrected.
 
 \subsubsection{Proposed system level 0 DFD}
 
@@ -982,24 +982,94 @@ future maintainers.
       below right=of logins, fill=lightestgray]
   (video) {Video};
 
+\node[draw, rectangle, minimum width=2.8cm, minimum height=1cm,
+      below=of access, fill=lightestgray]
+  (docs) {Documentation};
+
 \node[draw, ellipse, minimum width=2.8cm, minimum height=1cm,
-      above=5cm of logins]
+      above=10cm of logins]
   (user) {Users};
 
 \node[draw, ellipse, minimum width=2.8cm, minimum height=1cm,
-      above=7cm of audio]
+      above=12cm of audio]
   (it) {Maintainers};
 
 \node[draw, ellipse, minimum width=2.8cm, minimum height=1cm,
-      above=7cm of video]
+      above=12cm of video]
   (host) {Host};
 
 \coordinate[left=2.4cm of logins]  (a);
 \coordinate[right=2.4cm of logins] (v);
+\coordinate[below=3.5cm of host] (p);
+\coordinate[above=3.5cm of logins] (qp);
+\coordinate[left=3.5cm of qp] (q);
+\coordinate[below=3.5cm of user] (rp);
+\coordinate[left=3.5cm of rp] (r);
+\coordinate[below=2cm of user] (d);
+\coordinate[above=4cm of audio] (s);
+\coordinate[left=4cm of docs] (l);
+\coordinate[above=4cm of l] (u);
 
 \draw[-{crow's foot}] (access) -- (logins);
 \draw[-{crow's foot}] (audio) -- (a) -- (logins);
 \draw[-{crow's foot}] (video) -- (v) -- (logins);
+
+\draw[black, -{Latex[length=2.5mm]}] ([yshift=1.5cm]p) -| ([xshift=2cm]user);
+
+\draw[black, -{Latex[length=2.5mm]}]
+  (docs) --  (l) -- (u) -- node[rectangle split, rectangle 
+                  split parts=2, text height=1.0ex, 
+		  text width=7.5em, text centered,
+		  fill=white] 
+        {\nodepart[font=\scriptsize]{second}
+	\begin{tblr}{colspec={X},vlines,hlines}
+	\texttt{O} \hspace{0.1cm} \vline \hspace{0.1cm} Download\\
+        Maintainers can download the documentation\\
+        \end{tblr}} (s) -- (it);
+
+\draw[black, -{Latex[length=2.5mm]}]
+  (user) -- node[rectangle split, rectangle 
+                  split parts=2, text height=1.0ex, 
+		  text width=7.5em, text centered,
+		  fill=white] 
+        {\nodepart[font=\scriptsize]{second}
+	\begin{tblr}{colspec={X},vlines,hlines}
+	\texttt{I} \hspace{0.1cm} \vline \hspace{0.1cm} Registers\\
+        User registers a new account on our system\\
+        \end{tblr}
+        } (logins);
+
+\draw[black, -{Latex[length=2.5mm]}]
+  (video) -- node[rectangle split, rectangle 
+                  split parts=2, text height=1.0ex, 
+		  text width=7.5em, text centered,
+		  fill=white] 
+        {\nodepart[font=\scriptsize]{second}
+	\begin{tblr}{colspec={X},vlines,hlines}
+	\texttt{P} \hspace{0.1cm} \vline \hspace{0.1cm} Audio \& video\\
+        {Audio and video from other users is taken and processed 
+	then sent to all other participants}\\
+        \end{tblr}
+        } (p) -- node[rectangle split, rectangle 
+                  split parts=2, text height=1.0ex, 
+		  text width=7.5em, text centered,
+		  fill=white] 
+        {\nodepart[font=\scriptsize]{second}
+	\begin{tblr}{colspec={X},vlines,hlines}
+	\texttt{O} \hspace{0.1cm} \vline \hspace{0.1cm} Audio \& video feeds\\
+        {Audio and video from other users is output to all other participants}\\
+        \end{tblr}} (host);
+
+\draw[black, -{Latex[length=2.5mm]}]
+  (user.south) -- (d) -| (r) -| node[rectangle split, rectangle 
+                  split parts=2, text height=1.0ex, 
+		  text width=7.5em, text centered,
+		  fill=white] 
+        {\nodepart[font=\scriptsize]{second}
+	\begin{tblr}{colspec={X},vlines,hlines}
+	\texttt{I} \hspace{0.1cm} \vline \hspace{0.1cm} Passcode\\
+        User enters passcode to log back in\\
+        \end{tblr}} (q) -| ([xshift=-5cm]logins);
 
 \end{tikzpicture}
 
