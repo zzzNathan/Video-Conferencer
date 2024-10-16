@@ -348,9 +348,9 @@ to confirm. If the user happens to forget which phrase to say in
 order to perform a certan action they may say "help" in order to 
 hear a list of all of the set phrases and their actions.
 
-\subsection{Defining the structure of the solution}
+\section{Defining the structure of the solution}
 
-\subsubsection{Entity relationship diagram — \textit{1st draft}}
+\subsection{Entity relationship diagram — \textit{1st draft}}
 \label{sec:erdd}
 
 % We need to store user logins, 
@@ -466,7 +466,7 @@ adhering to, as discussed in \ref{sec:computational}. We now
 propose a solution to this issue that allows us to use at most
 2 calls to the \code{Query\_tbl()} function.
 
-\subsubsection{Entity relationship diagram — \textit{2nd draft}}
+\subsection{Entity relationship diagram — \textit{2nd draft}}
 
 \begin{figure}[H]
 \centering
@@ -659,7 +659,7 @@ saving me and my client from a multitude of economical and
 logistical issues in the future. \\ \vspace{0.2cm}
 %mumble mumble Central limit thm, lots of collisions mumble 
 
-\subsubsection{Entity relationship diagram — \textit{3rd draft}}
+\subsection{Entity relationship diagram — \textit{3rd draft}}
 
 \begin{figure}[H]
 \centering
@@ -782,7 +782,7 @@ accessibility configs. Through this approach we know that each
 of the configs that we check is unique, and we ultimately avoid 
 the downfall of the 2nd database draft, redundancies. 
 
-\subsubsection{Entity relationship diagram — \textit{4th draft}}
+\subsection{Entity relationship diagram — \textit{4th draft}}
 
 \begin{figure}[H]
 \centering
@@ -850,7 +850,7 @@ corrected. Finally the UserID attribute has been removed
 in place of a unique username to act as the primary key 
 for the {\sffamily Logins} table instead.
 
-\subsubsection{Proposed system level 0 DFD}
+\subsection{Proposed system level 0 DFD}
 
 \begin{figure}[H]
 \label{fig:dfd0}
@@ -960,7 +960,7 @@ software will maximise it's longevity, through the constant
 innovation and improvement of our system namely via it's 
 future maintainers.
 
-\subsubsection{Proposed system level 1 DFD} 
+\subsection{Proposed system level 1 DFD} 
 
 \begin{figure}[H]
 \centering
@@ -1103,7 +1103,7 @@ to refer to in the future.
 Finally we have seen that the level 1 DFD diagram provides a
 neat, cohesive visual representation of our system's architecture.
 
-\subsection{Key algorithms}
+\section{Key algorithms}
 \label{sec:algos}
 
 % Use appropiate and accurate algorithms, justifying how these
@@ -1590,7 +1590,7 @@ complete solution to the problem at hand.
 %\subsubsection{Justify how these algorithms form a complete
 %solution}
 
-\subsection{Usability features}
+\section{Usability features}
 % Described, justifying choices made, the usability features
 % to be included in the solution,
 
@@ -1699,7 +1699,7 @@ when video-conferencing, instead we promote their
 independence in learning and understanding how to use new 
 technologies.
 
-\subsection{Key variables and data structures}
+\section{Key variables and data structures}
 
 \begin{longtblr}[
   caption={Key variables and data structures.}
@@ -1772,14 +1772,14 @@ components of the system.}\\
 
 \end{longtblr}
 
-\subsection{Testing}
+\section{Testing}
 
 \textit{The iterative test data along with it's
 justification for each key algorithm is given
 underneath it's pseudocode see section 
 \ref{sec:algos}.}\\ \vspace{0.2cm}
 
-\subsubsection{Alpha and beta testing}
+\subsection{Alpha and beta testing}
 
 Alpha testing is done by the software developers and their
 team, before the launch of the system. In carrying out alpha
@@ -1804,4 +1804,4 @@ loads and stresses, then use this data to justify changes
 and enhancements to our system.
 %talk about beta testing
 
-\subsection{Post-development testing}
+\section{Post-development testing}
