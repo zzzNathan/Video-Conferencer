@@ -790,12 +790,11 @@ the downfall of the 2nd database draft, redundancies.
 \begin{tikzpicture}
 
   \pic{entity={logins}{\sffamily Logins}{
-    \underline{UserID} & \texttt{int} \\
+    \underline{Username} & \texttt{string} \\
+    \textit{Password} & \texttt{string} \\
     \textit{AudioID} & \texttt{int} \\
     \textit{VideoID} & \texttt{int} \\
     \textit{AccessID} & \texttt{int} \\
-    Username & \texttt{string} \\
-    Password & \texttt{string} \\
   }};
 
   \pic[below right=of logins]{entity={video}{\sffamily Video\_cfg}{
@@ -847,7 +846,9 @@ client. Each primary to foreign key relationship
 is now represented with an arrow that points directly to 
 to the name of it's corresponding key. Moreover the 
 logical relationships between attributes have been 
-corrected.
+corrected. Finally the UserID attribute has been removed 
+in place of a unique username to act as the primary key 
+for the {\sffamily Logins} table instead.
 
 \subsubsection{Proposed system level 0 DFD}
 
@@ -1703,17 +1704,80 @@ technologies.
 \begin{longtblr}[
   caption={Key variables and data structures.}
 ]{
-  colspec={llXX}, hlines, row{1}={lightestgray}
+  colspec={llXX}, hlines, row{1}={lightestgray},
+  row{2}={lightestgray}, row{8}={lightestgray}
 }
+
 Variable & Data type & Description & Justification \\
+
+{{\sffamily Logins} table} & & & \\
+
+{Username} & \texttt{string} & {A unique string that will be used to 
+identify a user.} & {Unique usernames help other users to identify the the 
+identities of the other participants who are in their call. Since they are 
+unique they can also form a primary key as we are doing so in the 
+{\sffamily Logins} table.}\\
+
+{Password} & \texttt{string} & {A string that will be entered by 
+the user to log into their account, as a way for the system to confirm 
+that it actually is the correct person logging into this account.} & {
+The usage of password protected accounts makes us compliant with 
+the GDPR. Passwords are beneficial to the user as if they correctly use a 
+strong password they should never have to worry about hackers accessing their
+account and all their private data.}\\
+
+{AudioID} & \texttt{int} & {An unique integer code that will be used to reference
+the user's personal audio configuration in the table {\sffamily Audio\_cfg}.} & {
+In using a code to represent the user's configuration we prevent redundancies
+from user's selecting the same configurations as discussed during the design
+of our database ERD. The usage of the integer data type will provide more than
+enough codes for all users as well as a simple way to generate a new unique code,
+adding 1 to the last generated code.}\\
+
+{AccessID} & \texttt{int} & {An unique integer code that will be used to reference
+the user's personal accessibility configuration in the table {\sffamily Access\_cfg}.} & {
+The justifaction is the same as the one found in the AudioID row.}\\
+
+{VideoID} & \texttt{int} & {An unique integer code that will be used to reference
+the user's personal video configuration in the table {\sffamily Video\_cfg}.} & {
+The justifaction is the same as the one found in the AudioID row.}\\
+
+{{\sffamily Audio} table} & & & \\
+
+{Speaker\_Volume} & {\texttt{int}} & {The speaker volume will be an integer in the 
+range 0-100 where 0 is the lowest and 100 is the highest, indicating how loud the 
+output volume should be.} & {This variable allows our user to be able to control 
+and save the volume level that they want their video conference to default to
+each time they log in. This helps to avoids issues like the audio being too loud 
+and disturbing people, and the audio being too quiet so that the user can't hear.} \\
+
+{Mic\_Volume} & {\texttt{int}} & {The microphone volume will be an integer in the
+range 0-100 where 0 is the lowest and 100 is the highest, indicating how loud
+the microphone volume should sound to others.} & {}\\
+
+{General} & & & \\
+
+{Peer\_Connection} & \texttt{RTCPeerConnection} & {
+The interface used in order to set up a peer to peer connection viaWebRTC.} & {
+The usage of WebRTC's peer to peer connection object will provide an 
+efficient and robust implementation of abstracted peer to peer connection. We 
+know this because the WebRTC API has been thoroughly tested by many others 
+seeing as the initial release was 13 years ago.}\\
+
+{Local\_Stream} & \texttt{MediaStream} & {This variable will store 
+and provide an abstracted interface for the user's video and/or audio data.} & {
+The usage of WebRTC's MediaStream object will provide the same benefits as was 
+discussed above as well as integrate seamlessly with the rest of the WebRTC 
+components of the system.}\\
 
 \end{longtblr}
 
 \subsection{Testing}
 
-\textit{The test data along with it's justification for each
-key algorithm is given underneath it's pseudocode see 
-section \ref{sec:algos}.}\\ \vspace{0.2cm}
+\textit{The iterative test data along with it's
+justification for each key algorithm is given
+underneath it's pseudocode see section 
+\ref{sec:algos}.}\\ \vspace{0.2cm}
 
 \subsubsection{Alpha and beta testing}
 
@@ -1726,8 +1790,18 @@ software during alpha and beta testing we reduce the risk
 of our software failing during it's actual release by 
 gaining feedback from our testers and verifying that our 
 software has no security vulnerabilities and/or legal
-compliance issues.
+compliance issues. \\ \vspace{0.2cm}
 
+Beta testing is carried out by a group of potential end
+users, before the launch of the system. These tests 
+simulate a more realistic usage of our system, so the 
+beta testers may end up discovering more bugs or 
+inadequacies with the system after alpha testing since users
+often try things that the developers have not though of. 
+Additionally by testing with a group of potential end users 
+we gain insight on how the software performs under increased 
+loads and stresses, then use this data to justify changes
+and enhancements to our system.
 %talk about beta testing
 
 \subsection{Post-development testing}
