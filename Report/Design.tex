@@ -350,7 +350,9 @@ hear a list of all of the set phrases and their actions.
 
 \section{Defining the structure of the solution}
 
-\subsection{Entity relationship diagram — \textit{1st draft}}
+\subsection{Entity relationship diagrams}
+
+\subsubsection{Entity relationship diagram — \textit{1st draft}}
 \label{sec:erdd}
 
 % We need to store user logins, 
@@ -466,7 +468,7 @@ adhering to, as discussed in \ref{sec:computational}. We now
 propose a solution to this issue that allows us to use at most
 2 calls to the \code{Query\_tbl()} function.
 
-\subsection{Entity relationship diagram — \textit{2nd draft}}
+\subsubsection{Entity relationship diagram — \textit{2nd draft}}
 
 \begin{figure}[H]
 \centering
@@ -491,6 +493,7 @@ propose a solution to this issue that allows us to use at most
     \underline{VideoID} & \texttt{int} \\
     Video quality & \texttt{int} \\
     Video on by default & \texttt{bool} \\
+    Hide self-view & \texttt{bool} \\
   }};
 
   \pic[below left=of configs]{entity={audio}{\sffamily Audio\_cfg}{
@@ -498,7 +501,6 @@ propose a solution to this issue that allows us to use at most
     Speaker volume & \texttt{int} \\
     Mic volume & \texttt{int} \\
     Mic on by default & \texttt{bool} \\
-    Hide self-view & \texttt{bool} \\
   }};
 
   \pic[below=of configs]{entity={access}{\sffamily Accessibility\_cfg}{
@@ -659,7 +661,7 @@ saving me and my client from a multitude of economical and
 logistical issues in the future. \\ \vspace{0.2cm}
 %mumble mumble Central limit thm, lots of collisions mumble 
 
-\subsection{Entity relationship diagram — \textit{3rd draft}}
+\subsubsection{Entity relationship diagram — \textit{3rd draft}}
 
 \begin{figure}[H]
 \centering
@@ -679,6 +681,7 @@ logistical issues in the future. \\ \vspace{0.2cm}
     \underline{VideoID} & \texttt{int} \\
     Video quality & \texttt{int} \\
     Video on by default & \texttt{bool} \\
+    Hide self-view & \texttt{bool} \\
   }};
 
   \pic[below left=of logins]{entity={audio}{\sffamily Audio\_cfg}{
@@ -686,7 +689,6 @@ logistical issues in the future. \\ \vspace{0.2cm}
     Speaker volume & \texttt{int} \\
     Mic volume & \texttt{int} \\
     Mic on by default & \texttt{bool} \\
-    Hide self-view & \texttt{bool} \\
   }};
 
   \pic[below=of logins]{entity={access}{\sffamily Accessibility\_cfg}{
@@ -782,7 +784,7 @@ accessibility configs. Through this approach we know that each
 of the configs that we check is unique, and we ultimately avoid 
 the downfall of the 2nd database draft, redundancies. 
 
-\subsection{Entity relationship diagram — \textit{4th draft}}
+\subsubsection{Entity relationship diagram — \textit{4th draft}}
 
 \begin{figure}[H]
 \centering
@@ -801,6 +803,7 @@ the downfall of the 2nd database draft, redundancies.
     \underline{VideoID} & \texttt{int} \\
     Video quality & \texttt{int} \\
     Video on by default & \texttt{bool} \\
+    Hide self-view & \texttt{bool} \\
     {$\cdots$} & {$\cdots$} \\
   }};
 
@@ -809,7 +812,7 @@ the downfall of the 2nd database draft, redundancies.
     Speaker volume & \texttt{int} \\
     Mic volume & \texttt{int} \\
     Mic on by default & \texttt{bool} \\
-    Hide self-view & \texttt{bool} \\
+    Noise suppression & \texttt{bool} \\
     {$\cdots$} & {$\cdots$} \\
   }};
 
@@ -850,7 +853,9 @@ corrected. Finally the UserID attribute has been removed
 in place of a unique username to act as the primary key 
 for the {\sffamily Logins} table instead.
 
-\subsection{Proposed system level 0 DFD}
+\subsection{Data flow diagrams}
+
+\subsubsection{Proposed system level 0 DFD}
 
 \begin{figure}[H]
 \label{fig:dfd0}
@@ -960,7 +965,7 @@ software will maximise it's longevity, through the constant
 innovation and improvement of our system namely via it's 
 future maintainers.
 
-\subsection{Proposed system level 1 DFD} 
+\subsubsection{Proposed system level 1 DFD} 
 
 \begin{figure}[H]
 \centering
@@ -1705,7 +1710,8 @@ technologies.
   caption={Key variables and data structures.}
 ]{
   colspec={llXX}, hlines, row{1}={lightestgray},
-  row{2}={lightestgray}, row{8}={lightestgray}
+  row{2}={lightestgray}, row{8}={lightestgray},
+  row{13}={lightestgray}
 }
 
 Variable & Data type & Description & Justification \\
@@ -1753,7 +1759,45 @@ and disturbing people, and the audio being too quiet so that the user can't hear
 
 {Mic\_Volume} & {\texttt{int}} & {The microphone volume will be an integer in the
 range 0-100 where 0 is the lowest and 100 is the highest, indicating how loud
-the microphone volume should sound to others.} & {}\\
+the microphone volume should sound to others.} & {This variable will allow the 
+user to save the volume of their microphone so that when they log into a new
+video call their microphone volume will be this value. By allowing users to 
+save their microphone volume we prevent them from having to adjust the volume 
+of their microphone manually every time they log onto a video call.}\\
+
+{Mic\_On\_Default} & {\texttt{bool}} & {True indicates that the user's microphone 
+will be on as soon as they enter the video call, false indicates that the 
+user's microphone will be off as soon as they enter the video call.} & {This 
+variable would be adjusted depending on the occasion of the video call. For 
+example if the user is attending a public conference then they may want to 
+join with their microphone automatically off, so that they do not disturb others.
+However if the occasion is a company meeting they may wish to turn their 
+microphone on automatically so that they will be able to participate in the
+meeting without facing the issue of speaking whilst they are muted.}\\
+
+{Noise\_Suppression} & {\texttt{bool}} & {True indicates that the browser will 
+try to suppress background noise from the user's microphone, false indicates 
+that the browser will not suppress the microphone's background noise.} & {If 
+the user happens to attend the video call in a particularly noisy area, it 
+may be difficult for others to be able to hear them clearly. By providing 
+the option for our users to apply background noise suppression we allow 
+users to be able to conduct video calls in more locations,
+improving the accessibility of our software}\\
+
+{{\sffamily Access} table} & & & \\
+
+{Toggle\_Mute} & {\texttt{int}} & {An integer representing the key code
+of the key that the user has set to toggle between muted and unmuted in 
+a video call.} & {By allowing our users to set macros for commonly 
+performed tasks, we improve the user experience by letting them choose 
+the keys most comfortable to them to use as macros. This is especially 
+helpful to our users who may suffer from mobility issues, where controlling 
+a mouse may be a pain.}\\
+
+{Toggle\_Camera} & {\texttt{int}} & {An integer representing the key code
+of the key that the user has set to toggle their camera on and off in 
+a video call.} & {Justification is the same as the one found in the
+Toggle\_Mute row.}\\
 
 {General} & & & \\
 
@@ -1804,4 +1848,4 @@ loads and stresses, then use this data to justify changes
 and enhancements to our system.
 %talk about beta testing
 
-\section{Post-development testing}
+\subsection{Post-development testing}
