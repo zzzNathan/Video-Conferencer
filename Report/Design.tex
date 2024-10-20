@@ -1951,6 +1951,46 @@ Additionally by testing with a group of potential end users
 we gain insight on how the software performs under increased 
 loads and stresses, then use this data to justify changes
 and enhancements to our system.
-%talk about beta testing
 
 \subsection{Post-development testing}
+
+Once the software development is finished I will ask a 
+small group of potential end users to carry out the following
+tasks, and report how easy/difficult the task was to complete.
+
+\subsubsection{Test 1}
+
+{\sffamily Task:} Create an account.\\ \vspace{0.2cm}
+
+{\color{gray} \hrulefill}
+
+{\sffamily Steps:}\\ \vspace{0.1cm}
+{\sffamily Test type: Normal.}
+
+\begin{enumerate}
+  \item Navigate to the log in page.
+  \item Enter an adequate username into the username field.
+  \item Enter the password \texttt{if5\#@Jal} into the password field.
+  \item Click on the sign up button.
+\end{enumerate}
+
+{\sffamily Expected outcome:} User account created successfully. \\ \vspace{0.2cm}
+
+{\color{gray} \hrulefill}
+
+{\sffamily Test type: Extreme.}\\ \vspace{0.2cm}
+
+Repeat the steps except use the password \texttt{AopS12v}.\\ \vspace{0.2cm}
+
+{\sffamily Expected outcome:} User account created successfully.\\ \vspace{0.2cm}
+
+{\color{gray} \hrulefill}
+
+{\sffamily Erroneous} \\ \vspace{0.2cm}
+
+Repeat the steps except use the password \texttt{123}. \\ \vspace{0.2cm}
+
+{\sffamily Expected outcome:} User account not created, display 
+message saying password is too weak.
+
+{\color{gray} \hrulefill}
