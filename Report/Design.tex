@@ -1706,23 +1706,30 @@ technologies.
 
 \section{Key variables and data structures}
 
+\subsection{Key variables}
+
+The following table outlines the key variables that will 
+be used in our system along with a description of each and a 
+justification for each.
+
 \begin{longtblr}[
   caption={Key variables and data structures.}
 ]{
   colspec={llXX}, hlines, row{1}={lightestgray},
   row{2}={lightestgray}, row{8}={lightestgray},
-  row{13}={lightestgray}
+  row{13}={lightestgray}, row{17}={lightestgray},
+  row{21}={lightestgray}
 }
 
 Variable & Data type & Description & Justification \\
 
 {{\sffamily Logins} table} & & & \\
 
-{Username} & \texttt{string} & {A unique string that will be used to 
-identify a user.} & {Unique usernames help other users to identify the the 
-identities of the other participants who are in their call. Since they are 
-unique they can also form a primary key as we are doing so in the 
-{\sffamily Logins} table.}\\
+{Username} & \texttt{string} & {A unique string of length 4-20 characters 
+that will be used to identify a user.} & {Unique usernames help other 
+users to identify the the identities of the other participants who are
+in their call. Since they are unique they can also form a primary key
+as we are doing so in the {\sffamily Logins} table.}\\
 
 {Password} & \texttt{string} & {A string that will be entered by 
 the user to log into their account, as a way for the system to confirm 
@@ -1784,6 +1791,35 @@ the option for our users to apply background noise suppression we allow
 users to be able to conduct video calls in more locations,
 improving the accessibility of our software}\\
 
+{Video} & & & \\
+
+{Video\_Quality} & {\texttt{int}} & {An integer representing the video the 
+user's desired video quality. More specifically the user's 
+desired video resolution.} & {Since different users may have access to 
+different internet connection speeds, our users should be able to control 
+their video quality so as to be able to have the lowest latency video 
+conferencing experience possible without major quality compromisations. 
+Indeed it is through the Video\_Quality variable that allows our users
+to be able to achieve this necessity.}\\
+
+{Hide\_SelfView} & {\texttt{bool}} & {True if the user would like to hide 
+their own video, false if the user would like to see their own video feed.} &
+{Our users may want to be able to hide their own video feed for a multitude 
+of reasons, they may find it distracting, it might be embarassing/awkward for 
+them, and more. By giving the user the option to be able to hide their own 
+video we provide the user with a more comfortable, natural video conferencing 
+experience.}\\
+
+{Video\_On\_Default} & {\texttt{bool}} & {True if the user would like to 
+join a video conference with their video camera on automatically, false if the
+user would like to join a video conference with their video camera off 
+automatically.} & {This variable allows our users to be able to avoid 
+repetitively changing their settings in each video call, for example 
+if the user primarly uses video conferencing software to log onto 
+team meetings at work where they need to have their camera on (company policy)
+they won't need to worry about forgetting to turn their camera on whilst 
+they are interacting with their team members every time.}\\
+
 {{\sffamily Access} table} & & & \\
 
 {Toggle\_Mute} & {\texttt{int}} & {An integer representing the key code
@@ -1792,10 +1828,19 @@ a video call.} & {By allowing our users to set macros for commonly
 performed tasks, we improve the user experience by letting them choose 
 the keys most comfortable to them to use as macros. This is especially 
 helpful to our users who may suffer from mobility issues, where controlling 
-a mouse may be a pain.}\\
+a mouse may be a pain. We justify use of the integer data type by noticing
+that in all modern software, integer codes are used to reference each 
+individual key. It has become standard to use the key codes
+layed out by the Win32API, so we will not take time to re-invent the 
+wheel and simply adopt the already existing standards.}\\
 
 {Toggle\_Camera} & {\texttt{int}} & {An integer representing the key code
 of the key that the user has set to toggle their camera on and off in 
+a video call.} & {Justification is the same as the one found in the
+Toggle\_Mute row.}\\
+
+{Toggle\_Hand} & {\texttt{int}} & {An integer representing the key code
+of the key that the user has set to raise their virtual hand up or down in 
 a video call.} & {Justification is the same as the one found in the
 Toggle\_Mute row.}\\
 
@@ -1815,6 +1860,66 @@ discussed above as well as integrate seamlessly with the rest of the WebRTC
 components of the system.}\\
 
 \end{longtblr}
+
+\subsection{Data validation rules}
+
+The following table outlines the data validation rules
+that must be obeyed in our system for it to function as required,
+along with justification for each rule.
+
+\begin{longtblr}[
+  caption={Data validation rules.}
+]{colspec={lXX}, hlines, row{1}={lightestgray}}
+
+Validation & Description & Justification \\
+
+Data type & {Each variable must use only 1 data type, data 
+of the wrong type should never be assiged to any variable.} & {
+Data type validation is necessary for the system to function
+without runtime errors being raised. In ensuring that this 
+validation rule is obeyed we guarentee that the system will never 
+produce type errors. If the user encountered such an error 
+whilst using the finished application then it could produce 
+some unexpected behaviour, and the user may be tempted to 
+move back to the previous system on the basis that it was more
+reliable.}\\
+
+Existence & {If data must be found in a field, we check for 
+it's existence. For instance each user account must have a unique
+username associated with it in the {\sffamily Logins} table.} & {
+We need to have existence checks in place to avoid unexpected
+behaviour, and failures in our software, to illustrate suppose that
+we didn't use existence checks and our {\sffamily Logins} table was 
+now full of users that have blank usernames due to some bug
+elsewhere in the system. Now our database will quickly fill up with 
+data that is useless because none of our users will be able to use
+the usernames that they chose in order to log in.}\\
+
+Uniqueness & {Variables that act as primary keys must be unique.} & {
+Checking for uniqueness is vital to the functionality of our system.
+If 2 users get the same username, we would not only be wasting space
+in our database by storing a redundant entry but we would also
+experience issues when one of the users wants to log in, because we 
+would never be able to know whether the password entered is correct.}\\
+
+Range & {All numerical variables $n$ that are restricted to some
+interval $I = [l, r]$ must satisfy $n \in I$. All string typed variables $s$
+that are restricted to some maximal length $L_r$ and some minimal length $L_l$ 
+must satisfy 
+$L_l \leq \left|s\right| \leq L_r$} & {For the numerical variable we must check 
+that they satisfy the range requirement because without it errors and
+unexpected behaviour may arise, ruining the user experience. For the 
+string typed variables these must satisfy their length requirements so as
+to not cause issues for the system or for other users. As an example suppose
+that we did not have the username length requirement then users could select 
+a username of length 0, a username with no characters, meaning that the other 
+users wouldn't be able to identify who has joined their video conference. On the
+flip side a user could pick a username of length 100,000 characters, which is
+obviously unecessary for a username, this username would then use up a large 
+amount of the storage available in our database.}\\
+
+\end{longtblr}
+
 
 \section{Testing}
 
