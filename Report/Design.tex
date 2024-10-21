@@ -825,16 +825,17 @@ the downfall of the 2nd database draft, redundancies.
   }};
 
   \coordinate[left=13.6em of logins.west] (v);
-  \coordinate[above=0.4cm of v] (al);
+  \coordinate[below=0.3cm of v] (al);
 
   \coordinate[left=1.45em of logins] (p);
-  \coordinate[below=0.5cm of p] (acl);
+  \coordinate[below=1.1cm of p] (acl);
 
   \coordinate[right=1.45em of logins] (j);
+  \coordinate[below=0.7cm of j] (jp); % JEAN PAUL gtarp xqcl
 
-  \draw[-{crow's foot}] ([yshift=1.5cm]audio.west) -| (al) -- ([yshift=0.4cm]logins.west);
-  \draw[-{crow's foot}] ([yshift=1cm]access.west) -| (acl) -- ([yshift=-0.5cm]logins.west);
-  \draw[-{crow's foot}] ([yshift=1cm]video) -| (j) -- (logins);
+  \draw[-{crow's foot}] ([yshift=1.65cm]audio.west) -| (al) -- ([yshift=-0.3cm]logins.west);
+  \draw[-{crow's foot}] ([yshift=1cm]access.west) -| (acl) -- ([yshift=-1.1cm]logins.west);
+  \draw[-{crow's foot}] ([yshift=1.5cm]video) -| (jp) -- ([yshift=-0.7cm]logins.east);
 
 \end{tikzpicture}
 
@@ -1960,37 +1961,162 @@ tasks, and report how easy/difficult the task was to complete.
 
 \subsubsection{Test 1}
 
-{\sffamily Task:} Create an account.\\ \vspace{0.2cm}
+{\sffamily Task:} Create an account.\\ 
 
 {\color{gray} \hrulefill}
 
-{\sffamily Steps:}\\ \vspace{0.1cm}
 {\sffamily Test type: Normal.}
 
 \begin{enumerate}
-  \item Navigate to the log in page.
+  \item Navigate to the sign up page.
   \item Enter an adequate username into the username field.
   \item Enter the password \texttt{if5\#@Jal} into the password field.
   \item Click on the sign up button.
 \end{enumerate}
 
-{\sffamily Expected outcome:} User account created successfully. \\ \vspace{0.2cm}
+{\sffamily Expected outcome:} User account created successfully. \\ 
 
 {\color{gray} \hrulefill}
 
-{\sffamily Test type: Extreme.}\\ \vspace{0.2cm}
+{\sffamily Test type: Extreme.}\\ 
 
-Repeat the steps except use the password \texttt{AopS12v}.\\ \vspace{0.2cm}
+\begin{enumerate}
+\item Repeat the steps except use the password \texttt{AopS12v}.\\ 
+\end{enumerate}
 
-{\sffamily Expected outcome:} User account created successfully.\\ \vspace{0.2cm}
+{\sffamily Expected outcome:} User account created successfully.\\ 
 
 {\color{gray} \hrulefill}
 
-{\sffamily Erroneous} \\ \vspace{0.2cm}
+{\sffamily Test type: Erroneous.} \\ 
 
-Repeat the steps except use the password \texttt{123}. \\ \vspace{0.2cm}
+\begin{enumerate}
+\item Repeat the steps except use the password \texttt{123}.  
+\end{enumerate}
 
 {\sffamily Expected outcome:} User account not created, display 
-message saying password is too weak.
+message saying password is too weak.\\
 
 {\color{gray} \hrulefill}
+
+\subsubsection{Test 2}
+
+{\sffamily Task:} Log in to your account.\\ 
+
+{\color{gray} \hrulefill}
+
+{\sffamily Test type: Normal.}\\
+
+\begin{enumerate}
+  \item Navigate to the log in page.
+  \item Enter your actual username into the username field.
+  \item Enter your actual password into the password field.
+  \item Click on the log in button.
+\end{enumerate}
+
+{\sffamily Expected outcome:} User logged in successfully. \\ 
+
+{\color{gray} \hrulefill}
+
+{\sffamily Test type: Erroneous.}\\
+
+\begin{enumerate}
+  \item Repeat the steps except using the wrong password.
+\end{enumerate}
+
+{\sffamily Expected outcome:} User not logged in,
+message displaying "Wrong username or password!". \\ 
+
+{\color{gray} \hrulefill}
+
+\subsubsection{Test 3}
+
+{\sffamily Task:} Log out.\\ 
+
+{\color{gray} \hrulefill}
+
+{\sffamily Test type: Normal.}\\
+
+\begin{enumerate}
+  \item Navigate to your account profile.
+  \item Click the log out button.
+\end{enumerate}
+
+{\sffamily Expected outcome:} User logged out. \\ 
+
+{\color{gray} \hrulefill}
+
+\subsubsection{Test 4}
+
+{\sffamily Task:} Change settings.\\ 
+
+{\color{gray} \hrulefill}
+
+{\sffamily Test type: Normal.}\\
+
+\begin{enumerate}
+  \item Navigate to the settings page.
+  \item Change some settings and record these changes.
+  \item Log out of your account (refer to Test 3). 
+  \item Log back into your account (refer to Test 2).
+  \item Navigate back to the settings page.
+  \item Verify whether the settings there are the same as the ones you recorded in step 2.
+\end{enumerate}
+
+{\sffamily Expected outcome:} User settings changed successfully. \\
+
+{\color{gray} \hrulefill}
+
+\subsubsection{Test 5}
+
+{\sffamily Task:} Start a video call.\\ 
+
+{\color{gray} \hrulefill}
+
+{\sffamily Test type: Normal.}\\
+
+\begin{enumerate}
+  \item Connect a webcamera and microphone to your device (if necessary).
+  \item Navigate to the create call page.
+  \item Click on the create call button.
+\end{enumerate}
+
+{\sffamily Expected outcome:} Unique call code generated successfully 
+and displayed to the user. User is able to view themselves in 
+the video call.\\
+
+{\color{gray} \hrulefill}
+
+\subsubsection{Test 6}
+
+{\sffamily Task:} Join a video call.\\ \vspace{0.2cm}
+
+\textit{This test requires 2 people. Both users should have a camera 
+and microphone connected to their device. Both users should have a 
+stable internet connection satisfying the requirements listed in section \ref{sec:hardware}}\\
+
+{\color{gray} \hrulefill}
+
+{\sffamily Test type: Normal.}\\
+
+\begin{enumerate}
+  \item Have person 1 complete the steps outlined in Test 5.
+  \item Person 1 should share the unique call code with person 2.
+  \item Person 2 should then navigate to the join call page and enter the code that they were given.
+  \item Person 2 should click on the join call button.
+\end{enumerate}
+
+{\sffamily Expected outcome:} Both users successfully joined the video call
+and can clearly see and hear each other.\\
+
+{\color{gray} \hrulefill} \vspace{0.2cm}
+
+\textit{Justification:} This suite of tests adequately tests the
+functionality of all of the main features of this system. In asking a 
+diverse group of potential end users to carry out the above tasks 
+we gain insight as to how real people learn to navigate and use
+the system. Moreover we can analyse the user feedback to identify the
+strengths and weaknesses of our system and implement any needed changes
+based on the feedback received. Hence the test serves to confirm whether 
+or not our system works as intended as well as inform us on ways in which
+we can improve the system.
