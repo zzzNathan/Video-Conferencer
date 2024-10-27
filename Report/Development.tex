@@ -8,6 +8,16 @@
 \chapter{Development}
 \label{chap:development}
 
+% Provided evidence of each stage of the iterative
+% development process for a coded solution
+% relating this to the break down of the problem
+% from the analysis stage and explaining what they
+% did and justifying why.
+
+% Well structured and modular, code annotated, DRY
+
+% Validation evidence 
+
 \section{Iteration 1}
 
 During this iteration I wanted to finish up designs for each 
@@ -32,5 +42,120 @@ of the pages that will appear on our website.
 \caption{3rd Mock up of the home page.}
 \label{fig:ui3}
 \end{figure}
+
+I started by cleaning up the mock design for our home page.
+The first mock up was a very basic outline for how I wanted to 
+style the page, so in the next couple iterations I polished 
+the design and added more designs to fill the web page. These
+additions made the home page feel more complete and less 
+bare-bones, consequently making the webpage feel more 
+professional for the user. \\ \vspace{0.2cm}
+
+The next step was to transfer this design into html and css. 
+Since my designs made use of a collection of frequently used 
+colours I concluded that it would be useful to be able to use
+these colours as defined variables instead of having to write 
+out their hex colour codes each time 
+(see section \ref{sec:ui}). However the native CSS syntax 
+looks something like this. (Taken from \url{https://www.w3schools.com/css/css3_variables.asp})
+
+\begin{minted}[linenos, bgcolor=lightestgray]{css}
+:root {
+  --blue: #1e90ff;
+  --white: #ffffff;
+}
+\end{minted}
+
+I personally found this syntax particularly disgusting, 
+after doing some research I came across this stack overflow 
+answer \url{https://stackoverflow.com/a/1877358}. After digging
+into exactly what "sass" and "less" were I decided to use sass
+as an extension of my CSS because I liked the look of it's 
+syntax better. Sass (\textbf{S}yntactically \textbf{A}wesome 
+\textbf{S}tylesheet) is a CSS extension language that 
+provides a new syntax for writing CSS as well as a number of 
+features that prevent repetition in the code like variables, 
+functions and more. The sass code is saved in a \texttt{.sass}
+file then one can compile the sass code into CSS by using the
+command \texttt{sass <sass file name> <output css file name>}.
+\\ \vspace{0.2cm}
+
+After blocking in the basic elements of our webpage the HTML 
+and sass code looked like this.
+
+\textit{main.html}
+
+\begin{minted}[linenos, bgcolor=lightestgray]{html}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+  <link rel="stylesheet" href="styles.css">
+  <title>Video-Conferencer</title>
+</head>
+
+<body>
+  <div class="Headlines">
+
+    <div class="Main_Headline">
+      Video conferencing...
+    </div>
+
+    <div class="Sub_Headline">
+      like you've never seen before.
+    </div>
+
+  </div>
+</body>
+
+</html>
+\end{minted}
+
+\textit{styles.sass}
+
+\begin{minted}[linenos, bgcolor=lightestgray]{sass}
+// Colour definitions
+$Col_Main:       #69ca95
+$Col_Secondary:  #284333
+$Col_Tertiary:   #9a6442
+$Col_Accent:     #ffc6e5
+$Col_AccentDark: #c49df2
+
+// Setting font and background colour
+body
+  background-color: $Col_Main
+  font-family:      'Inter', sans-serif
+
+// Styling for the headlines
+.Headlines
+  display:         flex
+  flex-direction:  column
+  align-items:     center
+  justify-content: center
+
+// Styling for the main headline
+.Main_Headline
+  width:       701px
+  height:      238px
+  font-size:   96px
+  font-weight: 600 
+  position:    absolute
+  top:         20%
+  left:        45%
+
+// Styling for the sub headline
+.Sub_Headline
+  width:       603px
+  height:      101px
+  font-weight: 500
+  text-align:  center
+  font-size:   40px
+  position:    absolute
+  top:         60%
+  left:        48%
+\end{minted}
 
 \subsubsection{Login page}

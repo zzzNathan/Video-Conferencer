@@ -303,4 +303,5 @@ TSWLatexianTemp*
 # Uncomment the next line to have this generated file ignored.
 #*Notes.bib
 
-DB_Info.txt
+# Ignores unneeded output files from sass
+*.css.map
