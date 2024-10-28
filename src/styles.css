@@ -1,27 +1,32 @@
 body {
+  height: 100vh;
+  margin: 0;
   background-color: #69ca95;
   font-family: "Inter", sans-serif;
+  overflow: hidden;
 }
 
-.Main_Headline {
-  width: 701px;
-  height: 238px;
-  font-size: 96px;
-  font-weight: 600;
-  position: absolute;
-  top: 20%;
+#Headline_container {
+  position: relative;
+  top: 10%;
   left: 45%;
 }
 
-.Sub_Headline {
-  width: 603px;
-  height: 101px;
-  font-weight: 500;
-  text-align: center;
-  font-size: 40px;
+#Sign_up {
   position: absolute;
-  top: 60%;
-  left: 48%;
+  top: 75%;
+  left: 35%;
+}
+
+#Bot_left_graphic_container {
+  position: relative;
+  top: 0%;
+}
+
+#Bot_right_graphic_container {
+  position: relative;
+  left: 50%;
+  bottom: 75%;
 }
 
 /*# sourceMappingURL=styles.css.map */

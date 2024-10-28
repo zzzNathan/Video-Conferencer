@@ -18,10 +18,36 @@
 
 % Validation evidence 
 
+\section{Development overview and sub-tasks}
+
+We apply the principle of decomposition to our development
+plan by splitting up the development of the system into 
+a number of smaller sub-tasks. Each sub-task relates to it's
+relevant circled number in our problem breakdown (see section 
+\ref{sec:breakdown}).\\ \vspace{0.2cm}
+
+\begin{tblr}{cX}
+  \hline
+  Number & Sub-task \\
+  \hline
+  \circled{4} & Document the backend code throughout\\
+  \circled{1} & Design home page \\
+  \circled{2} & Design help page \\
+  \circled{3} & Design login page \\
+  \ldots & \ldots \\
+  \hline
+\end{tblr}
+\vspace{0.2cm}
+
+Finally note that all the code for this project is open source
+and freely available for you to view on github:
+\texttt{<GH URL HERE>}
+
 \section{Iteration 1}
 
 During this iteration I wanted to finish up designs for each 
-of the pages that will appear on our website.
+of the pages that will appear on our website. This should 
+clear up sub-task \circled{1} and \circled{3}.
 
 \subsubsection{Home page}
 
@@ -83,7 +109,9 @@ command \texttt{sass <sass file name> <output css file name>}.
 After blocking in the basic elements of our webpage the HTML 
 and sass code looked like this.
 
-\textit{main.html}
+\subsubsection{Prototype 1}
+
+\underline{main.html}
 
 \begin{minted}[linenos, bgcolor=lightestgray]{html}
 <!DOCTYPE html>
@@ -114,7 +142,7 @@ and sass code looked like this.
 </html>
 \end{minted}
 
-\textit{styles.sass}
+\underline{styles.sass}
 
 \begin{minted}[linenos, bgcolor=lightestgray]{sass}
 // Colour definitions
@@ -129,13 +157,6 @@ body
   background-color: $Col_Main
   font-family:      'Inter', sans-serif
 
-// Styling for the headlines
-.Headlines
-  display:         flex
-  flex-direction:  column
-  align-items:     center
-  justify-content: center
-
 // Styling for the main headline
 .Main_Headline
   width:       701px
@@ -144,7 +165,7 @@ body
   font-weight: 600 
   position:    absolute
   top:         20%
-  left:        45%
+  left:        43%
 
 // Styling for the sub headline
 .Sub_Headline
@@ -155,7 +176,140 @@ body
   font-size:   40px
   position:    absolute
   top:         60%
-  left:        48%
+  left:        46%
 \end{minted}
+
+This code produced our 1st prototype.
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[scale=0.2]{Images/Proto_home1.png}
+
+\end{figure}
+
+\textit{Client Feedback:} 
+\begin{itemize}
+  \item The headline and sub-headline are too far apart.
+  \item The main headline takes up too much space on the page.
+  \item The "never" isn't italicised.
+\end{itemize}
+
+\subsubsection{Prototype 2}
+
+After writing the code for the first prototype I soon realised
+that actually writing the text for the main headlines and 
+manually positioning it would be a very tedious task. So I 
+decided to instead export the headline as well as the graphic 
+designs as \texttt{.svg} files from Figma. This means I
+wouldn't have to worry about carefully positioning and spacing
+the headlines individually and I could instead just position 
+them as 1 vector image. The \texttt{.svg} image format was 
+chosen because vector images never lose their resolution even
+when scaled, you will still be able to see clean and crisp 
+images no matter how much you zoom in, something which isn't
+achievable with the \texttt{.jpg} or the \texttt{.png} formats.
+In the rare case that \texttt{.svg} files are not supported
+for the user's browser \footnote{Vector images are supported
+by all browser except Internet Explorer 8 and below, and 
+Android 2.3 browser and below.} we also provide fallback 
+\texttt{.png} image files for these users. This ensures that 
+users will be able to see the page's content no matter their 
+choice of browser, hence improving the robustness of our
+system.\\ \vspace{0.2cm}
+
+Our code now looks like this.
+
+\underline{main.html}
+\begin{minted}[linenos, bgcolor=lightestgray]{html}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+  <link rel="stylesheet" href="styles.css">
+  <title>Video-Conferencer</title>
+</head>
+
+<body>
+
+  <div id="Headline_container">
+    <object id="Headline" data="Images/Headline_text.svg" type="image/svg+xml">
+      <img src="Images/Headline_text.png">
+    </object>
+
+    <object id="Sign_up" data="Images/Sign_up.svg" type="image/svg+xml">
+      <img src="Images/Sign_up.png">
+    </object>
+  </div>
+
+  <div id="Bot_left_graphic_container">
+    <object id="Bot_left_graphic" data="Images/Bot_left_graphic.svg" type="image/svg+xml">
+      <img src="Images/Bot_left_graphic.png">
+    </object>
+  </div>
+
+  <div id="Bot_right_graphic_container">
+    <object id="Bot_right_graphic" data="Images/Bot_right_graphic.svg" type="image/svg+xml">
+      <img src="Images/Bot_right_graphic.png">
+    </object>
+  </div>
+
+</body>
+
+</html>
+\end{minted}
+
+\underline{styles.sass}
+\begin{minted}[linenos, bgcolor=lightestgray]{sass}
+// Colour definitions
+$Col_Main:       #69ca95
+$Col_Secondary:  #284333
+$Col_Tertiary:   #9a6442
+$Col_Accent:     #ffc6e5
+$Col_AccentDark: #c49df2
+
+// Setting font and background colour
+body
+  height:           100vh
+  margin:           0
+  background-color: $Col_Main
+  font-family:      'Inter', sans-serif
+  overflow:         hidden
+
+// Positioning the headline svg
+#Headline_container
+  position: relative
+  top:      10%
+  left:     45%
+
+// Positioning the signup svg
+#Sign_up
+  position: absolute
+  top:      75%
+  left:     35%
+
+// Positioning the bottom left graphic svg
+#Bot_left_graphic_container
+  position: relative
+  top:      0%
+
+// Positioning the bottom right graphic svg
+#Bot_right_graphic_container
+  position: relative
+  left:     50%
+  bottom:   75%
+\end{minted}
+
+This code produced our 2nd prototype.
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[scale=0.2]{Images/Proto_home2.png}
+
+\end{figure}
 
 \subsubsection{Login page}

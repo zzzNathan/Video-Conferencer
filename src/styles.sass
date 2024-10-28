@@ -1,7 +1,7 @@
 // How to compile this file:
 // ——————————————————————————
 // 1) First install sass: https://sass-lang.com/install/ 
-// 2) Then compile this file with <sass main.sass styles.css>
+// 2) Then compile this file with <sass styles.sass styles.css>
 // 3) The output CSS file is called "styles.css"
 
 // Colour definitions
@@ -13,26 +13,31 @@ $Col_AccentDark: #c49df2
 
 // Setting font and background colour
 body
+  height:           100vh
+  margin:           0
   background-color: $Col_Main
   font-family:      'Inter', sans-serif
+  overflow:         hidden
 
-// Styling for the main headline
-.Main_Headline
-  width:       701px
-  height:      238px
-  font-size:   96px
-  font-weight: 600 
-  position:    absolute
-  top:         20%
-  left:        45%
+// Positioning the headline svg
+#Headline_container
+  position: relative
+  top:      10%
+  left:     45%
 
-// Styling for the sub headline
-.Sub_Headline
-  width:       603px
-  height:      101px
-  font-weight: 500
-  text-align:  center
-  font-size:   40px
-  position:    absolute
-  top:         60%
-  left:        48%
+// Positioning the signup svg
+#Sign_up
+  position: absolute
+  top:      75%
+  left:     35%
+
+// Positioning the bottom left graphic svg
+#Bot_left_graphic_container
+  position: relative
+  top:      0%
+
+// Positioning the bottom right graphic svg
+#Bot_right_graphic_container
+  position: relative
+  left:     50%
+  bottom:   75%
