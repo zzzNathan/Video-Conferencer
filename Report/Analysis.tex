@@ -2420,7 +2420,7 @@ ones discussed above.
 
   Resolution & 720p & 1080p \\
   
-  Camera & 12MP & 40MP \\ 
+  Camera & 12MP & 40MP\\ 
 
   Speaker & 70Hz - 20kHz frequency response & 40Hz - 20kHz frequency response \\
 
@@ -2454,7 +2454,40 @@ should be noted that if the user is discussing
 confidential information in their conference they should
 consider using headphones as an alternative
 that meet the same requirements as the ones layed out
-for speakers.
+for speakers. \\ \vspace{0.2cm}
+
+\textsf{\bfseries Maintainers} \vspace{0.1cm}
+
+The maintainers of this software are all expected to 
+have access to better hardware than our other user
+groups because their job requires the usage of a 
+computer day in and day out. 
+
+\begin{longtblr}[
+  caption={Maintainer hardware requirements.}
+]{
+  colspec={lXX},  row{1}={lightestgray}
+}
+  \hline
+  Hardware & Minimum & Recommended\\
+  \hline
+  CPU & 2GHz Dual core & 3.5GHz\\
+  RAM & 4GB & 8GB\\
+  \hline
+\end{longtblr}
+
+\textit{Justification:} We can justify setting
+stronger hardware requirements for this group of users
+because they will have to be able to write and test 
+the new code that they add to the system's backend.
+In order to properly run the tests on their machine
+they should have a CPU and RAM that can handle interpreting 
+and running moderate to heavily strenuous Javascript 
+code without causing any issues. These requirements are 
+satisfied by pretty much all modern desktop computers, and 
+most modern laptops, hence these requirements are not 
+something that should be a problem for most users,
+and shouldn't be especially our software maintainence team.
 
 \subsection{Summary of requirements}
 

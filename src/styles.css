@@ -1,32 +1,62 @@
 body {
   height: 100vh;
   margin: 0;
-  background-color: #69ca95;
+  background-color: #759789;
   font-family: "Inter", sans-serif;
   overflow: hidden;
 }
 
 #Headline_container {
   position: relative;
-  top: 10%;
+  top: 3%;
   left: 45%;
+  scale: 80%;
 }
 
 #Sign_up {
   position: absolute;
   top: 75%;
   left: 35%;
+  scale: 90%;
 }
 
 #Bot_left_graphic_container {
   position: relative;
-  top: 0%;
+  bottom: 23%;
+  right: 13%;
+  scale: 75%;
 }
 
-#Bot_right_graphic_container {
+#Bento_graphic_container {
   position: relative;
-  left: 50%;
-  bottom: 75%;
+  left: 40%;
+  bottom: 80%;
+  scale: 75%;
+}
+
+#Settings_container {
+  position: relative;
+  top: 0%;
+  left: 66%;
+  scale: 75%;
+  display: inline;
+}
+
+#Logo_container {
+  position: relative;
+  top: 0%;
+  left: 3%;
+  display: inline;
+  scale: 75%;
+}
+
+#Navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 98%;
+  margin: auto;
 }
 
 /*# sourceMappingURL=styles.css.map */

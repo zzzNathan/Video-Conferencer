@@ -26,7 +26,11 @@ a number of smaller sub-tasks. Each sub-task relates to it's
 relevant circled number in our problem breakdown (see section 
 \ref{sec:breakdown}).\\ \vspace{0.2cm}
 
-\begin{tblr}{cX}
+\begin{longtblr}[
+  caption={Development sub-tasks.}
+]{
+  colspec={cX}, hlines, row{1}={lightestgray}
+}
   \hline
   Number & Sub-task \\
   \hline
@@ -36,7 +40,7 @@ relevant circled number in our problem breakdown (see section
   \circled{3} & Design login page \\
   \ldots & \ldots \\
   \hline
-\end{tblr}
+\end{longtblr}
 \vspace{0.2cm}
 
 Finally note that all the code for this project is open source
@@ -189,12 +193,15 @@ This code produced our 1st prototype.
 \caption{Home page prototype 1}
 \end{figure}
 
-\textit{Client Feedback:} 
+{\color{gray} \hrulefill} \vspace{0.2cm}
+
+{\sffamily Client Feedback:} 
 \begin{itemize}
   \item The headline and sub-headline are too far apart.
   \item The main headline takes up too much space on the page.
   \item The "never" isn't italicised.
 \end{itemize}
+{\color{gray} \hrulefill} 
 
 \subsubsection{Prototype 2}
 
@@ -313,5 +320,16 @@ This code produced our 2nd prototype.
 
 \caption{Home page prototype 2}
 \end{figure}
+
+{\color{gray} \hrulefill} \vspace{0.2cm}
+
+{\sffamily Client feedback:}
+
+\begin{itemize}
+  \item We are still lacking a navigation bar at the top.
+  \item All the elements feel as though they take up too much space on the page.
+\end{itemize}
+
+{\color{gray} \hrulefill} 
 
 \subsubsection{Login page}
