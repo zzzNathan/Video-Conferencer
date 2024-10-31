@@ -1,55 +1,68 @@
 body {
   height: 100vh;
   margin: 0;
-  background-color: #759789;
+  background-color: #3F3E3C;
   font-family: "Inter", sans-serif;
   overflow: hidden;
 }
 
-#Headline_container {
-  position: relative;
-  top: 3%;
-  left: 45%;
-  scale: 80%;
-}
-
-#Sign_up {
-  position: absolute;
-  top: 75%;
-  left: 35%;
-  scale: 90%;
-}
-
-#Settings_container {
-  position: relative;
-  top: 0%;
-  left: 66%;
+#Headline {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10vh;
   scale: 75%;
-  display: inline;
-}
-
-#Logo_container {
-  position: relative;
-  top: 0%;
-  left: 3%;
-  display: inline;
-  scale: 75%;
-}
-
-#Bento_container {
-  position: relative;
-  top: 3%;
-  right: 11%;
-  scale: 75%;
+  top: 20%;
 }
 
 #Navbar {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  align-items: horizontal;
+}
+
+#Settings {
+  float: right;
+  scale: 300%;
+  color: #B98DEE;
+  padding: 4vh;
+}
+
+#Contact_container {
+  margin-right: 0%;
+  scale: 75%;
+  padding: 2vh;
+}
+
+#Logo_container {
+  margin-left: -3%;
+  margin-right: -5%;
+  scale: 75%;
+  padding: 2vh;
+}
+
+#Support_container {
+  margin-left: -3%;
+  margin-right: 45%;
+  scale: 75%;
+  padding: 2vh;
+}
+
+#Main {
+  display: flex;
   align-items: center;
-  width: 98%;
-  margin: auto;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#Bottom_bar {
+  position: relative;
+  top: 22%;
+  right: 5%;
+  scale: 75%;
 }
 
 /*# sourceMappingURL=styles.css.map */
