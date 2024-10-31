@@ -20,20 +20,6 @@ body {
   scale: 90%;
 }
 
-#Bot_left_graphic_container {
-  position: relative;
-  bottom: 23%;
-  right: 13%;
-  scale: 75%;
-}
-
-#Bento_graphic_container {
-  position: relative;
-  left: 40%;
-  bottom: 80%;
-  scale: 75%;
-}
-
 #Settings_container {
   position: relative;
   top: 0%;
@@ -47,6 +33,13 @@ body {
   top: 0%;
   left: 3%;
   display: inline;
+  scale: 75%;
+}
+
+#Bento_container {
+  position: relative;
+  top: 3%;
+  right: 11%;
   scale: 75%;
 }
 
