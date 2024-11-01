@@ -29,7 +29,7 @@ relevant circled number in our problem breakdown (see section
 \begin{longtblr}[
   caption={Development sub-tasks.}
 ]{
-  colspec={cX}, hlines, row{1}={lightestgray}
+  colspec={cX}, row{1}={lightestgray}
 }
   \hline
   Number & Sub-task \\
@@ -357,5 +357,169 @@ change to this new design and he agreed).
 \includegraphics[scale=0.2]{Images/HomeUI_4.png}
 
 \end{figure}
+
+Now in relation to the point \textit{"the elements feel as
+though they take up too much space on the page"} I found that 
+an appropriate solution was to simply scale every element on 
+our page to 75\%. This then made the page look closer to the
+one design in Figma. Whilst writing the HTML and sass code I
+made some minor design changes based on what looked the most
+appealing. The bottom bar was dropped from the final design
+because it felt tacky compared to rest of the website. I 
+instead replaced it with the quote that sat on the bottom 
+left of our original design (look at prototype 2). Finally I 
+gave the settings icon the same purple colour as the rest of
+the navigation bar. Here is the code of the 3rd prototype. \\
+\vspace{0.2cm}
+
+\underline{main.html}
+
+\begin{minted}[linenos, bgcolor=lightestgray]{html}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <title>Video-Conferencer</title>
+</head>
+
+<body>
+   
+  <ul id="Navbar">
+
+    <li id="Logo_container">
+      <object id="Logo" data="Images/Logo.svg" type="image/svg+xml">
+        <img src="Images/Logo.png">
+      </object>
+    </li>
+
+    <li id="Contact_container">
+      <object id="Contact" data="Images/Contact.svg" type="image/svg+xml">
+        <img src="Images/Contact.png">
+      </object>
+    </li>
+
+    <li id="Support_container">
+      <object id="Support" data="Images/Support.svg" type="image/svg+xml">
+        <img src="Images/Support.png">
+      </object>
+    </li>
+
+    <li id="Settings">
+      <i class="glyphicon glyphicon-cog"></i>
+    </li>
+  </ul>
+
+  <div id="Main">
+    <object id="Headline" data="Images/Headline.svg" type="image/svg+xml">
+      <img src="Images/Headline.png">
+    </object>
+
+    <object id="Sign_up" data="Images/Sign_up.svg" type="image/svg+xml">
+      <img src="Images/Sign_up.png">
+    </object>
+  </div>
+
+  <object id="Quote" data="Images/Quote.svg" type="image/svg+xml">
+    <img src="Images/Quote.png">
+  </object>
+
+</body>
+
+</html>
+\end{minted}
+
+\underline{styles.sass}
+
+\begin{minted}[linenos, bgcolor=lightestgray]{sass}
+// Colour definitions
+$Col_Main:       #3F3E3C // Dark purple
+$Col_Secondary:  #B98DEE // Purple
+$Col_Tertiary:   #FFC6E5 // Pink
+
+// Setting font and background colour
+body
+  height:           100vh
+  margin:           0
+  background-color: $Col_Main
+  font-family:      'Inter', sans-serif
+  overflow:         hidden
+
+// Positioning the headline
+#Headline
+  display:      block
+  margin-left:  auto
+  margin-right: auto
+  margin-top:   10vh
+  scale:        75%
+  top:          20%
+
+// Scaling the sign up button
+#Sign_up
+  margin-top: -3vh
+  scale:       75%
+
+#Navbar
+  list-style-type: none
+  margin:          0
+  padding:         0
+  overflow:        hidden
+  display:         flex
+  align-items:     horizontal
+
+// Styling the navbar elements
+#Settings
+  float: right
+  scale: 300%
+  color: $Col_Secondary
+  padding: 4vh
+
+#Contact_container
+  margin-right: 0%
+  scale:        75%
+  padding:      2vh
+
+#Logo_container
+  margin-left:  -3%
+  margin-right: -5%
+  scale:        75%
+  padding:      2vh
+
+#Support_container
+  margin-left:  -3%
+  margin-right: 45%
+  scale:        75%
+  padding:      2vh
+
+// Positioning the call to action button
+#Main
+  display:         flex
+  align-items:     center
+  justify-content: center
+  flex-direction:  column
+
+// Positioning the quote
+#Quote
+  position: relative
+  left:     0%
+  top:      20% 
+  scale:    75%
+\end{minted}
+
+This code produced our 3rd prototype.
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[scale=0.2]{Images/Proto_home3.png}
+
+\caption{Home page prototype 3}
+\end{figure}
+
+{\sffamily Develepmont sub-goal \circled{1} \faCheck}
 
 \subsubsection{Login page}
