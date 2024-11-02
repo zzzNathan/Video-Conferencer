@@ -1949,9 +1949,12 @@ would never be able to know whether the password entered is correct.}\\
 
 Range & {All numerical variables $n$ that are restricted to some
 interval $I = [l, r]$ must satisfy $n \in I$. All string typed variables $s$
-that are restricted to some maximal length $L_r$ and some minimal length $L_l$ 
+whose length is restricted to some lower and upper bound residing in
+interval $J = [a, b]$, where a is the minimum string length and b is 
+the maximum string length,
 must satisfy 
-$L_l \leq \left|s\right| \leq L_r$} & {For the numerical variable we must check 
+$\left|s\right| \in J, \, \left|s\right| \in \mathbb{N} $}. & {For 
+the numerical variable we must check 
 that they satisfy the range requirement because without it errors and
 unexpected behaviour may arise, ruining the user experience. For the 
 string typed variables these must satisfy their length requirements so as

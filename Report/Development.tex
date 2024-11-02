@@ -37,7 +37,8 @@ relevant circled number in our problem breakdown (see section
   \circled{4} & Document the backend code throughout\\
   \circled{1} & Design home page \\
   \circled{2} & Design help page \\
-  \circled{3} & Design login page \\
+  \circled{3.1} & Design login page \\
+  \circled{3.2} & Implement login system with password resets \\
   \ldots & \ldots \\
   \hline
 \end{longtblr}
@@ -49,9 +50,9 @@ and freely available for you to view on github:
 
 \section{Iteration 1}
 
-During this iteration I wanted to finish up designs for each 
+During this iteration I wanted to finish up designs for a few 
 of the pages that will appear on our website. This should 
-clear up sub-task \circled{1} and \circled{3}.
+clear up sub-task \circled{1} and \circled{3.1}.
 
 \subsubsection{Home page}
 
@@ -356,6 +357,7 @@ change to this new design and he agreed).
 
 \includegraphics[scale=0.2]{Images/HomeUI_4.png}
 
+\caption{4th Mock up of the home page.}
 \end{figure}
 
 Now in relation to the point \textit{"the elements feel as
@@ -382,7 +384,8 @@ the navigation bar. Here is the code of the 3rd prototype. \\
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href=
+    "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="styles.css">
   <title>Video-Conferencer</title>
 </head>
@@ -530,11 +533,38 @@ This code produced our 3rd prototype.
 
 {\color{gray} \hrulefill} 
 
-{\sffamily Develepment sub-goal \circled{1} \faCheck}
+{\sffamily Development sub-task \circled{1} \faCheck}
 
 \subsubsection{Login page}
 
 Clearly the login page needed to be re-designed also in order
-to properly match the theme of the home page.
+to properly match the theme of the home page. Here is the 
+revised design for our login page. Inspiration was drawn 
+from Spline's login UI \url{https://spline.design/}.
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[scale=0.2]{Images/Login_Page_2.png}
+
+\caption{2nd Mock up of the login page.}
+\end{figure}
+
+This revised version fits much nicer with the home page.
+During the creation of this page however I realised that I 
+had not yet discussed what we would do if a user had
+forgotten their password. In such a case we could employ 
+the standard technique of sending the user a reset password 
+link to their email address and I have included this in 
+our mock up. This idea will have to be added as a development
+sub-task and we will tackle it's implementation in a future 
+iteration. (This will be sub-task \circled{3.2} as I feel 
+the sub-task is still related to box \circled{3} on our 
+problem decomposition see figure \ref{fig:decomp}. Similarly
+the designing of the login page will take on sub-task id
+\circled{3.1}) \\ \vspace{0.2cm}
+
+The next step is to transfer the design in code, then link
+our home page and login page together.
 
 \section{Iteration 2}
