@@ -1,0 +1,53 @@
+// How to compile this file:
+// ——————————————————————————
+// 1) First install sass: https://sass-lang.com/install/ 
+// 2) Then compile this file with <sass styles_main.sass styles_main.css>
+// 3) The output CSS file is called "styles_main.css"
+
+// Colour definitions
+$Col_Main:             #3F3E3C // Dark purple
+$Col_Secondary:        #B98DEE // Purple
+$Col_Tertiary:         #FFC6E5 // Pink
+$Col_Input_Field:      #322E2E // Brown
+$Col_Text_Input_Field: #AA9494 // Light brown
+
+// Setting font and background colour
+body
+  height:           100vh
+  margin:           0
+  background-color: $Col_Main
+  font-family:      'Inter', sans-serif
+  overflow:         hidden
+
+// Positioning the headline
+#Headline
+  display:      block
+  margin-left:  auto
+  margin-right: auto
+  margin-top:   10vh
+  scale:        75%
+  top:          20%
+
+// Positioning the login box
+#Login
+  disply:       block
+  margin-left:  auto
+  margin-right: auto
+
+// Styling the input field
+input 
+  border-radius:    12px
+  width:            281px
+  height:           37.5px
+  background-color: $Col_Input_Field
+  border:           none
+  color:       $Col_Text_Input_Field 
+
+.btn-sign
+  margin-top: 30px
+  padding: 10px 30px
+  border-radius: 40px
+  border: 5px solid $Col_Tertiary
+
+.forgot
+  color: white
