@@ -1,7 +1,7 @@
 body {
   height: 100vh;
   margin: 0;
-  background-color: #3F3E3C;
+  background-image: linear-gradient(#3F3E3C, #423652);
   font-family: "Inter", sans-serif;
   overflow: hidden;
 }
@@ -29,31 +29,15 @@ body {
   align-items: horizontal;
 }
 
-#Settings {
-  float: right;
-  scale: 300%;
+.Navbar_item, .Last_Navbar_item {
   color: #B98DEE;
-  padding: 4vh;
+  padding: 2vh;
+  font-size: 2.3vw;
+  white-space: nowrap;
 }
 
-#Contact_container {
-  margin-right: 0%;
-  scale: 75%;
-  padding: 2vh;
-}
-
-#Logo_container {
-  margin-left: -3%;
-  margin-right: -5%;
-  scale: 75%;
-  padding: 2vh;
-}
-
-#Support_container {
-  margin-left: -3%;
-  margin-right: 45%;
-  scale: 75%;
-  padding: 2vh;
+.Last_Navbar_item {
+  margin-left: auto;
 }
 
 #Main {
@@ -64,10 +48,11 @@ body {
 }
 
 #Quote {
-  position: relative;
-  left: 0%;
-  top: 20%;
-  scale: 75%;
+  position: fixed;
+  bottom: -27px;
+  left: 50%;
+  margin-left: -50vw;
+  width: 100vw;
 }
 
 /*# sourceMappingURL=styles_main.css.map */

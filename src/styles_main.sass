@@ -5,15 +5,16 @@
 // 3) The output CSS file is called "styles_main.css"
 
 // Colour definitions
-$Col_Main:       #3F3E3C // Dark purple
-$Col_Secondary:  #B98DEE // Purple
-$Col_Tertiary:   #FFC6E5 // Pink
+$Col_Main:        #3F3E3C // Dark purple
+$Col_Secondary:   #B98DEE // Purple
+$Col_Tertiary:    #FFC6E5 // Pink
+$Col_Gradient:    #423652 // Darker purple
 
 // Setting font and background colour
 body
   height:           100vh
   margin:           0
-  background-color: $Col_Main
+  background-image: linear-gradient($Col_Main, $Col_Gradient)
   font-family:      'Inter', sans-serif
   overflow:         hidden
 
@@ -31,6 +32,7 @@ body
   margin-top: -3vh
   scale:       75%
 
+// Styling the navigation bar
 #Navbar
   list-style-type: none
   margin:          0
@@ -39,29 +41,15 @@ body
   display:         flex
   align-items:     horizontal
 
-// Styling the navbar elements
-#Settings
-  float: right
-  scale: 300%
-  color: $Col_Secondary
-  padding: 4vh
+.Navbar_item
+  color:       $Col_Secondary
+  padding:     2vh
+  font-size:   2.3vw
+  white-space: nowrap
 
-#Contact_container
-  margin-right: 0%
-  scale:        75%
-  padding:      2vh
-
-#Logo_container
-  margin-left:  -3%
-  margin-right: -5%
-  scale:        75%
-  padding:      2vh
-
-#Support_container
-  margin-left:  -3%
-  margin-right: 45%
-  scale:        75%
-  padding:      2vh
+.Last_Navbar_item
+  @extend      .Navbar_item
+  margin-left: auto
 
 // Positioning the call to action button
 #Main
@@ -72,7 +60,9 @@ body
 
 // Positioning the quote
 #Quote
-  position: relative
-  left:     0%
-  top:      20% 
-  scale:    75%
+  position:    fixed
+  bottom:      -27px
+  left:        50%
+  margin-left: -50vw
+  width:       100vw
+
