@@ -46,7 +46,7 @@ relevant circled number in our problem breakdown (see section
 
 Finally note that all the code for this project is open source
 and freely available for you to view on github:
-\texttt{<GH URL HERE>}
+\texttt{<GH URL HERE>}. \\ \vspace{0.2cm}
 
 \section{Iteration 1}
 
@@ -522,9 +522,14 @@ gray background as well as a new navigation tab "Docs".
 This is where users will click in order to read the 
 documentation for our back end. I added in 2 
 more quotes to the bottom of the page, in a card 
-format using a \texttt{.svg} graphic. Finally I 
+format using a \texttt{.svg} graphic. I also changed 
+the navbar to make use of text instead of 
+\texttt{.svg} images because they are easier to align 
+and will help the page load faster aswell. Then as a nice 
+touch I added a simple hover transformation to the sign up 
+button that makes the whole button a gradient. Finally I 
 cleaned up the code and made more use of CSS's 
-viewport and \texttt{margin:auto} properties, since
+viewport and \texttt{margin: auto} properties, since
 this would ensure that our users would have the same
 UI experience no matter the size of their device. Here 
 is what the refined code looks like: \\ \vspace{0.2cm}
@@ -558,7 +563,15 @@ is what the refined code looks like: \\ \vspace{0.2cm}
     </li>
   </ul>
 
-  ...
+  <div id="Main">
+
+    <object id="Headline" data="Images/Headline.svg" type="image/svg+xml">
+      <img src="Images/Headline.png">
+    </object>
+	
+    <button class="Sign_up"> <b> Sign up </b> </button> 
+
+  </div>
 
   <object id="Quote" data="Images/Quote_cards.svg" type="image/svg+xml">
     <img src="Images/Quote_cards.png">
@@ -572,27 +585,51 @@ is what the refined code looks like: \\ \vspace{0.2cm}
 \underline{style\_main.sass}
 
 \begin{minted}[linenos, bgcolor=lightestgray]{sass}
+@import url('https://fonts.googleapis.com/css?family=Inter')
+@import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+
+// Colour definitions
 ...
-$Col_Gradient:    #423652 // Darker purple
 
 // Setting font and background colour
 body
   height:           100vh
   margin:           0
   background-image: linear-gradient($Col_Main, $Col_Gradient)
-  font-family:      'Inter', sans-serif
-  overflow:         hidden
+  ... 
 
-...
+// Positioning the headline
+#Headline
+  display:      block
+  margin-left:  auto
+  margin-right: auto
+  ...
+
+// Styling the sign up button
+.Sign_up
+  border-radius:    700px
+  color:            white
+  background-color: $Col_Button_BG
+  border:           none
+  ... 
+
+// Creates border and hover effect
+.Sign_up::after
+  content:          ''
+  position:         absolute
+  background-image: linear-gradient(to bottom, $Col_Button_Top, $Col_Button_Bot)
+  z-index:          -1
+  ...
+
+.Sign_up:hover
+  z-index: 0 
 
 // Styling the navigation bar
 #Navbar
   list-style-type: none
   margin:          0
   padding:         0
-  overflow:        hidden
-  display:         flex
-  align-items:     horizontal
+  ...
 
 .Navbar_item
   color:       $Col_Secondary
@@ -604,15 +641,19 @@ body
   @extend      .Navbar_item
   margin-left: auto
 
-...
+// Positioning the call to action button
+#Main
+  display:         flex
+  align-items:     center
+  justify-content: center
+  ...
 
 // Positioning the quote
 #Quote
   position:    fixed
   bottom:      -27px
   left:        50%
-  margin-left: -50vw
-  width:       100vw
+  ...
 \end{minted}
 
 This code produced this page:
@@ -659,6 +700,28 @@ the designing of the login page will take on sub-task id
 \circled{3.1}) \\ \vspace{0.2cm}
 
 The next step is to transfer the design in code, then link
-our home page and login page together.
+our home page and login page together. During the programming
+of the home page I realised that I would be using the same 
+sign-up button design as the one designed on the home page.
+Recalling that I would apply the DRY 
+("\textbf{D}on't \textbf{r}epeat \textbf{y}ourself") principle 
+whilst I wrote my code (see section \ref{sec:computational}), 
+I decided to put the button code in it's own file 
+\texttt{button\_styling.sass} and simply have the other \texttt{.sass}
+files import from the button styling file whenever needed.
+
+The current file structure of our project is as follows: \\
+\vspace{0.2cm}
+
+\begin{forest}
+  pic dir tree,
+  where level=0{}{
+    directory,
+  },
+[src
+  [Images]
+  [main.html, file]
+] 
+\end{forest}
 
 \section{Iteration 2}

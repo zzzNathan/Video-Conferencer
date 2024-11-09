@@ -1,3 +1,34 @@
+@import url("https://fonts.googleapis.com/css?family=Inter");
+@import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css");
+.Button {
+  border-radius: 700px;
+  color: white;
+  background-color: #5C506A;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  font-size: 1.4vw;
+  width: 8.5vw;
+  height: 3vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Button::after {
+  content: "";
+  position: absolute;
+  height: 111%;
+  width: 103%;
+  border-radius: 700px;
+  background-image: linear-gradient(to bottom, #C49DF2, #F9AAD0);
+  z-index: -1;
+}
+
+.Button:hover {
+  z-index: 0;
+}
+
 body {
   height: 100vh;
   margin: 0;
@@ -13,11 +44,6 @@ body {
   margin-top: 10vh;
   scale: 75%;
   top: 20%;
-}
-
-#Sign_up {
-  margin-top: -3vh;
-  scale: 75%;
 }
 
 #Navbar {

@@ -1,16 +1,53 @@
+@import url("https://fonts.googleapis.com/css?family=Inter");
+@import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css");
+.Button {
+  border-radius: 700px;
+  color: white;
+  background-color: #5C506A;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  font-size: 1.4vw;
+  width: 8.5vw;
+  height: 3vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Button::after {
+  content: "";
+  position: absolute;
+  height: 111%;
+  width: 103%;
+  border-radius: 700px;
+  background-image: linear-gradient(to bottom, #C49DF2, #F9AAD0);
+  z-index: -1;
+}
+
+.Button:hover {
+  z-index: 0;
+}
+
 body {
   height: 100vh;
   margin: 0;
   background-color: #3F3E3C;
+  background-image: linear-gradient(#3F3E3C, #423652);
   font-family: "Inter", sans-serif;
   overflow: hidden;
+}
+
+.Rule {
+  width: 40%;
+  border-bottom: 4px solid #574F4F;
 }
 
 #Headline {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 20vh;
+  margin-top: 30vh;
   scale: 75%;
   top: 20%;
 }
@@ -28,13 +65,6 @@ input {
   background-color: #322E2E;
   border: none;
   color: #AA9494;
-}
-
-.btn-sign {
-  margin-top: 30px;
-  padding: 10px 30px;
-  border-radius: 40px;
-  border: 5px solid #FFC6E5;
 }
 
 .forgot {

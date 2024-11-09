@@ -4,6 +4,10 @@
 // 2) Then compile this file with <sass styles_main.sass styles_main.css>
 // 3) The output CSS file is called "styles_main.css"
 
+@use './button_styling.sass'
+@import url('https://fonts.googleapis.com/css?family=Inter')
+@import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+
 // Colour definitions
 $Col_Main:        #3F3E3C // Dark purple
 $Col_Secondary:   #B98DEE // Purple
@@ -26,11 +30,6 @@ body
   margin-top:   10vh
   scale:        75%
   top:          20%
-
-// Scaling the sign up button
-#Sign_up
-  margin-top: -3vh
-  scale:       75%
 
 // Styling the navigation bar
 #Navbar
@@ -65,4 +64,3 @@ body
   left:        50%
   margin-left: -50vw
   width:       100vw
-
