@@ -194,7 +194,7 @@ This code produced our 1st prototype.
 \caption{Home page prototype 1}
 \end{figure}
 
-{\color{gray} \hrulefill} \vspace{0.2cm}
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
 {\sffamily Client Feedback:} 
 \begin{itemize}
@@ -367,10 +367,6 @@ the navigation bar. Here is the code of the 3rd prototype. \\
   <link rel="stylesheet" href=
     "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   ...
-
-  <title>Video-Conferencer</title>
-</head>
-
 <body>
    
   <ul id="Navbar">
@@ -381,17 +377,7 @@ the navigation bar. Here is the code of the 3rd prototype. \\
       </object>
     </li>
 
-    <li id="Contact_container">
-      <object id="Contact" data="Images/Contact.svg" type="image/svg+xml">
-        <img src="Images/Contact.png">
-      </object>
-    </li>
-
-    <li id="Support_container">
-      <object id="Support" data="Images/Support.svg" type="image/svg+xml">
-        <img src="Images/Support.png">
-      </object>
-    </li>
+    ... 
 
     <li id="Settings">
       <i class="glyphicon glyphicon-cog"></i>
@@ -421,26 +407,21 @@ the navigation bar. Here is the code of the 3rd prototype. \\
 
 \begin{minted}[linenos, bgcolor=lightestgray]{sass}
 // Colour definitions
-$Col_Main:       #3F3E3C // Dark purple
-$Col_Secondary:  #B98DEE // Purple
-$Col_Tertiary:   #FFC6E5 // Pink
+...
 
 // Setting font and background colour
 body
   height:           100vh
   margin:           0
   background-color: $Col_Main
-  font-family:      'Inter', sans-serif
-  overflow:         hidden
+  ...
 
 // Positioning the headline
 #Headline
   display:      block
   margin-left:  auto
   margin-right: auto
-  margin-top:   10vh
-  scale:        75%
-  top:          20%
+  ...
 
 // Scaling the sign up button
 #Sign_up
@@ -451,16 +432,14 @@ body
   list-style-type: none
   margin:          0
   padding:         0
-  overflow:        hidden
-  display:         flex
-  align-items:     horizontal
+  ... 
 
 // Styling the navbar elements
 #Settings
   float: right
   scale: 300%
   color: $Col_Secondary
-  padding: 4vh
+  ... 
 
 #Contact_container
   margin-right: 0%
@@ -471,13 +450,13 @@ body
   margin-left:  -3%
   margin-right: -5%
   scale:        75%
-  padding:      2vh
+  ...
 
 #Support_container
   margin-left:  -3%
   margin-right: 45%
   scale:        75%
-  padding:      2vh
+  ...
 
 // Positioning the call to action button
 #Main
@@ -491,7 +470,7 @@ body
   position: relative
   left:     0%
   top:      20% 
-  scale:    75%
+  ...
 \end{minted}
 
 This code produced our 3rd prototype.
@@ -708,7 +687,115 @@ Recalling that I would apply the DRY
 whilst I wrote my code (see section \ref{sec:computational}), 
 I decided to put the button code in it's own file 
 \texttt{button\_styling.sass} and simply have the other \texttt{.sass}
-files import from the button styling file whenever needed.
+files import from the button styling file whenever needed. Now
+that I had gained some experience with translating my designs into 
+HTML and CSS I was able to make some changes to the design on the 
+fly to improve upon the figma mock up design. \\ \vspace{0.2cm}
+
+\underline{login.html}
+
+\begin{minted}[linenos, bgcolor=lightestgray]{html}
+...
+<body>
+
+  <object id="Headline" data="Images/Welcome.svg" type="image/svg+xml">
+    <img src="Images/Welcome.png">
+  </object>
+
+  <center>
+    <b id="Login_Prompt"> Log in instead? Click here </b> 
+  </center>
+
+  <br><br>
+
+  <center>
+
+    <div id="Login">
+
+      <form>
+	<input type="text" placeholder="Email" name="email" required>       <br><br><br>
+	<input type="text" placeholder="Username" name="username" required> <br><br>
+	<input type="password" placeholder="Password" name="password" required autofocus> 
+	<br> <br> <br>
+
+	<button class="Button"> <b> Sign up </b> </button> <br><br>
+
+	<div class="Rule"> </div> <br>
+
+	<p style="color:white; font-size: 20px"> Forgot your password? </p>
+      </form>
+
+    </div>
+
+  </center>
+
+</body>
+
+</html>
+\end{minted}
+
+\underline{styles\_login.sass}
+
+\begin{minted}[linenos, bgcolor=lightestgray]{sass}
+@use './button_styling.sass'
+@import url('https://fonts.googleapis.com/css?family=Inter')
+@import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+
+// Colour definitions
+...
+
+// Setting font and background colour
+body
+  height:           100vh
+  margin:           0
+  background-color: $Col_Main
+  ...
+
+.Rule
+  width: 40%
+  border-bottom: 4px solid $Col_Rule
+
+// Positioning the headline
+#Headline
+  display:      block
+  margin-left:  auto
+  margin-right: auto
+  ... 
+
+// Positioning the login box
+#Login
+  disply:       block
+  margin-left:  auto
+  margin-right: auto
+
+// Styling the input field
+input 
+  border-radius:    12px
+  width:            281px
+  height:           37.5px
+  ...
+
+#Login_Prompt
+  color:     white
+  font-size: 20px
+\end{minted}
+
+This code produced our first prototype:
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.2]{Images/LoginUI.png}
+  \caption{Login UI prototype 1}
+\end{figure}
+
+{\color{gray} \hrulefill} \vspace{0.2cm}
+{\sffamily Client feedback:}
+
+\begin{itemize}
+  \item Looks great!
+\end{itemize}
+
+{\color{gray} \hrulefill}
 
 The current file structure of our project is as follows: \\
 \vspace{0.2cm}
@@ -721,6 +808,12 @@ The current file structure of our project is as follows: \\
 [src
   [Images]
   [main.html, file]
+  [login.html, file]
+  [styles\_main.sass, file]
+  [styles\_login.sass, file]
+  [styles\_main.css, file]
+  [styles\_login.css, file]
+  [button\_styling.sass, file]
 ] 
 \end{forest}
 

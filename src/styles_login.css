@@ -47,7 +47,7 @@ body {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 30vh;
+  margin-top: 17vh;
   scale: 75%;
   top: 20%;
 }
@@ -67,8 +67,9 @@ input {
   color: #AA9494;
 }
 
-.forgot {
+#Login_Prompt {
   color: white;
+  font-size: 20px;
 }
 
 /*# sourceMappingURL=styles_login.css.map */

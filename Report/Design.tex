@@ -587,15 +587,25 @@ options are numerical, the \texttt{bool} data type can simply
 be represented by a number that is either 0 or 1). Denote
 $c_i$ to be the $i$-th configuration and $|c_i| \in \mathbb{N}$
 to be the number of possible options that this configuration 
-can take on. Suppose that we have $n$ users in our system,
-for each configuration option let
-$X_{i, 1}, X_{i, 2}, \ldots, X_{i, n}$ a sequence of $n$
-independent discrete uniform random variables, 
-where $X_{i, j}$ denotes the value of the $i$-th configuration
-option for the $j$-th user. Let $\mu_i$ be the finite expected
-value of the $i$-th configuration. Denote $\overline{X_i}$ to 
+can take on. Suppose that we have $n$ users in our system, 
+and each user will have a different set of configuration 
+values.
+Define $X_{i, j}$ to be the value of the $i$-th configuration
+option for the $j$-th user.
+Let $\mu_i$ be the finite expected
+value of the $i$-th configuration. Then denote $\overline{X_i}$ to 
 be the sample mean of the $i$-th configuration for all or our
-$n$ users. By \textit{Kolmogorov's strong law} \cite{thm}
+$n$ users. From these definitions we have,
+
+\begin{equation} 
+  \mu_i = \mathbb{E}[X_{i, j}]
+\end{equation}
+
+\begin{equation} 
+  \overline{X_i} = \frac{1}{n} \sum_{j=1}^n X_{i, j}
+\end{equation}
+
+Then by \textit{Kolmogorov's strong law} \cite{thm}
 we have,
 
 \begin{equation} \label{eq:kol}
