@@ -46,7 +46,12 @@ relevant circled number in our problem breakdown (see section
 
 Finally note that all the code for this project is open source
 and freely available for you to view on github:
-\texttt{<GH URL HERE>}. \\ \vspace{0.2cm}
+\url{https://github.com/zzzNathan/Video-Conferencer}. \\ \vspace{0.2cm}
+
+\textit{We may shorten code snippets using ellipsis though the
+entire code at such point in development is available by finding the 
+correct commit on Github. This commit number as well a link are both
+provided at the end of each iteration.}
 
 \section{Iteration 1}
 
@@ -167,21 +172,14 @@ body
   width:       701px
   height:      238px
   font-size:   96px
-  font-weight: 600 
-  position:    absolute
-  top:         20%
-  left:        43%
+  ... 
 
 // Styling for the sub headline
 .Sub_Headline
   width:       603px
   height:      101px
   font-weight: 500
-  text-align:  center
-  font-size:   40px
-  position:    absolute
-  top:         60%
-  left:        46%
+  ...
 \end{minted}
 
 This code produced our 1st prototype.
@@ -202,6 +200,7 @@ This code produced our 1st prototype.
   \item The main headline takes up too much space on the page.
   \item The "never" isn't italicised.
 \end{itemize}
+
 {\color{gray} \hrulefill} 
 
 \subsubsection{Prototype 2}
@@ -271,8 +270,7 @@ body
   height:           100vh
   margin:           0
   background-color: $Col_Main
-  font-family:      'Inter', sans-serif
-  overflow:         hidden
+  ...
 
 // Positioning the headline svg
 #Headline_container
@@ -525,13 +523,7 @@ is what the refined code looks like: \\ \vspace{0.2cm}
       Video-Conferencer 
     </li>
 
-    <li class="Navbar_item">
-      Contact 
-    </li>
-
-    <li class="Navbar_item">
-      Support
-    </li>
+    ...
 
     <li class="Navbar_item">
       Docs
@@ -724,14 +716,7 @@ fly to improve upon the figma mock up design. \\ \vspace{0.2cm}
 
 	<p style="color:white; font-size: 20px"> Forgot your password? </p>
       </form>
-
-    </div>
-
-  </center>
-
-</body>
-
-</html>
+    ...
 \end{minted}
 
 \underline{styles\_login.sass}
@@ -788,7 +773,8 @@ This code produced our first prototype:
   \caption{Login UI prototype 1}
 \end{figure}
 
-{\color{gray} \hrulefill} \vspace{0.2cm}
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}
+
 {\sffamily Client feedback:}
 
 \begin{itemize}
@@ -796,6 +782,10 @@ This code produced our first prototype:
 \end{itemize}
 
 {\color{gray} \hrulefill}
+\vspace{0.2cm}
+
+{\sffamily Development sub-task \circled{3.1} \faCheck} \\
+\vspace{0.2cm}
 
 The current file structure of our project is as follows: \\
 \vspace{0.2cm}
@@ -816,5 +806,16 @@ The current file structure of our project is as follows: \\
   [button\_styling.sass, file]
 ] 
 \end{forest}
+
+\vspace{0.3cm}
+Look at Github commit
+\texttt{54e06ac60f0876086c259f29ce23eae89ff4aad6} to 
+see the state of the project after our first iteration.\\
+\vspace{0.1cm}
+
+Alternatively click the following link to view the state of 
+the project at this point in development: \\ 
+\href{https://github.com/zzzNathan/Video-Conferencer/tree/54e06ac60f0876086c259f29ce23eae89ff4aad6}{
+\texttt{VideoConferencer-Iteration1}}.
 
 \section{Iteration 2}
