@@ -171,7 +171,7 @@ functions and similar structures, we can tell exactly where the
 code is throwing an error and start working on resolving the 
 issue immediately. This problem is amenable to a computational 
 approach as we are able to improve the maintainability of our
-codebase by applying the technique of decomposition. Moreover
+code base by applying the technique of decomposition. Moreover
 decomposition allows for a much simpler approach to problem 
 solving in programming. When we face a large and complicated 
 task we can first decompose the problem as we did in the 
@@ -191,20 +191,20 @@ principle. The purpose of the DRY principle is to avoid
 writing redundant code by replacing it with abstractions. This
 principle guarantees clear and concise code. One feature of 
 the problem that could benefit from pattern recognition is the 
-username and passcode system. A detailed justification for this
+username and pass code system. A detailed justification for this
 feature is provided in section \ref{sec:features} under the
 sub-heading \textit{Usernames and passwords to join a call}.
 There are 2 cases in which we would need to check usernames
 and passwords, those are when the user initially logs into 
-their account and when the user enters a passcode to enter a
+their account and when the user enters a pass code to enter a
 video conference. Instead of writing 2 separate pieces of
 code to check for the correct username and password I could
 apply pattern recognition and instead implement 1 function 
-called \code{Check\_User\_and\_passcode()} to be used in both 
+called \code{Check\_User\_and\_pass code()} to be used in both 
 cases. We have seen that this problem is definitely amenable 
 to a computational approach, through the application of
 pattern recognition to ensure clarity and conciseness in our 
-codebases. \vspace{0.2cm}
+co debases. \vspace{0.2cm}
 
 As mentioned in the above paragraph abstraction is another 
 computational technique that is suited to being used in my 
@@ -399,9 +399,9 @@ final solution is appropriate to their needs. \vspace{0.2cm}
 
 \textit{How will they use the solution?}
 These users will make use of the proposed solution by joining
-videoconferences that they were invited to and interacting with
+video conferences that they were invited to and interacting with
 them in a manner that is convenient for them. They will be 
-able to interact with the videoconferences by raising their 
+able to interact with the video conferences by raising their 
 virtual hand, indicating to the speaker that they wish to talk.
 The speaker can then give them permission to talk and properly
 converse with their virtual audience. Moreover the solution
@@ -414,7 +414,7 @@ like muting/unmuting a microphone with a set button.
 These users will navigate to our system's webpage and then
 log in to their account. They would then access the join call 
 page where they would be able to enter in the code that they 
-were given in order to join the videoconference they were invited
+were given in order to join the video conference they were invited
 to. Alternatively the user may want to access the settings page
 instead in order to improve their experience by changing audio,
 video settings or perhaps by setting up macros.
@@ -426,7 +426,7 @@ longer have to ask for help from others to resolve issues with
 their video conferencing application. Rather they will be able
 to experience a simple, easy to work with and intuitive system
 for their video conferencing. Moreover the users will now gain
-the opportunity to improve their social lifes as they will be
+the opportunity to improve their social lives as they will be
 able to chat with their loved ones and friends over their web 
 browsers easily. Not only will the final solution make their 
 lives more convenient but it will also provide the user with
@@ -464,9 +464,9 @@ software they had before. \vspace{0.2cm}
 After receiving feedback from the client or other users the 
 IT staff would then brainstorm ideas on how they could 
 improve the system. They would then access the code of this
-system via it's github repository, and open the documentation
+system via it's GitHub repository, and open the documentation
 available on the website itself. Once the IT staff has cloned
-the system's github repository, they would be able to modify 
+the system's GitHub repository, they would be able to modify 
 and update the source code as they please, implementing these 
 new ideas that they brainstormed in order to improve this
 system's suitability in regards to my client and the user base. 
@@ -551,10 +551,10 @@ Edge & Commentary \\
      other users to join the video conference by sending them
      a link or a code to join.}\\
 
-4 & {Admin can start or stop the videoconference when
+4 & {Admin can start or stop the video conference when
      appropriate. Admin can also interact with the app in order
      to manage the video conference. They can do things like
-     spotlight speakers, screenshare images/video and mute or
+     spotlight speakers, screen share images/video and mute or
      kick participants.}\\
   
 \end{longtblr}
@@ -566,7 +566,7 @@ to ensure that my client fully understands what the previous
 system offered to the user, this information will enable me 
 and my client to verify whether or not the proposed system
 will be able to replace the old system by comparing the  
-systems' data flow diagrams and checking if the new system is 
+system's data flow diagrams and checking if the new system is 
 capable of performing all of the tasks that the old system 
 was able to. Consequently user satisfaction will increase as 
 they are able to quickly adapt to the new system due to it's
@@ -930,7 +930,7 @@ design.
 
 Part (a) of figure \ref{fig:Zoom} shows the  
 home page. The left side of the screen shows 4 
-clickable icons centered in the screen, each with their own
+clickable icons centred in the screen, each with their own
 functionality. Then the right side of the screen simply 
 displays the current date and time with a simple plant-pot
 design behind it. Finally the navigation bar at the top has 
@@ -1374,7 +1374,7 @@ offer from the server and WebRTC creates a SDP answer and
 writes this to the server. Alice and Bob have now established 
 a peer to peer connection. Once Alice and Bob have connected,
 they still need to establish how they will send each other data.
-Indeed this is a problem because most devices' IP addresses are
+Indeed this is a problem because most device's IP addresses are
 changed or hidden by firewalls or by network address translation 
 (NAT). In order to combat this issue WebRTC uses the interactivity 
 connectivity establishment (ICE) protocol. ICE allows WebRTC
@@ -1450,7 +1450,7 @@ nightly backups to ensure data is protected. Nightly backups
 are backups that occur every 24 hours. Moreover the 
 company uses \textit{zero-knowledge encryption} so that the 
 company cannot see it's users data. To ensure zero-knowledge 
-encryption the compnay uses \textit{"AES-CBC 256 bit 
+encryption the company uses \textit{"AES-CBC 256 bit 
 encryption for the data encryption and PBKDF2 SHA-256 to 
 derive one's encryption key."} \footnote{Source: 
 \url{https://bitwarden.com/help/what-encryption-is-used/}} 
@@ -1460,10 +1460,10 @@ safe and cannot be read by anyone other than them. Both of
 these algorithms require large amounts of higher mathematics
 in order to implement them. Fortunately
 for our case we will not have to consider implementing these
-algotrithms because WebRTC provides built-in encryption. \\
+algorithms because WebRTC provides built-in encryption. \\
 \vspace{0.2cm}
 
-For this application's database we need a system that satifies
+For this application's database we need a system that satisfies
 the following 2 requirements. Firstly the system must be 
 cloud-based, this is because neither me or my client have 
 servers available for use in this application. Secondly the 
@@ -1506,19 +1506,19 @@ your database uses a certain amount of storage the company
 automatically charges you based on the amount you used. For
 this reason I feel that it is justified to rule out the
 option of using Fly.io completely. If the application were
-to suddenly grow to have a large userbase the database could
+to suddenly grow to have a large user base the database could
 start charging me or my client whilst we weren't aware, this
-kind of mistake could be economically catastophic for either 
+kind of mistake could be economically catastrophic for either 
 one of us. IBM Cloudant delete data after 30 days of 
 inactivity, meaning that large amounts of user data could 
 be lost. Users should be able to use our application knowing
 that their data is safe and secure, if we chose to use IBM
-Cloudant then we wouldn't be able to make this guarentee. If
+Cloudant then we wouldn't be able to make this guarantee. If
 users lose their data it may lead to complaints and 
 frustrations with the design of the new system, leading to 
 poor client satisfaction and users returning to the old 
 videoconferencing system. Hence I feel that it is justified 
-to rule out the use of IBM Cloudant aswell. The remaining 3 
+to rule out the use of IBM Cloudant as well. The remaining 3 
 options all have their relevant advantages and no very
 significant disadvantages so all 3 of them could potentially
 be used in this application. \\ \vspace{0.2cm}
@@ -1527,7 +1527,7 @@ After a careful consideration of all the available options
 I selected MongoDB Atlas as the database hosting system. We 
 commence by explaining how MongoDB Atlas works and then 
 justify it's usage in this project afterwards. MongoDB Atlas
-roughly organsises it's data in the following manner. MongoDB
+roughly organises it's data in the following manner. MongoDB
 provides each user with a cluster which they can use to host
 and store multiple collections. The system stores it's data
 as BSON documents. BSON is a binary format that stores
@@ -1565,7 +1565,7 @@ checking a potential password's strength. I propose the usage
 of the \texttt{zxcvbn} algorithm \cite{pass} developed by
 Dropbox. This algorithm has been implemented into a number of
 programming languages by the author Daniel Wheeler, so we will
-simply import one of his implementations into our codebase as
+simply import one of his implementations into our code base as
 a module ensuring that only accurate and tested code is used 
 in the system. To justify usage of the algorithm we should
 first \textit{briefly} examine exactly what the algorithm is
@@ -1573,8 +1573,8 @@ doing. \texttt{zxcvbn} consists of 3 main phases: 1) matching,
 2) estimation and 3) search. Throughout the rest of this
 paragraph define $p$ to be some arbitrary password of length
 $n$ characters. The matching phase takes contiguous
-substrings of the input password and classifies
-each substring as a specific pattern like a \textit{token},
+sub strings of the input password and classifies
+each sub string as a specific pattern like a \textit{token},
 \textit{date} or a \textit{repeat}. Wheeler provides the
 following example in his paper; the password
 \texttt{lenovo1111} will be pattern matched like so.
@@ -1589,10 +1589,10 @@ following example in his paper; the password
 Different methods are used to find each class of pattern, for 
 instance in order to match tokens the algorithm first takes
 a password $p$ it entirely lowercase, it then checks all 
-$n(n+1)/2$ non-empty substrings with a frequency ranked
+$n(n+1)/2$ non-empty sub strings with a frequency ranked
 dictionary, if there are symbols in $p$ it creates extra 
 strings making leet substitutions \footnote{A \textit{Leet}
-substution is a symbol that is used to replace characters in words
+substitution is a symbol that is used to replace characters in words
 to create a stylised version of that word. For example,
 \texttt{apple} $\rightarrow$ \texttt{@pp1e}.}
 and does the same check on these. The next phase is
@@ -1605,10 +1605,10 @@ obvious pattern and are a random string of characters like
 \texttt{ae\#U*\$gmi}. The algorithm assumes that each
 character will take $C := 10$ attempts to guess correctly and 
 subsequently estimates $C^n$ guesses to be required to guess
-the entire substring. Finally for the last phase, we define a
+the entire sub string. Finally for the last phase, we define a
 match-sequence to be a sequence $s_1, s_2, ...$ of matches, 
 such that no matches intersect with one another and the
-matches contigously cover the \textit{entirety} of $p$. 
+matches contiguously cover the \textit{entirety} of $p$. 
 The search looks
 for an optimal match-sequence $s_1, s_2, ...$ of length
 $\left|s\right|$ \footnote{Take note that we make use of
@@ -1660,7 +1660,7 @@ devices with internet access, that are infected with a malware
 that enables a hacker or malicious internet user to coordinate
 and control the actions of the complete collection of devices
 via the internet. If our web-app is attacked by a botnet 
-there will be severe reprecussions for me and my client, so 
+there will be severe repercussions for me and my client, so 
 it is important to try and prevent any such occurrence before
 it actually takes place. If we are to prevent bots from 
 accessing our web-app we have to first deduce whether the user
@@ -1668,7 +1668,7 @@ is a human or a bot. This is where \textit{Completely
 Automated Public Turing test to tell Computers and Humans
 Apart (CAPTCHA)} comes in. CAPTCHAs aim to determine whether
 or not a user is human by providing a test that only humans 
-can pass. A clasical example is distorted character 
+can pass. A classical example is distorted character 
 recognition where, (see figure \ref{fig:captcha})
 \\ \vspace{0.2cm}
 
@@ -1709,7 +1709,7 @@ that one can use on their website. Google permits
 10,000 CAPTCHA verifications for free per month, whilst
 Cloudflare offers 10 CAPTCHA widgets at most 10 different 
 website hostnames. Whilst it is true that these free limits 
-are generous my final descision is motivated by my client's 
+are generous my final decision is motivated by my client's 
 words in our interview, \textit{I'd prefer the application to
 be completely free if at all possible.} Altcha is completely
 free and poses no limitations or restrictions on it's use 
@@ -1727,7 +1727,7 @@ viewing experience. The interview also provided some valuable
 information for essential features in the system, like the 
 focus on simplicity. This information guides the approach to 
 the design of the system, the design should be created to 
-prioritse ease of use and simplicity. Moreover we have seen 
+prioritise ease of use and simplicity. Moreover we have seen 
 that using the WebRTC API for peer to peer video connections
 is a suitable approach because of it's security, credibility
 and it's alignment with the client's goal to have the system
@@ -1772,7 +1772,7 @@ able to interact with the
 person giving the talk as if they were present in real life.
 The virtual hand will be made visible to all participants in 
 the conference so that the speaker/host will be able to ask 
-the audience members to speak when appropiate.\\
+the audience members to speak when appropriate.\\
 \vspace{0.1cm}
 
 \textit{Justification:} This feature
@@ -1832,13 +1832,13 @@ settings that are adapted for their needs they don't have to
 set these up each time they log onto a conference. Passwords 
 will be made to fit some set of requirements to ensure that 
 the password is of sufficient strength. When a user creates a 
-call they will be given a unique passcode that they will be 
+call they will be given a unique pass code that they will be 
 able to share with anyone else whom they would like to invite
 to the video conference. \vspace{0.1cm}
 
 \textit{Justification:} The justification of this feature is
 clearly sufficient because it was explicitly requested during
-my interview with the client. Moreover without a passcode 
+my interview with the client. Moreover without a pass code 
 system to enter a call anyone would be able to enter anyone
 else's call, giving users no privacy at all. It would also 
 cause issues very similar to the "anarchy" problems that 
@@ -1878,7 +1878,7 @@ in section \ref{sec:research}. \vspace{0.2cm}
 Users should be able to communicate with each other via text
 as well as face to face through the application. On every
 video conference there will be a text chat box available for
-every particpant to use. \vspace{0.1cm}
+every participant to use. \vspace{0.1cm}
 
 \textit{Justification:}
 In the potential situation that a user
@@ -1892,30 +1892,30 @@ microphone, they are not isolated from others, and can still
 make use of the system to talk to their colleagues, friends
 or loved ones. \vspace{0.2cm}
 
-\textsf{\bfseries 7 - Github repository} \\ \vspace{0.1cm}
+\textsf{\bfseries 7 - GitHub repository} \\ \vspace{0.1cm}
 
 \textit{Explanation:}
-The system's source code will be hosted in a github
+The system's source code will be hosted in a GitHub
 repository.
 \vspace{0.1cm}
 
 \textit{Justification:} 
-Github will enable users to easily clone this system's repository
+GitHub will enable users to easily clone this system's repository
 and all of the source code that was used in order to create it. 
 Moreover once a user clones the repository they will have access
-to github's host of features, improving the developer experience.
+to GitHub's host of features, improving the developer experience.
 For instance each developer wouldn't have to manually track the 
 changes that they made to the source code, rather tracking changes
-is done automatically by github themselves. Hence the IT staff 
+is done automatically by GitHub themselves. Hence the IT staff 
 will be able to save time by ignoring the administrative work 
-usaully have to do. They will have more time to focus on 
+usually have to do. They will have more time to focus on 
 the modifications to the source code, enriching the quality of 
 the software, by solving user's issues with the system and 
-creating a better experienve for them. Finally I
+creating a better experience for them. Finally I
 (as the primary developer) won't 
 have to spend time worrying about how to distribute the source
 code to my client and others, instead it will be freely
-available via github.\\ \vspace{0.2cm}
+available via GitHub.\\ \vspace{0.2cm}
 
 \textsf{\bfseries 8 - Documentation} \\ \vspace{0.1cm}
 
@@ -1974,7 +1974,7 @@ their passwords which could be difficult for this application's
 target demographic. This means that the app will be
 potentially inaccessible for people suffering from conditions
 like amnesia or dementia, further restricting our possible 
-userbase. If a user has forgotten their password they
+user base. If a user has forgotten their password they
 may be forced to create a new account, which is a pain for the 
 user as they would have to use a new username and notify all of
 their contacts that their username has changed. It would also 
@@ -2002,9 +2002,9 @@ first 360MB of data transfer per day and after this they charge
 Axel would like the system to be \textit{"completely free if
 at all possible."} Whilst the prices from Firebase aren't 
 extortionate by any means, the reality that my client would
-prefer the application to be free means that the scalabilty of
+prefer the application to be free means that the scalability of
 the system would be limited. After a certain amount of data is 
-transfered via the signalling server the system would no longer
+transferred via the signalling server the system would no longer
 work meaning the number of users we could potentially have is 
 capped. To justify this being a limitation we can notice 
 the fact that we require a signalling server in order to
@@ -2032,10 +2032,10 @@ social engineering it is not trivial for the software
 developers to completely prevent these kinds of data breaches.
 To illustrate say that in order to prevent an attacker from 
 viewing a user's password whilst they are typing it, the 
-developer makes the password "invisisble" such that it looks
+developer makes the password "invisible" such that it looks
 like this  $\bullet \bullet \bullet \bullet \bullet$ whilst
 they are typing. An attacker knowing this could then install 
-a keylogger on the computer that our user is logging onto and
+a key logger on the computer that our user is logging onto and
 will then be able to retrieve the password later.
 
 \section{Client requirements}
@@ -2074,16 +2074,16 @@ or something else in order to access video conferences.
 We should hence design our application with these 
 alternative platforms in mind. The majority of phones 
 and tablets in this modern age have cameras and 
-microphones buit-in. So the microphone and video camera
+microphones built-in. So the microphone and video camera
 will be able to collect the same data as was discussed 
-in the preceeding paragraph. The only difference is that
+in the preceding paragraph. The only difference is that
 users will instead use their fingers in order to navigate
 the software instead of a mouse and keyboard.
 \\ \vspace{0.2cm}
 
 \textsf{\bfseries Maintainers} \\ \vspace{0.1cm}
 
-\textit{Requirement(s):} PC, Mouse, Keyboard, Video Camera, Microphone and Github.
+\textit{Requirement(s):} PC, Mouse, Keyboard, Video Camera, Microphone and GitHub.
 \\ \vspace{0.1cm}
 
 \textit{Justification:}
@@ -2096,7 +2096,7 @@ with others during video conferences. In the context of
 maintaining this project our maintainers will use their 
 mouse and keyboard in order to edit the source code. They 
 may then wish to commit the changes that they make to 
-github, allowing them to automatically track and save the 
+GitHub, allowing them to automatically track and save the 
 changes made to the source code.
 
 \subsection{Data verification and validation}
@@ -2128,7 +2128,7 @@ all test cases, create new test cases as the code is added to.
 \\ \vspace{0.1cm}
 
 \textit{Justification:}
-In the context of updating our sytem, we would like to avoid
+In the context of updating our system, we would like to avoid
 deploying a system that is bugged or broken in some way 
 because of a change that a maintainer has pushed. In setting 
 up systems that prevent the update from being deployed if the 
@@ -2136,8 +2136,8 @@ code does not pass all test cases, we ensure that it isn't
 possible to accidentally deploy a system riddled with 
 mistakes/errors in it's source code. The verification of
 test cases can be achieved automatically
-using github's CI/CD (continuous integration/continuous 
-delivery) pipeline. This descision may save us from 
+using GitHub's CI/CD (continuous integration/continuous 
+delivery) pipeline. This decision may save us from 
 catastrophic repercussions in the future. 
 
 \subsection{Data processing}
@@ -2184,7 +2184,7 @@ hand is currently raised.
 These pieces of information are
 some of the most important in the context of video
 conferencing, so it is essential to ensure that the user can 
-clealy access these outputs. Finally in an effort to satisfy
+clearly access these outputs. Finally in an effort to satisfy
 the client's request to have \textit{"a focus on simplicity"}
 the GUI will be designed to present all this information in a
 clear, simple and professional manner. Justification for a
@@ -2233,7 +2233,7 @@ transfer. \\ \vspace{0.1cm}
 For the video and audio data security will be managed by 
 WebRTC developed by Google, a credible company that will have
 implemented all the necessary measures to ensure that this
-data is completly secure during video calls. To keep the 
+data is completely secure during video calls. To keep the 
 database secure the database password won't be written in any
 of the viewable website files and will instead be read in from
 separate file that won't be viewable to anyone except 
@@ -2242,10 +2242,10 @@ important because personal user information will be stored
 there, if an attacker gains access to this information it 
 would be a breach of data protection regulations. 
 The user's will be required to set a strong password that 
-meets a set of criteria, they will also recieve suggestions
+meets a set of criteria, they will also receive suggestions
 on how to improve the strength of their password via the 
 \texttt{zxcvbn} module. Additionally, the entirety of the
-project's source code will be available on github 
+project's source code will be available on GitHub 
 ensuring that there is full transparency between my client 
 and the software's users. By having full access to the source
 code of this software, users will be able to know exactly how
@@ -2282,12 +2282,12 @@ have to access it via a web browser.
 
 \textsf{\bfseries Maintainers} \\ \vspace{0.1cm}
 
-\textit{Requirement(s):} Github, any text editor. \\ \vspace{0.1cm}
+\textit{Requirement(s):} GitHub, any text editor. \\ \vspace{0.1cm}
 
 \textit{Justification:}
-Github will host the source code for this project hence,
+GitHub will host the source code for this project hence,
 in order for our maintainers to be able to make changes 
-they must be able to access github. Moreover git give us 
+they must be able to access GitHub. Moreover git give us 
 the ability to we can keep track of changes, requests,
 bug reports all in one place without any hassle so it is 
 important that our maintainers can access it. To actually 
@@ -2305,7 +2305,7 @@ web-app development platform. As discussed in paragraph 4 of
 \ref{sec:further}, neither me or my client have access to 
 servers that we can dedicate to this project, hence why the 
 application must be cloud-hosted. Google Firebase allows for
-webapps to be hosted on the cloud and we will be making use
+web apps to be hosted on the cloud and we will be making use
 of their free plan which allows us to host our app on the 
 cloud within some limits. This will allow any user with 
 access to a internet browser the ability to use this web 
@@ -2396,7 +2396,7 @@ neuroscientist Dale Purves \cite{hear}, the human
 hearing frequency range is about 20Hz to 20kHz.
 However we generally will never need frequencies
 on the extreme high or low end of this range 
-for a video conferecing application, since the 
+for a video conferencing application, since the 
 frequency of a human voice ranges from 90Hz to 
 255Hz.\\ \vspace{0.2cm}
 
@@ -2479,15 +2479,15 @@ computer day in and day out.
 \textit{Justification:} We can justify setting
 stronger hardware requirements for this group of users
 because they will have to be able to write and test 
-the new code that they add to the system's backend.
+the new code that they add to the system's back end.
 In order to properly run the tests on their machine
 they should have a CPU and RAM that can handle interpreting 
-and running moderate to heavily strenuous Javascript 
+and running moderate to heavily strenuous JavaScript 
 code without causing any issues. These requirements are 
 satisfied by pretty much all modern desktop computers, and 
 most modern laptops, hence these requirements are not 
 something that should be a problem for most users,
-and shouldn't be especially our software maintainence team.
+and shouldn't be especially our software maintenance team.
 
 \subsection{Summary of requirements}
 
@@ -2499,7 +2499,7 @@ and shouldn't be especially our software maintainence team.
 
 Requirement & Proposed solution & Alternative solution\\
 
-Data capture & {A videocamera and a microphone that are connected
+Data capture & {A video camera and a microphone that are connected
 	        to the device can be used to record video and audio 
                 data respectively.} & {A virtual reality headset
 		system may be used such that the headset
@@ -2508,13 +2508,13 @@ Data capture & {A videocamera and a microphone that are connected
 		the real world.
 	        }\\
 
-Data verification & {Users will be promted to enter their passwords twice.
+Data verification & {Users will be prompted to enter their passwords twice.
                      The table in the database will be created such that 
                      only data of the relevant correct type may be entered.} &
 		    {Users will enter their phone number or email address and
 		     information will be sent to them verifying whether or not 
 		     they would like to update/set their password. Data will be
-	             checked for the correct data type in the codebase before
+	             checked for the correct data type in the code base before
 	             it is entered into the database.}\\
 
 Data processing & {Video and audio data will be compressed and packetized
@@ -2553,9 +2553,9 @@ Security & {The video/audio data being sent over the internet will
 The system should feel and be easy to use, such that anyone
 and everyone will be able to use the app without any learning
 curve. This criterion should also apply not only to the front
-end design of the system but also to the relevant backend 
+end design of the system but also to the relevant back end 
 infrastructure. That is a competent programmer should be able to 
-read the codebase and understand roughly what each function or 
+read the code base and understand roughly what each function or 
 class is doing. Furthermore a logically structured and neat 
 documentation should be produced alongside the system to 
 ensure that any developer will be able to understand what 
@@ -2592,7 +2592,7 @@ but themselves.
 
 \textit{Justification:}
 If our users and clients are having their data stolen by
-hackers or other malicous internet users, not only would this 
+hackers or other malicious internet users, not only would this 
 generate massive client dissatisfaction but it may also create
 a horde of legal issues for all parties involved. The 
 \textit{General Data Protection Regulation (GDPR)} is the
@@ -2612,7 +2612,7 @@ pleasing}
 \vspace{0.1cm}
 
 \textit{Explanation:} 
-The frontend of the system should be professional looking and
+The front end of the system should be professional looking and
 should be aesthetically pleasing, this means that the app
 will be more inviting and that users will naturally spend more
 time on this application. The aesthetics of the system will be
@@ -2667,7 +2667,7 @@ to the client, hence justifying it's inclusion in this list.\\
 
 \textit{Explanation:}
 The delay between a packet of data being sent the packet 
-being recieved should not exceed 150 ms provided the minimum
+being received should not exceed 150 ms provided the minimum
 hardware and bandwidth requirements in \ref{sec:hardware} 
 are met.
 
@@ -2679,7 +2679,7 @@ latency than the old system. Hence users will not only enjoy
 a more accessible and comfortable video conferencing 
 experience but they will also be able to video conference 
 whilst knowing that the video/audio they are seeing is
-occuring in real-time as explicitly requested in 
+occurring in real-time as explicitly requested in 
 \ref{sec:interview}. The old system recommended a latency of
 \textit{"150 ms or less"} \footnote{Source:
 \url{https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0070504}} 
@@ -2729,14 +2729,14 @@ least 500 user accounts}
 The system database should be able to cope with 500 user 
 accounts, whilst still performing at an acceptable level.
 That is the speed of database reads and writes, shouldn't
-be comprimised. We will say that read/write speed has been 
-comprimised if read/write speed exceeds 500ms.
+be compromised. We will say that read/write speed has been 
+compromised if read/write speed exceeds 500ms.
 \vspace{0.1cm}
 
 \textit{Justification:}
 The system should be able to handle a good number of user 
 accounts. 500 users will allow us to have a good amount of 
-levarage, concerning the growth of our application. If the 
+leverage, concerning the growth of our application. If the 
 application happens to gain large amounts of traction
 suddenly, we can have confidence that the system will not 
 fail or experience significant performance degradation.

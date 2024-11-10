@@ -55,7 +55,7 @@ hand. We let DB denote our database for typographical reasons.
     (join) {\large \circled{10} Join call page};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of join ]
-    (code) {\large \circled{15} Enter passcode};
+    (code) {\large \circled{15} Enter pass code};
 
   \node[draw, diamond, aspect=2, minimum width=4cm, minimum height=1cm, below=of code ]
     (valid) {\large Is code valid?};
@@ -187,7 +187,7 @@ sub-task relates to the others. \\ \vspace{0.2cm}
 
 Starting from the top of the diagram I chose to display a
 home page once the user initially accesses our website. The 
-home page will be primarly used to greet the user, show them 
+home page will be primarily used to greet the user, show them 
 what the web-app can do and get them to login. However from
 the home page users will also be able to access the system 
 documentation as well as a help page if users are having issues
@@ -196,7 +196,7 @@ highlighting the importance of a first impression. A
 well-designed homepage can capture the attention of the user
 and encourage them to explore the rest our web-app. If the
 homepage is able to provide a good first impression we will be
-able to garner a larger userbase, and simultaneously ensure an 
+able to garner a larger user base, and simultaneously ensure an 
 excellent user experience as they move around the UI. Moreover
 if our users are satisfied then our client will be too. 
 Documentation for the system will also be freely available to 
@@ -228,7 +228,7 @@ allowing them to first, adjust the settings to match their
 needs and requirements. \\ \vspace{0.2cm}
 
 Once the user has logged in they will have complete access to 
-the entire functionality of our web-app. I decided to seperate
+the entire functionality of our web-app. I decided to separate
 the main content of the system into 3 pages, 1) Settings page,
 2) Create call page, 3) Join call page. I chose to split the 
 application into 3 main pages so that users won't have to 
@@ -251,12 +251,12 @@ accessibility tab. Each tab will hold settings related to it's
 name that is, the audio tab will hold settings related volume
 and sound and etc. Once a user makes some changes to any of the
 settings their changes will be saved to their account and this 
-data will remain on the database. The descision to split 
+data will remain on the database. The decision to split 
 settings into 3 main tabs not only improves the user experience
 by allowing users to find the settings they are looking for
 easily but it's also in harmony with one of my client's main 
 requests for this project; to have a \textit{"focus on 
-simplicity"}. The descision to have settings for our system
+simplicity"}. The decision to have settings for our system
 will help each user to tailor their video conferencing
 experience to fit to their personal needs. This allows us to 
 create 1 system that is able to accommodate for a large 
@@ -293,7 +293,7 @@ recognise this and perform the corresponding action. An
 alternative may be to use some form of machine learning in 
 order to process the user's speech and use natural language
 processing to determine the user's intentions. This method is
-arguably easiser for the user, instead of memorise some set
+arguably easier for the user, instead of memorise some set
 phrases for commands they can simply talk normally and the
 system would recognise what the user would like to do. 
 Although this approach may seem more attractive it is not 
@@ -324,7 +324,7 @@ reminded of these set phrases.
 We also need a method to actually recognise the user's speech.
 As justified in the previous paragraph this method will need
 to recognise certain set phrases and identify them correctly.
-Mozilla firefox offers a Web speech API that implements 
+Mozilla Firefox offers a Web speech API that implements 
 features such as speech recognition, speech synthesis, and
 speech to text. We could make use of their speech recognition
 to turn their voice into text and then compare the text
@@ -340,12 +340,12 @@ stakeholders, the IT staff (see section \ref{sec:stakeholders}),
 through making the code clear and easy to understand.\\ \vspace{0.2cm}
 
 To briefly summarise our research, we will make use of Mozilla
-firefox's Web speech API to enable people with low vision to be 
+Firefox's Web speech API to enable people with low vision to be 
 able to navigate our system using their voice. In order to navigate
 the system the user will say one of the set phrases, after which the 
 system will repeat the phrase that it has heard and ask the user 
 to confirm. If the user happens to forget which phrase to say in 
-order to perform a certan action they may say "help" in order to 
+order to perform a certain action they may say "help" in order to 
 hear a list of all of the set phrases and their actions.
 
 \section{Defining the structure of the solution}
@@ -537,7 +537,7 @@ attributes has been given it's own table in the
 {\sffamily Configs} table. This table stores a number of IDs
 that each map to a collection of configuration attributes.
 In essence instead of treating each configuration attribute as
-it's own seperate object, we now store all of a user's 
+it's own separate object, we now store all of a user's 
 configurations together in one object, like how a bag stores
 a collection of items. This approach to our database design
 allows us to solve the problem we had in \ref{fig:erdd}, now
@@ -611,12 +611,12 @@ we have,
 over all valid values of $i$. From the definition of a limit
 we can conclude that as $n$ grows larger the sample mean 
 converges almost surely to it's expected value. That means
-that as the number of users increases, the likelyhood that 
+that as the number of users increases, the likelihood that 
 users will choose the same configuration option increases 
 significantly meaning the number of redundancies in our table 
 increases significantly too. Whilst
 equation \ref{eq:kol} can provide some motivation for the 
-direction of our arguement \textit{Kolmogorov's strong law}
+direction of our argument \textit{Kolmogorov's strong law}
 cannot be applied because we can never have an infinite number
 of users in our system. Instead we will consider the
 configuration option $c_m$ where this configuration option is
@@ -625,7 +625,7 @@ able to take on the largest number of values.\\ \vspace{0.2cm}
 Formally, we
 take a configuration option $c_m$ such that
 $\max_{i=1}^{N} |c_i| = |c_m|$. We will then show that with a 
-sufficiently large userbase that users will inevitably start
+sufficiently large user base that users will inevitably start
 picking the same values for their configuration options. The 
 options that are able to take on the largest number of values 
 are the 2 volume options in {\sffamily Audio\_cfg}. We let 
@@ -748,7 +748,7 @@ by the user. Since different ConfigID's may have the same AudioID
 or the same VideoID, and etc \footnote{Only 1 of the AccessID,
 AudioID, VideoID has to be different in order to create a new
 ConfigID.}, we will spend a lot of time performing redundant
-checks. Let's reinforce this arguement using a concrete example,
+checks. Let's reinforce this argument using a concrete example,
 suppose that the 2 ConfigID's \texttt{001} and \texttt{002} are set up like so.
 
 \begin{center}
@@ -781,7 +781,7 @@ the database. \\ \vspace{0.2cm}
 
 The solution: to remove the ConfigID attribute. In studying this 
 example we will find that the ConfigID attribute is unnecessary.
-Although it's addtion was intended to provide clarity and
+Although it's addition was intended to provide clarity and
 organisation it ended up creating redundancies and needlessly
 complicating the system. Now in order to solve the problem of 
 changing a user's configuration we can simply do checks against
@@ -925,7 +925,7 @@ of the explanation table below.} \vspace{-0.2cm}
 
 Edge & Commentary \\
 
-1 & {Maintainers recieve and analyse information relating to 
+1 & {Maintainers receive and analyse information relating to 
      the performance of the proposed system, and use the
      documentation provided with the system to suggest and 
      make any necessary changes.} \\
@@ -971,7 +971,7 @@ overarching structure. Hence thanks to the creation of these
 diagrams we do not only equip the future maintainers of this 
 system with all the necessary understanding that they require
 to make changes, but we also promote a design culture of clear
-and maintable software. Then if the future maintainers of this
+and maintainable software. Then if the future maintainers of this
 software feel motivated to do the same we can ensure that our 
 software will maximise it's longevity, through the constant 
 innovation and improvement of our system namely via it's 
@@ -1086,7 +1086,7 @@ future maintainers.
         {\nodepart[font=\scriptsize]{second}
 	\begin{tblr}{colspec={X},vlines,hlines}
 	\texttt{I} \hspace{0.1cm} \vline \hspace{0.1cm} Passcode\\
-        User enters passcode to log back in\\
+        User enters pass code to log back in\\
         \end{tblr}} (q) -| ([xshift=-5cm]logins);
 
 \end{tikzpicture}
@@ -1140,7 +1140,7 @@ decomposition in \ref{fig:decomp}.}
 
 \textit{Function name:} & {\scshape Add\_Account}(\texttt{string} {\sffamily Username}, \texttt{string} {\sffamily Password})\\
 
-\textit{Description:}  & {This function will recieve in a username and password and add these details 
+\textit{Description:}  & {This function will receive in a username and password and add these details 
 into the login table, provided that the username is not taken. We assume that the username and 
 password have already been properly validated via the algorithm in the previous subheading. It returns
 false if the username is taken and true if it is not.}\\
@@ -1198,7 +1198,7 @@ system should not be able to add a user that already exists.}\\
 
 \textit{Function name:} & {\scshape Validate\_Account}(\texttt{string} {\sffamily Username}, \texttt{string} {\sffamily Password})\\
 
-\textit{Description:} & {This function will recieve in a username and password and check whether the
+\textit{Description:} & {This function will receive in a username and password and check whether the
 given password is strong enough and whether or not the username is acceptable. A username is considered
 acceptable if it is at least 3 characters long, doesn't start with a special character, and only consists of 
 the characters a-z, A-Z, 0-9, "\_" or "-". Function should return true if the given username and password are 
@@ -1635,7 +1635,7 @@ for later iterations.}\\ \vspace{0.1cm}
 
 \textit{Description:}
 The home page mock up is comprised of a navigation bar, a 
-headline and subheadline along with a call to action button.
+headline and sub headline along with a call to action button.
 \\ \vspace{0.2cm}
 
 \textit{Justification:}
@@ -1673,7 +1673,7 @@ system.
 \\ \vspace{0.2cm}
 
 \textit{Justification:}
-Since our target userbase is the elderly I chose to display 
+Since our target user base is the elderly I chose to display 
 the text in a large and readable font, because it is quite 
 likely that a good number of our users will have trouble 
 with their eyesight. Consequently this means that our 
@@ -1689,7 +1689,7 @@ reliable so that we hence provide a strong enough
 motivating factor to encourage the user to switch from
 the old system to our system.
 
-\subsubsection{Help pdf document}
+\subsubsection{Help PDF document}
 
 \begin{figure}[H]
 \centering
@@ -1741,7 +1741,7 @@ comfortably.
 \subsubsection{Video tutorial}
 
 \textit{Description:}
-A video tutorial will be uploaded onto youtube providing a 
+A video tutorial will be uploaded onto YouTube providing a 
 guide on how to use our system effectively. \\ \vspace{0.2cm}
 
 \textit{Justification:}
@@ -1800,11 +1800,11 @@ adding 1 to the last generated code.}\\
 
 {AccessID} & \texttt{int} & {An unique integer code that will be used to reference
 the user's personal accessibility configuration in the table {\sffamily Access\_cfg}.} & {
-The justifaction is the same as the one found in the AudioID row.}\\
+The justification is the same as the one found in the AudioID row.}\\
 
 {VideoID} & \texttt{int} & {An unique integer code that will be used to reference
 the user's personal video configuration in the table {\sffamily Video\_cfg}.} & {
-The justifaction is the same as the one found in the AudioID row.}\\
+The justification is the same as the one found in the AudioID row.}\\
 
 {{\sffamily Audio} table} & & & \\
 
@@ -1849,7 +1849,7 @@ user's desired video quality. More specifically the user's
 desired video resolution.} & {Since different users may have access to 
 different internet connection speeds, our users should be able to control 
 their video quality so as to be able to have the lowest latency video 
-conferencing experience possible without major quality compromisations. 
+conferencing experience possible without major quality compromisation. 
 Indeed it is through the Video\_Quality variable that allows our users
 to be able to achieve this necessity.}\\
 
@@ -1866,7 +1866,7 @@ join a video conference with their video camera on automatically, false if the
 user would like to join a video conference with their video camera off 
 automatically.} & {This variable allows our users to be able to avoid 
 repetitively changing their settings in each video call, for example 
-if the user primarly uses video conferencing software to log onto 
+if the user primarily uses video conferencing software to log onto 
 team meetings at work where they need to have their camera on (company policy)
 they won't need to worry about forgetting to turn their camera on whilst 
 they are interacting with their team members every time.}\\
@@ -1898,7 +1898,7 @@ Toggle\_Mute row.}\\
 {General} & & & \\
 
 {Peer\_Connection} & \texttt{RTCPeerConnection} & {
-The interface used in order to set up a peer to peer connection viaWebRTC.} & {
+The interface used in order to set up a peer to peer connection via WebRTC.} & {
 The usage of WebRTC's peer to peer connection object will provide an 
 efficient and robust implementation of abstracted peer to peer connection. We 
 know this because the WebRTC API has been thoroughly tested by many others 
@@ -1928,7 +1928,7 @@ Data type & {Each variable must use only 1 data type, data
 of the wrong type should never be assiged to any variable.} & {
 Data type validation is necessary for the system to function
 without runtime errors being raised. In ensuring that this 
-validation rule is obeyed we guarentee that the system will never 
+validation rule is obeyed we guarantee that the system will never 
 produce type errors. If the user encountered such an error 
 whilst using the finished application then it could produce 
 some unexpected behaviour, and the user may be tempted to 
@@ -1969,7 +1969,7 @@ that we did not have the username length requirement then users could select
 a username of length 0, a username with no characters, meaning that the other 
 users wouldn't be able to identify who has joined their video conference. On the
 flip side a user could pick a username of length 100,000 characters, which is
-obviously unecessary for a username, this username would then use up a large 
+obviously unnecessary for a username, this username would then use up a large 
 amount of the storage available in our database.}\\
 
 \end{longtblr}
