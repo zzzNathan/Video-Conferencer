@@ -1608,6 +1608,7 @@ complete solution to the problem at hand.
 %solution}
 
 \section{Usability features}
+\label{sec:usability}
 % Described, justifying choices made, the usability features
 % to be included in the solution,
 
@@ -2006,6 +2007,42 @@ we gain insight on how the software performs under increased
 loads and stresses, then use this data to justify changes
 and enhancements to our system.
 
+\subsection{Development test plan}
+
+% Include tests that ensure that youre testing succes 
+% criteria. 
+%
+% For post dev test usability features
+
+Let username be $U$ and password be $P$, for 
+typographical reasons.
+
+\begin{longtblr}[
+  caption={Development test plan.}
+]{
+  colspec={lXllXX}, row{1}={lightestgray}
+}
+
+Test \# & Description & Test data & Expected outcome & Justification \\
+
+1.1 & Create an account. \textit{Normal} & ($U$, $P$) = \texttt{(Thomas12, u\#4t3\&\^\$)} & {The system should 
+correctly\\ add a new user account, provided that password is strong enough.}\\
+
+1.2 & Create an account. \textit{Erroneous} & ($U$, $P$) = \texttt{(Thomas12, 123)} & {The system should 
+not add\\ a new user account, provided that the password is not strong enough.}\\
+
+2.1 & Log in. \textit{Normal} & {Assuming the relevant account exists.\\
+($U$, $P$) = \texttt{(Thomas12, u\#4t3\&\^\$)}} & {
+The system should correctly\\ allow a user to log in to their account, provided that the correct password is entered.} \\
+
+2.2 & Log in. \textit{Erroneous} & {Assuming the relevant account exists.\\
+($U$, $P$) = \texttt{(Thomas12, abc)}} & {The system should not allow\\ a user to
+log in to their account, provided that the wrong password is entered.} \\
+
+3.1 & Type in the chat box, \textit{Normal} & {Assuming that a conference is running.\\ Message = \texttt{Hello!}} & {The system should allow users\\ to be able to type in the chat box provided in the video conference.} \\
+
+\end{longtblr}
+
 \subsection{Post-development testing}
 
 Once the software development is finished I will ask a 
@@ -2130,6 +2167,58 @@ message displaying "Wrong username or password!". \\
 
 \subsubsection{Test 5}
 
+\textit{This test relates to the usability feature:
+"Video tutorial". Refer to section
+\ref{sec:usability} for details.} \\ \vspace{0.2cm}
+
+{\sffamily Task:} Access and watch the software video tutorial.\\
+
+{\color{gray} \hrulefill}
+
+{\sffamily Test type: Normal.}\\
+
+\begin{enumerate}
+  \item Navigate to the home page of our system.
+  \item Click on the help button.
+  \item Click play on the video and watch the video tutorial.
+\end{enumerate}
+
+{\sffamily Expected outcome:} Video tutorial begins playing in 
+the page.
+
+{\color{gray} \hrulefill}
+
+\vspace{0.2cm}
+
+\subsubsection{Test 6}
+
+\textit{This test relates to the usability feature:
+"Help PDF document". Refer to section
+\ref{sec:usability} for details.} \\ \vspace{0.2cm}
+
+{\sffamily Task:} Access and read the help PDF document.\\ 
+
+{\color{gray} \hrulefill}
+
+{\sffamily Test type: Normal.}\\
+
+\begin{enumerate}
+  \item Navigate to the home page of our system.
+  \item Click on the help button.
+  \item Scroll down and click on the help document link.
+  \item Read the PDF document that was downloaded.
+\end{enumerate}
+
+{\sffamily Expected outcome:} The help PDF document should
+be downloaded and opened in a new tab. \\
+
+{\color{gray} \hrulefill}
+
+\vspace{0.2cm}
+
+
+\subsubsection{Test 7}
+
 {\sffamily Task:} Start a video call.\\ 
 
 {\color{gray} \hrulefill}
@@ -2150,7 +2239,7 @@ the video call.\\
 
 \vspace{0.2cm}
 
-\subsubsection{Test 6}
+\subsubsection{Test 8}
 
 {\sffamily Task:} Join a video call.\\ \vspace{0.2cm}
 
@@ -2174,6 +2263,36 @@ and can clearly see and hear each other.\\
 
 {\color{gray} \hrulefill} \vspace{0.2cm}
 
+After the user has completed a task in the test plan we
+ask our user to fill out the following feedback form.
+
+%Relate to usabiltiy features
+
+\begin{longtblr}[
+  caption={Post-development feedback form.}
+]{
+  colspec={cXcc}, row{1}={lightestgray}
+}
+
+  \hline
+  No & Question & Rating (1-10) & Additional comments\\
+  \hline
+
+  1 & How easy was the task to complete? & 10 being very easy, 1 being very difficult &  & \\
+
+  2 & How easy was it to navigate the site? & 10 being very easy, 1 being very difficult & & \\
+
+  3 & How would you rate the design of the site? & 10 being very good, 1 being very poor & & \\
+
+  4 & How would you rate the user experience of the site? & 10 being very good, 1 being very poor & & \\
+
+  5 & Any additional comments or suggestions & N/A & & \\
+  \hline
+
+\end{longtblr}
+
+% feedback form?
+
 \textit{Justification:} This suite of tests adequately tests the
 functionality of all of the main features of this system. In asking a 
 diverse group of potential end users to carry out the above tasks 
@@ -2182,4 +2301,8 @@ the system. Moreover we can analyse the user feedback to identify the
 strengths and weaknesses of our system and implement any needed changes
 based on the feedback received. Hence the test serves to confirm whether 
 or not our system works as intended as well as inform us on ways in which
-we can improve the system.
+we can improve the system. It is imperative to have potential users test 
+our system because these users may potentially try things that I would 
+have never have thought about. In receiveing user feedback after getting
+people to complete the post-development tests we gain valuable insight
+into the how our end users will navigate around and use the system.
