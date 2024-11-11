@@ -1767,7 +1767,7 @@ justification for each.
 \begin{longtblr}[
   caption={Key variables and data structures.}
 ]{
-  colspec={llXX}, hlines, row{1}={lightestgray},
+  colspec={llXX}, row{1}={lightestgray},
   row{2}={lightestgray}, row{8}={lightestgray},
   row{13}={lightestgray}, row{17}={lightestgray},
   row{21}={lightestgray}
@@ -1911,6 +1911,7 @@ The usage of WebRTC's MediaStream object will provide the same benefits as was
 discussed above as well as integrate seamlessly with the rest of the WebRTC 
 components of the system.}\\
 
+
 \end{longtblr}
 
 \subsection{Data validation rules}
@@ -1921,7 +1922,7 @@ along with justification for each rule.
 
 \begin{longtblr}[
   caption={Data validation rules.}
-]{colspec={lXX}, hlines, row{1}={lightestgray}}
+]{colspec={lXX}, row{1}={lightestgray}}
 
 Validation & Description & Justification \\
 
@@ -2017,29 +2018,43 @@ and enhancements to our system.
 Let username be $U$ and password be $P$, for 
 typographical reasons.
 
+% lXllXX
+
 \begin{longtblr}[
   caption={Development test plan.}
 ]{
-  colspec={lXllXX}, row{1}={lightestgray}
+  colspec={llXXX}, row{1}={lightestgray},
+  row{1-Z}={font=\small},
 }
 
 Test \# & Description & Test data & Expected outcome & Justification \\
 
-1.1 & Create an account. \textit{Normal} & ($U$, $P$) = \texttt{(Thomas12, u\#4t3\&\^\$)} & {The system should 
-correctly\\ add a new user account, provided that password is strong enough.}\\
+1.1 & {Create an account.\\ \textit{Normal}} & ($U$, $P$) = \texttt{(Thomas12, u\#4t3\&\^\$)} & {The system should 
+correctly add a new user account, provided that password is strong enough.} & {Users must be able to make an account 
+in order to save their configuration data. Their username also helps others to identify them.}\\
 
-1.2 & Create an account. \textit{Erroneous} & ($U$, $P$) = \texttt{(Thomas12, 123)} & {The system should 
-not add\\ a new user account, provided that the password is not strong enough.}\\
+1.2 & {Create an account.\\ \textit{Erroneous}} & ($U$, $P$) = \texttt{(Thomas12, 123)} & {The system should 
+not add a new user account, provided that the password is not strong enough.} & {Users shouldnt be able to make 
+an account if their password is too weak. This not only allows us to comply with the relevant GDPR regulations but 
+also ensures that our user's data is secure.}\\
 
-2.1 & Log in. \textit{Normal} & {Assuming the relevant account exists.\\
+\\
+
+2.1 & {Log in.\\ \textit{Normal}} & {Assuming the relevant account exists.\\
 ($U$, $P$) = \texttt{(Thomas12, u\#4t3\&\^\$)}} & {
-The system should correctly\\ allow a user to log in to their account, provided that the correct password is entered.} \\
+The system should correctly allow a user to log in to their account, provided that the correct password is entered.} &
+{Once a user has created an account and setup all of their configurations they should be able to access their account by 
+logging in with the correct details.} \\
 
-2.2 & Log in. \textit{Erroneous} & {Assuming the relevant account exists.\\
-($U$, $P$) = \texttt{(Thomas12, abc)}} & {The system should not allow\\ a user to
-log in to their account, provided that the wrong password is entered.} \\
+2.2 & {Log in.\\ \textit{Erroneous}} & {Assuming the relevant account exists.\\
+($U$, $P$) = \texttt{(Thomas12, abc)}} & {The system should not allow a user to
+log in to their account, provided that the wrong password is entered.} & {If a user enters the wrong password they shouldn't
+be able to log in to the system, this measure is in place to protect our user's data.} \\
 
-3.1 & Type in the chat box, \textit{Normal} & {Assuming that a conference is running.\\ Message = \texttt{Hello!}} & {The system should allow users\\ to be able to type in the chat box provided in the video conference.} \\
+\\
+
+3.1 & {Type in the chat box,\\ \textit{Normal}} & {Assuming that a conference is running.\\ Message = \texttt{Hello!}} & {The system should allow users to be able to type in the chat box provided in the video conference.} & {This feature will enable users to 
+be able to communicate with each other in the case that they do not have a microphone. This is essential feature 6.} \\
 
 \end{longtblr}
 
