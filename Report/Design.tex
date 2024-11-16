@@ -1521,6 +1521,18 @@ found at the article} \url{https://www.100ms.live/blog/webrtc-video-call}.
 
 \end{itemize}
 
+\textit{Justification: } \\ 
+
+\begin{itemize}
+
+\item Users should be able to start a video call without the system crashing.
+
+\item The function should create a new video call successfully.
+
+\item The function should return a unique call passcode in order to allow other users to join.
+
+\end{itemize}
+
 \subsubsection{\circled{10} Join call}
 
 \begin{tblr}{colspec={lX}, row{1}={lightestgray}}
@@ -1598,7 +1610,22 @@ if a call doesn't exist with this code.}
 
 \end{itemize}
 
-\textit{Justify how these algorithms form a complete solution}
+\textit{Justification: } \\
+
+\begin{itemize}
+
+\item User should be able to join a call without the system crashing.
+
+\item{Function should allow user to join a video call provided they
+	enter the correct code and a call with that code exists.}
+
+\item Function should not allow user to join call if no call corresponding to the code given exists.
+
+\end{itemize}
+
+\vspace{0.2cm}
+
+\textit{Justify how these algorithms form a complete solution}.
 Finally in relating each of these algorithms (with the 
 numbering) to the system decomposition in \ref{fig:decomp}
 we have demonstrated fully how these algorithms form a 
@@ -1737,7 +1764,13 @@ to navigate our system due to conditions like Carpal tunnel.
 By providing another way to navigate the video-conferencing 
 system we allow people suffering with all sorts of 
 immobilising conditions to be able to navigate our system 
-comfortably.
+comfortably. This aligns with the motivations of our client
+who wishes to create an \textit{accessible} video-conferencing
+system. Indeed by implementing features that allow users with
+mobility issues to be able to use our system comfortably we 
+are directly improving the accessibility of our system,
+through increasing the number of people who could potentially 
+use our system.
 
 \subsubsection{Video tutorial}
 
