@@ -2086,8 +2086,38 @@ be able to log in to the system, this measure is in place to protect our user's 
 
 \\
 
-3.1 & {Type in the chat box,\\ \textit{Normal}} & {Assuming that a conference is running.\\ Message = \texttt{Hello!}} & {The system should allow users to be able to type in the chat box provided in the video conference.} & {This feature will enable users to 
-be able to communicate with each other in the case that they do not have a microphone. This is essential feature 6.} \\
+3.1 & {Log out.\\ \textit{Normal}} & {Assuming the user is logged in. Navigate to account profile, click the log out button.} & {
+Users should be able to log out of their account once they are finished using our application.} \\
+
+\\
+
+4.1 & {Type in the chat box,\\ \textit{Normal}} & {Assuming that a conference is running.\\ Message = \texttt{Hello!}} & {The system should allow users to be able to type in the chat box provided in the video conference.} & {This feature will enable users to 
+be able to communicate with each other in the case that they do not have a microphone. This test the implementation of essential 
+feature 6. (See section \ref{sec:features})} \\
+
+\\
+
+5.1 & {Access documentation. \\ \textit{Normal}} & {Click on the "Docs" button.} & {The documentation PDF should open in a new
+tab.} & {This is an open source project that will be passed off to other developers once complete, it is therefore necessary to
+ensure that the future developers are able to fully understand the system's architecture and it's code. By opening the
+documentation in a new tab we allow our users to be able to easily access and read through the system documentation in their 
+own web browser. This tests the implementation of essential feature 8. (See section \ref{sec:features})}\\
+
+\\ 
+
+6.1 & {Create video call. \\ \textit{Normal}} & {Navigate to the create call page. Click on the create call button.} & {Video call started successfully.} & {Since this is a video conferencing
+software it is vital that the software is able to allow users to video conference, it's intended purpose. This test will ensure
+that users will have an enjoyable user experience whilst video conferencing.}\\
+
+\\
+
+7.1 & {Join video call \\ \textit{Normal}} & {Assuming a video conference exists with the passcode: \texttt{041058}. Enter the 
+passcode \texttt{041058}.} & {Video call joined successfully.} & {Users should be able to join a video call provided that one
+exists and that they have entered the correct code.}\\
+
+7.2 & {Join video call \\ \textit{Erroneous}} & {Assuming a video conference exists with the passcode: \texttt{041058}. Enter the 
+passcode \texttt{123456}.} & {Video call not joined. Prompt displaying "Invalid passcode!".} & {Users shouldn't be able to join 
+a video conference if they have entered the wrong passcode.}\\
 
 \end{longtblr}
 
