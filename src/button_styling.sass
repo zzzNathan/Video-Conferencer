@@ -18,17 +18,20 @@ $Col_Button_Bot:  #F9AAD0 // Bright pink
   display:          flex
   justify-content:  center
   align-items:      center
+  transition:       ease-in-out .1s
+  
 
 // Creates border and hover effect
 .Button::after
   content:          ''
   position:         absolute
   height:           111%
-  width:            103%
+  width:            104%
   border-radius:    700px
   background-image: linear-gradient(to bottom, $Col_Button_Top, $Col_Button_Bot)
+  box-shadow:       0 0 1vw 0.01vw $Col_Button_Bot
   z-index:          -1
 
 .Button:hover
   z-index: 0 
-
+  scale:   104%
