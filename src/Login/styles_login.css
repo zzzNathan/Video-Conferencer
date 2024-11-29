@@ -62,10 +62,65 @@ body {
   color: #B98DEE;
 }
 
+.Rule {
+  width: 95vw;
+  height: 0.15vh;
+  background-color: #575553;
+  border-radius: 1vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .Headline {
-  padding: 2.5vw;
+  display: inline-block;
+  position: relative;
   font-size: 4vw;
-  margin-left: 3vw;
+  margin-left: 4vw;
+}
+
+.typed-cursor {
+  font-size: 4vw;
+}
+
+.Main {
+  display: flex;
+}
+
+.Sign_Up {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  padding: 2vw;
+  gap: 2vw;
+  width: 25vw;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2.5vw;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.Field {
+  background-color: #AA9494;
+  width: 22vw;
+  height: 3vw;
+  border-radius: 1vw;
+  border-style: solid;
+  border-color: #AA9494;
+}
+
+.List {
+  list-style-type: none;
+  margin-left: -35vw;
+  margin-right: 1vw;
+}
+
+.List > li {
+  margin-top: 0.5vw;
+  font-size: 1.5vw;
 }
 
 /*# sourceMappingURL=styles_login.css.map */

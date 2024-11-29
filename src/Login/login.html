@@ -2,6 +2,8 @@
 <html>
 <head>
   <link rel="stylesheet" href="styles_login.css">
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12" defer></script>
+  <script src="login_script.js" defer></script>
   <title>Video-Conferencer</title>
 </head>
   <body>
@@ -13,10 +15,26 @@
       <li class="Navbar_Item"> <i class="fas fa-cog"> </i> </li>
     </ul>
   </nav>
+
+  <div class="Rule"></div>
  
-  <!-- Typewriter effect that switches from "welcome to 
-	  video conferencer" to "lets get started" -->
-  <h1 class="Headline">Let's get started...</h1>
+  <div style="height:10vw"><h1 class="Headline"></h1></div>
+
+  <div class="Main">
+    <form class="Sign_Up">
+      <span style="font-size:2vw">Register using your email address.</span>
+      <input type="email" name="email" class="Field" placeholder="Email" required>
+      <input type="text" name="username" class="Field" placeholder="Username" required>
+      <input type="password" name="password" class="Field" placeholder="Password" required>
+      <button class="Button"> <b> Sign up </b> </Button>
+    </form>
+
+    <ul class="List">
+      <li> <i class="fa-solid fa-check"></i> Password length should be <i class="fas fa-greater-than-equal"></i> 7 characters. </li>
+      <li> <i class="fa-solid fa-check"></i> Password length should have <i class="fas fa-greater-than-equal"></i> 2 symbols. </li>
+      <li> <i class="fa-solid fa-check"></i> Try not to use common words or phrases. </li>
+    </ul> 
+  </div>
 
   </body>
-</html>
+</html> 
