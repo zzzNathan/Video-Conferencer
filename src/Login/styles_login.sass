@@ -42,6 +42,16 @@ body
 .Main
   display: flex
 
+.Suggestion
+  background-color: $Col_Gray
+  border-right:     2px solid $Col_Secondary
+  padding:          0 0.25vw
+  font-size:        1.5vw
+  min-height:       1.5vw
+  width:            fit-content
+  margin-top:       -15vw
+  display:          none
+
 .Sign_Up
   display:         flex
   flex-direction:  column
@@ -51,26 +61,33 @@ body
   padding:         2vw
   gap:             2vw
   width:           25vw
-  background:      rgba(255, 255, 255, 0.2)
-  border-radius:   2.5vw
+  background:      $Col_Secondary
+  border-radius:   2vw
   box-shadow:      0 4px 30px rgba(0, 0, 0, 0.1)
-  backdrop-filter: blur(5px)
-  -webkit-backdrop-filter: blur(5px)
-  border: 1px solid rgba(255, 255, 255, 0.3)
+  backdrop-filter: blur(3px)
+  -webkit-backdrop-filter: blur(3px)
+  filter:          saturate(80%)
+  opacity:         0.8
+  border:          1px solid rgba(255, 255, 255, 0.3)
+
+.Sign_Up > span
+  font-size: 2vw
+  color:     $Col_Main
 
 .Field
-  background-color: $Col_Text_Input_Field
+  background-color: $Col_Main
   width:            22vw
   height:           3vw
   border-radius:    1vw 
   border-style:     solid
-  border-color:     $Col_Text_Input_Field
+  border-color:     $Col_Gradient
+  color:            $Col_Secondary
 
 .List
   list-style-type: none
-  margin-left: -35vw
-  margin-right: 1vw
+  margin-left:     -35vw
+  margin-right:    1vw
 
-.List>li
+.List > li
   margin-top: 0.5vw
   font-size:  1.5vw
