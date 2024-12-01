@@ -305,3 +305,4 @@ TSWLatexianTemp*
 
 # Ignores unneeded output files from sass
 *.css.map
+.vercel
