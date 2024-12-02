@@ -305,4 +305,8 @@ TSWLatexianTemp*
 
 # Ignores unneeded output files from sass
 *.css.map
+
+# Ignore vercel files and .env files (where DB passwords are 
+# stored)
 .vercel
+.env*
