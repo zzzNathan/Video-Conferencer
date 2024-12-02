@@ -11,24 +11,16 @@ $Col_Gradient:         #423652 // Darker purple
 $Col_Input_Field:      #322E2E // Brown
 $Col_Text_Input_Field: #AA9494 // Light brown
 $Col_Gray:             #575553 // Light gray
+$Col_Bg:               #201e29 // Dark gray
 
 // Setting font and background colour
 body
   height:           100vh
   margin:           0
-  background-color: $Col_Main
-  background-image: linear-gradient($Col_Main, $Col_Gradient)
+  background-color: $Col_Bg
   font-family:      'Inter', sans-serif
   overflow:         hidden
   color:            $Col_Secondary
-
-.Rule
-  width:            95vw
-  height:           0.15vh
-  background-color: $Col_Gray
-  border-radius:    1vw
-  margin-left:      auto
-  margin-right:     auto
 
 .Headline
   display:     inline-block
@@ -74,7 +66,6 @@ body
   font-size:     1.5vw
   color:         $Col_Main
   margin-bottom: -1.5vw
-  font-weight:   bold
 
 .Field
   background-color: $Col_Main

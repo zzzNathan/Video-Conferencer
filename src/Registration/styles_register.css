@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Inter:wght@400,700");
 @import url("https://use.fontawesome.com/releases/v6.7.0/css/all.css");
 .Button {
-  border-radius: 700px;
+  border-radius: 1vw;
   color: white;
   background-color: #5C506A;
   border: none;
@@ -21,7 +21,7 @@
   position: absolute;
   height: 111%;
   width: 104%;
-  border-radius: 700px;
+  border-radius: 1vw;
   background-image: linear-gradient(to bottom, #C49DF2, #F9AAD0);
   box-shadow: 0 0 1vw 0.01vw #F9AAD0;
   z-index: -1;
@@ -38,6 +38,7 @@
   margin: 0;
   padding: 0;
   font-size: 1.75vw;
+  margin-bottom: 0.25vw;
 }
 
 .Navbar_Item, .Navbar_Item_Right, .Navbar_Item_Left {
@@ -55,20 +56,10 @@
 body {
   height: 100vh;
   margin: 0;
-  background-color: #3F3E3C;
-  background-image: linear-gradient(#3F3E3C, #423652);
+  background-color: #201e29;
   font-family: "Inter", sans-serif;
   overflow: hidden;
   color: #B98DEE;
-}
-
-.Rule {
-  width: 95vw;
-  height: 0.15vh;
-  background-color: #575553;
-  border-radius: 1vw;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .Headline {
@@ -120,7 +111,6 @@ body {
   font-size: 1.5vw;
   color: #3F3E3C;
   margin-bottom: -1.5vw;
-  font-weight: bold;
 }
 
 .Field {
