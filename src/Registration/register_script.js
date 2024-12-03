@@ -1,7 +1,12 @@
-
 // Importing in modules from the window.
 const Typed  = window.Typed;
 const zxcvbn = window.zxcvbn;
+
+window.addEventListener('load', async function () {
+    await Clerk.load();
+
+    console.log('ClerkJS is loaded');
+ })
 
 // Function to produce the typing animation.
 function Animate_Headline() 
