@@ -1,8 +1,0 @@
-{
-  "redirects": [
-    {
-      "source": "/index.html",
-      "destination": "/src/Registration/registration.html"
-    }
-  ]
-}

@@ -7,15 +7,15 @@ function Home() {
   return (
     <> <Navbar /> 
     
-      <div class="Main_Graphic">
-        <h1 class="Headline"> Video conferencing... </h1>
+      <div className="Main_Graphic">
+        <h1 className="Main_Headline"> Video conferencing... </h1>
 
-        <h2 class="Sub_Headline"> like you've <i>
-        <span class="Pink_Text"> never </span> </i> seen it before </h2>
+        <h2 className="Sub_Headline"> like you've <i>
+        <span className="Pink_Text"> never </span> </i> seen it before </h2>
 
-      <Button /> 
+      <a href="/registration"><Button /></a>
 
-      <img class="Quote_Card" src={Quotes} /> 
+      <img className="Quote_Card" src={Quotes} /> 
     </div> </>
   )
 }
