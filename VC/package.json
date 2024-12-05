@@ -1,0 +1,20 @@
+{
+  "name": "video-conferencer",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@clerk/clerk-js": "^5.37.0",
+    "react": "^18.3.1",
+    "react-router": "^7.0.2",
+    "sass": "^1.82.0",
+    "typed.js": "^2.1.0",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.1"
+  }
+}
