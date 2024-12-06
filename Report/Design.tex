@@ -28,64 +28,64 @@ hand. We let DB denote our database for typographical reasons.
   (home) {\large \circled{1} Home page};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of home ]
-    (login) {\large \circled{3} Login page};
+    (login) {\large \circled{1.2} Login page};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below right=of home]
-    (docs) {\large \circled{4} Documentation};
+    (docs) {\large \circled{1.3} Documentation};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below left=of home]
-    (help) {\large \circled{2} Help page};
+    (help) {\large \circled{1.1} Help page};
 
   \node[draw, diamond, aspect=2, below=of login ]
     (new) {\large First time user?};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below left=of new ]
-    (acc) {\large \circled{4} Create account};
+    (acc) {\large \circled{2} Create account};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of acc ]
-    (add) {\large \circled{6} Add account to \textit{DB}};
+    (add) {\large \circled{4} Add account to \textit{DB}};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below right=of new ]
-    (back) {\large \circled{5} Log back in};
+    (back) {\large \circled{3} Log back in};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of back ]
-    (main) {\large \circled{7} Main page};
+    (main) {\large \circled{5} Main page};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below right=of main ]
-    (join) {\large \circled{10} Join call page};
+    (join) {\large \circled{8} Join call page};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of join ]
-    (code) {\large \circled{15} Enter pass code};
+    (code) {\large \circled{13} Enter pass code};
 
   \node[draw, diamond, aspect=2, minimum width=4cm, minimum height=1cm, below=of code ]
     (valid) {\large Is code valid?};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below left=of valid ]
-    (codegood) {\large \circled{17} Connect to call};
+    (codegood) {\large \circled{15} Connect to call};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below right=of valid ]
-    (codebad) {\large \circled{18} Raise error};
+    (codebad) {\large \circled{16} Raise error};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of main ]
-    (create) {\large \circled{9} Create call page};
+    (create) {\large \circled{7} Create call page};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of create ]
-    (invite) {\large \circled{14} Invite others};
+    (invite) {\large \circled{12} Invite others};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below left=of main ]
-    (settings) {\large \circled{8} Settings page};
+    (settings) {\large \circled{6} Settings page};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below left=of settings ]
-    (video) {\large \circled{12} Video settings};
+    (video) {\large \circled{10} Video settings};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of settings ]
-    (access) {\large \circled{13} Accessibility settings};
+    (access) {\large \circled{11} Accessibility settings};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, left=of video ]
-    (audio) {\large \circled{11} Audio settings};
+    (audio) {\large \circled{9} Audio settings};
 
   \node[draw, rectangle, minimum width=4cm, minimum height=1cm, below=of video ]
-    (save) {\large \circled{16} Save settings to \textit{DB}};
+    (save) {\large \circled{14} Save settings to \textit{DB}};
 
   \coordinate[right=2cm of code.east] (here);
 
@@ -1675,7 +1675,16 @@ product we are selling is within 5 seconds. We achieve this
 in our headline using a large and bold font. The call to
 action button is the "Sign Up" button and we want our users 
 to click it, hence we have made use of our accent colour to 
-make the button stand out from the rest of the page.\\
+make the button stand out from the rest of the page.  Since
+our target users may be unfamiliar with technology it is
+important to ensure that the home page is designed to look 
+professional, however it is just as equally as important to 
+ensure that our page is easy to navigate. In this manner
+even our users who have little to no experience with 
+technology will be able to use the system easily. Indeed
+this homepage design organises the content we would like to 
+show in an organised and cohesive manner enabling such users
+to navigate our site as they so desire. \\
 
 \subsubsection{Log in/Sign up page}
 
@@ -1746,7 +1755,14 @@ On the helper document we have chosen to stick with the
 style used in this report providing a consistent and 
 familiar theme to our users. The blue section links 
 provide a quick way for our users to be able to navigate
-to the sections that they specifically need. 
+to the sections that they specifically need. This document is
+intended to be read by our future users so it is imperative 
+that the text be easy to read, as well as comprehensive and 
+thorough, in order to answer any of our users' questions.
+Finally the text must be easy to read so that our target 
+audience, the elderly, will be able to comprehend our text
+without issues, since it is not uncommon for a person's 
+cognitive thinking capacity to decline as they become old.
 
 \subsubsection{Macros}
 
@@ -1810,7 +1826,7 @@ Variable & Data type & Description & Justification \\
 
 {{\sffamily Logins} table} & & & \\
 
-{Username} & \texttt{string} & {A unique string of length 4-20 characters 
+{Username} & \texttt{string} & {A unique string of length 3-20 characters 
 that will be used to identify a user.} & {Unique usernames help other 
 users to identify the the identities of the other participants who are
 in their call. Since they are unique they can also form a primary key
@@ -1887,7 +1903,7 @@ conferencing experience possible without major quality compromisation.
 Indeed it is through the Video\_Quality variable that allows our users
 to be able to achieve this necessity.}\\
 
-{Hide\_SelfView} & {\texttt{bool}} & {True if the user would like to hide 
+{Hide\_Selfview} & {\texttt{bool}} & {True if the user would like to hide 
 their own video, false if the user would like to see their own video feed.} &
 {Our users may want to be able to hide their own video feed for a multitude 
 of reasons, they may find it distracting, it might be embarassing/awkward for 
@@ -1943,7 +1959,6 @@ and provide an abstracted interface for the user's video and/or audio data.} & {
 The usage of WebRTC's MediaStream object will provide the same benefits as was 
 discussed above as well as integrate seamlessly with the rest of the WebRTC 
 components of the system.}\\
-
 
 \end{longtblr}
 
@@ -2009,6 +2024,67 @@ amount of the storage available in our database.}\\
 
 \end{longtblr}
 
+\begin{longtblr}[
+  caption={Validation justifications.}
+]{colspec={XXX}, row{1}={lightestgray}}
+
+Variable & Validation & Justification \\ 
+
+Username & Must be a \texttt{string}, of length 3-20 
+characters. & Users shouldn't be able to have usernames as 
+other data types because a username is used to identify 
+users as humans. Humans do not refer to each other using 
+numbers so it wouldn't make sense to have the username be an 
+\texttt{int} data type. The length check is there to ensure
+that users do not choose usernames that are too short, for 
+example people do not usually have 1 or 2 letter names, 
+similarly people do not usually have 20 or 30 letter names.
+If we didn't have a restriction on the number of characters
+one could use for their username then they could potentially 
+pick an extremely long username (for instance what if
+a user picked a username with a million characters?) and 
+this would take up a lot of memory within our user account
+database. \\
+
+Password & A \texttt{string} of length 7-30 characters. & 
+User passwords are strings to allow users to use numbers 
+and characters in their password, thus strengthening the 
+safety of user accounts as this allows for many more
+options when it comes to password selection. The
+justification for the restriction of length is similar to 
+the one mentioned above. \\
+
+Video quality & An \texttt{int} $q$ satisfying the condition
+$360 \leq q \leq 8192$ & It is a universal standard to use 
+integers to represent video quality. 360p is the lowest 
+video resolution that one can consider to be clear video, 
+and in our current day the highest resolution screens are 8K
+screens which can have resolutions of 8192p.\\
+
+AudioID, AccessID, VideoID & An \texttt{int} $n$ such that 
+the condition $0 \leq n \leq 10^9$ is satisfied. & We use an
+\texttt{int} data type because all of the ID's were defined 
+to be integers in table 2.2. \\
+
+Speaker\_Volume, Mic\_Volume & An \texttt{int} $v$ such that 
+the condition $0 \leq v \leq 100$ is satisfied. & Volume has 
+to be an integer so that we can compare values. For instance 
+it easy to see that the volume of 75 is louder than a volume 
+of 50, however it is not easy to tell whether or not 
+\texttt{"pipj"} is a greater volume value than \texttt{"goood"}. \\
+
+Mic\_On\_Default, Noise\_Suppression, Hide\_Selfview, 
+Video\_On\_Default & A \texttt{bool}. & All of these variable
+will be in either on or off states, this is exactly what a 
+boolean does.\\
+
+Toggle\_Mute, Toggle\_Camera, Toggle\_Hand & An \texttt{int}
+$c$ satisfying the condition $8 \leq c \leq 222$ & In 
+Javascript the integer key codes range from 8 to 222.$^{*}$ \\
+
+\end{longtblr}
+
+$^{*}$ \textit{Source:} \url{https://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes}
 
 \section{Testing}
 
@@ -2087,7 +2163,9 @@ be able to log in to the system, this measure is in place to protect our user's 
 \\
 
 3.1 & {Log out.\\ \textit{Normal}} & {Assuming the user is logged in. Navigate to account profile, click the log out button.} & {
-Users should be able to log out of their account once they are finished using our application.} \\
+Users should be able to log out of their account once they are finished using our application.} & {Users should be able to log 
+out of their account so that malicious internet users wouldn't be able to access their account whilst they are away from their 
+computer.}\\
 
 \\
 

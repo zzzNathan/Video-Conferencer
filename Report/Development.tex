@@ -26,7 +26,7 @@ a number of smaller sub-tasks. Each sub-task relates to it's
 relevant circled number in our problem breakdown (see section 
 \ref{sec:breakdown}).\\ \vspace{0.2cm}
 
-In doing this we \textit{clearly} relate each iteration
+In doing this we \textbf{clearly} relate each iteration
 to a part of the problem breakdown.\\ \vspace{0.2cm}
 
 \begin{longtblr}[
@@ -35,12 +35,14 @@ to a part of the problem breakdown.\\ \vspace{0.2cm}
   colspec={cX}, row{1}={lightestgray}
 }
   Number & Sub-task \\
-  \circled{4} & Document the backend code throughout\\
   \circled{1} & Design home page \\
-  \circled{2} & Design help page \\
-  \circled{3.1} & Design login page \\
-  \circled{3.2} & Implement login system with password resets \\
+  \circled{1.1} & Design help page \\
+  \circled{1.2} & Design login page \\
+  \circled{1.3} & Document the backend code throughout\\
+  \circled{2} & Allow users to create their account\\
+  \circled{3} & Implement login system with password resets \\
   \ldots & \ldots \\
+  \circled{A} & Deploy website \\
 \end{longtblr}
 \vspace{0.2cm}
 
@@ -59,7 +61,7 @@ provided at the end of each iteration.}
 
 During this iteration I wanted to finish up designs for a few 
 of the pages that will appear on our website. This should 
-clear up sub-task \circled{1} and \circled{3.1}.
+clear up sub-task \circled{1} and \circled{1.2}.
 
 \subsubsection{Home page}
 
@@ -106,7 +108,8 @@ mock ups, it gives me something to aim for when writing up
 the code to produce our home page. Then by iteratively
 improving upon the design mock ups I created I enhance
 the look of the final home page design, in turn creating
-a superior user experience. \\ \vspace{0.2cm}
+a superior user experience.
+\\ \vspace{0.2cm}
 
 \textit{Description:}
 I transfer my designs into HTML and CSS. However after some 
@@ -725,11 +728,7 @@ the standard technique of sending the user a reset password
 link to their email address and I have included this in 
 our mock up. This idea will have to be added as a development
 sub-task and we will tackle it's implementation in a future 
-iteration. (This will be sub-task \circled{3.2} as I feel 
-the sub-task is still related to box \circled{3} on our 
-problem decomposition see figure \ref{fig:decomp}. Similarly
-the designing of the login page will take on sub-task id
-\circled{3.1}) \\ \vspace{0.2cm}
+iteration. \\ \vspace{0.2cm}
 
 The next step is to transfer the design in code, then link
 our home page and login page together. During the programming
@@ -845,7 +844,7 @@ This code produced our first prototype:
 {\color{gray} \hrulefill}
 \vspace{0.2cm}
 
-{\sffamily Development sub-task \circled{3.1} \faCheck} \\
+{\sffamily Development sub-task \circled{1.2} \faCheck} \\
 \vspace{0.2cm}
 
 The current file structure of our project is as follows: \\
@@ -880,3 +879,155 @@ the project at this point in development: \\
 \texttt{VideoConferencer-Iteration1}}.
 
 \section{Iteration 2}
+
+During this iteration I wanted to design and implement
+some of the underlying infastructure behind our application
+and complete development subtasks \circled{2} and \circled{A}.\\
+\vspace{0.2cm}
+
+\textit{Description:}
+After doing some of research into free web deployment 
+services I settled on using Vercel in order to deploy my website.\\
+\vspace{0.2cm}
+
+\textit{Explanation and justification:}
+Here are a few of the other options I looked into and why I rejected
+them. \\ \vspace{0.2cm}
+
+\begin{tblr}{colspec={XX}, row{1}={lightestgray}}
+Service & Explanation \\
+
+Railway.app & You can only use \$5.00 worth of resources on the
+free tier, once this is depleted the project won't be up 
+anymore \\
+
+render.com & Projects on the free tier are deleted automatically after 1 month \\
+\end{tblr}
+
+On the other hand Vercel doesn't have any of these drawbacks, so my 
+site will be able to stay up permanently so long as some resource limits are
+not crossed. \\ \vspace{0.2cm}
+
+\textit{Description:} In order to use Vercel to deploy my web
+application I had to use a web framework. I chose to use React with 
+Vite and rewrote my existing codebase to work with this framework. \\ 
+\vspace{0.2cm}
+
+\textit{Explanation and justification:}
+Initially I intended to try and stay away from all of these
+web-frameworks and just stick to plain old HTML and CSS (or 
+sass in our case), however an issue arose when I wanted to 
+redirect users to our registration page once they clicked 
+the sign up button on our home page. For whatever reason 
+the redirection would work when I hosted the application on 
+my own machine, however when I would deploy to vercel the 
+redirection would either, simply not change page or display
+a 404 code not found error.
+
+\begin{figure}[h]
+\centering
+
+\includegraphics[scale=0.2]{Images/Vercel_Errors.png}
+
+\caption{Errors when deploying to Vercel.}
+
+\end{figure}
+
+Eventually after a lot of trial and error and some research,
+I found out that using a router with react would allow us to
+redirect the user to different pages once deployed. I then 
+took some time to migrate our codebase to JSX to work with the
+react framework. We will omit the code for the re-written
+webpages since it is pretty similar to the snippets shown in 
+Iteration 1. Here is what the routing logic looks like. \\
+\vspace{0.2cm}
+
+\underline{main.jsx} \\ \vspace{0.2cm}
+
+\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+import { createRoot } from "react-dom/client"
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import Home from "./components/Home.jsx"
+import Registration from "./components/Registration.jsx"
+
+// Path is an extension that goes after our URL,
+// once this extension is written the corresponding
+// React element will be loaded and rendered.
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />
+  },
+  {
+    path: "/registration",
+    element: <Registration />
+  }
+])
+
+createRoot(document.getElementById('root')).render(
+  <RouterProvider router={router} />
+)
+\end{minted}
+
+\textit{Description:} I used the Clerk user management
+platform to create a user account registration form.\\
+\vspace{0.2cm}
+
+\textit{Explanation and justification:} I originally wanted to 
+do this task manually, creating my own table and then querying
+this table in order to add new users and log users in. However
+after doing some reading and looking over Stack Overflow posts 
+like this one \url{https://stackoverflow.com/questions/46819734/how-to-check-username-and-password-matches-the-database-values}
+I realised that many issues can arise when developers try to 
+implement these systems themselves. In order to avoid this 
+plethora of issues I instead chose to use the Clerk.com API 
+\footnote{I originally came across this API watching Theo T3.gg's 
+React tutorial.}
+for user authentication. Not only was it much easier to implement
+but the usage of this API also ensures that I wont have to worry
+about any security issues, since the API has been thoroughly
+tested. Here's the implementation. \\ \vspace{0.2cm}
+
+\underline{Registration.jsx}
+\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+import { ReactTyped } from "react-typed"
+import { ClerkProvider, SignedOut, SignUp } from "@clerk/clerk-react"
+import { dark } from "@clerk/themes"
+import Navbar from "./Navbar" 
+import "../styles/Registration.sass"
+
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+...
+
+function Registration () {
+  return (
+  <> <Navbar />
+    <Headline />
+    
+    <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+      <SignedOut>
+        <center> <SignUp appearance={dark}/> </center>
+      </SignedOut>
+    </ClerkProvider>
+  </>
+  )
+}
+
+export default Registration
+\end{minted}
+
+{\color{gray} \hrulefill}
+\vspace{0.2cm}
+
+{\sffamily Tests}
+\begin{itemize}
+  \item Site home page loads correctly \faCheck \\
+  \item Correctly redirected to registration page \faCheck \\
+  \item Users can create a new account \faCheck \\
+\end{itemize}
+
+{\color{gray} \hrulefill}
+\vspace{0.2cm}
+
+You can try these features out yourself at \url{https://video-conferencer.vercel.app/registration}.
+(May not work if development is ongoing).
