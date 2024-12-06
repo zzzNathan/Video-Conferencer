@@ -1,5 +1,5 @@
-import Button from "./Button.tsx"
-import Navbar from "./Navbar.tsx"
+import Button from "./Button"
+import Navbar from "./Navbar"
 import Quotes from "../assets/Quote_Cards.svg"
 import "../styles/Home.sass"
 
