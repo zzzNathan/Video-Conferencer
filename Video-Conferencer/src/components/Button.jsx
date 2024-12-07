@@ -1,4 +1,4 @@
-import "../styles/Button_styling.sass"
+import "../styles/Button.sass"
 
 function Button()
 {

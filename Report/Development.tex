@@ -1030,4 +1030,40 @@ export default Registration
 \vspace{0.2cm}
 
 You can try these features out yourself at \url{https://video-conferencer.vercel.app/registration}.
-(May not work if development is ongoing).
+(May not work if development is ongoing).\\ \vspace{0.2cm}
+
+{\sffamily Development sub-task \circled{2} \faCheck \\ \vspace{0.2cm}
+Development sub-task \circled{A} \faCheck }
+
+The current file structure of our project is as follows: (
+Ignoring configuration files)
+\\ \vspace{0.2cm}
+
+\begin{forest}
+  pic dir tree,
+  where level=0{}{
+    directory,
+  },
+[Video-Conferncer
+  [index.html, file],
+  [src
+    [main.jsx, file]
+    [assets
+      [Quote\_Cards.svg, file]
+    ],
+    [components
+      [Button.jsx, file],
+      [Home.jsx, file],
+      [Navbar.jsx, file],
+      [Registration.jsx, file]
+    ],
+    [styles
+      [Button.sass, file],
+      [Home.sass, file],
+      [Navbar.sass, file],
+      [Registration.sass, file]
+    ]
+  ]
+] 
+\end{forest}
+\vspace{0.3cm}
