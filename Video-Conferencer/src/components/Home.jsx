@@ -13,7 +13,10 @@ function Home() {
         <h2 className="Sub_Headline"> like you've <i>
         <span className="Pink_Text"> never </span> </i> seen it before </h2>
 
-      <a href="/registration"><Button /></a>
+      <div className="Buttons">
+        <a href="/login"><button className="Login_Button"> Login </button></a>
+        <a href="/registration"><Button /></a>
+      </div>
 
       <img className="Quote_Card" src={Quotes} /> 
     </div> </>

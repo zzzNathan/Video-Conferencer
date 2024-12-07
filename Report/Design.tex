@@ -2024,6 +2024,8 @@ amount of the storage available in our database.}\\
 
 \end{longtblr}
 
+{\color{gray} \hrulefill}
+
 \begin{longtblr}[
   caption={Validation justifications.}
 ]{colspec={XXX}, row{1}={lightestgray}}
@@ -2140,12 +2142,14 @@ Test \# & Description & Test data & Expected outcome & Justification \\
 
 1.1 & {Create an account.\\ \textit{Normal}} & ($U$, $P$) = \texttt{(Thomas12, u\#4t3\&\^\$)} & {The system should 
 correctly add a new user account, provided that password is strong enough.} & {Users must be able to make an account 
-in order to save their configuration data. Their username also helps others to identify them.}\\
+in order to save their configuration data. Their username also helps others to identify them. This test contributes to 
+to completion of success criteria 5.}\\
 
 1.2 & {Create an account.\\ \textit{Erroneous}} & ($U$, $P$) = \texttt{(Thomas12, 123)} & {The system should 
 not add a new user account, provided that the password is not strong enough.} & {Users shouldnt be able to make 
 an account if their password is too weak. This not only allows us to comply with the relevant GDPR regulations but 
-also ensures that our user's data is secure.}\\
+also ensures that our user's data is secure. This test contributes to 
+to completion of success criteria 5.}\\
 
 \\
 
@@ -2153,19 +2157,22 @@ also ensures that our user's data is secure.}\\
 ($U$, $P$) = \texttt{(Thomas12, u\#4t3\&\^\$)}} & {
 The system should correctly allow a user to log in to their account, provided that the correct password is entered.} &
 {Once a user has created an account and setup all of their configurations they should be able to access their account by 
-logging in with the correct details.} \\
+logging in with the correct details. This test contributes to 
+to completion of success criteria 5.} \\
 
 2.2 & {Log in.\\ \textit{Erroneous}} & {Assuming the relevant account exists.\\
 ($U$, $P$) = \texttt{(Thomas12, abc)}} & {The system should not allow a user to
 log in to their account, provided that the wrong password is entered.} & {If a user enters the wrong password they shouldn't
-be able to log in to the system, this measure is in place to protect our user's data.} \\
+be able to log in to the system, this measure is in place to protect our user's data. This test contributes to 
+to completion of success criteria 5.} \\
 
 \\
 
 3.1 & {Log out.\\ \textit{Normal}} & {Assuming the user is logged in. Navigate to account profile, click the log out button.} & {
 Users should be able to log out of their account once they are finished using our application.} & {Users should be able to log 
 out of their account so that malicious internet users wouldn't be able to access their account whilst they are away from their 
-computer.}\\
+computer. This test contributes to 
+to completion of success criteria 5.}\\
 
 \\
 
@@ -2185,17 +2192,18 @@ own web browser. This tests the implementation of essential feature 8. (See sect
 
 6.1 & {Create video call. \\ \textit{Normal}} & {Navigate to the create call page. Click on the create call button.} & {Video call started successfully.} & {Since this is a video conferencing
 software it is vital that the software is able to allow users to video conference, it's intended purpose. This test will ensure
-that users will have an enjoyable user experience whilst video conferencing.}\\
+that users will have an enjoyable user experience whilst video conferencing. This test contributes to the completion of 
+success criteria 7 and 8.}\\
 
 \\
 
 7.1 & {Join video call \\ \textit{Normal}} & {Assuming a video conference exists with the passcode: \texttt{041058}. Enter the 
 passcode \texttt{041058}.} & {Video call joined successfully.} & {Users should be able to join a video call provided that one
-exists and that they have entered the correct code.}\\
+exists and that they have entered the correct code. This test contributes to success criteria 7 and 8.}\\
 
 7.2 & {Join video call \\ \textit{Erroneous}} & {Assuming a video conference exists with the passcode: \texttt{041058}. Enter the 
 passcode \texttt{123456}.} & {Video call not joined. Prompt displaying "Invalid passcode!".} & {Users shouldn't be able to join 
-a video conference if they have entered the wrong passcode.}\\
+a video conference if they have entered the wrong passcode. This test contributes to success criteria 7 and 8.}\\
 
 \end{longtblr}
 

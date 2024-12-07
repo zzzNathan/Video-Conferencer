@@ -6,9 +6,10 @@ $Col_Button_Top:  #C49DF2 // Purple
 $Col_Button_Bot:  #F9AAD0 // Bright pink
 
 .Button
-  border-radius:    1vw 
+  border-radius:    0.9vw 
   color:            white
   background-color: $Col_Button_BG
+  background-image: linear-gradient(to bottom right, $Col_Button_BG, #413654)
   border:           none
   cursor:           pointer
   position:         relative
@@ -19,16 +20,15 @@ $Col_Button_Bot:  #F9AAD0 // Bright pink
   justify-content:  center
   align-items:      center
   transition:       ease-in-out .1s
-  
 
 // Creates border and hover effect
 .Button::after
   content:          ''
   position:         absolute
-  height:           111%
-  width:            104%
+  height:           107%
+  width:            103%
   border-radius:    1vw
-  background-image: linear-gradient(to bottom, $Col_Button_Top, $Col_Button_Bot)
+  background-image: linear-gradient(to right, $Col_Button_Top, $Col_Button_Bot)
   box-shadow:       0 0 1vw 0.01vw $Col_Button_Bot
   z-index:          -1
 
