@@ -1,5 +1,6 @@
 import { ReactTyped } from "react-typed"
-import { ClerkProvider, SignedOut, SignUp } from "@clerk/clerk-react"
+import { ClerkProvider, SignedOut, SignUp,
+         SignedIn } from "@clerk/clerk-react"
 import { dark } from "@clerk/themes"
 import Navbar from "./Navbar" 
 import "../styles/Registration.sass"
@@ -29,7 +30,15 @@ function Registration () {
     
     <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
       <SignedOut>
-        <center> <SignUp appearance={dark}/> </center>
+        <center> 
+
+	  <SignUp 
+	    signInUrl="/login"
+	    forceRedirectUrl="/home"
+	    appearance={dark}
+	  />
+
+	</center>
       </SignedOut>
     </ClerkProvider>
   </>

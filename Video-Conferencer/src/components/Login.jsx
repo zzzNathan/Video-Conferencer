@@ -30,7 +30,15 @@ function Login () {
     
     <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
       <SignedOut>
-        <center> <SignIn appearance={dark}/> </center>
+        <center>
+
+	  <SignIn 
+	    signUpUrl="/registration"
+	    forceRedirectUrl="/home"
+	    appearance={dark}
+	  />
+
+	</center>
       </SignedOut>
     </ClerkProvider> 
   </>

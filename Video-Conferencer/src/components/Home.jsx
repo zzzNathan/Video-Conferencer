@@ -1,25 +1,37 @@
-import Button from "./Button"
-import Navbar from "./Navbar"
-import Quotes from "../assets/Quote_Cards.svg"
 import "../styles/Home.sass"
+import Clock from "./Clock.jsx"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons"
 
-function Home() {
+
+function Top_Bar () {
   return (
-    <> <Navbar /> 
-    
-      <div className="Main_Graphic">
-        <h1 className="Main_Headline"> Video conferencing... </h1>
+    <>
+      <ul className="Top_Nav">
+        <li> <b> V </b> </li>
+	<li> Home       </li>
+	<li> <FontAwesomeIcon icon={faQuestionCircle} /> </li>
+      </ul>
+    </>
+  )
+}
 
-        <h2 className="Sub_Headline"> like you've <i>
-        <span className="Pink_Text"> never </span> </i> seen it before </h2>
+function Side_Bar () {
+  return (
+    <>
+      <ul className="Side_Nav">
+	<li> </li>
+      </ul>
+    </>
+  )
+}
 
-      <div className="Buttons">
-        <a href="/login"><button className="Login_Button"> Login </button></a>
-        <a href="/registration"><Button /></a>
-      </div>
-
-      <img className="Quote_Card" src={Quotes} /> 
-    </div> </>
+function Home () {
+  return (
+    <> <Top_Bar />
+	
+    <Clock /> 
+    </> 
   )
 }
 

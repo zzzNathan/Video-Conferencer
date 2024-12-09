@@ -1,8 +1,9 @@
 import { createRoot } from "react-dom/client"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import Home from "./components/Home.jsx"
+import Landing from "./components/Landing.jsx"
 import Registration from "./components/Registration.jsx"
 import Login from "./components/Login.jsx"
+import Home from "./components/Home.jsx"
 
 // Path is an extension that goes after our URL,
 // once this extension is written the corresponding
@@ -10,7 +11,7 @@ import Login from "./components/Login.jsx"
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />
+    element: <Landing />
   },
   {
     path: "/registration",
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />
+  },
+  {
+    path: "/home",
+    element: <Home />
   }
 ])
 
