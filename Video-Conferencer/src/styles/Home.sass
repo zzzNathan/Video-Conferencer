@@ -25,14 +25,47 @@ body
   padding-top:      0.5vw
   padding-bottom:   0.5vw
   margin:           0
-  padding-left:     1vw
+  padding-left:     1.25vw
   background-color: $Col_Black 
+  border-bottom:    0.175vw solid rgba(0,0,0,0.75)
 
-li 
+.Side_Nav
+  margin:           0
+  padding:          0.5vw 1vw 100vh 1vw
+  float:            left 
+  background-color: $Col_Black
+  list-style:       none
+  font-size:        2vw
+
+.Top_Nav > li 
   margin-right: 3vw
   display:      inline
   font-size:    2vw
 
-li:last-child
+.Top_Nav > li:last-child
   float:        right 
   margin-right: 2vw
+
+.Options
+  font-size:   4vw
+  display:     flex
+  list-style:  none
+  font-weight: 700
+
+.Options > li
+  margin-right:     10vw
+  background-color: $Col_Black
+  height:           60vh
+  padding:          1vw
+  width:            25vw
+  border-radius:    1vw
+  border:           0.1vw solid $Col_Gray
+
+.Desc
+  font-size:   1.5vw
+  font-weight: 400
+
+br
+  display:    block
+  content:    ""
+  margin-top: 2vw

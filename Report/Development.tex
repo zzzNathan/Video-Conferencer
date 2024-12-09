@@ -1033,10 +1033,10 @@ You can try these features out yourself at \url{https://video-conferencer.vercel
 (May not work if development is ongoing).\\ \vspace{0.2cm}
 
 {\sffamily Development sub-task \circled{2} \faCheck \\ \vspace{0.2cm}
-Development sub-task \circled{A} \faCheck }
+Development sub-task \circled{A} \faCheck } \\ \vspace{0.2cm}
 
-The current file structure of our project is as follows: (
-Ignoring configuration files)
+The current file structure of our project is as follows: 
+(Ignoring configuration files)
 \\ \vspace{0.2cm}
 
 \begin{forest}
@@ -1075,3 +1075,88 @@ Alternatively click the following link to view the state of
 the project at this point in development: \\
 \href{https://github.com/zzzNathan/Video-Conferencer/tree/243560c390c019ab39903850ef3dba99ed98df18}{
 \texttt{VideoConferencer-Iteration2}}.
+
+\newpage
+
+\subsection{Iteration 3}
+
+\textit{Description:} I design and implement the page that 
+users will see after logging in to their account. \\
+\vspace{0.2cm}
+
+\textit{Explanation and justification:} In order to start, 
+join video conferences and change video configuration
+settings, the user must have some way to be able to access 
+these features. The UI should allow our users to easily 
+navigate the site, providing a good user experience whilst 
+still looking professional. I began by making a quick sketch
+of the design I had in mind.
+
+\begin{figure}[h]
+\centering
+
+\includegraphics[scale=0.2]{Images/Home_sketch.png}
+
+\caption{Sketching out the design.}
+
+\end{figure}
+
+From here it was pretty simple to write out the code to make
+this UI. \\ \vspace{0.1cm}
+
+\textit{Confusingly from here on we call this page
+our home page and the page previous home page our landing
+page in our code base. In this document we will use the 
+following names. We will call the page that the user first 
+sees our 'home' page, we will call the page that the user
+first sees after logging in ouro 'main' page} \\
+\vspace{0.2cm}
+
+\underline{Home.jsx}
+
+\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+import "../styles/Home.sass"
+import Clock from "./Clock.jsx"
+...
+
+function Options () {
+  const Create_Desc = <div className="Desc"> 
+    Create a new video call, then invite others
+    to join by giving them the call code given 
+    to you once you start the call.
+  </div>
+
+  const Join_Desc = <div className="Desc"> 
+    Enter the code given to you to join the 
+    video call.
+  </div>
+
+  return (
+    <ul className="Options">
+      <li> Create call <br/> {Create_Desc} </li>
+      <li> Join call   <br/> {Join_Desc}   </li>
+    </ul>
+  )
+}
+
+function Home () {
+  return (
+    <> <Top_Bar />
+    <Side_Bar />
+    <Options />
+
+    <Clock /> 
+    </> 
+  )
+}
+
+export default Home
+\end{minted}
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[scale=0.2]{Images/Sketch_final.png}
+
+\caption{Implementing the code for the sketch.}
+\end{figure}
