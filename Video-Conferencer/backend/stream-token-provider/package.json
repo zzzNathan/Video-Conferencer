@@ -1,0 +1,16 @@
+{
+  "name": "stream-token-provider",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "start": "wrangler dev"
+  },
+  "devDependencies": {
+    "wrangler": "^3.60.3"
+  },
+  "dependencies": {
+    "@stream-io/node-sdk": "^0.4.5"
+  }
+}

@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faQuestionCircle, faCog, 
 	 faCamera, faMicrophone, faMale } from "@fortawesome/free-solid-svg-icons"
 
-
 function Top_Bar () {
   return (
     <>

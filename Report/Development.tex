@@ -1080,6 +1080,11 @@ the project at this point in development: \\
 
 \subsection{Iteration 3}
 
+During this iteration I wanted to further develop the backend 
+infastructure of our application, and start to sketch out the 
+actual implementation for including video conferencing in our 
+application. \\ \vspace{0.2cm}
+
 \textit{Description:} I design and implement the page that 
 users will see after logging in to their account. \\
 \vspace{0.2cm}
@@ -1160,3 +1165,81 @@ export default Home
 
 \caption{Implementing the code for the sketch.}
 \end{figure}
+
+\textit{Description:} I chose to use the GetStream React
+library to implement video conferencing in my application. \\ 
+\vspace{0.2cm}
+
+\textit{Explanation:} As detailed in my research, I first 
+intended to use the WebRTC framework provided by Google to 
+write the video conferencing logic. However after some research 
+into what it would take for me to implement such a system I 
+realised that actually implementing the logic would take me 
+an unreasonable amount of time. Taking into consideration the
+fact that I would have to understand and correctly implement 
+the sending of SDP protocol offers, connecting each user to a
+STUN server, whilst ensuring that each user has access to 
+the other user's ICE candidates, the task felt as though it
+would take me a number of weeks to implement such a system 
+to allow 2 users to video conference properly, let alone have 
+$n$ users video conference simaltaenously. So instead I chose 
+to use a popular industry standard video conferncing library 
+called GetStream. \\ \vspace{0.2cm}
+
+The first step to have users be able to 
+video conference was to have our users be authenticated as 
+users on the GetStream API. According to the documentation
+in order to do this each user must be given a unique JWT 
+(JSON web token) token via GetStream's
+\code{client.generateUserToken()} function. In the documentation
+it explicitly says \textit{"Tokens need to be generated server-side,
+... You need to implement the token provider in your own application, 
+this is usually an HTTP endpoint."} \footnote{Source: 
+\url{https://getstream.io/video/docs/api/authentication/}} 
+In order to run the backend code I would need a server or some 
+other place to be able to host my code. After reading through 
+some forums online I came across Cloudflare's Worker service.
+This service allows users to be able to run server side code 
+remotely through one of Cloudflare's many servers across the globe,
+with pretty generous free tier limits. I quickly set up an account
+with Cloudflare and began to implement my HTTP API. \\ \vspace{0.2cm}
+
+\underline{/backend/stream-token-provider/src/index.js} \\
+
+\begin{minted}[linenos, bgcolor=lightestgray]{js}
+...
+
+// An HTTP endpoint that allows POST requests
+// with a user id given in the request. Will return
+// a unique user token that can be used to begin
+// video conferencing
+async function Provide_Token(request, env)
+{
+  const { method } = request;
+
+  // Ensure that the request is a POST
+  if (method !== 'POST')
+    return new Response('Method not allowed', { status: 405 });
+
+  try {
+    const { User_Id } = await request.json();
+
+    // Ensure that a valid user id is actually provided
+    if (!User_Id || User_Id.length != USER_ID_LENGTH)
+      return new Response('Bad Request: Proper userId is required', { status: 400 });
+
+    const apiKey = env.STREAM_API_KEY;
+    const secret = env.STREAM_API_SECRET;
+
+    const token = await Generate_Token(User_Id, apiKey, secret);
+
+    return new Response(JSON.stringify({ token }), {
+      headers: { "Content-Type": "application/json" },
+    });
+
+  } catch (error) {
+      return new Response(`Error: ${error.message}`, { status: 500 });
+  }
+}
+...
+\end{minted}

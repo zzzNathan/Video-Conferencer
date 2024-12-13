@@ -26,7 +26,7 @@ function Login () {
   return (
   <> <Navbar />
     <Headline /> 
-    <br/> <br/> 
+    <br/> 
     
     <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
       <SignedOut>
@@ -35,7 +35,10 @@ function Login () {
 	  <SignIn 
 	    signUpUrl="/registration"
 	    forceRedirectUrl="/home"
-	    appearance={dark}
+	    appearance={{
+	      baseTheme: dark,
+              variables: {spacingUnit: "2vh"}
+	    }}
 	  />
 
 	</center>

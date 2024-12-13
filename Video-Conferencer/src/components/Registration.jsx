@@ -35,7 +35,10 @@ function Registration () {
 	  <SignUp 
 	    signInUrl="/login"
 	    forceRedirectUrl="/home"
-	    appearance={dark}
+	    appearance={{
+	      baseTheme: dark,
+	      variables: {spacingUnit: "2vh"}
+	    }}
 	  />
 
 	</center>
