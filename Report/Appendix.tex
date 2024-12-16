@@ -1,0 +1,269 @@
+\appendix
+
+\chapter{Code listings}
+
+\section{Front end}
+
+\underline{/src/main.jsx}
+
+\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+import { createRoot } from "react-dom/client"
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import Landing from "./components/Landing.jsx"
+import Registration from "./components/Registration.jsx"
+import Login from "./components/Login.jsx"
+import Home from "./components/Home.jsx"
+
+// Path is an extension that goes after our URL,
+// once this extension is written the corresponding
+// React element will be loaded and rendered.
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Landing />
+  },
+  {
+    path: "/registration",
+    element: <Registration />
+  },
+  {
+    path: "/login",
+    element: <Login />
+  },
+  {
+    path: "/home",
+    element: <Home />
+  }
+])
+
+createRoot(document.getElementById('root')).render(
+  <RouterProvider router={router} />
+)
+\end{minted}
+
+\underline{/src/Button.jsx}
+
+\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+import "../styles/Button.sass"
+
+// Simple sign up button component
+function Button()
+{
+  return (
+    <button class="Button"> Sign Up </button>
+  )
+}
+
+export default Button 
+\end{minted}
+
+\underline{/src/Clock.jsx}
+
+\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+import "../styles/Clock.sass"
+import { useEffect, useState } from "react"
+
+// Gets current date and time and continously updates it every second
+function Clock ()
+{
+  const [currentDateTime, setCurrentDateTime] = useState("")
+
+  const updateDateTime = () => {
+    const now = new Date()
+
+    // Get components of the date
+    const day    = String(now.getDate()).padStart(2, "0")
+    const month  = String(now.getMonth() + 1).padStart(2, "0")
+    const year   = now.getFullYear()
+    const hour   = String(now.getHours()).padStart(2, '0')
+    const minute = String(now.getMinutes()).padStart(2, '0')
+    const second = String(now.getSeconds()).padStart(2, '0')
+    
+    // Get the day name
+    const options = { weekday: "long" }
+    const dayName = now.toLocaleDateString("en-US", options).substring(0,3)
+
+    // Format the date string
+    setCurrentDateTime(`${day}-${month}-${year} ${dayName}\n
+	                ${hour}:${minute}:${second}`)
+  };
+
+  useEffect(() => {
+    updateDateTime()
+
+    // Update every second
+    const intervalId = setInterval(updateDateTime, 1000) 
+    
+    // Cleanup interval on unmount
+    return () => clearInterval(intervalId)
+  }, []);
+
+  // Toggle the opacity of the clock when the user clicks on it
+  const [opacity, setOpacity] = useState(1)
+  const Toggle_Opacity = () => {
+    setOpacity(prevOpacity => (prevOpacity === 0.1 ? 1 : 0.1))
+  }
+  
+  // Render the clock
+  return (
+    <div
+      className="Clock"
+      onClick={Toggle_Opacity}
+      style={{opacity: opacity}}>
+
+      {currentDateTime}
+
+    </div>
+  )
+}
+
+export default Clock
+\end{minted}
+
+\underline{/src/Landing.jsx}
+
+\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+import { ClerkProvider } from "@clerk/clerk-react"
+import Button from "./Button"
+import Navbar from "./Navbar"
+import Quotes from "../assets/Quote_Cards.svg"
+import "../styles/Landing.sass"
+
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+
+// Code to render the landing page of our site
+function Landing () {
+  return (
+    <> 
+    <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+      <Navbar />
+    
+      <div className="Main_Graphic">
+        <h1 className="Main_Headline"> Video conferencing... </h1>
+
+        <h2 className="Sub_Headline"> like you've <i>
+        <span className="Pink_Text"> never </span> </i> seen it before </h2>
+      </div>
+
+      <div className="Buttons">
+        <a href="/login"><button className="Login_Button"> Login </button></a>
+        <a href="/registration"><Button /></a>
+      </div>
+
+      <img className="Quote_Card" src={Quotes} /> 
+    </ClerkProvider>
+    </>
+  )
+}
+
+export default Landing
+\end{minted}
+
+\underline{/src/Navbar.jsx}
+
+\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+import { useUser } from '@clerk/clerk-react'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faCog } from "@fortawesome/free-solid-svg-icons"
+import "../styles/Navbar.sass"
+
+// Makes the navigation bar design a component must be inside
+// a clerk provider
+function Navbar()
+{
+  // If user isn't signed in then they can be redirected
+  // to the registration page
+  const { isSignedIn } = useUser()
+  var link = "/registration"
+  var text = "Get started"
+
+  // If user is signed in then they can go straight
+  // to the home page
+  if (isSignedIn)
+  {
+    link = "/home"
+    text = "Home"
+  }
+  
+  return (
+    <nav class="Navbar">
+      <ul class="Navbar_List">
+        <li class="Navbar_Item"> <b>  Video-Conferencer </b> </li>
+	<li class="Navbar_Item_Left"> <a href={link}> <span class="Gradient"> {text}
+	  </span> </a> </li>
+        <li class="Navbar_Item">      Documentation          </li>
+        <li class="Navbar_Item">      Help                   </li>
+        <li class="Navbar_Item"> <FontAwesomeIcon icon={faCog} /> </li>
+      </ul>
+    </nav> 
+  )
+}
+
+export default Navbar
+\end{minted}
+
+\section{Backend}
+
+\underline{/backend/stream-token-provider/index.js}
+
+\begin{minted}[linenos, bgcolor=lightestgray]{js}
+import { StreamClient } from "@stream-io/node-sdk";
+
+const USER_ID_LENGTH = 32
+
+// Code to generate unique user GetStream token
+async function Generate_Token(User_Id, Api_Key, Secret)
+{
+  const client = new StreamClient(Api_Key, Secret);
+
+  // Create user
+  const newUser = { id: User_Id };
+  await client.upsertUsers([newUser]);
+
+  // Generate token
+  const token = client.generateUserToken({ user_id: User_Id });
+
+  return token;
+}
+
+// An HTTP endpoint that allows POST requests
+// with a user id given in the request. Will return
+// a unique user token that can be used to begin
+// video conferencing
+async function Provide_Token(request, env)
+{
+  const { method } = request;
+
+  // Ensure that the request is a POST
+  if (method !== 'POST')
+    return new Response('Method not allowed', { status: 405 });
+
+  try {
+    const { User_Id } = await request.json();
+
+    // Ensure that a valid user id is actually provided
+    if (!User_Id || User_Id.length != USER_ID_LENGTH)
+      return new Response('Bad Request: Proper userId is required', { status: 400 });
+
+    const apiKey = env.STREAM_API_KEY;
+    const secret = env.STREAM_API_SECRET;
+
+    const token = await Generate_Token(User_Id, apiKey, secret);
+
+    return new Response(JSON.stringify({ token }), {
+      headers: { "Content-Type": "application/json" },
+    });
+
+  } catch (error) {
+      return new Response(`Error: ${error.message}`, { status: 500 });
+  }
+}
+
+export default
+{
+  async fetch(request, env)
+  {
+    return Provide_Token(request, env);
+  }
+};
+\end{minted}

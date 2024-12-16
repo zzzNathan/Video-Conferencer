@@ -1,12 +1,10 @@
 import { ReactTyped } from "react-typed"
-import { ClerkProvider, SignedOut, SignUp,
-         SignedIn } from "@clerk/clerk-react"
+import { SignedOut, SignUp, SignedIn } from "@clerk/clerk-react"
 import { dark } from "@clerk/themes"
 import Navbar from "./Navbar" 
 import "../styles/Registration.sass"
 
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
-
+// Makes the headline typing animation a component
 function Headline () {
   return (
     <ReactTyped 
@@ -23,12 +21,13 @@ function Headline () {
   )
 }
 
+// Renders the registration page
 function Registration () {
   return (
-  <> <Navbar />
+  <> 
+    <Navbar />
     <Headline />
     
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
       <SignedOut>
         <center> 
 
@@ -40,10 +39,9 @@ function Registration () {
 	      variables: {spacingUnit: "2vh"}
 	    }}
 	  />
-
+	
 	</center>
       </SignedOut>
-    </ClerkProvider>
   </>
   )
 }

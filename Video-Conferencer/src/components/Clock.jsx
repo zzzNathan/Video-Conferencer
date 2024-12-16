@@ -1,9 +1,9 @@
 import "../styles/Clock.sass"
 import { useEffect, useState } from "react"
 
-// Gets current date and time and 
-// continously updates it every second
-function Clock () {
+// Gets current date and time and continously updates it every second
+function Clock ()
+{
   const [currentDateTime, setCurrentDateTime] = useState("")
 
   const updateDateTime = () => {
@@ -24,7 +24,7 @@ function Clock () {
     // Format the date string
     setCurrentDateTime(`${day}-${month}-${year} ${dayName}\n
 	                ${hour}:${minute}:${second}`)
-  };
+  }
 
   useEffect(() => {
     updateDateTime()
@@ -34,15 +34,15 @@ function Clock () {
     
     // Cleanup interval on unmount
     return () => clearInterval(intervalId)
-  }, []);
+  }, [])
 
-  // Code to toggle the opacity of the clock when the user 
-  // clicks on it
+  // Toggle the opacity of the clock when the user clicks on it
   const [opacity, setOpacity] = useState(1)
   const Toggle_Opacity = () => {
     setOpacity(prevOpacity => (prevOpacity === 0.1 ? 1 : 0.1))
   }
-
+  
+  // Render the clock
   return (
     <div
       className="Clock"

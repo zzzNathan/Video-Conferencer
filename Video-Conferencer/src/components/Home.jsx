@@ -3,8 +3,11 @@ import Clock from "./Clock.jsx"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faQuestionCircle, faCog, 
 	 faCamera, faMicrophone, faMale } from "@fortawesome/free-solid-svg-icons"
+import { useUser } from "@clerk/clerk-react"
 
-function Top_Bar () {
+// Makes the top navigation bar component
+function Top_Bar () 
+{
   return (
     <>
       <ul className="Top_Nav">
@@ -16,7 +19,9 @@ function Top_Bar () {
   )
 }
 
-function Side_Bar () {
+// Makes the side navigation bar component
+function Side_Bar () 
+{
   return (
     <>
       <ul className="Side_Nav">
@@ -29,7 +34,9 @@ function Side_Bar () {
   )
 }
 
-function Options () {
+// Makes the create call and join call components
+function Options ()
+{
   const Create_Desc = <div className="Desc"> 
     Create a new video call, then invite others
     to join by giving them the call code given 
@@ -49,7 +56,10 @@ function Options () {
   )
 }
 
+// Renders the home page
 function Home () {
+  const {isLoaded} = useUser()
+  console.log(isLoaded)
   return (
     <> <Top_Bar />
     <Side_Bar />

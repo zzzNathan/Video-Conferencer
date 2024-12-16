@@ -1,12 +1,12 @@
 import { ReactTyped } from "react-typed"
-import { ClerkProvider, SignedOut, SignIn } from "@clerk/clerk-react"
+import { SignedOut, SignIn } from "@clerk/clerk-react"
 import { dark } from "@clerk/themes"
 import Navbar from "./Navbar" 
 import "../styles/Login.sass"
 
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
-
-function Headline () {
+// Makes the typing headline animation
+function Headline () 
+{
   return (
     <ReactTyped 
       className={"Headline"}
@@ -22,28 +22,24 @@ function Headline () {
   )
 }
 
+// Renders the login page
 function Login () {
   return (
-  <> <Navbar />
-    <Headline /> 
-    <br/> 
-    
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
-      <SignedOut>
-        <center>
+  <> 
+    <Navbar />
+    <Headline /> <br/> 
+    <SignedOut> <center>
 
-	  <SignIn 
-	    signUpUrl="/registration"
-	    forceRedirectUrl="/home"
-	    appearance={{
-	      baseTheme: dark,
-              variables: {spacingUnit: "2vh"}
-	    }}
-	  />
+      <SignIn 
+	signUpUrl="/registration"
+	forceRedirectUrl="/home"
+	appearance={{
+	  baseTheme: dark,
+          variables: {spacingUnit: "2vh"}
+	}}
+      />
 
-	</center>
-      </SignedOut>
-    </ClerkProvider> 
+    </center> </SignedOut>
   </>
   )
 }

@@ -1016,15 +1016,57 @@ function Registration () {
 export default Registration
 \end{minted}
 
+Here is what the code renders to:
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[scale=0.2]{Images/Registration.png}
+
+\caption{Rendering the registration page.}
+\end{figure}
+
 {\color{gray} \hrulefill}
 \vspace{0.2cm}
 
-{\sffamily Tests}
+{\sffamily Tests:}
+\begin{itemize}
+  \item Site home page loads correctly \faCheck \\
+  \item Correctly redirected to registration page \faCheck \\
+  \item Users can create a new account \faClose \\
+\end{itemize}
+
+{\sffamily Evidence: \url{https://youtu.be/tHUQeArAv-g}}
+
+{\color{gray} \hrulefill}
+\vspace{0.2cm}
+
+The reason why the registration page wasn't rendering was because
+I made use of Clerk's \code{useUser()} function in my 
+\code{<Navbar />} component outside of a ClerkProvider component.
+As per the documentation \textit{"The} 
+\code{<ClerkProvider>} \textit{component is required to integrate
+Clerk into your React application, providing session and user
+context to Clerk's hooks and components."} 
+\footnote{Source: https://clerk.com/docs/components/clerk-provider}
+This makes sense since
+the Clerk SDK would need to have context about the current user
+logged in order to get the information returned in the
+\code{useUser()} hook, like the \code{user.id} and the 
+\code{user.username}. \\ \vspace{0.2cm}
+
+This issue was fixed by simply wrapping my HTML code in the 
+\code{<ClerkProvider>} component whenever a page made usage of the
+\code{<Navbar />}. All the tests now successfully pass. \\ \vspace{0.2cm}
+
+{\sffamily Tests:}
 \begin{itemize}
   \item Site home page loads correctly \faCheck \\
   \item Correctly redirected to registration page \faCheck \\
   \item Users can create a new account \faCheck \\
 \end{itemize}
+
+{\sffamily Evidence: \url{https://youtu.be/vpuVXP1-RTw}}
 
 {\color{gray} \hrulefill}
 \vspace{0.2cm}
@@ -1083,7 +1125,79 @@ the project at this point in development: \\
 During this iteration I wanted to further develop the backend 
 infastructure of our application, and start to sketch out the 
 actual implementation for including video conferencing in our 
-application. \\ \vspace{0.2cm}
+application. I also improve the code and touch up some of the 
+designs, and use Clerk to rewrite the login page. \\ \vspace{0.2cm}
+
+\textit{Description:} I rewrite the login page using clerk,
+and make minor improvements to our landing page. \\ 
+\vspace{0.2cm}
+
+\textit{Explanation and justification:} Our users can now 
+register an account with Clerk, so they will also have to 
+login using the Clerk SDK aswell. During this time I also 
+improved the landing page design. These improvements 
+contribute to the professional look and feel of our website
+and enhance the user experience. \\ \vspace{0.2cm}
+
+\underline{Login.jsx}	
+
+\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+...
+// Makes the typing headline animation
+function Headline () 
+{
+  return (
+    <ReactTyped 
+      className={"Headline"}
+      strings={[
+        "Welcome back :)",
+	"Log back in here,",
+      ]}
+      typeSpeed={120}
+      startDelay={30}
+      loop
+    >
+    </ReactTyped>
+  )
+}
+
+// Renders the login page
+function Login () {
+  return (
+  <> 
+    <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+      <Navbar />
+      <Headline /> <br/> 
+      <SignedOut> <center>
+
+        <SignIn 
+	  signUpUrl="/registration"
+	  forceRedirectUrl="/home"
+	  appearance={{
+	    baseTheme: dark,
+            variables: {spacingUnit: "2vh"}
+	  }}
+	/>
+
+      </center> </SignedOut>
+    </ClerkProvider> 
+  </>
+  )
+}
+
+export default Login
+\end{minted}
+
+Here's what the code renders to: \\
+
+\begin{figure}[H]
+
+\centering
+\includegraphics[scale=0.2]{Images/Login.png}
+
+\caption{Rendering the login page.}
+
+\end{figure}
 
 \textit{Description:} I design and implement the page that 
 users will see after logging in to their account. \\
@@ -1095,7 +1209,7 @@ settings, the user must have some way to be able to access
 these features. The UI should allow our users to easily 
 navigate the site, providing a good user experience whilst 
 still looking professional. I began by making a quick sketch
-of the design I had in mind.
+of the design I had in mind. \\
 
 \begin{figure}[h]
 \centering
@@ -1103,7 +1217,6 @@ of the design I had in mind.
 \includegraphics[scale=0.2]{Images/Home_sketch.png}
 
 \caption{Sketching out the design.}
-
 \end{figure}
 
 From here it was pretty simple to write out the code to make

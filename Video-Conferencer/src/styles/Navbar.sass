@@ -1,4 +1,7 @@
 // Code to format navigation bars nicely
+$Col_Tertiary:         #FFC6E5 // Pink
+$Col_Secondary:        #B98DEE // Purple
+
 .Navbar_List
   display:         flex
   list-style-type: none
@@ -17,3 +20,10 @@
 .Navbar_Item_Right
   @extend .Navbar_Item
   margin-right: auto
+
+.Gradient
+  padding:    0.5vw
+  background: linear-gradient(to right, #f8c1a0, $Col_Tertiary)
+  -webkit-background-clip: text
+  background-clip:         text
+  color:                   transparent

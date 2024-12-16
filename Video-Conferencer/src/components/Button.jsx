@@ -1,9 +1,10 @@
 import "../styles/Button.sass"
 
+// Simple sign up button component
 function Button()
 {
   return (
-    <button class="Button"> Sign Up </button>
+    <button className="Button"> Sign Up </button>
   )
 }
 
