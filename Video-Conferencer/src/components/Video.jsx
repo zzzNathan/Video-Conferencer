@@ -1,63 +1,96 @@
+/*import axios from "axios"
 import { useUser } from "@clerk/clerk-react"
-import { StreamVideoClient } from "@stream-io/video-react-sdk"
-import React, { useState, useEffect } from "react"
-import axios from "axios"
+import { useEffect, useState } from "react"
+import {
+  Call,
+  CallControls,
+  StreamCall,
+  StreamTheme,
+  StreamVideo,
+  SpeakerLayout,
+  StreamVideoClient
+} from "@stream-io/video-react-sdk"
+import "@stream-io/video-react-sdk/dist/css/styles.css"
 
 const Api_Url = "https://stream-token-provider.jotkasongo.workers.dev/"
-const apiKey = import.meta.env.STREAM_API_KEY
+const apiKey  = import.meta.env.VITE_STREAM_API_KEY
 
-function Video() 
+function Video()
 {
-  const { user, isLoaded } = useUser()
-
+  const { user, isLoaded }    = useUser()
   const [loading, setLoading] = useState(true)
-  const [error, setError]     = useState(null)
   const [token, setToken]     = useState("")
+  const [client, setClient]   = useState()
+  const [call, setCall]       = useState()
 
-  // Wait until Clerk is fully loaded
+  // Generate the GetStream token using the user's ID from Clerk
+  // once Clerk has loaded
   useEffect(() => {
-    const checkLoading = async () => 
-    {
-      while (!isLoaded) 
-        await new Promise(resolve => setTimeout(resolve, 100))
 
+    // if Clerk is not yet loaded don't do anything
+    if (!isLoaded || !user) return
+   
+    // Fetch the token from our API
+    const Get_Token = async (User_Id) => {
+      const uuid = {"User_Id": User_Id}
+
+      axios.post(Api_Url, uuid)
+        .then(response => {setToken(response.data.token)})
+        .catch(error   => {return Error(error.message)})
+      
       setLoading(false)
     }
-    
-    checkLoading()
-  }, [isLoaded]) // Run effect on 'isLoaded' change
 
-  // Once loaded, make API call if the user is available
+    Get_Token(user.id)
+
+  }, [isLoaded, user])
+
+  // Setup GetStream video client once the token is initialised
   useEffect(() => {
-    if (!loading && user)
-    {
-      const data = { "User_Id": user.id }
+	
+    // If token isn't yet initialised don't do anything
+    if (token === "" || !isLoaded) return
 
-      axios.post(Api_Url, data)
-        .then(response => {
-          console.log("Success:", response.data)
-          setToken(response.data.token)
-        })
-        .catch(error => {
-          console.error("Error:", error)
-          setError(error)
-        })
+    // Initialise client and connect user
+    const Stream_User = { id: user.id, name: user.firstName }
+    const Stream_Client = new StreamVideoClient({ apiKey, token, Stream_User })
+    Stream_Client.connectUser(Stream_User, token)
+
+    // Create and join call
+    const Stream_Call = Stream_Client.call("default", "0")
+    Stream_Call.join({ create: true })
+
+    setClient(Stream_Client)
+    setCall(Stream_Call)
+
+    // Disconnect user and leave call on cleanup
+    return () => {
+      client.disconnectUser()
+      call.leave()
+      setCall(undefined)
+      setClient(undefined)
     }
-  }, [loading, user]) // Run effect when loading state or user changes
 
-  if (loading) 
-    return <div>Loading...</div> // Show loading state while waiting
+  }, [token])
 
-  if (error) 
-    return <div>Error: {error.message}</div> // Show error message if there's an error
-
-  const client = new StreamVideoClient({ apiKey, token });
+  if (loading) return <div> loading... </div>
 
   return (
-    <>
-      <div>Video component is ready!</div>
-    </>
+    <StreamVideo client={client}>
+      <StreamTheme>
+        <StreamCall call={call}>
+          <SpeakerLayout />
+          <CallControls />
+        </StreamCall>
+      </StreamTheme>
+    </StreamVideo> 
   )
+}*/
+
+// Placeholder
+function Video()
+{
+  return <></>
 }
 
 export default Video

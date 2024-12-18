@@ -1,4 +1,4 @@
-import { useUser } from '@clerk/clerk-react'
+import { useUser, SignOutButton } from '@clerk/clerk-react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCog } from "@fortawesome/free-solid-svg-icons"
 import "../styles/Navbar.sass"
@@ -26,6 +26,9 @@ function Navbar()
       <ul className="Navbar_List">
         <li className="Navbar_Item"> <b>  Video-Conferencer </b> </li>
 	<li className="Navbar_Item_Left"> <a href={link}> <span className="Gradient"> {text} </span> </a> </li>
+        <li className="Navbar_Item"> <SignOutButton redirectUrl={"/"}>
+	                               <button className="Sign_Out"> Sign out </button>
+	                             </SignOutButton> </li>
         <li className="Navbar_Item">      Documentation          </li>
         <li className="Navbar_Item">      Help                   </li>
         <li className="Navbar_Item"> <FontAwesomeIcon icon={faCog} /> </li>

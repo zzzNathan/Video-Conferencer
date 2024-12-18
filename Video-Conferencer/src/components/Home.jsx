@@ -50,7 +50,7 @@ function Options ()
 
   return (
     <ul className="Options">
-      <li> Create call <br/> {Create_Desc} </li>
+      <li> <a href="/video">Create call</a> <br/> {Create_Desc} </li>
       <li> Join call   <br/> {Join_Desc}   </li>
     </ul>
   )

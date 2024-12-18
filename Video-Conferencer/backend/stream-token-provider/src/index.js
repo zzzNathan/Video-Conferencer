@@ -14,7 +14,7 @@ async function Generate_Token(User_Id, Api_Key, Secret)
   const client = new StreamClient(Api_Key, Secret)
 
   // Create user
-  const newUser = { id: User_Id }
+  const newUser = { id: User_Id, role: "user" }
   await client.upsertUsers([newUser])
 
   // Generate token
@@ -41,7 +41,7 @@ async function Provide_Token(request, env)
     const { User_Id } = await request.json()
 
     // Ensure that a valid user id is actually provided
-    if (!User_Id || User_Id.length !== USER_ID_LENGTH)
+    if (!User_Id)
       return new Response("Bad Request: Proper userId is required", { status: 400 })
 
     const apiKey = env.STREAM_API_KEY

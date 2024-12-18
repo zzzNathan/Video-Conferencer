@@ -1227,7 +1227,7 @@ our home page and the page previous home page our landing
 page in our code base. In this document we will use the 
 following names. We will call the page that the user first 
 sees our 'home' page, we will call the page that the user
-first sees after logging in ouro 'main' page} \\
+first sees after logging in our 'main' page.} \\
 \vspace{0.2cm}
 
 \underline{Home.jsx}
@@ -1356,3 +1356,49 @@ async function Provide_Token(request, env)
 }
 ...
 \end{minted}
+
+\textit{Description:} I fix a bug with button misalignment on 
+mobile. \\ \vspace{0.2cm}
+
+\textit{Explanation:} Whilst testing out how my website works
+on different devices, I found that although the page looks 
+fine on desktop, on mobile the buttons on the home page seem
+to be misaligned. \\
+
+\begin{figure}[h]
+\centering
+
+\includegraphics[scale=0.2]{Images/Button_misalignment.png}
+
+\caption{Buttons being misaligned on mobile}
+\end{figure}
+
+In order to fix this I simply changed the sass of the login
+button to use a pseudo element for it's border, so that it is
+created in the same way the sign up button is created. By
+doing it this way we can be 100\% sure that both buttons will
+now be the same exact size, and that hence we will have no
+more alignment issues. \\ \vspace{0.2cm}
+
+\underline{Landing.sass}
+
+\begin{minted}[linenos, bgcolor=lightestgray]{sass}
+...
+.Login_Button
+  border-radius:    0.9vw 
+  color:            white
+  background-color: $Col_Black
+  ... 
+
+.Login_Button::after
+  content:          ''
+  position:         absolute
+  height:           107%
+  ...
+
+.Login_Button:hover
+  scale: 104%
+...
+\end{minted}
+
+These changes fixed our issues with button misalignment.
