@@ -1,11 +1,21 @@
 import { StreamClient } from "@stream-io/node-sdk"
 
-const USER_ID_LENGTH   = 32
-const RESPONSE_HEADERS = {
+const MAX_USER_ID_LENGTH = 512
+const RESPONSE_HEADERS   = {
   "Content-Type": "application/json",
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type"
+}
+
+// Validate the user id given is correct
+function Validate_User_Id(User_Id)
+{
+  if (User_Id.length > MAX_USER_ID_LENGTH ||
+      User_Id.length == 0)
+    return false
+
+  return true
 }
 
 // Code to generate unique user GetStream token
@@ -41,7 +51,7 @@ async function Provide_Token(request, env)
     const { User_Id } = await request.json()
 
     // Ensure that a valid user id is actually provided
-    if (!User_Id)
+    if (Validate_User_Id(User_Id))
       return new Response("Bad Request: Proper userId is required", { status: 400 })
 
     const apiKey = env.STREAM_API_KEY

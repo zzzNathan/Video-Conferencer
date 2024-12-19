@@ -16,7 +16,6 @@ import Loading from "./Loading.jsx"
 const Api_Url = "https://stream-token-provider.jotkasongo.workers.dev/"
 const apiKey  = import.meta.env.VITE_STREAM_API_KEY
 
-/*
 function Video()
 {
   const { user, isLoaded }    = useUser()
@@ -54,7 +53,7 @@ function Video()
     if (token === "" || !isLoaded) return
 
     // Initialise client and connect user
-    const Stream_User = { id: user.id, name: user.firstName }
+    const Stream_User   = { id: user.id, name: user.firstName }
     const Stream_Client = new StreamVideoClient({ apiKey, token, Stream_User })
     Stream_Client.connectUser(Stream_User, token)
 
@@ -80,20 +79,22 @@ function Video()
   return (
     <StreamVideo client={client}>
       <StreamTheme>
+
         <StreamCall call={call}>
           <SpeakerLayout />
           <CallControls />
         </StreamCall>
+
       </StreamTheme>
     </StreamVideo> 
   )
-}*/
+}
 
-
+/*
 // Placeholder
 function Video()
 {
   return <></>
-}
+}*/
 
 export default Video

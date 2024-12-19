@@ -23,19 +23,42 @@ body
 .Top_Nav
   list-style:       none 
   padding-top:      0.5vw
-  padding-bottom:   0.5vw
+  padding-bottom:   1vw
   margin:           0
+  margin-bottom:    1.5vw
   padding-left:     1.25vw
-  background-color: $Col_Black 
-  border-bottom:    0.175vw solid rgba(0,0,0,0.75)
+  border-bottom:    0.175vw solid $Col_Black
+  background-color: $Col_Black
 
 .Side_Nav
-  margin:           0
-  padding:          0.5vw 1vw 100vh 1vw
-  float:            left 
-  background-color: $Col_Black
-  list-style:       none
-  font-size:        2vw
+  margin:      0
+  padding:     0.5vw 1vw 100vh 1vw
+  float:       left 
+  list-style:  none
+  font-size:   1.45vw
+  margin-left: 0.75vw
+
+.Side_Nav > li:first-child
+  padding-bottom: 1.75vw
+
+.Side_Nav > li:first-child:hover
+  filter: opacity(1)
+
+.Side_Nav > li
+  transition: ease-out .075s
+  padding-bottom: 2vw
+
+.Side_Nav > li:hover
+  filter: opacity(0.5)
+
+.Side_Nav > li * 
+  margin-right: 0.5vw
+
+.Top_Nav > li:first-child
+  background: linear-gradient(to right, $Col_Tertiary, $Col_Secondary)
+  -webkit-background-clip: text
+  background-clip: text
+  color:           transparent
 
 .Top_Nav > li 
   margin-right: 3vw
@@ -54,12 +77,16 @@ body
 
 .Options > li
   margin-right:     10vw
+  margin-left:      3vw
   background-color: $Col_Black
   height:           60vh
   padding:          1vw
   width:            25vw
   border-radius:    1vw
-  border:           0.1vw solid $Col_Gray
+
+.Options > li > a:hover
+  filter: opacity(0.65)
+  transition: ease-in-out .1s
 
 .Desc
   font-size:   1.5vw
@@ -73,3 +100,6 @@ br
 a
   text-decoration: none
   color:           inherit
+
+.space
+  display: inline

@@ -1066,7 +1066,7 @@ This issue was fixed by simply wrapping my HTML code in the
   \item Users can create a new account \faCheck \\
 \end{itemize}
 
-{\sffamily Evidence: \url{https://youtu.be/vpuVXP1-RTw}}
+{\sffamily Evidence: \url{https://youtu.be/IjwQH1Z8aPw}}
 
 {\color{gray} \hrulefill}
 \vspace{0.2cm}
@@ -1283,7 +1283,7 @@ export default Home
 library to implement video conferencing in my application. \\ 
 \vspace{0.2cm}
 
-\textit{Explanation:} As detailed in my research, I first 
+\textit{Explanation and justification:} As detailed in my research, I first 
 intended to use the WebRTC framework provided by Google to 
 write the video conferencing logic. However after some research 
 into what it would take for me to implement such a system I 
@@ -1357,6 +1357,45 @@ async function Provide_Token(request, env)
 ...
 \end{minted}
 
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}
+{\sffamily Tests:}
+
+\begin{itemize}
+  \item HTML endpoint is accessible \faCheck \\
+  \item Only POST requests are allowed \faCheck \\
+  \item A GetStream token is actually provided in the output \faCheck
+\end{itemize}
+
+{\sffamily Evidence: \url{https://youtu.be/Ia1knGrbcaE}}
+
+{\color{gray} \hrulefill}
+\\ \vspace{0.2cm}
+
+\textit{Description:} I add user id validation to our backend.
+\\ \vspace{0.2cm}
+
+\textit{Explanation and justification:} There was no information
+to be found on the way that Clerk formats it's user id's, so the 
+user id validation we can do is quite limited. We simply check 
+whether or not the string length $s$ satisfies $0 < s \leq 512$.
+\\ \vspace{0.2cm}
+
+\begin{minted}[linenos, bgcolor=lightestgray]{js}
+...
+const MAX_USER_ID_LENGTH = 512
+...
+// Validate the user id given is correct
+function Validate_User_Id(User_Id)
+{
+  if (User_Id.length > MAX_USER_ID_LENGTH ||
+      User_Id.length == 0)
+    return false
+
+  return true
+}
+...
+\end{minted}
+
 \textit{Description:} I fix a bug with button misalignment on 
 mobile. \\ \vspace{0.2cm}
 
@@ -1402,3 +1441,17 @@ more alignment issues. \\ \vspace{0.2cm}
 \end{minted}
 
 These changes fixed our issues with button misalignment.
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[scale=0.2]{Images/Buttons_aligned.png}
+
+\caption{Buttons being fixed on mobile}
+\end{figure}
+
+\textit{Description:} We create another Cloudflare worker to 
+generate unique call id's. These id's will be used to invite 
+other users to join one's video conference. \\ \vspace{0.2cm}
+
+\textit{Explanation and justification:} \\ \vspace{0.2cm}
