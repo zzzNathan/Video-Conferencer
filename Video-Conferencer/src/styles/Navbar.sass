@@ -11,7 +11,14 @@ $Col_Secondary:        #B98DEE // Purple
   margin-bottom:   0.1vw
 
 .Navbar_Item
-  padding: 1.25vw
+  padding:    1.25vw
+  transition: ease-out .075s
+
+.Navbar_Item:hover
+  filter: opacity(0.65)
+
+.Navbar_Item:first-child:hover
+  filter: opacity(1)
 
 .Navbar_Item_Left
   @extend .Navbar_Item

@@ -1,4 +1,4 @@
-/*import axios from "axios"
+import axios from "axios"
 import { useUser } from "@clerk/clerk-react"
 import { useEffect, useState } from "react"
 import {
@@ -11,10 +11,12 @@ import {
   StreamVideoClient
 } from "@stream-io/video-react-sdk"
 import "@stream-io/video-react-sdk/dist/css/styles.css"
+import Loading from "./Loading.jsx"
 
 const Api_Url = "https://stream-token-provider.jotkasongo.workers.dev/"
 const apiKey  = import.meta.env.VITE_STREAM_API_KEY
 
+/*
 function Video()
 {
   const { user, isLoaded }    = useUser()
@@ -73,7 +75,7 @@ function Video()
 
   }, [token])
 
-  if (loading) return <div> loading... </div>
+  if (loading) return <Loading />
 
   return (
     <StreamVideo client={client}>
@@ -86,6 +88,7 @@ function Video()
     </StreamVideo> 
   )
 }*/
+
 
 // Placeholder
 function Video()
