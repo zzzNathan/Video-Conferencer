@@ -2,14 +2,13 @@ import { ReactTyped } from "react-typed"
 import { SignedOut, SignIn } from "@clerk/clerk-react"
 import { dark } from "@clerk/themes"
 import Navbar from "./Navbar" 
-import "../styles/Login.sass"
 
 // Makes the typing headline animation
 function Headline () 
 {
   return (
     <ReactTyped 
-      className={"Headline"}
+      className={"relative text-[4vw] ml-[4vw] mb-[0.75vw] inline-block bg-gradient-to-r from-ter to-sec text-transparent bg-clip-text select-none"}
       strings={[
         "Welcome back :)",
 	"Log back in here,",

@@ -1,14 +1,13 @@
 import CircleLoader from "react-spinners/CircleLoader"
-import "../styles/Loading.sass"
 
 function Loading()
 {
   return (
-    <div className="page">
+    <div className="flex justify-center items-center h-screen flex-wrap gap-[0.75vh]">
 
-      <h1> Loading... </h1> 
+      <h1 className="text-sec font-bold text-[3vw]"> Loading... </h1> 
 
-      <div className="break"></div>
+      <div className="h-0 basis-[100%]"></div>
 
       <CircleLoader
         color={"#B98DEE"}

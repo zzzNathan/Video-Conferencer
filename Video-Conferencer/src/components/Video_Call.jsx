@@ -16,7 +16,7 @@ import Loading from "./Loading.jsx"
 const Api_Url = "https://stream-token-provider.jotkasongo.workers.dev/"
 const apiKey  = import.meta.env.VITE_STREAM_API_KEY
 
-function Video()
+function Video_Call()
 {
   const { user, isLoaded }    = useUser()
   const [loading, setLoading] = useState(true)
@@ -90,11 +90,4 @@ function Video()
   )
 }
 
-/*
-// Placeholder
-function Video()
-{
-  return <></>
-}*/
-
-export default Video
+export default Video_Call

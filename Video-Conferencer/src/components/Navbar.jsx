@@ -1,7 +1,5 @@
 import { useUser, SignOutButton } from '@clerk/clerk-react'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCog } from "@fortawesome/free-solid-svg-icons"
-import "../styles/Navbar.sass"
+import { Settings } from 'lucide-react'
 
 // Renders the sign out option only if the user is currently 
 // signed in
@@ -13,9 +11,9 @@ function Sign_Out_Button()
   if (!isSignedIn) return <></>
 
   return (
-    <li className="Navbar_Item"> 
+    <li className="hover:opacity-65 transition-opacity"> 
       <SignOutButton redirectUrl={"/"}>
-        <button className="Sign_Out"> Sign out </button>
+        <button className="p-[1.25vw] m-0 p-0 text-sec saturate-50 text-[1.75vw] border-none bg-transparent"> Sign out </button>
       </SignOutButton> 
     </li>
   )
@@ -40,20 +38,20 @@ function Navbar()
   }
   
   return (
-    <nav className="Navbar">
-      <ul className="Navbar_List">
+    <nav>
+      <ul className="flex list-none m-0 p-0 text-[1.75vw] mb-[0.1vw]">
 
-        <li className="Navbar_Item"> <b>  Video-Conferencer </b> </li>
+        <li className="p-[1.25vw] text-sec"> <b> Video-Conferencer </b> </li>
 
-	<li className="Navbar_Item_Left"> <a href={link}> <span className="Gradient"> {text} </span> </a> </li>
+	<li className="ml-[auto] p-[1.25vw] hover:opacity-65 transition-opacity bg-gradient-to-r from-[#f8c1a0] to-ter text-transparent bg-clip-text"> <a href={link}> {text} </a> </li>
 
 	<Sign_Out_Button /> 
 
-        <li className="Navbar_Item">      Documentation          </li>
+        <li className="p-[1.25vw] hover:opacity-65 transition-opacity text-sec saturate-50"> Docs </li>
 
-        <li className="Navbar_Item">      Help                   </li>
+        <li className="p-[1.25vw] hover:opacity-65 transition-opacity text-sec saturate-50"> Help </li>
 
-        <li className="Navbar_Item"> <FontAwesomeIcon icon={faCog} /> </li>
+        <li className="p-[1.25vw] hover:opacity-65 transition-opacity text-sec mt-[0.35vw] saturate-50"> <Settings /> </li>
 
       </ul>
     </nav> 

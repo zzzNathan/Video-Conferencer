@@ -1,11 +1,13 @@
 import { createRoot } from "react-dom/client"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import { ClerkProvider } from "@clerk/clerk-react" 
+import "./index.css"
+
 import Landing from "./components/Landing.jsx"
-import Registration from "./components/Registration.jsx"
 import Login from "./components/Login.jsx"
+import Registration from "./components/Registration.jsx"
 import Home from "./components/Home.jsx"
-import Video from "./components/Video.jsx"
+import Video_Call from "./components/Video_Call.jsx"
 
 // Path is an extension that goes after our URL,
 // once this extension is written the corresponding
@@ -16,20 +18,20 @@ const router = createBrowserRouter([
     element: <Landing />
   },
   {
-    path: "/registration",
-    element: <Registration />
-  },
-  {
     path: "/login",
     element: <Login />
+  },
+  {
+    path: "/registration",
+    element:  <Registration />
   },
   {
     path: "/home",
     element: <Home />
   },
   {
-    path: "/video",
-    element: <Video />
+    path: "/call",
+    element: <Video_Call />
   }
 ])
 

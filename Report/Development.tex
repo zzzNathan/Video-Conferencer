@@ -1451,7 +1451,73 @@ These changes fixed our issues with button misalignment.
 \end{figure}
 
 \textit{Description:} We create another Cloudflare worker to 
-generate unique call id's. These id's will be used to invite 
+generate unique call ids. These ids will be used to invite 
 other users to join one's video conference. \\ \vspace{0.2cm}
 
-\textit{Explanation and justification:} \\ \vspace{0.2cm}
+\textit{Explanation and justification:} We start by discussing
+exactly \textit{how} we are going to generate then distribute 
+these call ids. As for the format of call ids I decided to 
+use a 6 digit code, providing us with $10^6$ unique call 
+codes. Note that we can easily increase the number of unique 
+call codes by allowing ascii characters to used in the call 
+codes. As users create calls using these ids we would need to
+store information in a database to track which call ids are 
+in use and which call ids are currently available. 
+\\ \vspace{0.2cm}
+
+An obvious naive algorithm would be to iterate over all call
+ids, and individually check whether each one is currently
+available. This algorithm would have a worst case time
+complexity of $O(n)$ where $n$ is the number of unique call 
+ids we have, in this case $n = 10^6$. Since each iteration we
+are making a call to a database hosted on the cloud, this
+could potentially become a pretty time consuming. 
+\\ \vspace{0.2cm}
+
+One interesting heuristic could be used to optimise the 
+performance of our current algorithm. Instead of iterating 
+over we could use a psuedo-random number generator (PRNG) to 
+\textit{guess} which call ids are currently available. Indeed
+as the number of used call ids $k \leq n$ increases the chance
+that we successfully randomly generate an available call id
+decreases. Let $G$ be the event that we are investigating.
+The probability that we successfully guess an available call
+id each time is given by, 
+
+$$
+  Pr(G) = \frac{n-k}{n} \propto -k
+$$
+
+Once the database becomes densely populated, this heuristic 
+becomes more and more unlikely to yield performant results. 
+\\ \vspace{0.2cm}
+
+Since the heuristic has a higher chance of yielding results 
+with a sparse database and the naive algorithm runs in 
+deterministic time, we could combine these 2 algorithms to 
+extract the best of both worlds. \\ \vspace{0.2cm}
+
+\begin{algorithm}[H]
+\caption{Pseudo-code for a call id generation algorithm.}
+\sffamily
+
+\begin{algorithmic}[1]
+  \Function{Generate\_Call\_Id}{}
+    \Let{Taken}{Number of taken call ids}
+    \Let{Total}{$10^6$}
+
+    \State{}
+
+    \If {Taken $/$ Total $\leq 0.25$}
+      Generate\_PRNG()
+    \EndIf
+
+    \State{}
+
+    \State{\textbf{else} Generate\_Linear()}
+
+  \EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\mdseries
