@@ -1,3 +1,7 @@
+// Provides users with their unique GetStream user
+// tokens
+
+import StatusCodes from "http-status-codes"
 import { StreamClient } from "@stream-io/node-sdk"
 
 const MAX_USER_ID_LENGTH = 512
@@ -39,32 +43,43 @@ async function Generate_Token(User_Id, Api_Key, Secret)
 // video conferencing
 async function Provide_Token(request, env)
 {
+  const apiKey = env.STREAM_API_KEY
+  const secret = env.STREAM_API_SECRET
+
   // Ignore preflight requests
   if (request.method === "OPTIONS")
     return new Response(null, {headers: RESPONSE_HEADERS})
 
   // Ensure that the request is a POST
   if (request.method !== "POST")
-    return new Response("Method not allowed", { status: 405 })
+    return new Response("Method not allowed",
+      { status: StatusCodes.METHOD_NOT_ALLOWED }
+    )
 
-  try {
+  try
+  {
     const { User_Id } = await request.json()
 
     // Ensure that a valid user id is actually provided
-    if (Validate_User_Id(User_Id))
-      return new Response("Bad Request: Proper userId is required", { status: 400 })
+    if (!Validate_User_Id(User_Id))
+      return new Response("Bad Request: Proper userId is required",
+        { status: StatusCodes.BAD_REQUEST }
+      )
 
-    const apiKey = env.STREAM_API_KEY
-    const secret = env.STREAM_API_SECRET
-
+    // Generate and send token
     const token = await Generate_Token(User_Id, apiKey, secret)
 
     return new Response(JSON.stringify({ token }), {
       headers: RESPONSE_HEADERS,
     })
 
-  } catch (error) {
-    return new Response(`Error: ${error.message}`, { status: 500 })
+  }
+
+  catch (error)
+  {
+    return new Response(`Error: ${error.message}`,
+      { status: StatusCodes.INTERNAL_SERVER_ERROR }
+    )
   }
 }
 
