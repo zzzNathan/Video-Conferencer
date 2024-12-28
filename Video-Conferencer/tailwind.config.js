@@ -29,7 +29,8 @@ export default {
   			}
   		},
   		animation: {
-  			aurora: 'aurora 60s linear infinite'
+  			aurora: 'aurora 60s linear infinite',
+			"caret-blink": "caret-blink 1.25s ease-out infinite",
   		},
   		keyframes: {
   			aurora: {
@@ -39,7 +40,11 @@ export default {
   				to: {
   					backgroundPosition: '350% 50%, 350% 50%'
   				}
-  			}
+  			},
+		        "caret-blink": {
+          			"0%,70%,100%": { opacity: "1" },
+          			"20%,50%": { opacity: "0" },
+        		},
   		}
   	}
   },

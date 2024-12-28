@@ -1,5 +1,4 @@
-\pagestyle{fancy}
-\rhead{\bfseries OCR A-Level Computer Science}
+\pagestyle{fancy} \rhead{\bfseries OCR A-Level Computer Science}
 \chead{\mdseries \thepage}
 \lhead{\bfseries Jonathan Kasongo \mdseries — May 2025/26}
 \lfoot{\sffamily Candidate number: N/A}
@@ -1457,7 +1456,9 @@ other users to join one's video conference. \\ \vspace{0.2cm}
 \textit{Explanation and justification:} We start by discussing
 exactly \textit{how} we are going to generate then distribute 
 these call ids. As for the format of call ids I decided to 
-use a 6 digit code, providing us with $10^6$ unique call 
+use a 6 digit code \footnote{In reality we exclude the use 
+of the code \texttt{000000}. This difference is negligable
+in our calculations}, providing us with $10^6$ unique call 
 codes. Note that we can easily increase the number of unique 
 call codes by allowing ascii characters to used in the call 
 codes. As users create calls using these ids we would need to
@@ -1485,7 +1486,7 @@ The probability that we successfully guess an available call
 id each time is given by, 
 
 $$
-  Pr(G) = \frac{n-k}{n} \propto -k
+  Pr(G) = \frac{n-k}{n} = 1 - \frac{k}{n}
 $$
 
 Once the database becomes densely populated, this heuristic 
@@ -1521,3 +1522,491 @@ extract the best of both worlds. \\ \vspace{0.2cm}
 \end{algorithm}
 
 \mdseries
+
+When getting into the details of implementing this algorithm 
+in our backend, since we were already using Cloudflare workers
+I decided to make use of Cloudflare's D1 database service to 
+host our database on the cloud. I wrote a function
+to make the implementation of our algorithm go smoother. The 
+utility function I wrote was the \code{Count\_Elements()} function.
+It is a function written to count the number of call ids 
+currently in use and has an optional arguement \texttt{id}, if 
+an integer \texttt{id} is provided the function will instead
+count the number of call ids in our table with a value of 
+\texttt{id}. For example if I make the call 
+\code{Count\_Elements(23)} the function returns the number of 
+records whose \texttt{id} is 23 in our table. The implementation
+is as follows,
+
+\begin{minted}[linenos, bgcolor=lightestgray]{js}
+...
+// Function to count the number call ids in use
+// If the id arguement is passed in then function will
+// count the number of call ids equal to the arguement
+async function Count_Elements(env, id = null)
+{
+  var query = `SELECT COUNT(id) FROM ${TABLE_NAME}`
+
+  // If id arguement is passed return the number of ids
+  if (id !== null) query += ` WHERE id = ${id}`
+
+  const result = await env.DB.prepare(query).run()
+
+  // Get count from JSON format
+  const count = result.results[0]["COUNT(id)"]
+
+  return count
+}
+\end{minted}
+
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}
+
+{\sffamily Tests:}
+
+\begin{itemize}
+  \item HTTP endpoint is accessible \faCheck \\
+  \item Function successfully returns the number of call ids in use \faCheck \\
+  \item Function successfully returns the number of call ids in use where \texttt{id} is a given value \faCheck \\
+\end{itemize}
+
+{\sffamily Evidence:} \url{https://www.youtube.com/watch?v=piCR-SANG3o}\\ \vspace{0.2cm}
+
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}
+
+Next I proceeded to write the \code{Generate\_PRNG()} 
+function. In Javascript there is no built-in function to 
+generate a random integer in a given interval rather we 
+are only provided with the \code{Math.random()} function
+which generates a floating point number $n \in [0, 1)$.
+We now derive a formula for generating a random integer 
+number using the built-in random function from JS. \\ \vspace{0.2cm}
+
+Let the \code{Math.random()} function be modelled by 
+the uniformly distributed continous random variable
+$X \in [0, 1)$. Indeed by considering the expression 
+$cX, (c \in \mathbb{N})$ we can see that the
+expression will now lie in the interval $[0, c)$. Then by 
+applying the floor function
+$\left \lfloor {cX} \right \rfloor$ we can force
+$\left \lfloor {cX} \right \rfloor \in \mathbb{Z}_{\geq 0}$
+or more precisely 
+$\left \lfloor {cX} \right \rfloor \in [0, c-1]$. We have 
+made some progress however we don't want to have our lower 
+bound be 0, we want it to be 1 (see the previous footnote).\\
+\vspace{0.2cm}
+
+It is often the case in math, that the generalisation of a
+problem is easier to solve than the real problem at hand. 
+George Polya puts it nicely in his book \textit{How to solve
+it}. \textit{"The more ambitious plan may have more chances
+of success."} \\ \vspace{0.2cm}
+
+Let our desired lower bound be $l \in \mathbb{N}$, and our desired upper 
+bound be $u \in \mathbb{N}$. Since we have a way to map $[0, 1) \mapsto
+[0, t-1], (t \in \mathbb{N})$ why dont we try and \textit{shift}
+this interval to become $[l, u]$. If the interval $[0, t-1]$ is the
+same size as the interval $[l, u]$ there should exist some $\Delta \in \mathbb{Z}_{\geq 0}$ 
+such that $[0 + \Delta, (t-1) + \Delta] = [l, u]$. As the length of the
+interval $[l, u]$ is $u - l + 1$ we should set $t-1 = u - l$ 
+(since the interval $[0, t-1]$ starts from 0). Then we want to find 
+the $\Delta$ such that $[0 + \Delta, (u - l) + \Delta] = [l, u]$.
+We can now see that we need $0 + \Delta = l$ so clearly
+$\Delta = l$. \\ \vspace{0.2cm}
+
+Putting all of this together our final expression becomes 
+$\left \lfloor tX \right \rfloor +l = \left \lfloor (u - l + 1)X \right \rfloor + l$.
+This guarentees that we generate random integers
+in the interval $[l, u]$. The implementation looks like so,
+
+\begin{minted}[linenos, bgcolor=lightestgray]{js}
+...
+// Generates a call id using a PRNG
+async function Generate_PRNG(env)
+{
+  var Is_Taken = true
+
+  while (Is_Taken)
+  {
+    // Since JS returns random numbers in the interval [0, 1)
+    var rand = Math.floor(Math.random() * (MAX_ID - MIN_ID + 1)) + MIN_ID
+
+    // If id is unused stop iterating
+    if (await Count_Elements(env,rand) == 0) Is_Taken = false
+  }
+
+  return rand
+}
+\end{minted}
+
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}
+
+{\sffamily Tests:}
+
+\begin{itemize}
+  \item HTTP endpoint is accessible \faCheck \\
+  \item Function successfully returns a random call id \faCheck \\
+  \item Function doesn't return an id that is currently in use \faCheck \\
+\end{itemize}
+
+{\sffamily Evidence:} \url{https://youtu.be/RgGxgbNYjKQ}\\ \vspace{0.2cm}
+
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}
+
+The next algorithm I wrote was the \code{Generate\_Linear()}
+function. This was a rather trivial function to write, 
+
+\begin{minted}[linenos, bgcolor=lightestgray]{js}
+...
+// Generates a call id in linear time
+async function Generate_Linear(env)
+{
+  // If element is not taken then we can return it
+  for (let id = 1; id <= MAX_ID; id++)
+    if (await Count_Elements(env, id) == 0) return id
+}
+\end{minted}
+
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}
+
+{\sffamily Tests:}
+
+\begin{itemize}
+  \item HTTP endpoint is accessible \faCheck \\
+  \item Function successfully returns the next available id \faCheck \\
+  \item Function doesn't return an id that is currently in use \faCheck \\
+\end{itemize}
+
+{\sffamily Evidence:} \url{https://www.youtube.com/watch?v=7ThFXmu0_98}\\ \vspace{0.2cm}
+
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}
+
+Finally putting all of this together we implement algorithm 7.
+
+\begin{minted}[linenos, bgcolor=lightestgray]{js}
+...
+// Function to generate a unique call id
+async function Generate_Call_Id(env)
+{
+  var unique_id = 0
+
+  if (await Count_Elements(env) / TOTAL_NUM_IDS <= 0.25)
+    unique_id = await Generate_PRNG(env)
+
+  else unique_id = await Generate_Linear(env)
+
+  // Once the unique call id has been generated
+  // we must add it to the database to mark that it is in use
+  const query  = `INSERT INTO ${TABLE_NAME} VALUES (${unique_id})`
+  const result = await env.DB.prepare(query).run()
+
+  return new Response(unique_id, { status: StatusCodes.OK })
+}
+\end{minted}
+
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}
+
+{\sffamily Tests:}
+
+\begin{itemize}
+  \item HTTP endpoint is accessible \faCheck \\
+  \item Function successfully returns a call id that isn't in use \faCheck \\
+  \item Function then adds that call id to our database \faCheck \\
+\end{itemize}
+
+{\sffamily Evidence:} \url{https://youtu.be/5QPmgv1PcuA}\\ \vspace{0.2cm}
+
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}
+
+Once a video call has finished we also need a way to
+remove a call id from our database. We use the same
+Cloudflare worker to perform this task. Here is the 
+implementation,
+
+\begin{minted}[linenos, bgcolor=lightestgray]{js}
+...
+// Function to remove a unique call id from the
+// database once a call has finished
+async function Remove_Call_Id(request, env)
+{
+  const body   = await request.json()
+  const query  = `DELETE FROM ${TABLE_NAME} WHERE id = ${body.Call_Id}`
+  const result = await env.DB.prepare(query).run()
+
+  return new Response("Successfully deleted call-id!",
+    { status: StatusCodes.OK }
+  )
+}
+\end{minted}
+
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}
+
+{\sffamily Tests:}
+
+\begin{itemize}
+  \item HTTP endpoint is accessible \faCheck \\
+  \item Function successfully deletes the call id that the user requested \faCheck \\
+  \item Database is properly updated \faCheck \\
+\end{itemize}
+
+{\sffamily Evidence:} \url{https://youtu.be/ECJ2p3RNUU8}\\ \vspace{0.2cm}
+
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}
+
+After doing some research I came to realise that 
+my code in this state is vulnerable to SQL injection.
+Consider what happens if a use makes a POST request to 
+my API with the JSON data
+\texttt{{"Call\_Id":"1; DROP TABLE ongoing\_calls"}} the 
+SQL code will first search for and delete the ids with a 
+value of 1 from our table then because of the semi-colon
+it will run the malicious code 
+\texttt{DROP TABLE ongoing\_calls} deleting our systems
+entire database. \\ \vspace{0.2cm}
+
+The way we fix this is by using parameterised queries.
+By using parameterised queries the SQL logic is separated 
+from the data that we pass in. The SQL engine knows that the
+parameterised queries should be treated as pure data
+and does not treat them as part of the SQL statement itself,
+hence preventing the chance of SQL injection. \\ \vspace{0.2cm}
+
+For instance these 2 lines in our code changed from this
+
+\begin{minted}[linenos, bgcolor=lightestgray]{js}
+const query  = `DELETE FROM ${TABLE_NAME} WHERE id = ${body.Call_Id}`
+const result = await env.DB.prepare(query).run()
+\end{minted}
+
+to this,
+
+\begin{minted}[linenos, bgcolor=lightestgray]{js}
+const query  = `DELETE FROM ${TABLE_NAME} WHERE id = ?`
+const result = await env.DB.prepare(query).bind(body.Call_Id).run()
+\end{minted}
+
+Similar changes were made wherever I access a database in my 
+backend. \\ \vspace{0.2cm}
+
+Now that we have established the necessary backend 
+infastructure to be able to generate and store call 
+ids we can discuss the topic of how our users 
+will be able to create and join video conferences. 
+When creating a call users will be able to simply
+click a button after which they will be presented 
+with their own 6 digit call id. Once they have copied 
+down that 6 digit code they may give the code to all
+the other people whom they wish to invite. For users 
+to join a call they will again press a button and then 
+proceed to enter in their 6 digit code. We will have
+to check whether or not such a call with this id
+exists currently in our database and if so we will 
+direct to our video call page. The code that they enter
+will be passed into our call page using a URL search
+parameter. Our URL will look like so 
+\texttt{https://video-conferencer.<...>/?code=123456},
+we will then be able to access the given code or generate a 
+new one based on whether or not the \texttt{?code=...} url 
+search parameter is passed in. Here is a snippet demonstrating
+how this is done,
+
+\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+// If we are joining call the code is passed via the url search params
+const Search_Params = new URLSearchParams(window.location.search)
+const code          = Search_Params.get("code")
+...
+
+// Create and join call
+var id = ""
+if (code === null) id = await Get_Call_Id()
+else               id = code
+...
+\end{minted}
+
+During this time also I re-wrote the UI this time using 
+Tailwind CSS instead of sass for styling. I did this because
+it then allowed me to be able to use component libraries like
+Shadcn/ui. I also touched up the design on certain pages. 
+Most of these changes are visual and the code is rather lengthy 
+so I won't include code snippets here 
+(bear in mind that the full code is available 
+on github and in the appendix). Instead I will simply provide 
+evidence of the UI re-write and the implementation of the join
+and create call logic via a video.\\ 
+\vspace{0.2cm}
+
+{\sffamily Evidence:} \url{https://youtu.be/z-hL6bDkQbI}
+\\
+
+In order to generate a call code upon creation of a new 
+video call, we simply perform a GET request to our HTTP API
+endpoint in order to run the \code{Generate\_Call\_Id()}
+function on the server and then send the result to us. We make
+use of the Javascript library Axios in order to simplify 
+the syntax of making a HTTP request.
+
+\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+...
+function Get_Call_Id()
+{
+  axios.get(Get_Call_ID_API)
+    .then(response  => {return response})
+    .catch(response => {console.log(response)})
+}
+\end{minted}
+
+We also implement functions \code{Get\_Stream\_Token()} and
+\code{End\_Call()} similarly. The \code{Get\_Stream\_Token()}
+function retrieves the user's unique GetStream token, the
+\code{End\_Call()} function makes POST request to our 
+\texttt{call-id-generator} worker, in order for the id to be
+removed from the ongoin-calls database. \\ \vspace{0.2cm}
+
+I then had to call these functions on our React front-end.
+Unfortunately React doesn't provide any built-in features to 
+help developers make asynchronous queries. I first started 
+by using the standard approach of calling our functions
+inside of a React \code{useEffect()}, since asynchronous code
+cannot be run in a React component otherwise. I wrote the 
+following code to do so.
+
+\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+const [token, setToken]     = useState()
+const [loading, setLoading] = useState(true)
+const [client, setClient]   = useState()
+const [call, setCall]       = useState()
+
+// Get user details from Clerk, 
+// these take a second to load in 
+const { user, isLoaded } = useUser()
+...
+
+// Generate the GetStream token using the user's ID from Clerk
+// once Clerk has loaded
+useEffect(() => {
+
+  // if Clerk is not yet loaded don't do anything
+  if (!isLoaded || !user) return
+   
+  // Fetch the token from our API
+  const Get_Token = async (User_Id) => {
+    const uuid = {"User_Id": User_Id}
+
+    axios.post(Get_Token_API, uuid)
+      .then(response => {setToken(response.data.token)})
+      .catch(error   => {console.log(error.message)})
+      
+    setLoading(false)
+  }
+
+  Get_Token(user.id)
+
+}, [isLoaded, user])
+...
+
+// Setup GetStream video client once the token is initialised
+useEffect(() => {
+	
+  // If token isn't yet initialised don't do anything
+  if (token === "" || !isLoaded) return
+
+  // Initialise client and connect user
+  const Stream_User   = { id: user.id, name: user.firstName }
+  const Stream_Client = new StreamVideoClient({ apiKey, token, Stream_User })
+  Stream_Client.connectUser(Stream_User, token)
+
+  // Create and join call
+  var id = ""
+  if (code === null) id = await Get_Call_Id()
+  else               id = code
+
+  const Stream_Call = Stream_Client.call("default", id)
+  Stream_Call.join({ create: true })
+
+  setClient(Stream_Client)
+  setCall(Stream_Call)
+
+  // Disconnect user and leave call on cleanup
+  return () => {
+    client.disconnectUser()
+    call.leave()
+    setCall(undefined)
+    setClient(undefined)
+  }
+
+}, [token])
+\end{minted}
+
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}
+
+{\sffamily Tests:}
+
+\begin{itemize}
+  \item Code runs without errors \faCheck \\
+  \item Code runs as intended \faClose \\
+  \item User can successfully join and create video calls \faClose \\
+\end{itemize}
+
+{\sffamily Evidence:} \url{https://youtu.be/ojwj8DFXe1U}
+
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}
+
+Unfortunately with this approach the \code{Get\_Call\_Id()}
+function was called each time our React component got updated and 
+re-rendered. Since I was testing video conferencing, our react 
+component would re-render multiple times per second, consequently 
+I ended up spamming my own HTTP endpoint with requests and got 
+my own IP blacklisted from the Cloudflare worker. After doing 
+some research into this issue I discovered that TanStack
+created a library called react-query to help solve this 
+exact issue. react-query significantly clarifies the code 
+needed to make HTTP calls to an API, with much nicer syntax
+than the React \code{useEffect()} solution. The revised code is 
+listed below. As for the problem of blacklisting my own IP I 
+saw no other solution aside from recreating the worker and 
+redeploying my HTTP endpoint on another server. I achieved this
+by changing the sub-domain name on which our worker was
+deployed on.
+
+\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+...
+// Get Stream token
+const {
+  data:      Stream_Token, 
+  isLoading: Stream_Token_Loading,
+  error:     Stream_Token_Error
+
+} = useQuery({
+  // user?.id only access the attribute id if
+  // user isnt undefined
+  queryKey: ["stream_token", user?.id], 
+  queryFn:  () => Get_Stream_Token(user?.id),
+  enabled:  !!isLoaded && !!user // Only run if Clerk is
+                                 // loaded
+})
+
+// Get call code, There are 2 cases:
+// ----------------------------------
+// 1) The user is creating a call, in this case we must 
+//    retrieve a unique call code from our API.
+//
+// 2) The user is joining a call, in this case we take 
+//    the code inputted, it is found in the URL search 
+//    parameter "...?code=<...>".
+const {
+  data:      Call_Code,
+  isLoading: Call_Code_Loading,
+  error:     Call_Code_Error
+
+} = useQuery({
+
+  queryKey: ["call_id"],
+  queryFn:  () => Get_Call_Id(),
+  enabled: !!code, // Only run if code is null, that is no
+                   // search parameter was passed into URL
+  onSuccess: (Call_Code) => {
+    code = Call_Code
+  }
+
+})
+...
+\end{minted}

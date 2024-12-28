@@ -1184,7 +1184,15 @@ Test type & Input & Expected Output & Justification \\
 Normal & \texttt{(TerryTao, re\%k91)} & \texttt{True} & {The 
 system should correctly be able to add a new user.}\\
 
-Erroneous & Call the function 2 times with this input \texttt{(TerryTao, re\%k91)} & \texttt{False} & {The
+Normal & \texttt{(Tommasso, Au4\$21)} & \texttt{True} & {The 
+system should correctly be able to add a new user.}\\
+
+Extreme & N/a & N/a & {There is are no edge cases in this function}\\
+
+Erroneous & Call the function 2 times with this input \texttt{(TerryTao, re\%k91)} & {\texttt{False}  \\ \texttt{False}}& {The
+system should not be able to add a user that already exists.}\\
+
+Erroneous & Call the function 2 times with this input \texttt{(Tommasso, Au4\$21)} & {\texttt{False}  \\ \texttt{False}}& {The
 system should not be able to add a user that already exists.}\\
 
 \hline
@@ -1258,13 +1266,21 @@ Normal & \texttt{("David\_Hilbert1", "i\#1Go8")} & \texttt{True} & {The
 function should return true if the username fits the criteria stated and 
 if the password is strong enough.}\\
 
+Normal & \texttt{("MRRowland", "fd\&*)(")} & \texttt{True} & {The
+function should return true if the username fits the criteria stated and 
+if the password is strong enough.}\\
+
 Extreme & \texttt{("Dav", "i\#1Go8")} & \texttt{True} & {The 
 function should still return true if the username given is 3 acceptable
-characters.}\\
+characters, and the password is strong enough}\\
 
 Erroneous & \texttt{("c", "123")} & \texttt{False} & {The function
 should return false if the password is too weak and the username is not
 considered acceptable.}\\
+
+Erroneous & \texttt{("c418", "123")} & \texttt{False} & {The function
+should return false if the password is too weak even if the username
+fits the criteria stated.}\\
 
 \hline
 
@@ -1356,6 +1372,10 @@ Erroneous & \texttt{(kirishkiwi, password)} & \texttt{False} & {The
 system should recognise that this user doesn't exist and should not
 allow them to log in.}\\
 
+Erroneous & \texttt{(TestAcc, A2d£l!.)} & \texttt{False} & {The
+system should recognise that the inputted password is incorrect
+even if it is very similar to the real password.}\\
+
 \hline
 
 \end{tblr}
@@ -1445,8 +1465,13 @@ Test type & Input & Expected Output & Justification \\
 Normal & \texttt{("Warren2", "Font size", 24)} & \texttt{None} & {The system should be able 
 to update a user's configuration without crashing.}\\
 
+Extreme & N/a & N/a & {There is are no edge cases in this function}\\
+
 Erroneous & \texttt{("Howard9", "Font size", 24)} & \texttt{False} & {The function should return false if
 the user doesn't exist.}\\
+
+Erroneous & \texttt{("Warren2", "Font sizee", 24)} & \texttt{Error} & {The system should raise an error
+if configuration option doesn't exist.}\\
 
 \hline
 
@@ -1675,7 +1700,10 @@ product we are selling is within 5 seconds. We achieve this
 in our headline using a large and bold font. The call to
 action button is the "Sign Up" button and we want our users 
 to click it, hence we have made use of our accent colour to 
-make the button stand out from the rest of the page.  Since
+make the button stand out from the rest of the page.\\
+\vspace{0.2cm}
+
+\textit{Target users:} Since
 our target users may be unfamiliar with technology it is
 important to ensure that the home page is designed to look 
 professional, however it is just as equally as important to 
@@ -1684,7 +1712,24 @@ even our users who have little to no experience with
 technology will be able to use the system easily. Indeed
 this homepage design organises the content we would like to 
 show in an organised and cohesive manner enabling such users
-to navigate our site as they so desire. \\
+to navigate our site as they so desire. \\ \vspace{0.2cm}
+
+\textit{Client:} It is more important for the client to 
+feel that our home page feels and looks professional so 
+that he feels satisfied with our work at the end of this 
+development process. By ensuring that our home page looks
+presentable we will contribute to solving our client's
+initial issue, that is if the home page was un-professional 
+and didn't look good then both he and the persons he invites 
+to join the video conferences wouldn't want to use our 
+software over Zoom. \\ \vspace{0.2cm}
+
+\textit{Maintainers:} From the maintainers point of view it 
+is important to present a clear and effective UI so that 
+they can clearly understand the options and features
+available on each page. This allows maintainers to be able
+to easily and efficiently debug and/or write new frontend
+code.
 
 \subsubsection{Log in/Sign up page}
 
