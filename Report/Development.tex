@@ -1961,11 +1961,7 @@ created a library called react-query to help solve this
 exact issue. react-query significantly clarifies the code 
 needed to make HTTP calls to an API, with much nicer syntax
 than the React \code{useEffect()} solution. The revised code is 
-listed below. As for the problem of blacklisting my own IP I 
-saw no other solution aside from recreating the worker and 
-redeploying my HTTP endpoint on another server. I achieved this
-by changing the sub-domain name on which our worker was
-deployed on.
+listed below. 
 
 \begin{minted}[linenos, bgcolor=lightestgray]{jsx}
 ...
@@ -2010,3 +2006,27 @@ const {
 })
 ...
 \end{minted}
+
+This solved the issue of accidentally making spam calls to
+our API endpoint, however there is still the issue of my IP
+being blacklisted by Cloudflare. After some research I came
+to the conclusion that there is really nothing I can do 
+apart from contacting support. Even then the process of 
+contacting support and then deliberating with them and then
+waiting for them to whitelist my IP again could take a few
+hours or a few weeks. Though it was instructive to get
+experience with Cloudflare's workers service I ultimately 
+need to find a new solution to replace Cloudflare. \\
+\vspace{0.2cm}
+
+Whilst researching I came across Vercel's Vercel Functions
+service. \textit{"Vercel Functions enable server-side code
+execution on Vercel's Managed Infrastructure, removing 
+the need for server management or resource provisioning."}
+This is exactly what I needed, plus I was already using the
+Vercel hobby plan in order to deploy my front end so it 
+would make sense to host the front end and the backend on the
+same service for seamless integrations. As for the language
+Vercel functions have support for many languages, since I 
+wanted this application to be as fast and efficient as possible
+I chose to use the Rust programming language.

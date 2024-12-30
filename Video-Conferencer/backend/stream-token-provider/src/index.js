@@ -11,7 +11,6 @@ const RESPONSE_HEADERS   = {
   "Access-Control-Allow-Methods": "POST, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type"
 }
-const HTTP_HEADERS = new Headers(RESPONSE_HEADERS)
 
 // Validate the user id given is correct
 function Validate_User_Id(User_Id)
@@ -55,8 +54,8 @@ async function Provide_Token(request, env)
   if (request.method !== "POST")
     return new Response("Method not allowed",
       {
-	status:  StatusCodes.METHOD_NOT_ALLOWED,
-	headers: RESPONSE_HEADERS
+      	status:  StatusCodes.METHOD_NOT_ALLOWED,
+       	headers: RESPONSE_HEADERS
       }
     )
 
@@ -68,9 +67,9 @@ async function Provide_Token(request, env)
     if (!Validate_User_Id(User_Id))
       return new Response("Bad Request: Proper userId is required",
         {
-	  status:  StatusCodes.BAD_REQUEST,
+        	status:  StatusCodes.BAD_REQUEST,
           headers: RESPONSE_HEADERS
-	}
+        }
       )
 
     // Generate and send token
@@ -86,7 +85,7 @@ async function Provide_Token(request, env)
   {
     return new Response(`Error: ${error.message}`,
       {
-	status: StatusCodes.INTERNAL_SERVER_ERROR,
+      	status: StatusCodes.INTERNAL_SERVER_ERROR,
         headers: RESPONSE_HEADERS
       }
     )

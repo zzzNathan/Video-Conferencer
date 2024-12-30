@@ -1,7 +1,7 @@
 import { useUser } from "@clerk/clerk-react"
 import { useEffect, useState } from "react"
 import { useQuery, useMutation } from "@tanstack/react-query"
-import { Get_Stream_Token, Get_Call_Id, End_Call } from "./Query_Api.jsx"
+import { Get_Stream_Token, Get_Call_Id, End_Call } from "../utils/Query_Api.jsx"
 import Loading from "./Loading.jsx"
 import "@stream-io/video-react-sdk/dist/css/styles.css"
 import {
@@ -29,20 +29,20 @@ function Video_Call()
   // If a code was provided then we must be joining the call
   if (code !== null) create = JOIN
 
-  // Get user details from Clerk, 
-  // these take a second to load in 
+  // Get user details from Clerk,
+  // these take a second to load in
   const { user, isLoaded } = useUser()
 
   // Get Stream token
   const {
-    data:      Stream_Token, 
+    data:      Stream_Token,
     isLoading: Stream_Token_Loading,
     error:     Stream_Token_Error
 
   } = useQuery({
     // user?.id only access the attribute id if
     // user isnt undefined
-    queryKey: ["stream_token", user?.id], 
+    queryKey: ["stream_token", user?.id],
     queryFn:  () => Get_Stream_Token(user?.id),
     enabled:  !!isLoaded && !!user // Only run if Clerk is
 	                           // loaded
@@ -50,11 +50,11 @@ function Video_Call()
 
   // Get call code, There are 2 cases:
   // ----------------------------------
-  // 1) The user is creating a call, in this case we must 
+  // 1) The user is creating a call, in this case we must
   //    retrieve a unique call code from our API.
   //
-  // 2) The user is joining a call, in this case we take 
-  //    the code inputted, it is found in the URL search 
+  // 2) The user is joining a call, in this case we take
+  //    the code inputted, it is found in the URL search
   //    parameter "...?code=<...>".
   const {
     data:      Call_Code,
@@ -78,7 +78,7 @@ function Video_Call()
 
   // Setup GetStream video client once the token is initialised
   useEffect(() => {
-	
+
     // If token isn't yet initialised don't do anything
     if (Stream_Token_Loading || Call_Code_Loading || !isLoaded || !!user) return
 
@@ -117,7 +117,7 @@ function Video_Call()
         </StreamCall>
 
       </StreamTheme>
-    </StreamVideo>  
+    </StreamVideo>
   )
 }
 

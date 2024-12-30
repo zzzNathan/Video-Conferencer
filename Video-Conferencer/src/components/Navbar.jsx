@@ -1,23 +1,5 @@
-import { useUser, SignOutButton } from '@clerk/clerk-react'
+import { useUser } from '@clerk/clerk-react'
 import { Settings } from 'lucide-react'
-
-// Renders the sign out option only if the user is currently 
-// signed in
-function Sign_Out_Button()
-{
-  const { isSignedIn } = useUser()
-
-  // If user isn't signed in return an empty HTML element
-  if (!isSignedIn) return <></>
-
-  return (
-    <li className="hover:opacity-65 transition-opacity"> 
-      <SignOutButton redirectUrl={"/"}>
-        <button className="p-[1.25vw] ml-[1vw] m-0 p-0 text-sec text-[1.75vw] border-none bg-transparent"> Sign out </button>
-      </SignOutButton> 
-    </li>
-  )
-}
 
 // Makes the navigation bar design a component must be inside
 // a clerk provider
@@ -36,7 +18,7 @@ function Navbar()
     link = "/home"
     text = "Home"
   }
-  
+
   return (
     <nav>
       <ul className="flex list-none m-0 p-0 text-[1.75vw] mb-[0.1vw] mt-[-0.5vw]">
@@ -45,8 +27,6 @@ function Navbar()
 
 	<li className="ml-[auto] p-[1.25vw] hover:opacity-65 transition-opacity text-sec"> <a href={link}> {text} </a> </li>
 
-	<Sign_Out_Button /> 
-
         <li className="p-[1.25vw] ml-[1vw] hover:opacity-65 transition-opacity text-sec saturate-50"> Docs </li>
 
         <li className="p-[1.25vw] ml-[1vw] hover:opacity-65 transition-opacity text-sec saturate-50"> Help </li>
@@ -54,7 +34,7 @@ function Navbar()
         <li className="p-[1.25vw] ml-[1vw] hover:opacity-65 transition-opacity text-sec mt-[0.35vw] saturate-50"> <Settings /> </li>
 
       </ul>
-    </nav> 
+    </nav>
   )
 }
 

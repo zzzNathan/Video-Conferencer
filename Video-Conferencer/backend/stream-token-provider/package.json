@@ -5,10 +5,11 @@
   "scripts": {
     "deploy": "wrangler deploy",
     "dev": "wrangler dev",
-    "start": "wrangler dev"
+    "start": "wrangler dev",
+    "test": "vitest"
   },
   "devDependencies": {
-    "wrangler": "^3.96.0"
+    "wrangler": "^3.60.3"
   },
   "dependencies": {
     "@stream-io/node-sdk": "^0.4.5",

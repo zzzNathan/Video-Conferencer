@@ -1,13 +1,13 @@
 import { ReactTyped } from "react-typed"
-import { SignedOut, SignUp, SignedIn } from "@clerk/clerk-react"
+import { SignedOut, SignUp } from "@clerk/clerk-react"
 import { dark } from "@clerk/themes"
-import Navbar from "./Navbar" 
+import Navbar from "./Navbar"
 
 // Makes the headline typing animation a component
-function Headline() 
+function Headline()
 {
   return (
-    <ReactTyped 
+    <ReactTyped
       className={"relative text-[4vw] ml-[4vw] mb-[0.75vw] inline-block bg-gradient-to-r from-ter to-sec text-transparent bg-clip-text select-none"}
       strings={[
         "Welcome to Video-Conferencer",
@@ -25,14 +25,14 @@ function Headline()
 function Registration()
 {
   return (
-  <> 
+  <>
     <Navbar />
     <Headline />
-    
-      <SignedOut>
-        <center> 
 
-	  <SignUp 
+      <SignedOut>
+        <center>
+
+	  <SignUp
 	    signInUrl="/login"
 	    forceRedirectUrl="/home"
 	    appearance={{
@@ -40,7 +40,7 @@ function Registration()
 	      variables: {spacingUnit: "2vh"}
 	    }}
 	  />
-	
+
 	</center>
       </SignedOut>
   </>
