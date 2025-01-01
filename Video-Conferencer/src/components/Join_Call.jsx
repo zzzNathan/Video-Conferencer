@@ -14,7 +14,8 @@ async function Enter_Call(code)
   // Code must be 6 digits
   if (code.length === 6) {
     // Check if call with this id is actually ongoing
-    let Call_Ongoing = await Check_Ongoing(code)
+    // let Call_Ongoing = await Check_Ongoing(code)
+    let Call_Ongoing = false // placeholder for the time being
     if (!Call_Ongoing) return
 
     window.location.href = `/call?code=${code}`
