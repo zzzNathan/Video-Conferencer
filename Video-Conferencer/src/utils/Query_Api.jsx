@@ -1,9 +1,9 @@
 import axios from "axios"
 
 const Get_Token_API   = "https://stream-token-provider.vconf.workers.dev/"
-const Get_Call_ID_API = "https://call-id-generator.vconf.workers.dev/"
+const Get_Call_ID_API = "https://call-id-provider-otm3b0q4g-jonathans-projects-4e9ca91e.vercel.app"
 
-export async function Check_Ongoing(code) {}
+//export async function Check_Ongoing(code) {}
 
 // Function to retrieve the user's unique GetStream token
 export async function Get_Stream_Token(User_Id)

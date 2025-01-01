@@ -2028,5 +2028,262 @@ Vercel hobby plan in order to deploy my front end so it
 would make sense to host the front end and the backend on the
 same service for seamless integrations. As for the language
 Vercel functions have support for many languages, since I 
-wanted this application to be as fast and efficient as possible
-I chose to use the Rust programming language.
+wanted this application to be as fast and efficient as
+possible I chose to use the Rust programming language. To 
+help me in re-writing the backend I wrote a library file with
+a few commonly used functions that I would be using in the 
+main rust file.
+
+\begin{minted}[linenos, bgcolor=lightestgray]{rust}
+use sqlx::{Connection, PgConnection};
+use dotenv::dotenv;
+
+const SCHEMA: &str = "CREATE TABLE IF NOT EXISTS ongoing_calls(id INTEGER NOT NULL);";
+pub const MIN_ID:    i32 = 1;
+pub const MAX_ID:    i32 = 999_999;
+pub const MAX_ITERS: i32 = 1_000_000;
+
+// Return a PgConnection to our DB
+pub async fn Init_Connection() -> PgConnection {
+    dotenv().ok(); // Load environment variables
+    let conn_str = std::env::var("DB_CONNECTION").expect("Couldn't get DB connection string!");
+    let conn     = PgConnection::connect(&conn_str).await.expect("Couldn't connect to DB!");
+
+    return conn;
+}
+
+// Function to initialise DB if it hasn't been already
+pub async fn Init_DB(connection: &mut PgConnection) -> Result<(), sqlx::Error> {
+    sqlx::query(&*SCHEMA)
+        .execute(connection)
+        .await?;
+
+    Ok(())
+}
+
+// Function to check if a given call id exists in our DB
+pub async fn Check_Id_Exists(connection: &mut PgConnection, id: i32) -> Result<bool, sqlx::Error> {
+    let result = sqlx::query("SELECT FROM ongoing_calls WHERE id = ($1)")
+        .bind(id)
+        .execute(connection)
+        .await?;
+
+    // Get the number of rows affected, if this is 0 then the id clearly
+    // doesn't exist in our DB
+    let num = result.rows_affected();
+
+    if num == 0 {Ok(false)}
+    else        {Ok(true)}
+}
+\end{minted}
+
+We begin by re-implementing the \code{Generate\_Linear()}
+function.
+
+\begin{minted}[linenos, bgcolor=lightestgray]{rust}
+// Function to find the first available call id using a linear
+// implemenation. Returns -1 if all call ids are taken.
+async fn Generate_Linear(connection: &mut PgConnection) -> i32 {
+    let mut id: i32 = -1;
+    
+    // Iterate over all ids until we find one that is available
+    for i in MIN_ID..=MAX_ID {
+        let taken = Check_Id_Exists(connection, i)
+	    .await
+	    .expect("Check_Id() exists function failed!");
+        if !taken {
+            id = i;
+            break;
+        }
+    }
+    return id;
+}
+\end{minted}
+
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}
+
+{\sffamily Tests:}
+
+\begin{itemize}
+\item HTTP endpoint is accessible \faCheck \\
+\item Function successfully returns the next available id \faCheck \\
+\item Function doesn't return an id that is currently in use \faCheck \\
+\end{itemize}
+
+{\sffamily Evidence:} \url{https://youtu.be/oZ95Reyws-s}
+\textit{(Please watch until the end, rust code takes a 
+few seconds to compile!)}
+
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}
+
+We now proceed to re-implement the \code{Generate\_PRNG()} function
+
+\begin{minted}[linenos, bgcolor=lightestgray]{rust}
+// Function to find the first available call id using a linear
+// implemenation. Returns -1 if we took too long to find a call id.
+async fn Generate_PRNG(connection: &mut PgConnection) -> i32 {
+    let taken     = true;
+    let mut iters = 0;
+
+    // Keep iterating until we find an available id
+    while taken && iters <= MAX_ITERS {
+        let ran = rand::thread_rng().gen_range(MIN_ID..=MAX_ID);
+        let exists = Check_Id_Exists(connection, ran)
+            .await
+            .expect("Check_Id() exists function failed!");
+
+        if !exists {return ran;}
+
+        iters += 1;
+    }
+
+    return -1;
+}
+\end{minted}
+
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}
+
+{\sffamily Tests:}
+
+\begin{itemize}
+\item HTTP endpoint is accessible \faCheck \\
+\item Function successfully returns a random call id \faCheck \\
+\item Function doesn't return an id that is currently in use \faCheck \\
+\end{itemize}
+
+{\sffamily Evidence:} \url{https://youtu.be/bFAR2GmcLaU}
+\textit{(Please watch until the end, rust code takes a 
+few seconds to compile!)}
+
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}
+
+I next proceeded to try and implement algorithm 7 again,
+however since the \texttt{connection} variable would have 
+to passed around to multiple functions I started to see
+errors from the rust compiler complaining about moved 
+values. I changed the connection logic to use connection 
+pools, since most of the functions in the \code{sqlx} 
+rust crate (the library we use to query our database in rust)
+have implementations for an arguement of 
+\mintinline{rust}{&Pool<DB>}. That is instead of using a
+mutable reference to a connection to the database like the 
+type \mintinline{rust}{&mut PgConnection} we make use of an
+\textit{immutable} reference to a pool like
+\mintinline{rust}{&Pool<DB>}.\\ \vspace{0.2cm}
+
+With that we re-implement algorithm 7 in rust.
+
+\begin{minted}[linenos, bgcolor=lightestgray]{rust}
+// Generates a unique call id to be used and adds it to our DB
+async fn Get_Call_Id(pool: &PgPool, first_run: bool) -> Result<i32, sqlx::Error> {
+    // If it's the first time running we should initialise our DB
+    if first_run {
+        Init_DB(pool).await?;
+    }
+
+    let total: i64 = sqlx::query("SELECT COUNT(id) FROM ongoing_calls;")
+        .fetch_one(pool)
+        .await?
+        .get(0);
+
+    let id: i32;
+    if (total as f64) / (MAX_ID as f64) <= 0.25 {
+        id = Generate_PRNG(pool).await;
+    } else {
+        id = Generate_Linear(pool).await;
+    }
+
+    // If we find an available id we should add it to the DB as it will be used now
+    if id == -1 {
+        return Ok(id);
+    }
+
+    sqlx::query("INSERT INTO ongoing_calls VALUES ($1);")
+        .bind(id)
+        .execute(pool)
+        .await?;
+
+    Ok(id)
+}
+\end{minted}
+
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}
+
+{\sffamily Tests:}
+
+\begin{itemize}
+\item HTTP endpoint is accessible \faCheck \\
+\item Function successfully returns call id that isn't in use \faCheck \\
+\item Function then adds that call id to our database \faCheck \\
+\end{itemize}
+
+{\sffamily Evidence:} \url{https://youtu.be/6dPlDoY4nRs}
+\textit{(Please watch until the end, rust code takes a 
+few seconds to compile!)}
+
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}
+
+I then proceeded to implement the \code{Remove\_Call\_Id}
+function.
+
+\begin{minted}[linenos, bgcolor=lightestgray]{rust}
+// Function to remove id from DB once a call has ended
+async fn Remove_Call_Id(pool: &PgPool, id: i32) -> Result<(), sqlx::Error> {
+    sqlx::query("DELETE FROM ongoing_calls WHERE id=($1);")
+        .bind(id)
+        .execute(pool)
+        .await?;
+
+    Ok(())
+}
+\end{minted}
+
+It gets called later on like so,
+
+\begin{minted}[linenos, bgcolor=lightestgray]{rust}
+...
+else if *req.method() == Method::POST {
+    let call_id: i32 = Extract_Call_Id(req.body());
+    Remove_Call_Id(&pool, call_id).await?;
+
+    result = "Successfully removed call id!".to_string();
+}
+...
+\end{minted}
+
+where \code{Extract\_Call\_Id()} is a new function in our 
+library file that looks like so,
+
+\begin{minted}[linenos, bgcolor=lightestgray]{rust}
+...
+// Function to extract the "Call_Id" field from the HTTP request
+pub fn Extract_Call_Id(request_body: &Body) -> i32 {
+    // Read body and convert it into a string
+    let request_string: String = String::from_utf8(request_body.to_vec())
+        .expect("Failed to convert request body to string!");
+
+    // Turn string into JSON
+    let request_json: Call_Id_Request = serde_json::from_str(&request_string)
+        .expect("Couldn't deserialise JSON!");
+
+    return request_json.Call_Id;
+}
+...
+\end{minted}
+
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}
+
+{\sffamily Tests:}
+
+\begin{itemize}
+\item HTTP endpoint is accessible \faCheck \\
+\item Function successfully deletes the call id that the user requested \faCheck \\
+\item Database is properly updated \faCheck \\
+\end{itemize}
+
+{\sffamily Evidence:} \url{https://youtu.be/74cA3lD50vo}
+\textit{(Please watch until the end, rust code takes a 
+few seconds to compile!)}
+
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}
+
