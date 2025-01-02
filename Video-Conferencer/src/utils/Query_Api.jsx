@@ -1,9 +1,20 @@
 import axios from "axios"
 
 const Get_Token_API   = "https://stream-token-provider.vconf.workers.dev/"
-const Get_Call_ID_API = "https://call-id-provider-otm3b0q4g-jonathans-projects-4e9ca91e.vercel.app"
+const Get_Call_Id_API = "https://call-id-provider-otm3b0q4g-jonathans-projects-4e9ca91e.vercel.app"
 
-//export async function Check_Ongoing(code) {}
+// Function to check whether or not a call is actually ongoing with a specific code
+export async function Check_Ongoing(code)
+{
+  axios
+    .post(Get_Call_Id_API, { Call_Id: code })
+    .then((response) => {
+      return response.data == "YES" ? true : false
+    })
+    .catch((error) => {
+      throw new Error(error.message)
+    })
+}
 
 // Function to retrieve the user's unique GetStream token
 export async function Get_Stream_Token(User_Id)
@@ -17,7 +28,7 @@ export async function Get_Stream_Token(User_Id)
       return response.data.token
     })
     .catch((error) => {
-      throw new Error(error.message);
+      throw new Error(error.message)
     })
 }
 
@@ -26,7 +37,7 @@ export async function Get_Stream_Token(User_Id)
 export async function Get_Call_Id()
 {
   axios
-    .get(Get_Call_ID_API)
+    .get(Get_Call_Id_API)
     .then((response) => {
       return response
     })
@@ -40,7 +51,7 @@ export async function Get_Call_Id()
 export async function End_Call(code)
 {
   axios
-    .post(Get_Call_ID_API, { Call_Id: code })
+    .delete(Get_Call_Id_API, { Call_Id: code })
     .then((response) => {
       return response
     })

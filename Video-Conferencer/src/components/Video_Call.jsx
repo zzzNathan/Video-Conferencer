@@ -1,6 +1,6 @@
 import { useUser } from "@clerk/clerk-react"
 import { useEffect, useState } from "react"
-import { useQuery, useMutation } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import { Get_Stream_Token, Get_Call_Id, End_Call } from "../utils/Query_Api.jsx"
 import Loading from "./Loading.jsx"
 import "@stream-io/video-react-sdk/dist/css/styles.css"
@@ -27,7 +27,8 @@ function Video_Call()
   var   create        = CREATE // Are we creating or joining the call
 
   // If a code was provided then we must be joining the call
-  if (code !== null) create = JOIN
+  if (code !== null)
+    create = JOIN
 
   // Get user details from Clerk,
   // these take a second to load in
@@ -85,11 +86,11 @@ function Video_Call()
     // Initialise client and connect user
     const Stream_User   = { id: user.id, name: user.firstName }
     const Stream_Client = new StreamVideoClient({ apiKey, Stream_Token, Stream_User })
-    Stream_Client.connectUser(Stream_User, token)
+    Stream_Client.connectUser(Stream_User, Stream_Token)
 
     // Create and join call
     const Stream_Call = Stream_Client.call("default", code)
-    Stream_Call.join({ create: CREATE })
+    Stream_Call.join({ create: create })
 
     setClient(Stream_Client)
     setCall(Stream_Call)

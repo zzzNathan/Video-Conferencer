@@ -24,7 +24,9 @@ function Top_Bar()
   return (
     <ul className="flex pt-[0.5vw] pb-[1vw] mb-[1.5vw] mt-0 mx-0 pl-[1.25vw] text-sec">
       <a href="/">
-        <li className="flex items-center justify-center flex-row mr-[2vw] text-ter text-[1.65vw] hover:opacity-65 transition-all"> <ChevronLeft className="w-[1.65vw]"/> </li>
+        <li className="flex items-center justify-center flex-row mr-[2vw] text-ter text-[1.65vw] hover:opacity-65 transition-all mt-[0.25vw]">
+          <ChevronLeft className="w-[1.65vw]"/>
+        </li>
       </a>
       <li className="flex items-center justify-center flex-row font-bold mr-auto text-ter text-[1.65vw]">
         Home
@@ -74,7 +76,7 @@ function Options()
 function Home()
 {
   return (
-    <div className="bg-gradient-to-b from-grad/20 to-sec/20 h-screen">
+    <div className="bg-grad/20 h-screen">
       <Top_Bar />
       <Options />
     </div>

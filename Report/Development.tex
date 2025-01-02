@@ -40,8 +40,9 @@ to a part of the problem breakdown.\\ \vspace{0.2cm}
   \circled{1.3} & Document the backend code throughout\\
   \circled{2} & Allow users to create their account\\
   \circled{3} & Implement login system with password resets \\
-  \ldots & \ldots \\
+  \circled{8} & Implement a join call page \\
   \circled{A} & Deploy website \\
+  \circled{B} & Complete video-conferencing system backend \\
 \end{longtblr}
 \vspace{0.2cm}
 
@@ -846,27 +847,6 @@ This code produced our first prototype:
 {\sffamily Development sub-task \circled{1.2} \faCheck} \\
 \vspace{0.2cm}
 
-The current file structure of our project is as follows: \\
-\vspace{0.2cm}
-
-\begin{forest}
-  pic dir tree,
-  where level=0{}{
-    directory,
-  },
-[src
-  [Images]
-  [main.html, file]
-  [login.html, file]
-  [styles\_main.sass, file]
-  [styles\_login.sass, file]
-  [styles\_main.css, file]
-  [styles\_login.css, file]
-  [button\_styling.sass, file]
-] 
-\end{forest}
-
-\vspace{0.3cm}
 Look at Github commit
 \texttt{54e06ac60f0876086c259f29ce23eae89ff4aad6} to 
 see the state of the project after our first iteration.\\
@@ -1058,6 +1038,9 @@ This issue was fixed by simply wrapping my HTML code in the
 \code{<ClerkProvider>} component whenever a page made usage of the
 \code{<Navbar />}. All the tests now successfully pass. \\ \vspace{0.2cm}
 
+{\color{gray} \hrulefill}
+\vspace{0.2cm}
+
 {\sffamily Tests:}
 \begin{itemize}
   \item Site home page loads correctly \faCheck \\
@@ -1076,39 +1059,6 @@ You can try these features out yourself at \url{https://video-conferencer.vercel
 {\sffamily Development sub-task \circled{2} \faCheck \\ \vspace{0.2cm}
 Development sub-task \circled{A} \faCheck } \\ \vspace{0.2cm}
 
-The current file structure of our project is as follows: 
-(Ignoring configuration files)
-\\ \vspace{0.2cm}
-
-\begin{forest}
-  pic dir tree,
-  where level=0{}{
-    directory,
-  },
-[Video-Conferncer
-  [index.html, file],
-  [src
-    [main.jsx, file]
-    [assets
-      [Quote\_Cards.svg, file]
-    ],
-    [components
-      [Button.jsx, file],
-      [Home.jsx, file],
-      [Navbar.jsx, file],
-      [Registration.jsx, file]
-    ],
-    [styles
-      [Button.sass, file],
-      [Home.sass, file],
-      [Navbar.sass, file],
-      [Registration.sass, file]
-    ]
-  ]
-] 
-\end{forest}
-\vspace{0.3cm}
-
 Look at Github commit \texttt{243560c390c019ab39903850ef3dba99ed98df18} to see the state of the project after our first 
 iteration. \\ \vspace{0.2cm}
 
@@ -1125,7 +1075,8 @@ During this iteration I wanted to further develop the backend
 infastructure of our application, and start to sketch out the 
 actual implementation for including video conferencing in our 
 application. I also improve the code and touch up some of the 
-designs, and use Clerk to rewrite the login page. \\ \vspace{0.2cm}
+designs, and use Clerk to rewrite the login page. With that 
+we implement tasks \circled{8} and \circled{B} \\ \vspace{0.2cm}
 
 \textit{Description:} I rewrite the login page using clerk,
 and make minor improvements to our landing page. \\ 
@@ -2287,3 +2238,59 @@ few seconds to compile!)}
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
+When a user joins a video conference we need to check whether or 
+not a video conference currently exists with the id that they 
+have entered. This means that we would have to add another 
+method to our \texttt{call-id-provider} HTTP endpoint. The 
+method would be a POST request, but the endpoint already has
+POST request endpoint defined, that is \code{Remove\_Call\_Id()}
+function. After doing some reasearch I came to realise that 
+the \code{Remove\_Call\_Id()} function would be more suited to 
+a \texttt{DELETE} request endpoint because we are removing a 
+call id from the backend database. \\ \vspace{0.2cm}
+
+Since we wrote a good number of helper functions earlier the
+process of making this change was rather simple. 
+
+\begin{minted}[linenos, bgcolor=lightestgray]{rust}
+...
+// Remove given call id
+else if *req.method() == Method::DELETE {
+    let id: i32 = Extract_Call_Id(req.body());
+    Remove_Call_Id(&pool, id).await?;
+
+    result = "Successfully removed call id!".to_string();
+}
+
+// Check if given call id exists in our DB
+else if *req.method() == Method::POST {
+    let id:     i32  = Extract_Call_Id(req.body());
+    let exists: bool = Check_Id_Exists(&pool, id).await?;
+
+    result = if exists { "YES".to_string() } else { "NO".to_string() };
+}
+...
+\end{minted}
+
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}
+
+{\sffamily Tests:}
+
+\begin{itemize}
+\item HTTP endpoint is accessible \faCheck \\
+\item Function successfully confirms that a given id is in use \faCheck \\
+\item Function successfully confirms that a given id is not in use \faCheck \\
+\end{itemize}
+
+{\sffamily Evidence:} \url{https://youtu.be/piBek7ylBl0}
+\textit{(Please watch until the end, rust code takes a 
+few seconds to compile!)}
+
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}
+
+With that the backend is complete! We can check off tasks \circled{8}
+and \circled{B}.\\ \vspace{0.2cm}
+
+{\sffamily Development sub-task} \circled{8} \faCheck \\ \vspace{0.2cm}
+
+{\sffamily Development sub-task} \circled{B} \faCheck \\ \vspace{0.2cm}

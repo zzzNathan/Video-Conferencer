@@ -8,7 +8,6 @@
      	    fontawesome, caption, pgfplots, subfig, svg,
             multicol}
 \usepackage[noend]{algpseudocode}
-\usepackage[edges]{forest}
 \usepackage[T1]{fontenc}
 \usepackage[htt]{hyphenat}
 \usetikzlibrary{shapes.geometric, arrows.meta, automata, quotes}
@@ -114,42 +113,3 @@
 \titleformat{\subsection}[hang]{\large\bfseries\sffamily}{\color{purple}\P\thesubsection}{0.8em}{}[]
 \titleformat*{\subsubsection}{\bfseries\sffamily}
 
-% Nice directory listing, ref: https://tex.stackexchange.com/questions/524104/package-forest-create-a-directory-structure-with-comments
-\definecolor{folderbg}{RGB}{124,166,198}
-\definecolor{folderborder}{RGB}{110,144,169}
-\newlength\Size
-\setlength\Size{4pt}
-\tikzset{%
-  folder/.pic={%
-    \filldraw [draw=folderborder, top color=folderbg!50, bottom color=folderbg] (-1.05*\Size,0.2\Size+5pt) rectangle ++(.75*\Size,-0.2\Size-5pt);
-    \filldraw [draw=folderborder, top color=folderbg!50, bottom color=folderbg] (-1.15*\Size,-\Size) rectangle (1.15*\Size,\Size);
-  },
-  file/.pic={%
-    \filldraw [draw=folderborder, top color=folderbg!5, bottom color=folderbg!10] (-\Size,.4*\Size+5pt) coordinate (a) |- (\Size,-1.2*\Size) coordinate (b) -- ++(0,1.6*\Size) coordinate (c) -- ++(-5pt,5pt) coordinate (d) -- cycle (d) |- (c) ;
-  },
-}
-\forestset{%
-  declare autowrapped toks={pic me}{},
-  pic dir tree/.style={%
-    for tree={%
-      folder,
-      font=\ttfamily,
-      grow'=0,
-    },
-    before typesetting nodes={%
-      for tree={%
-        edge label+/.option={pic me},
-      },
-    },
-  },
-  pic me set/.code n args=2{%
-    \forestset{%
-      #1/.style={%
-        inner xsep=2\Size,
-        pic me={pic {#2}},
-      }
-    }
-  },
-  pic me set={directory}{folder},
-  pic me set={file}{file},
-}

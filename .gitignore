@@ -505,3 +505,8 @@ dist
 
 .dev.vars
 .wrangler/
+
+# JS garbage
+
+.prettierrc
+.editorconfig

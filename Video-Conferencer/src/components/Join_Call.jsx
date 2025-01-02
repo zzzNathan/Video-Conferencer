@@ -14,8 +14,7 @@ async function Enter_Call(code)
   // Code must be 6 digits
   if (code.length === 6) {
     // Check if call with this id is actually ongoing
-    // let Call_Ongoing = await Check_Ongoing(code)
-    let Call_Ongoing = false // placeholder for the time being
+    let Call_Ongoing = await Check_Ongoing(code)
     if (!Call_Ongoing) return
 
     window.location.href = `/call?code=${code}`
@@ -73,7 +72,7 @@ function Input_Code()
 function Join_Call()
 {
   return (
-    <div className="bg-gradient-to-b from-grad/20 to-sec/20 h-screen">
+    <div className="bg-grad/20 h-screen">
       <Input_Code />
     </div>
   );
