@@ -5,7 +5,6 @@ import { Get_Stream_Token, Get_Call_Id, End_Call } from "../utils/Query_Api.jsx"
 import Loading from "./Loading.jsx"
 import "@stream-io/video-react-sdk/dist/css/styles.css"
 import {
-  Call,
   CallControls,
   StreamCall,
   StreamTheme,
@@ -114,7 +113,7 @@ function Video_Call()
 
         <StreamCall call={call}>
           <SpeakerLayout participantsBarPosition="right"/>
-          <CallControls />
+          <CallControls onLeave={End_Call(code)}/>
         </StreamCall>
 
       </StreamTheme>
