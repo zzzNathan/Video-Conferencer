@@ -1,4 +1,4 @@
-use vercel_runtime::{Body, Response, StatusCode};
+use vercel_runtime::{Body, Response, StatusCode, Error};
 use sqlx::{PgPool, Row};
 use dotenv::dotenv;
 use serde::Deserialize;
@@ -150,6 +150,7 @@ pub fn Build_Response(message: String, error: bool) -> Response<Body> {
     return Response::builder()
         .status(status)
         .header("Content-Type", "application/json")
+        .header("Access-Control-Allow-Origin", "*")
         .body(Body::from(message))
         .expect("Couldn't build response!");
 }
@@ -165,4 +166,14 @@ pub fn Extract_Call_Id(request_body: &Body) -> i32 {
         .expect("Couldn't deserialise JSON!");
 
     return request_json.Call_Id;
+}
+
+// Function to handle OPTIONS preflight requests
+pub fn Handle_Preflight() -> Response<Body> {
+    return Response::builder()
+        .status(StatusCode::OK)
+        .header("Content-Type", "application/json")
+        .header("Access-Control-Allow-Origin", "*")
+        .body(Body::from(""))
+        .expect("Couldn't build response");
 }

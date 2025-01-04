@@ -1,9 +1,18 @@
 import { useUser } from "@clerk/clerk-react"
 import { useEffect, useState } from "react"
 import { useQuery } from "@tanstack/react-query"
+import { useSearchParams } from "react-router-dom"
 import { Get_Stream_Token, Get_Call_Id, End_Call } from "../utils/Query_Api.jsx"
 import Loading from "./Loading.jsx"
 import "@stream-io/video-react-sdk/dist/css/styles.css"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 import {
   CallControls,
   StreamCall,
@@ -20,8 +29,14 @@ const JOIN   = false
 
 function Video_Call()
 {
+  // State of the dialog box
+  const [Open_Dialog, Set_Open_Dialog] = useState(false)
+  useEffect(() => {
+    Set_Open_Dialog(true)
+  }, [])
+
   // If we are joining call the code is passed via the url search params
-  const Search_Params = new URLSearchParams(window.location.search)
+  const [Search_Params, Set_Set_Search_Params] = useSearchParams()
   var   code          = Search_Params.get("code")
   var   create        = CREATE // Are we creating or joining the call
 
@@ -69,6 +84,8 @@ function Video_Call()
                      // search parameter was passed into URL
     onSuccess: (Call_Code) => {
       code = Call_Code
+      Search_Params.set("code", code)
+      Set_Set_Search_Params(Search_Params)
     }
 
   })
@@ -104,10 +121,25 @@ function Video_Call()
 
   }, [Stream_Token])
 
-  if (Stream_Token_Loading || Call_Code_Loading)
+  if (Stream_Token_Loading || Call_Code_Loading || !!code)
     return <Loading />
 
   return (
+    <>
+      <Dialog open={Open_Dialog} onOpenChange={Set_Open_Dialog}>
+        <DialogContent> <DialogHeader>
+          <DialogTitle>Your 6 digit call code</DialogTitle>
+          <DialogDescription>
+            Share this with others to have them join the video-conference!
+
+            <center><div className="font-bold text-[3vw] text-black mt-[2vw]">
+              {code}
+            </div></center>
+
+         </DialogDescription>
+        </DialogHeader> </DialogContent>
+      </Dialog>
+
     <StreamVideo client={client}>
       <StreamTheme>
 
@@ -118,6 +150,7 @@ function Video_Call()
 
       </StreamTheme>
     </StreamVideo>
+    </>
   )
 }
 

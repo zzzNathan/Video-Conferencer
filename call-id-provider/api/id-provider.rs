@@ -6,14 +6,7 @@ use vercel_runtime::{run, Body, Error, Request, Response};
 use sqlx::PgPool;
 use http::Method;
 use id_provider_lib::{
-    Build_Response,
-    Check_Id_Exists,
-    Create_Pool,
-    Extract_Call_Id,
-    Get_Call_Id,
-    Remove_Call_Id,
-    SUCCESS,
-    FAIL
+    Build_Response, Check_Id_Exists, Create_Pool, Extract_Call_Id, Get_Call_Id, Handle_Preflight, Remove_Call_Id, FAIL, SUCCESS
 };
 
 // Entry point
@@ -32,6 +25,11 @@ pub async fn handler(req: Request) -> Result<Response<Body>, Error> {
         let id: i32 = Get_Call_Id(&pool, false).await?;
 
         result = format!("{}", id);
+    }
+
+    // Handle preflight requests for POST
+    else if *req.method() == Method::OPTIONS {
+        return Ok( Handle_Preflight() );
     }
 
     // Remove given call id

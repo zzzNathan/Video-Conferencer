@@ -12,6 +12,7 @@
   "dependencies": {
     "@clerk/clerk-react": "^5.20.4",
     "@clerk/themes": "^2.2.3",
+    "@radix-ui/react-dialog": "^1.1.4",
     "@stream-io/video-react-sdk": "^1.8.7",
     "@tanstack/react-query": "^5.62.11",
     "axios": "^1.7.9",

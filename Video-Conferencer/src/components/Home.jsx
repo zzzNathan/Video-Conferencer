@@ -1,5 +1,14 @@
 import { Settings, CircleHelp, Video, UserPlus, ChevronLeft, LogOut } from "lucide-react"
 import { useUser, SignOutButton } from '@clerk/clerk-react'
+import { useEffect, useState } from "react"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 
 // Renders the sign out option only if the user is currently
 // signed in
@@ -75,12 +84,32 @@ function Options()
 // Renders the home page
 function Home()
 {
-  return (
+  // State of the dialog box
+  const [Open_Dialog, Set_Open_Dialog] = useState(false)
+  useEffect(() => {
+    Set_Open_Dialog(true)
+  }, [])
+
+  return ( <>
+    <Dialog open={Open_Dialog} onOpenChange={Set_Open_Dialog}>
+      <DialogContent> <DialogHeader>
+        <DialogTitle>Your 6 digit call code</DialogTitle>
+        <DialogDescription>
+          Share this with others to have them join the video-conference!
+
+          <center><div className="font-bold text-[3vw] text-black mt-[2vw]">
+            123456
+          </div></center>
+
+        </DialogDescription>
+      </DialogHeader> </DialogContent>
+    </Dialog>
+
     <div className="bg-grad/20 h-screen">
       <Top_Bar />
       <Options />
     </div>
-  );
+  </>)
 }
 
 export default Home;

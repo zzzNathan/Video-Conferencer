@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const Get_Token_API   = "https://stream-token-provider.vconf.workers.dev/"
-const Get_Call_Id_API = "https://call-id-provider-otm3b0q4g-jonathans-projects-4e9ca91e.vercel.app"
+const Get_Call_Id_API = "https://call-id-provider-otm3b0q4g-jonathans-projects-4e9ca91e.vercel.app/api/id-provider"
 
 // Function to check whether or not a call is actually ongoing with a specific code
 export async function Check_Ongoing(code)
