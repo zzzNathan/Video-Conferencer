@@ -1130,48 +1130,52 @@ neat, cohesive visual representation of our system's architecture.
 % Identified and justified any further data to be used in the
 % post development phase.
 
-\textbf{Note:} \textit{The boxed number in front of each subheading refers
-to the corresponding boxed number found in the system
-decomposition in \ref{fig:decomp}.}
+\textbf{Note:} \textit{The boxed number in front of each subheading
+refers to the corresponding boxed number found in the system decomposition
+in \ref{fig:decomp}. \textbf{Every} single part of the system decomposition
+has a corresponding algorithm in this section, indeed forming a \textbf{complete}
+solution to the problem.}
 
-\subsubsection{\circled{6} Account creation}
+\subsubsection{\circled{1} Home page}
 
 \begin{tblr}{colspec={lX}, row{1}={lightestgray}}
 
-\textit{Function name:} & {\scshape Add\_Account}(\texttt{string} {\sffamily Username}, \texttt{string} {\sffamily Password})\\
+\textit{Algorithm name:} & {\scshape Home\_Page} \\
 
-\textit{Description:}  & {This function will receive in a username and password and add these details
-into the login table, provided that the username is not taken. We assume that the username and
-password have already been properly validated via the algorithm in the previous subheading. It returns
-false if the username is taken and true if it is not.}\\
+\textit{Description:} & {This function demonstrates how the user will interact
+with the home page of our system.} \\
 
-\textit{Justification:} & {Users need to create an account in order to be able to save their configurations.
-For a detailed justification, refer to section \ref{sec:features}}\\
+\textit{Justification:} & {The home page is meant to grab the user's attention
+and entice them into trying out our system.}\\
 
 \end{tblr}
 
-\begin{algorithm}
-\caption{Pseudo code for creating a new user account.}
-\sffamily
+\begin{center}
+\begin{tikzpicture}[
+  base/.style = {draw, text centered, minimum width=8em, minimum height=3em}
+]
+  \node (start) [base, terminal] {Start};
+  \node (enter) [base, rectangle, below=of start] {User enters website URL};
+  \node (anchor) [below=of enter] {};
+  \node (help)  [base, predproc, right=of anchor] {Help page};
+  \node (reg)   [base, predproc, left=of anchor] {Registration page};
+  \node (sign)  [base, predproc, right=of help] {Login up page};
+  \node (doc)   [base, predproc, left=of reg] {Documentation page};
+  \node (end)   [base, terminal, below=of anchor] {End};
 
-\begin{algorithmic}[1]
-  \Function{Add\_Account}{Username, Password}
-    \If{Query\_tbl(Logins, Username) $\neq$ \textbf{null}} \Comment{Cannot create account if username is taken.}
-      \State{\textbf{return} False}
-    \EndIf
-    \State{}
+  \draw[draw, -{Latex[length=2.5mm]}] (start) -- (enter);
+  \draw[draw, -{Latex[length=2.5mm]}] (enter) -| (help);
+  \draw[draw, -{Latex[length=2.5mm]}] (enter) -| (reg);
+  \draw[draw, -{Latex[length=2.5mm]}] (enter) -| (sign);
+  \draw[draw, -{Latex[length=2.5mm]}] (enter) -| (doc);
+  \draw[draw, -{Latex[length=2.5mm]}] (doc.south)   |- (end);
+  \draw[draw, -{Latex[length=2.5mm]}] (reg.south)   |- (end);
+  \draw[draw, -{Latex[length=2.5mm]}] (help.south)  |- (end);
+  \draw[draw, -{Latex[length=2.5mm]}] (sign.south)  |- (end);
+\end{tikzpicture}
+\end{center}
 
-    \State{Insert\_tbl(Logins, Username, Password, Default\_cfg)} \Comment{Set default settings for new user.}
-    \State{}
-
-    \State{\textbf{return} True}
-  \EndFunction
-\end{algorithmic}
-
-\end{algorithm}
-\mdseries
-
-\textit{Iterative test plan: (These tests take place assuming that the logins table is empty each time)} \\ \vspace{0.2cm}
+\textit{Iterative test plan:} \\ \vspace{0.2cm}
 
 \begin{tblr}{colspec={lXXX}}
 
@@ -1181,26 +1185,182 @@ Test type & Input & Expected Output & Justification \\
 
 \hline
 
-Normal & \texttt{(TerryTao, re\%k91)} & \texttt{True} & {The
-system should correctly be able to add a new user.}\\
+Normal & User enters in the website URL & Home page correctly loads & The home page should be the
+first thing the user views when accessing our website\\
 
-Normal & \texttt{(Tommasso, Au4\$21)} & \texttt{True} & {The
-system should correctly be able to add a new user.}\\
+Normal & User clicks the help button & Help page correctly loads & The help page should load when the
+user clicks the help button. This allows our users to be able to answer their questions about our
+software independently. \\
 
-Extreme & N/a & N/a & {There is are no edge cases in this function}\\
+Normal & User clicks the login up button & Log in page correctly loads and allows user to log in &
+The log in page should load when the user clicks the log in button, so that users can access the video
+conferencing system. \\
 
-Erroneous & Call the function 2 times with this input \texttt{(TerryTao, re\%k91)} & {\texttt{False}  \\ \texttt{False}}& {The
-system should not be able to add a user that already exists.}\\
+Normal & User clicks the registration button & Registration page correctly loads and allows user to
+register a new account. & The registration page should load when the user clicks the registration
+button, so that users can create a personalised account and access the video conferencing system. \\
 
-Erroneous & Call the function 2 times with this input \texttt{(Tommasso, Au4\$21)} & {\texttt{False}  \\ \texttt{False}}& {The
-system should not be able to add a user that already exists.}\\
+Normal & User clicks the documentation button & Documentation page correctly loads & The documentation
+page should load when the user clicks the documentation button so that developers and/or future
+maintainers of our system can understand what each function does. \\
 
 \hline
+\end{tblr}
+
+\subsubsection{\circled{1.1} Help page}
+
+\begin{tblr}{colspec={lX}, row{1}={lightestgray}}
+
+\textit{Algorithm name:} & {\scshape Help\_Page}\\
+
+\textit{Description:} & {This algorithm will outline how our users will be able to
+interact with the help page.}\\
+
+\textit{Justification:} & {As mentioned by my client, Axel doesn't want to have to
+spend his time instructing users on how to use the software. By providing a help
+page we allow users to fix and troubleshoot their own issues, promoting user
+independence.}\\
 
 \end{tblr}
 
+\begin{center}
+\begin{tikzpicture}[
+  base/.style = {draw, text centered, minimum width=8em, minimum height=3em}
+]
+  \node (start) [base, terminal] {Start};
+  \node (choose)[base, decision, below=of start] {Select an option};
+  \node (guide) [base, process, below right=of choose] {System guide};
+  \node (faq)   [base, process, below left=of choose] {FAQs};
+  \node (end)   [base, terminal, below=of choose] {End};
 
-\subsubsection{\circled{4} Validate username and password}
+  \draw[draw, -{Latex[length=2.5mm]}] (start) -- (choose);
+  \draw[draw, -{Latex[length=2.5mm]}] (choose) -| (guide);
+  \draw[draw, -{Latex[length=2.5mm]}] (choose) -| (faq);
+  \draw[draw, -{Latex[length=2.5mm]}] (faq) |- (end);
+  \draw[draw, -{Latex[length=2.5mm]}] (guide) |- (end);
+\end{tikzpicture}
+\end{center}
+
+\textit{Iterative test plan:} \\ \vspace{0.2cm}
+
+\begin{tblr}{colspec={lXXX}}
+
+\hline
+
+Test type & Input & Expected Output & Justification \\
+
+\hline
+
+Normal & User selects the guide option & Guide page loads and user can read through it & This enables
+users to become acquainted with the usage of the system by reading a starter guide. \\
+
+Normal & User selects FAQ option & FAQs page load and user can read through it & Users can troubleshoot
+their own issues independently. \\
+
+\hline
+\end{tblr}
+
+\subsubsection{\circled{1.2} Login page}
+
+\begin{tblr}{colspec={lX}, row{1}={lightestgray}}
+
+\textit{Algorithm name:} & {\scshape Login\_Page}\\
+
+\textit{Description:} & {Users will access this page when they want to log back in to their account}\\
+
+\textit{Justification:} & {Users should be able to log back in to their account in order to start
+video conferencing}\\
+
+\end{tblr}
+
+\begin{center}
+\begin{tikzpicture}[
+  base/.style = {draw, text centered, minimum width=8em, minimum height=3em}
+]
+  \node (start) [base, terminal] {Start};
+  \node (name)  [base, process, below=of start] {Enters username};
+  \node (pass)  [base, process, below=of name] {Enters password};
+  \node (login) [base, predproc, below=of pass] {Log\_User\_In};
+  \node (end)   [base, terminal, below=of login] {End};
+
+  \draw[draw, -{Latex[length=2.5mm]}] (start) -- (name);
+  \draw[draw, -{Latex[length=2.5mm]}] (name) -- (pass);
+  \draw[draw, -{Latex[length=2.5mm]}] (pass) -- (login);
+  \draw[draw, -{Latex[length=2.5mm]}] (login) -- (end);
+\end{tikzpicture}
+\end{center}
+
+\textit{Iterative test plan:} \\ \vspace{0.2cm}
+
+\begin{tblr}{colspec={lXXX}}
+
+\hline
+
+Test type & Input & Expected Output & Justification \\
+
+\hline
+
+Normal & User enters valid username and password & User successfully logged in and redirected to main page & Users should be able to access their account when providing correct credentials \\
+
+Normal & User clicks "Forgot Password" link & User redirected to password reset page & Users need a way to recover access if they forget their password \\
+
+Erroneous & User enters incorrect password for existing username & Login denied with appropriate error message & System should prevent unauthorized access and provide feedback on failed login attempts \\
+
+Erroneous & User enters non-existent username & Login denied with "Username not found" message & System should inform users when attempting to login with accounts that don't exist \\
+
+Erroneous & User leaves username or password field empty & Form submission prevented with "Required field" message & All required login fields must be completed before submission \\
+
+\hline
+\end{tblr}
+
+\subsubsection{\circled{1.3} Documentation}
+
+\begin{tblr}{colspec={lX}, row{1}={lightestgray}}
+
+\textit{Algorithm name:} & {\scshape Documentation}\\
+
+\textit{Description:} & {People will be able to read documentation of the backend of our code on
+this page}\\
+
+\textit{Justification:} & {This is an open source project, and once I hand the project off to my
+client it is expected that other developers will maintain the system. In order for them to be
+able to understand the code we will write documentation.}\\
+
+\end{tblr}
+
+\begin{center}
+\begin{tikzpicture}[
+  base/.style = {draw, text centered, minimum width=8em, minimum height=3em}
+]
+  \node (start) [base, terminal] {Start};
+  \node (read)  [base, process, below=of start]  {Read through documentation};
+  \node (end)   [base, terminal, below=of read] {End};
+
+  \draw[draw, -{Latex[length=2.5mm]}] (start) -- (read);
+  \draw[draw, -{Latex[length=2.5mm]}] (read) -- (end);
+\end{tikzpicture}
+\end{center}
+
+\textit{Iterative test plan:}\\ \vspace{0.2cm}
+
+\begin{tblr}{colspec={lXXX}}
+
+\hline
+
+Test type & Input & Expected Output & Justification \\
+
+\hline
+
+Normal & User clicks on Documentation button from home page & Documentation page loads successfully and displays complete system documentation & The documentation should be easily accessible from the home page so that developers can quickly reference the system documentation \\
+
+Normal & User attempts to view documentation without logging in & Documentation page loads successfully and displays complete system documentation & Documentation should be accessible without requiring login to ensure developers can easily access it without creating accounts \\
+
+Normal & User clicks internal documentation links/anchors & Page smoothly scrolls to correct section & Internal navigation links should work properly to help users efficiently find specific documentation sections \\
+
+\hline
+\end{tblr}
+
+\subsubsection{\circled{2} Validate username and password}
 
 \begin{tblr}{colspec={lX}, row{1}={lightestgray}}
 
@@ -1286,7 +1446,74 @@ fits the criteria stated.}\\
 
 \end{tblr}
 
-\subsubsection{\circled{5} Log user in}
+\subsubsection{\circled{2} / \circled{4} Account creation}
+
+\begin{tblr}{colspec={lX}, row{1}={lightestgray}}
+
+\textit{Function name:} & {\scshape Add\_Account}(\texttt{string} {\sffamily Username}, \texttt{string} {\sffamily Password})\\
+
+\textit{Description:}  & {This function will receive in a username and password and add these details
+into the login table, provided that the username is not taken. We assume that the username and
+password have already been properly validated via the algorithm in the previous subheading. It returns
+false if the username is taken and true if it is not.}\\
+
+\textit{Justification:} & {Users need to create an account in order to be able to save their configurations.
+For a detailed justification, refer to section \ref{sec:features}}\\
+
+\end{tblr}
+
+\begin{algorithm}
+\caption{Pseudo code for creating a new user account.}
+\sffamily
+
+\begin{algorithmic}[1]
+  \Function{Add\_Account}{Username, Password}
+    \If{\textbf{not} Validate\_Account(Username, Password)} \State{return False}
+    \EndIf
+    \If{Query\_tbl(Logins, Username) $\neq$ \textbf{null}} \Comment{Cannot create account if username is taken.}
+      \State{\textbf{return} False}
+    \EndIf
+    \State{}
+
+    \State{Insert\_tbl(Logins, Username, Password, Default\_cfg)} \Comment{Set default settings for new user.}
+    \State{}
+
+    \State{\textbf{return} True}
+  \EndFunction
+\end{algorithmic}
+
+\end{algorithm}
+\mdseries
+
+\textit{Iterative test plan: (These tests take place assuming that the logins table is empty each time)} \\ \vspace{0.2cm}
+
+\begin{tblr}{colspec={lXXX}}
+
+\hline
+
+Test type & Input & Expected Output & Justification \\
+
+\hline
+
+Normal & \texttt{(TerryTao, re\%k91)} & \texttt{True} & {The
+system should correctly be able to add a new user.}\\
+
+Normal & \texttt{(Tommasso, Au4\$21)} & \texttt{True} & {The
+system should correctly be able to add a new user.}\\
+
+Extreme & N/a & N/a & {There is are no edge cases in this function}\\
+
+Erroneous & Call the function 2 times with this input \texttt{(TerryTao, re\%k91)} & {\texttt{False}  \\ \texttt{False}}& {The
+system should not be able to add a user that already exists.}\\
+
+Erroneous & Call the function 2 times with this input \texttt{(Tommasso, Au4\$21)} & {\texttt{False}  \\ \texttt{False}}& {The
+system should not be able to add a user that already exists.}\\
+
+\hline
+
+\end{tblr}
+
+\subsubsection{\circled{3} Log user in}
 
 \begin{tblr}{colspec={lX}, row{1}={lightestgray}}
 
@@ -1378,6 +1605,122 @@ even if it is very similar to the real password.}\\
 
 \hline
 
+\end{tblr}
+
+\subsubsection{\circled{5} Main page}
+
+\begin{tblr}{colspec={lX}, row{1}={lightestgray}}
+
+\textit{Algorithm name:} & {\scshape Main\_Page}\\
+
+\textit{Description:} & {This will be the main page of our website where users will be able to
+access options like join and create call}\\
+
+\textit{Justification:} & {Users should have a way to start and join video conferences}\\
+
+\end{tblr}
+
+\begin{center}
+\begin{tikzpicture}[
+  base/.style = {draw, text centered, minimum width=8em, minimum height=3em}
+]
+  \node (start) [base, terminal] {Start};
+  \node (create)[base, predproc, below=of start] {Create call};
+  \node (join)  [base, predproc, right=of create] {Join call};
+  \node (sett)  [base, predproc, left=of create] {Settings};
+  \node (end)   [base, terminal, below=of create] {End};
+
+  \draw[draw, -{Latex[length=2.5mm]}] (start) -- (create);
+  \draw[draw, -{Latex[length=2.5mm]}] (start.east) -| (join.north);
+  \draw[draw, -{Latex[length=2.5mm]}] (start.west) -| (sett.north);
+  \draw[draw, -{Latex[length=2.5mm]}] (create) -- (end);
+  \draw[draw, -{Latex[length=2.5mm]}] (sett) |- (end);
+  \draw[draw, -{Latex[length=2.5mm]}] (join) |- (end);
+\end{tikzpicture}
+\end{center}
+
+\textit{Iterative test plan:} \\ \vspace{0.2cm}
+
+\begin{tblr}{colspec={lXXX}}
+
+\hline
+
+Test type & Input & Expected Output & Justification \\
+
+\hline
+
+Normal & User clicks on "Create Call" button & User redirected to call creation page & Users need to be able to easily start new video conferences from the main page \\
+
+Normal & User clicks on "Join Call" button & User redirected to join call page & Users need to be able to easily join existing video conferences from the main page \\
+
+Normal & User clicks on "Settings" button & Settings page opens with user's current configurations loaded & Users should be able to access and modify their personal settings from the main page \\
+
+Normal & User's saved settings & All user configurations (audio, video, accessibility) correctly loaded & System should automatically load user's preferred settings when they reach the main page \\
+
+Normal & User clicks on profile/account menu & Account management options displayed & Users should be able to access account-related functions from the main interface \\
+
+\hline
+\end{tblr}
+
+\subsubsection{\circled{6} Settings page}
+
+\begin{tblr}{colspec={lX}, row{1}={lightestgray}}
+
+\textit{Algorithm name:} & {\scshape Settings\_Page}\\
+
+\textit{Description:} & {This will be the settings page where users can configure their video
+conferencing experience to fit their needs}\\
+
+\textit{Justification:} & {Users should be able to customise their video conferencing experience. This
+contributes to improving the accessibility of our website, directly accomplishing one of client's main
+requests. (Refer to section \ref{sec:interview})}\\
+
+\end{tblr}
+
+\begin{center}
+\begin{tikzpicture}[
+  base/.style = {draw, text centered, minimum width=8em, minimum height=3em}
+]
+  \node (start) [base, terminal] {Start};
+  \node (audio) [base, predproc, below=of start] {Audio};
+  \node (video) [base, predproc, right=of audio] {Video};
+  \node (acc)   [base, predproc, left=of audio] {Accessibility};
+  \node (end)   [base, terminal, below=of audio] {End};
+
+  \draw[draw, -{Latex[length=2.5mm]}] (start) -- (audio);
+  \draw[draw, -{Latex[length=2.5mm]}] (start) -| (video);
+  \draw[draw, -{Latex[length=2.5mm]}] (start) -| (acc);
+  \draw[draw, -{Latex[length=2.5mm]}] (audio) -- (end);
+  \draw[draw, -{Latex[length=2.5mm]}] (acc) |- (end);
+  \draw[draw, -{Latex[length=2.5mm]}] (video) |- (end);
+\end{tikzpicture}
+\end{center}
+
+\textit{Iterative test plan:} \\ \vspace{0.2cm}
+
+\begin{tblr}{colspec={lXXX}}
+
+\hline
+
+Test type & Input & Expected Output & Justification \\
+
+\hline
+
+Normal & User modifies audio settings (speaker volume: 75, mic volume: 50) & Settings saved successfully and applied immediately & Users should be able to customize and save their audio preferences for future video calls \\
+
+Normal & User changes video settings (quality: 720p, camera default: off) & Video settings updated and saved to database & Users should be able to set their preferred video configuration to match their internet capabilities and preferences \\
+
+Normal & User configures accessibility settings (font size: 18, toggle mute key: spacebar) & Accessibility preferences saved and applied to interface & Users with specific needs should be able to customize the interface to improve their experience \\
+
+Erroneous & User enters invalid volume level (speaker volume: -1) & Error message displayed and invalid input rejected & System should validate inputs to prevent invalid configuration values \\
+
+Normal & User switches between settings tabs (Audio/Video/Accessibility) & Correct settings panel displayed for each tab & Users should be able to easily navigate between different settings categories \\
+
+Normal & User logs out and logs back in & All previously saved settings should be correctly loaded & System should persistently store and retrieve user preferences across sessions \\
+
+Extreme & User rapidly switches between multiple settings & All changes should be saved without system crashes & System should handle multiple rapid configuration changes gracefully \\
+
+\hline
 \end{tblr}
 
 \subsubsection{\circled{16} Update user settings}
@@ -1656,8 +1999,94 @@ numbering) to the system decomposition in \ref{fig:decomp}
 we have demonstrated fully how these algorithms form a
 complete solution to the problem at hand.
 
-%\subsubsection{Justify how these algorithms form a complete
-%solution}
+\subsection{Development test plan}
+
+% Include tests that ensure that youre testing succes
+% criteria.
+%
+% For post dev test usability features
+
+Let username be $U$ and password be $P$, for
+typographical reasons.
+
+% lXllXX
+
+\begin{longtblr}[
+  caption={Development test plan.}
+]{
+  colspec={llXXX}, row{1}={lightestgray},
+  row{1-Z}={font=\small},
+}
+
+Test \# & Description & Test data & Expected outcome & Justification \\
+
+1.1 & {Create an account.\\ \textit{Normal}} & ($U$, $P$) = \texttt{(Thomas12, u\#4t3\&\^\$)} & {The system should
+correctly add a new user account, provided that password is strong enough.} & {Users must be able to make an account
+in order to save their configuration data. Their username also helps others to identify them. This test contributes to
+to completion of success criteria 5.}\\
+
+1.2 & {Create an account.\\ \textit{Erroneous}} & ($U$, $P$) = \texttt{(Thomas12, 123)} & {The system should
+not add a new user account, provided that the password is not strong enough.} & {Users shouldnt be able to make
+an account if their password is too weak. This not only allows us to comply with the relevant GDPR regulations but
+also ensures that our user's data is secure. This test contributes to
+to completion of success criteria 5.}\\
+
+\\
+
+2.1 & {Log in.\\ \textit{Normal}} & {Assuming the relevant account exists.\\
+($U$, $P$) = \texttt{(Thomas12, u\#4t3\&\^\$)}} & {
+The system should correctly allow a user to log in to their account, provided that the correct password is entered.} &
+{Once a user has created an account and setup all of their configurations they should be able to access their account by
+logging in with the correct details. This test contributes to
+to completion of success criteria 5.} \\
+
+2.2 & {Log in.\\ \textit{Erroneous}} & {Assuming the relevant account exists.\\
+($U$, $P$) = \texttt{(Thomas12, abc)}} & {The system should not allow a user to
+log in to their account, provided that the wrong password is entered.} & {If a user enters the wrong password they shouldn't
+be able to log in to the system, this measure is in place to protect our user's data. This test contributes to
+to completion of success criteria 5.} \\
+
+\\
+
+3.1 & {Log out.\\ \textit{Normal}} & {Assuming the user is logged in. Navigate to account profile, click the log out button.} & {
+Users should be able to log out of their account once they are finished using our application.} & {Users should be able to log
+out of their account so that malicious internet users wouldn't be able to access their account whilst they are away from their
+computer. This test contributes to
+to completion of success criteria 5.}\\
+
+\\
+
+4.1 & {Type in the chat box,\\ \textit{Normal}} & {Assuming that a conference is running.\\ Message = \texttt{Hello!}} & {The system should allow users to be able to type in the chat box provided in the video conference.} & {This feature will enable users to
+be able to communicate with each other in the case that they do not have a microphone. This test the implementation of essential
+feature 6. (See section \ref{sec:features})} \\
+
+\\
+
+5.1 & {Access documentation. \\ \textit{Normal}} & {Click on the "Docs" button.} & {The documentation PDF should open in a new
+tab.} & {This is an open source project that will be passed off to other developers once complete, it is therefore necessary to
+ensure that the future developers are able to fully understand the system's architecture and it's code. By opening the
+documentation in a new tab we allow our users to be able to easily access and read through the system documentation in their
+own web browser. This tests the implementation of essential feature 8. (See section \ref{sec:features})}\\
+
+\\
+
+6.1 & {Create video call. \\ \textit{Normal}} & {Navigate to the create call page. Click on the create call button.} & {Video call started successfully.} & {Since this is a video conferencing
+software it is vital that the software is able to allow users to video conference, it's intended purpose. This test will ensure
+that users will have an enjoyable user experience whilst video conferencing. This test contributes to the completion of
+success criteria 7 and 8.}\\
+
+\\
+
+7.1 & {Join video call \\ \textit{Normal}} & {Assuming a video conference exists with the passcode: \texttt{041058}. Enter the
+passcode \texttt{041058}.} & {Video call joined successfully.} & {Users should be able to join a video call provided that one
+exists and that they have entered the correct code. This test contributes to success criteria 7 and 8.}\\
+
+7.2 & {Join video call \\ \textit{Erroneous}} & {Assuming a video conference exists with the passcode: \texttt{041058}. Enter the
+passcode \texttt{123456}.} & {Video call not joined. Prompt displaying "Invalid passcode!".} & {Users shouldn't be able to join
+a video conference if they have entered the wrong passcode. This test contributes to success criteria 7 and 8.}\\
+
+\end{longtblr}
+
 
 \section{Usability features}
 \label{sec:usability}
@@ -2267,93 +2696,6 @@ we gain insight on how the software performs under increased
 loads and stresses, then use this data to justify changes
 and enhancements to our system.
 
-\subsection{Development test plan}
-
-% Include tests that ensure that youre testing succes
-% criteria.
-%
-% For post dev test usability features
-
-Let username be $U$ and password be $P$, for
-typographical reasons.
-
-% lXllXX
-
-\begin{longtblr}[
-  caption={Development test plan.}
-]{
-  colspec={llXXX}, row{1}={lightestgray},
-  row{1-Z}={font=\small},
-}
-
-Test \# & Description & Test data & Expected outcome & Justification \\
-
-1.1 & {Create an account.\\ \textit{Normal}} & ($U$, $P$) = \texttt{(Thomas12, u\#4t3\&\^\$)} & {The system should
-correctly add a new user account, provided that password is strong enough.} & {Users must be able to make an account
-in order to save their configuration data. Their username also helps others to identify them. This test contributes to
-to completion of success criteria 5.}\\
-
-1.2 & {Create an account.\\ \textit{Erroneous}} & ($U$, $P$) = \texttt{(Thomas12, 123)} & {The system should
-not add a new user account, provided that the password is not strong enough.} & {Users shouldnt be able to make
-an account if their password is too weak. This not only allows us to comply with the relevant GDPR regulations but
-also ensures that our user's data is secure. This test contributes to
-to completion of success criteria 5.}\\
-
-\\
-
-2.1 & {Log in.\\ \textit{Normal}} & {Assuming the relevant account exists.\\
-($U$, $P$) = \texttt{(Thomas12, u\#4t3\&\^\$)}} & {
-The system should correctly allow a user to log in to their account, provided that the correct password is entered.} &
-{Once a user has created an account and setup all of their configurations they should be able to access their account by
-logging in with the correct details. This test contributes to
-to completion of success criteria 5.} \\
-
-2.2 & {Log in.\\ \textit{Erroneous}} & {Assuming the relevant account exists.\\
-($U$, $P$) = \texttt{(Thomas12, abc)}} & {The system should not allow a user to
-log in to their account, provided that the wrong password is entered.} & {If a user enters the wrong password they shouldn't
-be able to log in to the system, this measure is in place to protect our user's data. This test contributes to
-to completion of success criteria 5.} \\
-
-\\
-
-3.1 & {Log out.\\ \textit{Normal}} & {Assuming the user is logged in. Navigate to account profile, click the log out button.} & {
-Users should be able to log out of their account once they are finished using our application.} & {Users should be able to log
-out of their account so that malicious internet users wouldn't be able to access their account whilst they are away from their
-computer. This test contributes to
-to completion of success criteria 5.}\\
-
-\\
-
-4.1 & {Type in the chat box,\\ \textit{Normal}} & {Assuming that a conference is running.\\ Message = \texttt{Hello!}} & {The system should allow users to be able to type in the chat box provided in the video conference.} & {This feature will enable users to
-be able to communicate with each other in the case that they do not have a microphone. This test the implementation of essential
-feature 6. (See section \ref{sec:features})} \\
-
-\\
-
-5.1 & {Access documentation. \\ \textit{Normal}} & {Click on the "Docs" button.} & {The documentation PDF should open in a new
-tab.} & {This is an open source project that will be passed off to other developers once complete, it is therefore necessary to
-ensure that the future developers are able to fully understand the system's architecture and it's code. By opening the
-documentation in a new tab we allow our users to be able to easily access and read through the system documentation in their
-own web browser. This tests the implementation of essential feature 8. (See section \ref{sec:features})}\\
-
-\\
-
-6.1 & {Create video call. \\ \textit{Normal}} & {Navigate to the create call page. Click on the create call button.} & {Video call started successfully.} & {Since this is a video conferencing
-software it is vital that the software is able to allow users to video conference, it's intended purpose. This test will ensure
-that users will have an enjoyable user experience whilst video conferencing. This test contributes to the completion of
-success criteria 7 and 8.}\\
-
-\\
-
-7.1 & {Join video call \\ \textit{Normal}} & {Assuming a video conference exists with the passcode: \texttt{041058}. Enter the
-passcode \texttt{041058}.} & {Video call joined successfully.} & {Users should be able to join a video call provided that one
-exists and that they have entered the correct code. This test contributes to success criteria 7 and 8.}\\
-
-7.2 & {Join video call \\ \textit{Erroneous}} & {Assuming a video conference exists with the passcode: \texttt{041058}. Enter the
-passcode \texttt{123456}.} & {Video call not joined. Prompt displaying "Invalid passcode!".} & {Users shouldn't be able to join
-a video conference if they have entered the wrong passcode. This test contributes to success criteria 7 and 8.}\\
-
-\end{longtblr}
 
 \subsection{Post-development testing}
 

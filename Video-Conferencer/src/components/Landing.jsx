@@ -17,7 +17,7 @@ function Landing()
       </div>
 
       <div className="flex flex-col items-center justify-center space-y-[-1vw]">
-        <h1 className="text-[8.3vw] font-bold bg-gradient-to-r from-ter to-sec text-transparent bg-clip-text mt-[4vw] inline-block saturate-150"> Video conferencing </h1>
+        <h1 className="text-[7.4vw] font-bold bg-gradient-to-r from-ter to-sec text-transparent bg-clip-text mt-[4vw] inline-block saturate-150"> Video conferencing </h1>
 
         <h2 className="text-sec text-[2.5vw]"> like you've <span className="text-ter">never</span> seen it before </h2>
       </div>
