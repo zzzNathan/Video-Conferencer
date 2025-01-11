@@ -1,4 +1,4 @@
-use vercel_runtime::{Body, Response, StatusCode, Error};
+use vercel_runtime::{Body, Response, StatusCode};
 use sqlx::{PgPool, Row};
 use dotenv::dotenv;
 use serde::Deserialize;
@@ -145,14 +145,14 @@ pub async fn Get_Call_Id(pool: &PgPool, first_run: bool) -> Result<i32, sqlx::Er
 // Function to return response in the HTTP endpoint
 pub fn Build_Response(message: String, error: bool) -> Response<Body> {
     // If another method is given other than GET, DELETE or POST we return an error
-    let status: StatusCode = if error { StatusCode::OK } else { StatusCode::METHOD_NOT_ALLOWED };
+    let status: StatusCode = if error { StatusCode::METHOD_NOT_ALLOWED } else { StatusCode::OK };
 
     return Response::builder()
         .status(status)
         .header("Content-Type", "text/plain")
-        .header("Access-Control-Allow-Origin", "http://localhost:5173/call")
-        .header("Access-Control-Allow-Methods", "GET,POST,DELETE,OPTIONS")
+        .header("Access-Control-Allow-Origin", "*")
         .header("Access-Control-Allow-Credentials", "true")
+        .header("Allow", "GET, POST, DELETE, OPTIONS")
         .body(Body::from(message))
         .expect("Couldn't build response!");
 }
@@ -172,12 +172,5 @@ pub fn Extract_Call_Id(request_body: &Body) -> i32 {
 
 // Function to handle OPTIONS preflight requests
 pub fn Handle_Preflight() -> Response<Body> {
-    return Response::builder()
-        .status(StatusCode::OK)
-        .header("Content-Type", "text/plain")
-        .header("Access-Control-Allow-Origin", "*")
-        .header("Access-Control-Allow-Methods", "GET,POST,DELETE,OPTIONS")
-        .header("Access-Control-Allow-Credentials", "true")
-        .body(Body::from(""))
-        .expect("Couldn't build response");
+    return Build_Response("".to_string(), SUCCESS);
 }

@@ -1161,17 +1161,18 @@ and entice them into trying out our system.}\\
   \node (reg)   [base, predproc, left=of anchor] {Registration page};
   \node (sign)  [base, predproc, right=of help] {Login up page};
   \node (doc)   [base, predproc, left=of reg] {Documentation page};
-  \node (end)   [base, terminal, below=of anchor] {End};
+  \node (bot)   [below=of anchor] {};
 
   \draw[draw, -{Latex[length=2.5mm]}] (start) -- (enter);
   \draw[draw, -{Latex[length=2.5mm]}] (enter) -| (help);
   \draw[draw, -{Latex[length=2.5mm]}] (enter) -| (reg);
   \draw[draw, -{Latex[length=2.5mm]}] (enter) -| (sign);
   \draw[draw, -{Latex[length=2.5mm]}] (enter) -| (doc);
-  \draw[draw, -{Latex[length=2.5mm]}] (doc.south)   |- (end);
-  \draw[draw, -{Latex[length=2.5mm]}] (reg.south)   |- (end);
-  \draw[draw, -{Latex[length=2.5mm]}] (help.south)  |- (end);
-  \draw[draw, -{Latex[length=2.5mm]}] (sign.south)  |- (end);
+  \draw[draw, -{Latex[length=2.5mm]}] (doc.south)   |- (bot);
+  \draw[draw, -{Latex[length=2.5mm]}] (reg.south)   |- (bot);
+  \draw[draw, -{Latex[length=2.5mm]}] (help.south)  |- (bot);
+  \draw[draw, -{Latex[length=2.5mm]}] (sign.south)  |- (bot);
+  \draw[draw, -{Latex[length=2.5mm]}] (bot.north)  -- (enter.south);
 \end{tikzpicture}
 \end{center}
 
@@ -1281,7 +1282,7 @@ video conferencing}\\
   \node (name)  [base, process, below=of start] {Enters username};
   \node (pass)  [base, process, below=of name] {Enters password};
   \node (login) [base, predproc, below=of pass] {Log\_User\_In};
-  \node (end)   [base, terminal, below=of login] {End};
+  \node (end)   [base, predproc, below=of login] {Main\_Page};
 
   \draw[draw, -{Latex[length=2.5mm]}] (start) -- (name);
   \draw[draw, -{Latex[length=2.5mm]}] (name) -- (pass);
@@ -1685,7 +1686,7 @@ requests. (Refer to section \ref{sec:interview})}\\
   \node (audio) [base, predproc, below=of start] {Audio};
   \node (video) [base, predproc, right=of audio] {Video};
   \node (acc)   [base, predproc, left=of audio] {Accessibility};
-  \node (end)   [base, terminal, below=of audio] {End};
+  \node (end)   [base, predproc, below=of audio] {Main\_Page};
 
   \draw[draw, -{Latex[length=2.5mm]}] (start) -- (audio);
   \draw[draw, -{Latex[length=2.5mm]}] (start) -| (video);
@@ -1712,25 +1713,370 @@ Normal & User changes video settings (quality: 720p, camera default: off) & Vide
 
 Normal & User configures accessibility settings (font size: 18, toggle mute key: spacebar) & Accessibility preferences saved and applied to interface & Users with specific needs should be able to customize the interface to improve their experience \\
 
-Erroneous & User enters invalid volume level (speaker volume: -1) & Error message displayed and invalid input rejected & System should validate inputs to prevent invalid configuration values \\
-
 Normal & User switches between settings tabs (Audio/Video/Accessibility) & Correct settings panel displayed for each tab & Users should be able to easily navigate between different settings categories \\
 
 Normal & User logs out and logs back in & All previously saved settings should be correctly loaded & System should persistently store and retrieve user preferences across sessions \\
 
-Extreme & User rapidly switches between multiple settings & All changes should be saved without system crashes & System should handle multiple rapid configuration changes gracefully \\
+\hline
+\end{tblr}
+
+\subsubsection{\circled{7} Create call page}
+
+\begin{tblr}{colspec={lX}, row{1}={lightestgray}}
+
+\textit{Algorithm name:} & {\scshape Create\_Call\_Page}\\
+
+\textit{Description:} & {This page will be where users will be able to create a new video conference}\\
+
+\textit{Justification:} & {Users will need a way to create video conferences and invite others to video conferences,
+this directly achieves one of my client's main requests.}\\
+
+\end{tblr}
+
+\textit{Iterative test plan:} \\ \vspace{0.2cm}
+
+\begin{tblr}{colspec={lXXX}}
+
+\hline
+
+Test type & Input & Expected Output & Justification \\
+
+\hline
+
+Normal & User clicks on "Create Call" button & Video call created successfully and unique 6-digit code generated & The system should be able to start a new video call when the user has the proper hardware connected \\
+
+Normal & User creates multiple calls in succession & Each call gets unique 6-digit code & System should be able to handle users creating multiple different video calls \\
 
 \hline
 \end{tblr}
 
-\subsubsection{\circled{16} Update user settings}
+\begin{center}
+\begin{tikzpicture}[
+  base/.style = {draw, text centered, minimum width=8em, minimum height=3em},
+  io/.style = {trapezium, trapezium left angle=70, trapezium right angle=110}
+]
+  \node (start) [base, terminal] {Start};
+  \node (code)  [base, io, below=of start] {Code given to user};
+  \node (call)  [base, predproc, below=of code] {Call starts};
+
+  \draw[draw, -{Latex[length=2.5mm]}] (start) -- (code);
+  \draw[draw, -{Latex[length=2.5mm]}] (code) -- (call);
+\end{tikzpicture}
+\end{center}
+
+\subsubsection{\circled{8} Join call page}
+
+\begin{tblr}{colspec={lX}, row{1}={lightestgray}}
+
+\textit{Algorithm name:} & {\scshape Join\_Call\_Page}\\
+
+\textit{Description:} & {This page will be where users will be able to join a video conference by entering in the
+corresponding 6 digit call code}\\
+
+\textit{Justification:} & {By allowing users to be able to join video conferences through a 6 digit code system we
+make it easy for users to be able to connect with each other and video conference.}\\
+
+\end{tblr}
+
+\begin{center}
+\begin{tikzpicture}[
+  base/.style = {draw, text centered, minimum width=8em, minimum height=3em},
+  io/.style = {trapezium, trapezium left angle=70, trapezium right angle=110}
+]
+  \node (start) [base, terminal] {Start};
+  \node (code)  [base, io, below=of start] {User enters code};
+  \node (call)  [base, predproc, below=of code] {Call starts};
+
+  \draw[draw, -{Latex[length=2.5mm]}] (start) -- (code);
+  \draw[draw, -{Latex[length=2.5mm]}] (code) -- (call);
+\end{tikzpicture}
+\end{center}
+
+\textit{Iterative test plan: (Assuming that only 1 call with the call code \texttt{123456} exists)} \\ \vspace{0.2cm}
+
+\begin{tblr}{colspec={lXXX}}
+
+\hline
+
+Test type & Input & Expected Output & Justification \\
+
+\hline
+
+Normal & Enter the code \texttt{123456} & Join the ongoing call successfully & Users should be able to join calls in order to communicate and video conference with others \\
+
+Erroneous & Enter the code \texttt{111111} & Error page displayed successfully & Users should be notified when they enter in a call code that has not got an associated video call \\
+
+\hline
+\end{tblr}
+
+\subsubsection{\circled{9} Audio settings}
+
+\begin{tblr}{colspec={lX}, row{1}={lightestgray}}
+
+\textit{Algorithm name:} & {\scshape Audio\_Settings\_Page}\\
+
+\textit{Description:} & {This will be the page from which users will be able to configure audio and sound settings}\\
+
+\textit{Justification:} & {By allowing users to configure audio settings we directly contribute to the goal of
+making our software accessible for all, even those with hearing issues will be able to make use of our system.}\\
+
+\end{tblr}
+
+\begin{center}
+\begin{tikzpicture}[
+  base/.style = {draw, text centered, minimum width=8em, minimum height=3em},
+  io/.style = {trapezium, trapezium left angle=70, trapezium right angle=110}
+]
+  \node (start) [base, terminal] {Start};
+  \node (conf)  [base, process, below=of start] {User changes audio settings};
+  \node (choose)[base, decision, below=of conf] {Save changes?};
+  \node (save)  [base, predproc, below=of choose] {Save settings to \textit{DB}};
+
+  \node (sr) [right=2cm of start] {};
+
+  \draw[draw, -{Latex[length=2.5mm]}] (start) -- (conf);
+  \draw[draw, -{Latex[length=2.5mm]}] (conf) -- (choose);
+  \draw[draw, -{Latex[length=2.5mm]}] (choose) edge["Yes"] (save);
+
+  \draw[draw, -{Latex[length=2.5mm]}]
+    (choose.east) -| node[right] {No} (sr) -- (start.east);
+
+\end{tikzpicture}
+\end{center}
+
+\textit{Iterative test plan:} \\ \vspace{0.2cm}
+
+\begin{tblr}{colspec={lXXX}}
+\hline
+
+Test type & Input & Expected Output & Justification \\
+
+\hline
+
+Normal & User sets speaker volume to 75 and clicks save & Audio settings saved successfully to database and applied immediately & Users should be able to control their speaker volume level and have these changes persist between sessions \\
+
+Normal & User sets microphone volume to 50 and clicks save & Microphone settings saved successfully to database and applied immediately & Users should be able to control their microphone volume level and have these changes persist between sessions \\
+
+Normal & User sets microphone to mute by default and clicks save & Default mute setting saved successfully to database & Users should be able to configure whether their microphone starts muted or unmuted when joining calls \\
+
+\hline
+\end{tblr}
+
+\subsubsection{\circled{10} Video settings}
+
+\begin{tblr}{colspec={lX}, row{1}={lightestgray}}
+
+\textit{Algorithm name:} & {\scshape Video\_Settings\_Page}\\
+
+\textit{Description:} & {This will be the page from which users will be able to configure their video and resolution
+settings}\\
+
+\textit{Justification:} & {Users should be able to configure their video settings so that they can ensure that
+their video conferencing experience is the best given their device hardware.}\\
+
+\end{tblr}
+
+\begin{center}
+\begin{tikzpicture}[
+  base/.style = {draw, text centered, minimum width=8em, minimum height=3em},
+  io/.style = {trapezium, trapezium left angle=70, trapezium right angle=110}
+]
+  \node (start) [base, terminal] {Start};
+  \node (conf)  [base, process, below=of start] {User changes video settings};
+  \node (choose)[base, decision, below=of conf] {Save changes?};
+  \node (save)  [base, predproc, below=of choose] {Save settings to \textit{DB}};
+
+  \node (sr) [right=2cm of start] {};
+
+  \draw[draw, -{Latex[length=2.5mm]}] (start) -- (conf);
+  \draw[draw, -{Latex[length=2.5mm]}] (conf) -- (choose);
+  \draw[draw, -{Latex[length=2.5mm]}] (choose) edge["Yes"] (save);
+
+  \draw[draw, -{Latex[length=2.5mm]}]
+    (choose.east) -| node[right] {No} (sr) -- (start.east);
+
+\end{tikzpicture}
+\end{center}
+
+\textit{Iterative test plan:} \\ \vspace{0.2cm}
+
+\begin{tblr}{colspec={lXXX}}
+\hline
+
+Test type & Input & Expected Output & Justification \\
+
+\hline
+
+Normal & User changes video quality to 720p and clicks save & Video quality setting saved successfully to database and applied immediately & Users should be able to adjust video quality to match their internet capabilities and preferences \\
+
+Normal & User enables "Hide self-view" option and clicks save & Self-view setting saved successfully and user's video feed hidden & Users should have the option to hide their own video feed if they find it distracting \\
+
+Normal & User sets camera to be off by default and clicks save & Default camera state saved successfully to database & Users should be able to configure whether their camera starts enabled or disabled when joining calls \\
+
+\hline
+\end{tblr}
+
+\subsubsection{\circled{11} Accessibility settings}
+
+\begin{tblr}{colspec={lX}, row{1}={lightestgray}}
+
+\textit{Algorithm name:} & {\scshape Accessibility\_Settings\_Page}\\
+
+\textit{Description:} & {This will be the page from which users will be able to configure their accessibility
+settings}\\
+
+\textit{Justification:} & {By allowing users to configure accessibility settings, they can ensure that they
+get the most comfortable video conferencing experience.}\\
+
+\end{tblr}
+
+\begin{center}
+\begin{tikzpicture}[
+  base/.style = {draw, text centered, minimum width=8em, minimum height=3em},
+  io/.style = {trapezium, trapezium left angle=70, trapezium right angle=110}
+]
+  \node (start) [base, terminal] {Start};
+  \node (conf)  [base, process, below=of start] {User changes accessibility settings};
+  \node (choose)[base, decision, below=of conf] {Save changes?};
+  \node (save)  [base, predproc, below=of choose] {Save settings to \textit{DB}};
+
+  \node (sr) [right=2cm of start] {};
+
+  \draw[draw, -{Latex[length=2.5mm]}] (start) -- (conf);
+  \draw[draw, -{Latex[length=2.5mm]}] (conf) -- (choose);
+  \draw[draw, -{Latex[length=2.5mm]}] (choose) edge["Yes"] (save);
+
+  \draw[draw, -{Latex[length=2.5mm]}]
+    (choose.east) -| node[right] {No} (sr) -- (start.east);
+
+\end{tikzpicture}
+\end{center}
+
+\textit{Iterative test plan:} \\ \vspace{0.2cm}
+
+\begin{tblr}{colspec={lXXX}}
+
+\hline
+
+Test type & Input & Expected Output & Justification \\
+
+\hline
+
+Normal & User sets spacebar as toggle mute key and clicks save & Keyboard shortcut saved successfully and becomes active & Users should be able to configure custom keyboard shortcuts to improve their accessibility experience \\
+
+Normal & User sets 'V' key as toggle camera key and clicks save & Camera toggle shortcut saved and becomes active immediately & Users with mobility issues should be able to control camera without using mouse \\
+
+Normal & User sets 'H' key as toggle hand raise key and clicks save & Hand raise shortcut saved and becomes active & Users should be able to participate in meetings efficiently using keyboard shortcuts \\
+
+Extreme & User sets same key for multiple actions & System should display warning about key binding conflict & System should prevent shortcut conflicts that could cause confusion \\
+
+\hline
+\end{tblr}
+
+\subsubsection{\circled{12} Invite others}
+
+\begin{tblr}{colspec={lX}, row{1}={lightestgray}}
+
+\textit{Algorithm name:} & {\scshape Invite\_others}\\
+
+\textit{Description:} & {This is the sequence of steps carried out to invite others to your video conference}\\
+
+\textit{Justification:} & {We need to be able to invite others to our video conference to allow multiple users to
+communicate with each other, one of our client's main requests.}\\
+
+\end{tblr}
+
+\begin{center}
+\begin{tikzpicture}[
+  base/.style = {draw, text centered, minimum width=8em, minimum height=3em},
+  io/.style = {trapezium, trapezium left angle=70, trapezium right angle=110}
+]
+  \node (start) [base, terminal] {Start};
+  \node (give)  [base, process, below=of start] {User to be invited is given a code};
+  \node (nav)   [base, process, below=of give] {User to be invited navigates to join call page};
+  \node (join)  [base, predproc, below=of nav] {Connect\_To\_Call};
+
+  \draw[draw, -{Latex[length=2.5mm]}] (start) -- (give);
+  \draw[draw, -{Latex[length=2.5mm]}] (give) -- (nav);
+  \draw[draw, -{Latex[length=2.5mm]}] (nav) -- (join);
+\end{tikzpicture}
+\end{center}
+
+\textit{Iterative test plan (Assuming only 1 call with the code \texttt{123456} exists):} \\ \vspace{0.2cm}
+
+\begin{tblr}{colspec={lXXX}}
+\hline
+
+Test type & Input & Expected Output & Justification \\
+
+\hline
+
+Normal & User navigates to the join call page, and enters the code \texttt{123456} & User successfully connects to the call & Users should be able to successfully join an existing call \\
+
+Erroneous & User navigates to the join call page, and enters the code \texttt{111111} & User sees an error page & Users should be able to understand why they couldn't connect to a video call if they have entered in the incorrect code \\
+
+\hline
+\end{tblr}
+
+\subsubsection{\circled{13} Enter pass code}
+
+\begin{tblr}{colspec={lX}, row{1}={lightestgray}}
+
+\textit{Algorithm name:} & {\scshape Enter\_Passcode}\\
+
+\textit{Description:} & {This algorithm describes the series of steps required to enter in a 6 digit call code and
+join a video conference}\\
+
+\textit{Justification:} & {We need to verify whether or not a call actually exists with a certain code, then if so
+we will connect a user to this video conference. This allows users to video conference and communicate with each other
+directly satisfying one of our client's main requests.}\\
+
+\end{tblr}
+
+\begin{center}
+\begin{tikzpicture}[
+  base/.style = {draw, text centered, minimum width=8em, minimum height=3em},
+  io/.style = {trapezium, trapezium left angle=70, trapezium right angle=110}
+]
+  \node (start) [base, terminal] {Start};
+  \node (enter) [base, io, below=of start] {User enters code};
+  \node (check) [base, decision, below=of enter, text width=8em] {Check whether a video call exists with this call code};
+  \node (conn)  [base, predproc, below=of check] {Join\_Call};
+
+  \node (sr) [right=3cm of start] {};
+
+  \draw[draw, -{Latex[length=2.5mm]}] (start) -- (enter);
+  \draw[draw, -{Latex[length=2.5mm]}] (enter) -- (check);
+  \draw[draw, -{Latex[length=2.5mm]}] (check) edge["Yes"] (conn);
+  \draw[draw, -{Latex[length=2.5mm]}] (check.east) -| node[right] {No} (sr) -- (start.east);
+\end{tikzpicture}
+\end{center}
+
+\textit{Iterative test plan: (Assuming only 1 call exists with the code \texttt{123456}} \\ \vspace{0.2cm}
+
+\begin{tblr}{colspec={lXXX}}
+\hline
+
+Test type & Input & Expected Output & Justification \\
+
+\hline
+
+Normal & Enter in the call code \texttt{123456} & The \code{Join\_Call()} function successfully runs & The system
+should allow users to join video conferences provided they enter in the correct call code\\
+
+Erroneous & Enter in the call code \texttt{111111} & The \code{Join\_Call()} function doesn't run and an error page is successfully displayed & The system shouldn't allow users to join video conferences if they enter in the wrong code\\
+
+\hline
+\end{tblr}
+
+\subsubsection{\circled{14} Save settings to DB}
 
 \begin{tblr}{colspec={lX}, row{1}={lightestgray}}
 
 \textit{Function name:} & {\scshape Set\_User\_cfgs}(\texttt{string} {\sffamily Username},
-						     \texttt{string} {\sffamily Category},
-	                                             \texttt{string} {\sffamily Option},
-						     \texttt{int} {\sffamily Value})\\
+						    \texttt{string} {\sffamily Category},
+	                        \texttt{string} {\sffamily Option},
+						    \texttt{int} {\sffamily Value})\\
 
 \textit{Description:}  & {This function will update the user's current settings. If the given user
 	                  doesn't exist the function will return false. It will save
@@ -1820,88 +2166,7 @@ if configuration option doesn't exist.}\\
 
 \end{tblr}
 
-\subsubsection{\circled{9} / \circled{14} Create call}
-
-\begin{tblr}{colspec={lX}, row{1}={lightestgray}}
-
-\textit{Function name:} & {\scshape Create\_Call}()\\
-
-\textit{Description:}  & {This function will start a new call for the user. It will
-                          return a unique passcode that the user can share in order
-		          to invite others to join the call.}\\
-
-\textit{Justification:} & {The ability to be able to create a call is a necessity for
-                           this application. It is one of the primary requests from
-		           my client, and without it this software would not
-		           be a \textit{video conferencing} system.}\\
-
-\end{tblr}
-
-\textit{Note: This is a modified, pseudo-code version of the code
-found at the article} \url{https://www.100ms.live/blog/webrtc-video-call}.
-\textit{All credit goes to it's author, Karthikeyan S.}
-
-\begin{algorithm}[H]
-\caption{Pseudo code for starting a new call.}
-\sffamily
-
-\begin{algorithmic}[1]
-  \State{\textbf{import} WebRTC}
-  \Function{Create\_Call}{}
-    \Let{Local\_Stream}{GetUserMedia(video $=$ true, audio $=$ true)}
-    \Let{Connection}{RTCPeerConnection()}
-    \State{}
-
-    \State{Connection.addTrack(Local\_Stream.get\_track(), Local\_Stream)} \Comment{Add the local stream to the connection.}
-    \State{Connection.createOffer()} \Comment{Create a SDP
-    offer. (See \ref{sec:further} for details.)}
-
-    \State{Signal(Connection.icecandidate)} \Comment{Send the ICE candidates.
-    (See \ref{sec:further} for details.)}
-
-    \State{}
-
-    \State{\textbf{Try}}
-    \State{\hspace{\algorithmicindent}Signal(Connection.offer)}
-    \Comment{Send the offer
-    to the signalling server.}
-
-    \State{\textbf{Catch}(error)}
-    \State{\hspace{\algorithmicindent} \textbf{print}("Error creating offer!", error)}
-
-    \State{}
-    \State{\textbf{return} New\_Call\_Code()}
-  \EndFunction
-\end{algorithmic}
-
-\end{algorithm}
-\mdseries
-
-\textit{Iterative test plan: }  \\
-
-\begin{itemize}
-
-\item{Ensure the function can be called without crashing.}
-
-\item{Verify whether a video call was setup correctly.}
-
-\item{Verify whether a unique code was generated.}
-
-\end{itemize}
-
-\textit{Justification: } \\
-
-\begin{itemize}
-
-\item Users should be able to start a video call without the system crashing.
-
-\item The function should create a new video call successfully.
-
-\item The function should return a unique call passcode in order to allow other users to join.
-
-\end{itemize}
-
-\subsubsection{\circled{10} Join call}
+\subsubsection{\circled{15} Join call}
 
 \begin{tblr}{colspec={lX}, row{1}={lightestgray}}
 
@@ -1993,6 +2258,130 @@ if a call doesn't exist with this code.}
 
 \vspace{0.2cm}
 
+\subsubsection{\circled{15} Create call}
+
+\begin{tblr}{colspec={lX}, row{1}={lightestgray}}
+
+\textit{Function name:} & {\scshape Create\_Call}()\\
+
+\textit{Description:}  & {This function will start a new call for the user. It will
+                          return a unique passcode that the user can share in order
+		          to invite others to join the call.}\\
+
+\textit{Justification:} & {The ability to be able to create a call is a necessity for
+                           this application. It is one of the primary requests from
+		           my client, and without it this software would not
+		           be a \textit{video conferencing} system.}\\
+
+\end{tblr}
+
+\textit{Note: This is a modified, pseudo-code version of the code
+found at the article} \url{https://www.100ms.live/blog/webrtc-video-call}.
+\textit{All credit goes to it's author, Karthikeyan S.}
+
+\begin{algorithm}[H]
+\caption{Pseudo code for starting a new call.}
+\sffamily
+
+\begin{algorithmic}[1]
+  \State{\textbf{import} WebRTC}
+  \Function{Create\_Call}{}
+    \Let{Local\_Stream}{GetUserMedia(video $=$ true, audio $=$ true)}
+    \Let{Connection}{RTCPeerConnection()}
+    \State{}
+
+    \State{Connection.addTrack(Local\_Stream.get\_track(), Local\_Stream)} \Comment{Add the local stream to the connection.}
+    \State{Connection.createOffer()} \Comment{Create a SDP
+    offer. (See \ref{sec:further} for details.)}
+
+    \State{Signal(Connection.icecandidate)} \Comment{Send the ICE candidates.
+    (See \ref{sec:further} for details.)}
+
+    \State{}
+
+    \State{\textbf{Try}}
+    \State{\hspace{\algorithmicindent}Signal(Connection.offer)}
+    \Comment{Send the offer
+    to the signalling server.}
+
+    \State{\textbf{Catch}(error)}
+    \State{\hspace{\algorithmicindent} \textbf{print}("Error creating offer!", error)}
+
+    \State{}
+    \State{\textbf{return} New\_Call\_Code()}
+  \EndFunction
+\end{algorithmic}
+
+\end{algorithm}
+\mdseries
+
+\textit{Iterative test plan: }  \\
+
+\begin{itemize}
+
+\item{Ensure the function can be called without crashing.}
+
+\item{Verify whether a video call was setup correctly.}
+
+\item{Verify whether a unique code was generated.}
+
+\end{itemize}
+
+\textit{Justification: } \\
+
+\begin{itemize}
+
+\item Users should be able to start a video call without the system crashing.\\
+
+\item The function should create a new video call successfully.\\
+
+\item The function should return a unique call passcode in order to allow other users to join.\\
+
+\end{itemize}
+
+\subsubsection{\circled{16} Raise error}
+
+\begin{tblr}{colspec={lX}, row{1}={lightestgray}}
+
+\textit{Function name:} & {\scshape Raise\_Error}()\\
+
+\textit{Description:}  & {If the users enters a call code for which a video conference doesn't exists then we will
+display an error page}\\
+
+\textit{Justification:} & {By indicating to the user that no video conference exists with such a code we prevent
+any confusion if a user accidentally enters in a code incorrectly and wonders why they couldn't join the call.}\\
+
+\end{tblr}
+
+\begin{center}
+\begin{tikzpicture}[
+  base/.style = {draw, text centered, minimum width=8em, minimum height=3em},
+  io/.style = {trapezium, trapezium left angle=70, trapezium right angle=110}
+]
+  \node (start) [base, terminal] {Start};
+  \node (raise) [base, process, below=of start] {Display call not found page};
+  \node (end)   [base, terminal, below=of raise] {End};
+
+  \draw[draw, -{Latex[length=2.5mm]}] (start) -- (raise);
+  \draw[draw, -{Latex[length=2.5mm]}] (raise) -- (end);
+\end{tikzpicture}
+\end{center}
+
+\textit{Iterative test plan:} \vspace{0.2cm} \\
+
+\begin{tblr}{colspec={lXXX}}
+
+\hline
+Test type & Input & Expected Output & Justification \\
+\hline
+
+Normal & Enter in a call code that doesn't have a corresponding call associated with it & The error page is rendered and displayed onto the page & We should indicate to the user that they have entered in a call code that isn't associated with any call to prevent confusion. \\
+
+\hline
+
+\end{tblr}
+
+\vspace{0.2cm}
 \textit{Justify how these algorithms form a complete solution}.
 Finally in relating each of these algorithms (with the
 numbering) to the system decomposition in \ref{fig:decomp}

@@ -11,7 +11,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog"
 import {
   CallControls,
@@ -35,8 +34,11 @@ function Video_Call()
     Set_Open_Dialog(true)
   }, [])
 
+  // State of the call code that is to be displayed to user
+  const [Display_Code, Set_Display_Code] = useState()
+
   // If we are joining call the code is passed via the url search params
-  const [Search_Params, Set_Set_Search_Params] = useSearchParams()
+  const [Search_Params, Set_Search_Params] = useSearchParams()
   var   code          = Search_Params.get("code")
   var   create        = CREATE // Are we creating or joining the call
 
@@ -80,15 +82,27 @@ function Video_Call()
 
     queryKey: ["call_id"],
     queryFn:  () => Get_Call_Id(),
-    enabled: !!code, // Only run if code is null, that is no
+    enabled: !code && create==CREATE, // Only run if code is null, that is no
                      // search parameter was passed into URL
     onSuccess: (Call_Code) => {
-      code = Call_Code
-      Search_Params.set("code", code)
-      Set_Set_Search_Params(Search_Params)
+      code = Call_Code.toString()
+      Set_Display_Code(Call_Code)
+      Search_Params.set("code", Call_Code)
+      Set_Search_Params(Search_Params)
     }
 
   })
+
+  // Update Display_Code when Call_Code changes
+  useEffect(() => {
+    if (Call_Code) {
+      Set_Display_Code(Call_Code)
+
+      const params = new URLSearchParams(Search_Params)
+      params.set("code", Call_Code)
+      Set_Search_Params(params)
+    }
+  }, [Call_Code])
 
   const [client, setClient] = useState()
   const [call, setCall]     = useState()
@@ -97,7 +111,7 @@ function Video_Call()
   useEffect(() => {
 
     // If token isn't yet initialised don't do anything
-    if (Stream_Token_Loading || Call_Code_Loading || !isLoaded || !!user) return
+    if (Stream_Token_Loading || Call_Code_Loading || !isLoaded || !user) return
 
     // Initialise client and connect user
     const Stream_User   = { id: user.id, name: user.firstName }
@@ -121,7 +135,7 @@ function Video_Call()
 
   }, [Stream_Token])
 
-  if (Stream_Token_Loading || Call_Code_Loading || !!code)
+  if (Stream_Token_Loading || Call_Code_Loading)
     return <Loading />
 
   return (
@@ -130,10 +144,10 @@ function Video_Call()
         <DialogContent> <DialogHeader>
           <DialogTitle>Your 6 digit call code</DialogTitle>
           <DialogDescription>
-            Share this with others to have them join the video-conference!
+            <div className="text-sec/70"> Share this with others to have them join the video-conference! </div>
 
-            <center><div className="font-bold text-[3vw] text-black mt-[2vw]">
-              {code}
+            <center><div className="font-bold text-[3vw] text-sec mt-[2vw]">
+              {Display_Code}
             </div></center>
 
          </DialogDescription>
@@ -145,7 +159,7 @@ function Video_Call()
 
         <StreamCall call={call}>
           <SpeakerLayout participantsBarPosition="right"/>
-          <CallControls onLeave={End_Call(code)}/>
+          <CallControls />
         </StreamCall>
 
       </StreamTheme>

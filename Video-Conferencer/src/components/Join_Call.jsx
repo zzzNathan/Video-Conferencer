@@ -28,8 +28,8 @@ function Input_Code()
   return (
     <center>
       <a href="/home">
-        <button className="flex flex-row items-center mr-auto p-[1.2vw] text-ter text-[2vw] hover:opacity-50 transition-all">
-          <ChevronLeft className="w-[2vw]" /> Back
+        <button className="flex flex-row items-center mr-auto p-[1.2vw] text-ter text-[1.45vw] hover:opacity-50 transition-all">
+          <ChevronLeft className="w-[1.45vw]" /> Back
         </button>
       </a>
 
