@@ -40,11 +40,11 @@ function Video_Call()
   // If we are joining call the code is passed via the url search params
   const [Search_Params, Set_Search_Params] = useSearchParams()
   var   code          = Search_Params.get("code")
-  var   create        = CREATE // Are we creating or joining the call
+  var   creating      = CREATE // Are we creating or joining the call
 
   // If a code was provided then we must be joining the call
   if (code !== null)
-    create = JOIN
+    creating = JOIN
 
   // Get user details from Clerk,
   // these take a second to load in
@@ -82,7 +82,7 @@ function Video_Call()
 
     queryKey: ["call_id"],
     queryFn:  () => Get_Call_Id(),
-    enabled: !code && create==CREATE, // Only run if code is null, that is no
+    enabled: !code && creating==CREATE, // Only run if code is null, that is no
                      // search parameter was passed into URL
     onSuccess: (Call_Code) => {
       code = Call_Code.toString()
@@ -116,11 +116,12 @@ function Video_Call()
     // Initialise client and connect user
     const Stream_User   = { id: user.id, name: user.firstName }
     const Stream_Client = new StreamVideoClient({ apiKey, Stream_Token, Stream_User })
+
     Stream_Client.connectUser(Stream_User, Stream_Token)
 
     // Create and join call
     const Stream_Call = Stream_Client.call("default", code)
-    Stream_Call.join({ create: create })
+    Stream_Call.getOrCreate()
 
     setClient(Stream_Client)
     setCall(Stream_Call)
