@@ -1,5 +1,5 @@
 import { Settings, CircleHelp, Video, UserPlus, ChevronLeft, LogOut } from "lucide-react"
-import { useUser, SignOutButton } from '@clerk/clerk-react'
+import { useUser, SignOutButton, SignedIn } from "@clerk/clerk-react"
 
 // Renders the sign out option only if the user is currently
 // signed in
@@ -28,16 +28,20 @@ function Top_Bar()
           <ChevronLeft className="w-[1.45vw]"/>
         </li>
       </a>
+
       <li className="flex items-center justify-center flex-row font-bold mr-auto text-ter text-[1.45vw]">
         Home
       </li>
       <Sign_Out_Button />
 
+      <SignedIn>
       <a href="/settings">
       <li className="flex items-center justify-center flex-row mr-[3vw] text-[1.45vw] hover:opacity-65 transition-all">
         <Settings className="w-[1.45vw]" />
       </li>
       </a>
+      </SignedIn>
+
       <li className="flex items-center justify-center flex-row mr-[2vw] text-[1.45vw] hover:opacity-65 transition-all">
         <CircleHelp className="w-[1.45vw]" />
       </li>
@@ -72,7 +76,7 @@ function Options()
         </a>
       </div>
     </div>
-  );
+  )
 }
 
 // Renders the home page
@@ -86,4 +90,4 @@ function Home()
   </>)
 }
 
-export default Home;
+export default Home

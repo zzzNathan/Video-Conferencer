@@ -2454,3 +2454,65 @@ success criterion 1, 3 and 5. \\ \vspace{0.2cm}
 {\sffamily Evidence:} \url{https://youtu.be/Ii8QkbziWo4} \\ \vspace{0.2cm}
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
+
+I then proceeded to implement a sketch design for a simple settings
+page. Since we have 3 categories of settings the settings page
+is to be split into 3 main components, video, audio and
+accessibility.
+
+\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+
+function Sidebar()
+{
+  return (
+    <div className="ml-[5vw] mt-[1vw] mb-[1.5vw] text-sec text-[2.6vw] font-bold"> Settings </div>
+  )
+}
+
+function Settings()
+{
+  return <>
+    <Sidebar />
+
+    <center>
+    <Tabs defaultValue="Video" className="w-[90vw]">
+      <TabsList className="grid w-full grid-cols-3">
+        <TabsTrigger className="data-[state=active]:bg-sec" value="Video">Video</TabsTrigger>
+        <TabsTrigger className="data-[state=active]:bg-sec" value="Audio">Audio</TabsTrigger>
+        <TabsTrigger className="data-[state=active]:bg-sec" value="Accessibility">
+          Accessibility
+        </TabsTrigger>
+      </TabsList>
+
+      <TabsContent value="Video">
+        <div className="text-sec">Make changes to the video settings here.</div>
+      </TabsContent>
+
+      <TabsContent value="Audio">
+        <div className="text-sec">Make changes to the audio settings here.</div>
+      </TabsContent>
+
+      <TabsContent value="Accessibility">
+        <div className="text-sec">Make changes to the accessibility settings here.</div>
+      </TabsContent>
+    </Tabs>
+    </center>
+  </>
+}
+
+export default Settings;
+\end{minted}
+
+This produced the following, \\ \vspace{0.2cm}
+
+{\sffamily Evidence:} \url{https://youtu.be/p1BOWjBdH0g}
+
+The next thing to think about was what settings we should
+include and how to implement them respectively. For the
+settings that relate to video conferencing since we are
+making use of the GetStream video conferencing SDK we would
+have to provide settings that are compatible with the
+features that the SDK provides. The full list of options
+and configurations for video conferences is availbable at
+\url{https://getstream.io/video/docs/api/call_types/settings/}.

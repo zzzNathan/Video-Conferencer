@@ -1,9 +1,13 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { ChevronLeft } from "lucide-react"
 
 function Sidebar()
 {
-  return (
-  <>
+  return ( <>
+    <a href="/home" >
+      <ChevronLeft className="m-[0.5vw] text-ter hover:opacity-50 transition-all" />
+    </a>
+
     <div className="ml-[5vw] mt-[1vw] mb-[1.5vw] text-sec text-[2.6vw] font-bold"> Settings </div>
   </>)
 }

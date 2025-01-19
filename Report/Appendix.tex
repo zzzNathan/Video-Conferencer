@@ -9,10 +9,19 @@
 \begin{minted}[linenos, bgcolor=lightestgray]{jsx}
 import { createRoot } from "react-dom/client"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import { ClerkProvider } from "@clerk/clerk-react"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+
+import "./index.css"
+
 import Landing from "./components/Landing.jsx"
-import Registration from "./components/Registration.jsx"
 import Login from "./components/Login.jsx"
+import Registration from "./components/Registration.jsx"
 import Home from "./components/Home.jsx"
+import Video_Call from "./components/Video_Call.jsx"
+import Join_Call from "./components/Join_Call.jsx"
+import { End_Call, Get_Call_Id_From_URL } from "./utils/Query_Api.jsx"
+import Settings from "./components/Settings.jsx"
 
 // Path is an extension that goes after our URL,
 // once this extension is written the corresponding
@@ -23,149 +32,87 @@ const router = createBrowserRouter([
     element: <Landing />
   },
   {
-    path: "/registration",
-    element: <Registration />
-  },
-  {
     path: "/login",
     element: <Login />
   },
   {
+    path: "/registration",
+    element:  <Registration />
+  },
+  {
     path: "/home",
     element: <Home />
+  },
+  {
+    path: "/call",
+    element: <Video_Call />,
+    onLeave: () => {End_Call( Get_Call_Id_From_URL() )}
+  },
+  {
+    path: "/join",
+    element: <Join_Call />
+  },
+  {
+    path: "/settings",
+    element: <Settings />
   }
 ])
 
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+const Query_Client    = new QueryClient()
+
 createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router} />
+  <QueryClientProvider client={Query_Client}>
+
+  <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+    <RouterProvider router={router} />
+  </ClerkProvider>
+
+  </QueryClientProvider>
 )
 \end{minted}
 
-\underline{/src/Button.jsx}
+\underline{/src/components/Landing.jsx}
 
 \begin{minted}[linenos, bgcolor=lightestgray]{jsx}
-import "../styles/Button.sass"
+import Navbar from "./Navbar.jsx"
 
-// Simple sign up button component
-function Button()
+function Landing()
 {
   return (
-    <button class="Button"> Sign Up </button>
-  )
-}
+    <div className="w-screen h-screen flex flex-col">
+      <Navbar />
 
-export default Button 
-\end{minted}
+      <div className="inline-block mb-[1.4vw]"></div>
 
-\underline{/src/Clock.jsx}
+      <div className="flex flex-col items-center justify-center space-y-[-1vw] mb-[1vw]">
+        <h1 className="text-[7.4vw] font-bold bg-gradient-to-r from-ter to-sec text-transparent bg-clip-text mt-[4vw] inline-block saturate-150"> Video conferencing </h1>
 
-\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
-import "../styles/Clock.sass"
-import { useEffect, useState } from "react"
+        <h2 className="text-sec text-[2.5vw]"> like you've <span className="text-ter">never</span> seen it before </h2>
+      </div>
 
-// Gets current date and time and continously updates it every second
-function Clock ()
-{
-  const [currentDateTime, setCurrentDateTime] = useState("")
+      <div className="inline-block mb-[1vw]"></div>
 
-  const updateDateTime = () => {
-    const now = new Date()
+      <div className="flex flex-row justify-center items-center space-x-[1.75vw] p-0 mb-auto pointer-events-auto">
+        <a href="/login"><button className="rounded-[50vw] bg-black/70 text-white px-[1.75vw] py-[0.7vw] hover:border-[0.15vw] hover:scale-[1.05] hover:bg-black transition-all shadow-[0_0_1vw_0.05vw_rgba(255,255,255,0.3)] text-[1.3vw]"> Login </button></a>
 
-    // Get components of the date
-    const day    = String(now.getDate()).padStart(2, "0")
-    const month  = String(now.getMonth() + 1).padStart(2, "0")
-    const year   = now.getFullYear()
-    const hour   = String(now.getHours()).padStart(2, '0')
-    const minute = String(now.getMinutes()).padStart(2, '0')
-    const second = String(now.getSeconds()).padStart(2, '0')
-    
-    // Get the day name
-    const options = { weekday: "long" }
-    const dayName = now.toLocaleDateString("en-US", options).substring(0,3)
-
-    // Format the date string
-    setCurrentDateTime(`${day}-${month}-${year} ${dayName}\n
-	                ${hour}:${minute}:${second}`)
-  };
-
-  useEffect(() => {
-    updateDateTime()
-
-    // Update every second
-    const intervalId = setInterval(updateDateTime, 1000) 
-    
-    // Cleanup interval on unmount
-    return () => clearInterval(intervalId)
-  }, []);
-
-  // Toggle the opacity of the clock when the user clicks on it
-  const [opacity, setOpacity] = useState(1)
-  const Toggle_Opacity = () => {
-    setOpacity(prevOpacity => (prevOpacity === 0.1 ? 1 : 0.1))
-  }
-  
-  // Render the clock
-  return (
-    <div
-      className="Clock"
-      onClick={Toggle_Opacity}
-      style={{opacity: opacity}}>
-
-      {currentDateTime}
+        <a href="/registration">
+	        <button className="rounded-[50vw] bg-gradient-to-r from-ter to-sec/70 bg-gradient-to-bl from-bg/70 to-pink/70 text-black hover:border-[0.15vw] px-[1.75vw] border-t-[0.15vw] py-[0.7vw] transition-all text-[1.3vw] shadow-[0_0_1vw_0.05vw_rgba(255,255,255,0.3)]"> Sign up </button>
+        </a>
+      </div>
 
     </div>
-  )
-}
-
-export default Clock
-\end{minted}
-
-\underline{/src/Landing.jsx}
-
-\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
-import { ClerkProvider } from "@clerk/clerk-react"
-import Button from "./Button"
-import Navbar from "./Navbar"
-import Quotes from "../assets/Quote_Cards.svg"
-import "../styles/Landing.sass"
-
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
-
-// Code to render the landing page of our site
-function Landing () {
-  return (
-    <> 
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
-      <Navbar />
-    
-      <div className="Main_Graphic">
-        <h1 className="Main_Headline"> Video conferencing... </h1>
-
-        <h2 className="Sub_Headline"> like you've <i>
-        <span className="Pink_Text"> never </span> </i> seen it before </h2>
-      </div>
-
-      <div className="Buttons">
-        <a href="/login"><button className="Login_Button"> Login </button></a>
-        <a href="/registration"><Button /></a>
-      </div>
-
-      <img className="Quote_Card" src={Quotes} /> 
-    </ClerkProvider>
-    </>
   )
 }
 
 export default Landing
 \end{minted}
 
-\underline{/src/Navbar.jsx}
+\underline{/src/components/Navbar.jsx}
 
 \begin{minted}[linenos, bgcolor=lightestgray]{jsx}
-import { useUser } from '@clerk/clerk-react'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCog } from "@fortawesome/free-solid-svg-icons"
-import "../styles/Navbar.sass"
+import { useUser, SignedIn } from '@clerk/clerk-react'
+import { Settings } from 'lucide-react'
 
 // Makes the navigation bar design a component must be inside
 // a clerk provider
@@ -184,46 +131,639 @@ function Navbar()
     link = "/home"
     text = "Home"
   }
-  
+
   return (
-    <nav class="Navbar">
-      <ul class="Navbar_List">
-        <li class="Navbar_Item"> <b>  Video-Conferencer </b> </li>
-	<li class="Navbar_Item_Left"> <a href={link}> <span class="Gradient"> {text}
-	  </span> </a> </li>
-        <li class="Navbar_Item">      Documentation          </li>
-        <li class="Navbar_Item">      Help                   </li>
-        <li class="Navbar_Item"> <FontAwesomeIcon icon={faCog} /> </li>
+    <nav>
+      <ul className="flex list-none m-0 p-0 text-[1.45vw] mb-[0.1vw] mt-[-0.5vw]">
+
+        <li className="p-[1.25vw] text-sec"> <b> Video-Conferencer </b> </li>
+
+	<li className="ml-[auto] p-[1.25vw] hover:opacity-65 transition-opacity text-sec saturate-50"> <a href={link}> {text} </a> </li>
+
+        <li className="p-[1.25vw] ml-[1vw] hover:opacity-65 transition-opacity text-sec saturate-50"> Docs </li>
+
+        <li className="p-[1.25vw] ml-[1vw] hover:opacity-65 transition-opacity text-sec saturate-50"> Help </li>
+
+        <SignedIn>
+        <a href="/settings">
+        <li className="p-[1.25vw] ml-[1vw] hover:opacity-65 transition-opacity text-sec mt-[0.35vw] saturate-50"> <Settings className="w-[1.45vw]"/> </li>
+        </a>
+        </SignedIn>
+
       </ul>
-    </nav> 
+    </nav>
   )
 }
 
 export default Navbar
 \end{minted}
 
+\underline{/src/components/Home.jsx}
+
+\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+import { Settings, CircleHelp, Video, UserPlus, ChevronLeft, LogOut } from "lucide-react"
+import { useUser, SignOutButton, SignedIn } from "@clerk/clerk-react"
+
+// Renders the sign out option only if the user is currently
+// signed in
+function Sign_Out_Button()
+{
+  const { isSignedIn } = useUser()
+
+  // If user isn't signed in return an empty HTML element
+  if (!isSignedIn) return <></>
+
+  return (
+    <li className="mr-[3vw] flex items-center justify-center flex-row hover:opacity-65 transition-opacity">
+      <SignOutButton redirectUrl={"/"}>
+        <button className="m-0 p-0 text-sec text-[1.45vw] border-none bg-transparent"> <LogOut className="w-[1.45vw]"/> </button>
+      </SignOutButton>
+    </li>
+  )
+}
+
+function Top_Bar()
+{
+  return (
+    <ul className="flex pt-[0.5vw] pb-[1vw] mb-[1.5vw] mt-0 mx-0 pl-[1.25vw] text-sec">
+      <a href="/">
+        <li className="flex items-center justify-center flex-row mr-[2vw] text-ter text-[1.45vw] hover:opacity-65 transition-all mt-[0.25vw]">
+          <ChevronLeft className="w-[1.45vw]"/>
+        </li>
+      </a>
+
+      <li className="flex items-center justify-center flex-row font-bold mr-auto text-ter text-[1.45vw]">
+        Home
+      </li>
+      <Sign_Out_Button />
+
+      <SignedIn>
+      <a href="/settings">
+      <li className="flex items-center justify-center flex-row mr-[3vw] text-[1.45vw] hover:opacity-65 transition-all">
+        <Settings className="w-[1.45vw]" />
+      </li>
+      </a>
+      </SignedIn>
+
+      <li className="flex items-center justify-center flex-row mr-[2vw] text-[1.45vw] hover:opacity-65 transition-all">
+        <CircleHelp className="w-[1.45vw]" />
+      </li>
+    </ul>
+  )
+}
+
+// Makes the create call and join call components
+function Options()
+{
+  return (
+    <div className="flex flex-col items-center justify-start gap-[2vw] h-[80vh] w-[83vw] rounded-[1.5vw] mx-auto saturate-[.65] bg-white/10">
+      <div className="flex flex-col items-center justify-center text-ter w-[83vw] rounded-t-[1.5vw] saturate-[.65] bg-white/10 h-[3vw]">
+        <div className="text-[1.25vw] font-bold mr-auto ml-[1vw]">Meetings</div>
+      </div>
+
+      <div className="text-sec font-bold text-[3vw] bg-gradient-to-r from-orange-200 to-ter bg-clip-text text-transparent inline-block mt-[15vh]">
+        Start connecting with others!
+      </div>
+
+      <div className="flex flex-row items-center justify-center gap-[2vw]">
+        <a href="/call">
+          <button className="flex items-center justify-center gap-[0.75vw] border-gray-700 border-t-[0.15vw] text-[1.5vw] rounded-[50vw] bg-black/75 text-sec px-[2.5vw] py-[0.75vw] hover:border-[0.15vw] hover:scale-[1.05] hover:bg-black transition-all">
+            <Video className="w-[1.5vw]" /> Create
+          </button>
+        </a>
+
+        <a href="/join">
+          <button className="flex items-center justify-center gap-[0.75vw] border-gray-700 border-t-[0.15vw] text-[1.5vw] rounded-[50vw] bg-black/75 text-sec px-[2.5vw] py-[0.75vw] hover:border-[0.15vw] hover:scale-[1.05] hover:bg-black transition-all">
+            <UserPlus className="w-[1.5vw]" /> Join
+          </button>
+        </a>
+      </div>
+    </div>
+  )
+}
+
+// Renders the home page
+function Home()
+{
+  return (<>
+    <div className="bg-grad/20 h-screen">
+      <Top_Bar />
+      <Options />
+    </div>
+  </>)
+}
+
+export default Home
+\end{minted}
+
+\underline{src/components/Join\_Call.jsx}
+
+\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+import { ChevronLeft, UserPlus } from "lucide-react"
+import { REGEXP_ONLY_DIGITS } from "input-otp"
+import { Check_Ongoing } from "../utils/Query_Api"
+import { useState } from "react"
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from "@/components/ui/input-otp"
+
+// Function to join a call
+async function Enter_Call(code)
+{
+  // Code must be 6 digits
+  if (code.length === 6) {
+    // Check if call with this id is actually ongoing
+    let Call_Ongoing = await Check_Ongoing(code)
+    if (!Call_Ongoing) return
+
+    window.location.href = `/call?code=${code}`
+  }
+}
+
+function Input_Code()
+{
+  const [value, setValue] = useState("")
+
+  return (
+    <center>
+      <a href="/home">
+        <button className="flex flex-row items-center mr-auto p-[1.2vw] text-ter text-[1.45vw] hover:opacity-50 transition-all">
+          <ChevronLeft className="w-[1.45vw]" /> Back
+        </button>
+      </a>
+
+      <div className="flex flex-col items-center justify-center gap-[2vw] text-ter mt-[4.5vw] w-[31vw] pb-[1.75vw] rounded-[1.1vw] saturate-[.65] bg-white/10">
+        <div className="flex flex-col items-center justify-center text-ter w-[31vw] rounded-t-[1.1vw] saturate-[.65] bg-white/10 h-[3vw]">
+          <div className="text-[1.25vw] font-bold">Join meeting</div>
+        </div>
+
+        <div className="mx-auto text-ter/90 text-[1.5vw] mt-[-1.75vw] pt-[0.5vw]">
+          Please enter the 6 digit meeting code
+        </div>
+
+        <InputOTP
+          maxLength={6}
+          pattern={REGEXP_ONLY_DIGITS}
+          value={value}
+          onChange={(value) => setValue(value)}
+        >
+          <InputOTPGroup>
+            <InputOTPSlot index={0} />
+            <InputOTPSlot index={1} />
+            <InputOTPSlot index={2} />
+            <InputOTPSlot index={3} />
+            <InputOTPSlot index={4} />
+            <InputOTPSlot index={5} />
+          </InputOTPGroup>
+        </InputOTP>
+
+        <button
+          className="flex items-center justify-center gap-[0.75vw] border-gray-700 border-t-[0.15vw] text-[1.5vw] rounded-[50vw] bg-black/75 text-sec px-[2.5vw] py-[0.75vw] hover:border-[0.15vw] hover:scale-[1.05] hover:bg-black transition-all"
+          onClick={() => Enter_Call(value)}
+        >
+          <UserPlus className="w-[1.5vw]" /> Join
+        </button>
+      </div>
+    </center>
+  )
+}
+
+function Join_Call()
+{
+  return (
+    <div className="bg-grad/20 h-screen">
+      <Input_Code />
+    </div>
+  )
+}
+
+export default Join_Call
+\end{minted}
+
+\underline{Landing.jsx}
+
+\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+import Navbar from "./Navbar.jsx"
+
+function Landing()
+{
+  return (
+    <div className="w-screen h-screen flex flex-col">
+      <Navbar />
+
+      <div className="inline-block mb-[1.4vw]"></div>
+
+      <div className="flex flex-col items-center justify-center space-y-[-1vw] mb-[1vw]">
+        <h1 className="text-[7.4vw] font-bold bg-gradient-to-r from-ter to-sec text-transparent bg-clip-text mt-[4vw] inline-block saturate-150"> Video conferencing </h1>
+
+        <h2 className="text-sec text-[2.5vw]"> like you've <span className="text-ter">never</span> seen it before </h2>
+      </div>
+
+      <div className="inline-block mb-[1vw]"></div>
+
+      <div className="flex flex-row justify-center items-center space-x-[1.75vw] p-0 mb-auto pointer-events-auto">
+        <a href="/login"><button className="rounded-[50vw] bg-black/70 text-white px-[1.75vw] py-[0.7vw] hover:border-[0.15vw] hover:scale-[1.05] hover:bg-black transition-all shadow-[0_0_1vw_0.05vw_rgba(255,255,255,0.3)] text-[1.3vw]"> Login </button></a>
+
+        <a href="/registration">
+	        <button className="rounded-[50vw] bg-gradient-to-r from-ter to-sec/70 bg-gradient-to-bl from-bg/70 to-pink/70 text-black hover:border-[0.15vw] px-[1.75vw] border-t-[0.15vw] py-[0.7vw] transition-all text-[1.3vw] shadow-[0_0_1vw_0.05vw_rgba(255,255,255,0.3)]"> Sign up </button>
+        </a>
+      </div>
+
+    </div>
+  )
+}
+
+export default Landing
+\end{minted}
+
+\underline{Loading.jsx}
+
+\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+import CircleLoader from "react-spinners/CircleLoader"
+
+function Loading()
+{
+  return (
+    <div className="flex justify-center items-center h-screen flex-wrap gap-[0.75vh]">
+
+      <h1 className="text-sec font-bold text-[3vw]"> Loading... </h1>
+
+      <div className="h-0 basis-[100%]"></div>
+
+      <CircleLoader
+        color={"#B98DEE"}
+	size={"10vw"}
+      />
+
+    </div>
+  )
+}
+
+export default Loading
+\end{minted}
+
+\underline{Login.jsx}
+
+\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+import { ReactTyped } from "react-typed"
+import { SignedOut, SignIn } from "@clerk/clerk-react"
+import { dark } from "@clerk/themes"
+import Navbar from "./Navbar"
+
+// Makes the typing headline animation
+function Headline ()
+{
+  return (
+    <ReactTyped
+      className={"relative text-[4vw] ml-[4vw] mb-[0.75vw] inline-block bg-gradient-to-r from-ter to-sec text-transparent bg-clip-text select-none"}
+      strings={[
+        "Welcome back :)",
+	"Log back in here,",
+      ]}
+      typeSpeed={120}
+      startDelay={30}
+      loop
+    >
+    </ReactTyped>
+  )
+}
+
+// Renders the login page
+function Login () {
+  return (
+  <>
+    <Navbar />
+    <Headline /> <br/>
+    <SignedOut> <center>
+
+      <SignIn
+	signUpUrl="/registration"
+	forceRedirectUrl="/home"
+	appearance={{
+	  baseTheme: dark,
+          variables: {spacingUnit: "2vh"}
+	}}
+      />
+
+    </center> </SignedOut>
+  </>
+  )
+}
+
+export default Login
+\end{minted}
+
+\underline{Registration.jsx}
+
+\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+import { ReactTyped } from "react-typed"
+import { SignedOut, SignUp } from "@clerk/clerk-react"
+import { dark } from "@clerk/themes"
+import Navbar from "./Navbar"
+
+// Makes the headline typing animation a component
+function Headline()
+{
+  return (
+    <ReactTyped
+      className={"relative text-[4vw] ml-[4vw] mb-[0.75vw] inline-block bg-gradient-to-r from-ter to-sec text-transparent bg-clip-text select-none"}
+      strings={[
+        "Welcome to Video-Conferencer",
+	"Let's get started...",
+      ]}
+      typeSpeed={100}
+      startDelay={30}
+      loop
+    >
+    </ReactTyped>
+  )
+}
+
+// Renders the registration page
+function Registration()
+{
+  return (
+  <>
+    <Navbar />
+    <Headline />
+
+      <SignedOut>
+        <center>
+
+	  <SignUp
+	    signInUrl="/login"
+	    forceRedirectUrl="/home"
+	    appearance={{
+	      baseTheme: dark,
+	      variables: {spacingUnit: "2vh"}
+	    }}
+	  />
+
+	</center>
+      </SignedOut>
+  </>
+  )
+}
+
+export default Registration
+\end{minted}
+
+\underline{Settings.jsx}
+
+\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+
+function Sidebar()
+{
+  return (
+    <div className="ml-[5vw] mt-[1vw] mb-[1.5vw] text-sec text-[2.6vw] font-bold"> Settings </div>
+  )
+}
+
+function Settings()
+{
+  return <>
+    <Sidebar />
+
+    <center>
+    <Tabs defaultValue="Video" className="w-[90vw]">
+      <TabsList className="grid w-full grid-cols-3">
+        <TabsTrigger className="data-[state=active]:bg-sec" value="Video">Video</TabsTrigger>
+        <TabsTrigger className="data-[state=active]:bg-sec" value="Audio">Audio</TabsTrigger>
+        <TabsTrigger className="data-[state=active]:bg-sec" value="Accessibility">Accessibility</TabsTrigger>
+      </TabsList>
+      <TabsContent value="Video"><div className="text-sec">Make changes to the video settings here.</div></TabsContent>
+      <TabsContent value="Audio"><div className="text-sec">Make changes to the audio settings here.</div></TabsContent>
+      <TabsContent value="Accessibility"><div className="text-sec">Make changes to the accessibility settings here.</div></TabsContent>
+    </Tabs>
+    </center>
+  </>
+}
+
+export default Settings;
+\end{minted}
+
+\underline{Video\_Call.jsx}[linenos, bgcolor=lightestgray]
+
+\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+import { useUser } from "@clerk/clerk-react"
+import { useEffect, useState } from "react"
+import { useQuery } from "@tanstack/react-query"
+import { useSearchParams } from "react-router-dom"
+import { Get_Stream_Token, Get_Call_Id, End_Call } from "../utils/Query_Api.jsx"
+import Loading from "./Loading.jsx"
+import "@stream-io/video-react-sdk/dist/css/styles.css"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
+import {
+  CallControls,
+  StreamCall,
+  StreamTheme,
+  StreamVideo,
+  SpeakerLayout,
+  StreamVideoClient
+} from "@stream-io/video-react-sdk"
+
+const apiKey = import.meta.env.VITE_STREAM_API_KEY
+
+const CREATE = true
+const JOIN   = false
+
+function Video_Call()
+{
+  // State of the dialog box
+  const [Open_Dialog, Set_Open_Dialog] = useState(false)
+  useEffect(() => {
+    Set_Open_Dialog(true)
+  }, [])
+
+  // State of the call code that is to be displayed to user
+  const [Display_Code, Set_Display_Code] = useState()
+
+  // If we are joining call the code is passed via the url search params
+  const [Search_Params, Set_Search_Params] = useSearchParams()
+  var   code          = Search_Params.get("code")
+  var   creating      = CREATE // Are we creating or joining the call
+
+  // If a code was provided then we must be joining the call
+  if (code !== null)
+    creating = JOIN
+
+  // Get user details from Clerk,
+  // these take a second to load in
+  const { user, isLoaded } = useUser()
+
+  // Get Stream token
+  const {
+    data:      Stream_Token,
+    isLoading: Stream_Token_Loading,
+    error:     Stream_Token_Error
+
+  } = useQuery({
+    // user?.id only access the attribute id if
+    // user isnt undefined
+    queryKey: ["stream_token", user?.id],
+    queryFn:  () => Get_Stream_Token(user?.id),
+    enabled:  !!isLoaded && !!user // Only run if Clerk is
+	                           // loaded
+  })
+
+  // Get call code, There are 2 cases:
+  // ----------------------------------
+  // 1) The user is creating a call, in this case we must
+  //    retrieve a unique call code from our API.
+  //
+  // 2) The user is joining a call, in this case we take
+  //    the code inputted, it is found in the URL search
+  //    parameter "...?code=<...>".
+  const {
+    data:      Call_Code,
+    isLoading: Call_Code_Loading,
+    error:     Call_Code_Error
+
+  } = useQuery({
+
+    queryKey: ["call_id"],
+    queryFn:  () => Get_Call_Id(),
+    enabled: !code && creating==CREATE, // Only run if code is null, that is no
+                     // search parameter was passed into URL
+    onSuccess: (Call_Code) => {
+      code = Call_Code.toString()
+      Set_Display_Code(Call_Code)
+      Search_Params.set("code", Call_Code)
+      Set_Search_Params(Search_Params)
+    }
+
+  })
+
+  // Update Display_Code when Call_Code changes
+  useEffect(() => {
+    if (Call_Code) {
+      Set_Display_Code(Call_Code)
+
+      const params = new URLSearchParams(Search_Params)
+      params.set("code", Call_Code)
+      Set_Search_Params(params)
+    }
+  }, [Call_Code])
+
+  const [client, setClient] = useState()
+  const [call, setCall]     = useState()
+
+  // Setup GetStream video client once the token is initialised
+  useEffect(() => {
+
+    // If token isn't yet initialised don't do anything
+    if (Stream_Token_Loading || Call_Code_Loading || !isLoaded || !user) return
+
+    // Initialise client and connect user
+    const Stream_User   = { id: user.id, name: user.firstName }
+    const Stream_Client = new StreamVideoClient({ apiKey, Stream_Token, Stream_User })
+
+    Stream_Client.connectUser(Stream_User, Stream_Token)
+
+    // Create and join call
+    const Stream_Call = Stream_Client.call("default", code)
+    Stream_Call.getOrCreate()
+
+    setClient(Stream_Client)
+    setCall(Stream_Call)
+
+    // Disconnect user and leave call on cleanup
+    return () => {
+      client.disconnectUser()
+      call.leave()
+      setCall(undefined)
+      setClient(undefined)
+    }
+
+  }, [Stream_Token])
+
+  if (Stream_Token_Loading || Call_Code_Loading)
+    return <Loading />
+
+  return (
+    <>
+      <Dialog open={Open_Dialog} onOpenChange={Set_Open_Dialog}>
+        <DialogContent> <DialogHeader>
+          <DialogTitle>Your 6 digit call code</DialogTitle>
+          <DialogDescription>
+            <div className="text-sec/70"> Share this with others to have them join the video-conference! </div>
+
+            <center><div className="font-bold text-[3vw] text-sec mt-[2vw]">
+              {Display_Code}
+            </div></center>
+
+         </DialogDescription>
+        </DialogHeader> </DialogContent>
+      </Dialog>
+
+    <StreamVideo client={client}>
+      <StreamTheme>
+
+        <StreamCall call={call}>
+          <SpeakerLayout participantsBarPosition="right"/>
+          <CallControls />
+        </StreamCall>
+
+      </StreamTheme>
+    </StreamVideo>
+    </>
+  )
+}
+
+export default Video_Call
+\end{minted}
+
 \section{Backend}
 
-\underline{/backend/stream-token-provider/index.js}
+\underline{stream-token-provider/src/index.js}
 
 \begin{minted}[linenos, bgcolor=lightestgray]{js}
-import { StreamClient } from "@stream-io/node-sdk";
+// Provides users with their unique GetStream user
+// tokens
 
-const USER_ID_LENGTH = 32
+import StatusCodes from "http-status-codes"
+import { StreamClient } from "@stream-io/node-sdk"
+
+const MAX_USER_ID_LENGTH = 512
+const RESPONSE_HEADERS   = {
+  "Content-Type": "application/json",
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type"
+}
+
+// Validate the user id given is correct
+function Validate_User_Id(User_Id)
+{
+  if (User_Id.length > MAX_USER_ID_LENGTH ||
+      User_Id.length == 0)
+    return false
+
+  return true
+}
 
 // Code to generate unique user GetStream token
 async function Generate_Token(User_Id, Api_Key, Secret)
 {
-  const client = new StreamClient(Api_Key, Secret);
+  const client = new StreamClient(Api_Key, Secret)
 
   // Create user
-  const newUser = { id: User_Id };
-  await client.upsertUsers([newUser]);
+  const newUser = { id: User_Id, role: "user" }
+  await client.upsertUsers([newUser])
 
   // Generate token
-  const token = client.generateUserToken({ user_id: User_Id });
+  const token = client.generateUserToken({ user_id: User_Id })
 
-  return token;
+  return token
 }
 
 // An HTTP endpoint that allows POST requests
@@ -232,30 +772,52 @@ async function Generate_Token(User_Id, Api_Key, Secret)
 // video conferencing
 async function Provide_Token(request, env)
 {
-  const { method } = request;
+  const apiKey = env.STREAM_API_KEY
+  const secret = env.STREAM_API_SECRET
+
+  // Ignore preflight requests
+  if (request.method === "OPTIONS")
+    return new Response(null, { headers: RESPONSE_HEADERS })
 
   // Ensure that the request is a POST
-  if (method !== 'POST')
-    return new Response('Method not allowed', { status: 405 });
+  if (request.method !== "POST")
+    return new Response("Method not allowed",
+      {
+        status:  StatusCodes.METHOD_NOT_ALLOWED,
+        headers: RESPONSE_HEADERS
+      }
+    )
 
-  try {
-    const { User_Id } = await request.json();
+  try
+  {
+    const { User_Id } = await request.json()
 
     // Ensure that a valid user id is actually provided
-    if (!User_Id || User_Id.length != USER_ID_LENGTH)
-      return new Response('Bad Request: Proper userId is required', { status: 400 });
+    if (!Validate_User_Id(User_Id))
+      return new Response("Bad Request: Proper userId is required",
+        {
+          status:  StatusCodes.BAD_REQUEST,
+          headers: RESPONSE_HEADERS
+        }
+      )
 
-    const apiKey = env.STREAM_API_KEY;
-    const secret = env.STREAM_API_SECRET;
-
-    const token = await Generate_Token(User_Id, apiKey, secret);
+    // Generate and send token
+    const token = await Generate_Token(User_Id, apiKey, secret)
 
     return new Response(JSON.stringify({ token }), {
-      headers: { "Content-Type": "application/json" },
-    });
+      headers: RESPONSE_HEADERS,
+    })
 
-  } catch (error) {
-      return new Response(`Error: ${error.message}`, { status: 500 });
+  }
+
+  catch (error)
+  {
+    return new Response(`Error: ${error.message}`,
+      {
+        status: StatusCodes.INTERNAL_SERVER_ERROR,
+        headers: RESPONSE_HEADERS
+      }
+    )
   }
 }
 
@@ -263,7 +825,251 @@ export default
 {
   async fetch(request, env)
   {
-    return Provide_Token(request, env);
+    return Provide_Token(request, env)
   }
+}
+\end{minted}
+
+\underline{call-id-provider/api/id-provider.rs}
+
+\begin{minted}[linenos, bgcolor=lightestgray]{rust}
+// NOTE: When deploying to Vercel you must select node version 18 otherwise you will
+// see an error, this is not an issue on our end, rather it is on Vercel's end.
+// See (https://vercel.com/guides/serverless-function-contains-invalid-runtime-error)
+
+use vercel_runtime::{run, Body, Error, Request, Response};
+use sqlx::PgPool;
+use http::Method;
+use id_provider_lib::{
+    Build_Response, Check_Id_Exists, Create_Pool, Extract_Call_Id, Get_Call_Id, Handle_Preflight, Remove_Call_Id, FAIL, SUCCESS
 };
+
+// Entry point
+#[tokio::main]
+async fn main() -> Result<(), Error> {
+    run(handler).await
+}
+
+// Handling GET, DELETE and POST requests
+pub async fn handler(req: Request) -> Result<Response<Body>, Error> {
+    let pool:   PgPool = Create_Pool().await;
+    let result: String;
+
+    // Get unique call id
+    if *req.method() == Method::GET {
+        let id: i32 = Get_Call_Id(&pool, false).await?;
+
+        result = format!("{}", id);
+    }
+
+    // Handle preflight requests for POST
+    else if *req.method() == Method::OPTIONS {
+        return Ok( Handle_Preflight() );
+    }
+
+    // Remove given call id
+    else if *req.method() == Method::DELETE {
+        let id: i32 = Extract_Call_Id(req.body());
+        Remove_Call_Id(&pool, id).await?;
+
+        result = "Successfully removed call id!".to_string();
+    }
+
+    // Check if given call id exists in our DB
+    else if *req.method() == Method::POST {
+        let id:     i32  = Extract_Call_Id(req.body());
+        let exists: bool = Check_Id_Exists(&pool, id).await?;
+
+        result = if exists { "YES".to_string() } else { "NO".to_string() };
+    }
+
+    else {
+        result = "Method not allowed!".to_string();
+
+        return Ok( Build_Response(result, FAIL) );
+    }
+
+    Ok( Build_Response(result, SUCCESS) )
+}
+\end{minted}
+
+\underline{call-id-provider/lib/id-provider-lib.rs}
+
+\begin{minted}[linenos, bgcolor=lightestgray]{rust}
+use vercel_runtime::{Body, Response, StatusCode};
+use sqlx::{PgPool, Row};
+use dotenv::dotenv;
+use serde::Deserialize;
+use rand::Rng;
+
+const SCHEMA: &str = "CREATE TABLE IF NOT EXISTS ongoing_calls(id INTEGER NOT NULL);";
+const MIN_ID:      i32 = 1;
+const MAX_ID:      i32 = 999_999;
+const MAX_ITERS:   i32 = 1_000_000;
+pub const SUCCESS: bool = false; // Used as the error arg in Build_Response()
+pub const FAIL:    bool = true;  // ^^
+
+// The format of the POST requests
+#[derive(Deserialize)]
+struct Call_Id_Request {
+    Call_Id: i32
+}
+
+// DB helper functions
+// --------------------
+
+// Returns a pool of connections to our DB
+pub async fn Create_Pool() -> PgPool {
+    dotenv().ok(); // Load environment variables
+
+    let conn_URI: String = std::env::var("DB_CONNECTION")
+        .expect("Couldn't get connection URI!");
+
+    let pool: PgPool = PgPool::connect_lazy(&conn_URI)
+        .expect("Couldn't connect to DB!");
+
+    return pool;
+}
+
+// Function to initialise DB if it hasn't been already
+async fn Init_DB(pool: &PgPool) -> Result<(), sqlx::Error> {
+    sqlx::query(&*SCHEMA)
+        .execute(pool)
+        .await?;
+
+    Ok(())
+}
+
+// Function to check if a given call id exists in our DB
+pub async fn Check_Id_Exists(pool: &PgPool, id: i32) -> Result<bool, sqlx::Error> {
+    // Get the number of rows affected, if this is 0 then the id clearly
+    // doesn't exist in our DB
+    let count: i64 = sqlx::query("SELECT COUNT(id) FROM ongoing_calls WHERE id = ($1);")
+        .bind(id)
+        .fetch_one(pool)
+        .await?
+        .get(0);
+
+    if count == 0 {Ok(false)}
+    else          {Ok(true)}
+}
+
+// Function to remove id from DB once a call has ended
+pub async fn Remove_Call_Id(pool: &PgPool, id: i32) -> Result<(), sqlx::Error> {
+    sqlx::query("DELETE FROM ongoing_calls WHERE id=($1);")
+        .bind(id)
+        .execute(pool)
+        .await?;
+
+    Ok(())
+}
+
+// Function to find the first available call id using a random
+// implemenation. Returns -1 if we took too long to find a call id.
+async fn Generate_PRNG(pool: &PgPool) -> i32 {
+    let taken:     bool = true;
+    let mut iters: i32  = 0;
+
+    // Keep iterating until we find an available id
+    while taken && iters <= MAX_ITERS {
+        let ran: i32 = rand::thread_rng().gen_range(MIN_ID..=MAX_ID);
+
+        let exists: bool = Check_Id_Exists(pool, ran)
+            .await
+            .expect("Check_Id() exists function failed!");
+
+        if !exists {return ran;}
+
+        iters += 1;
+    }
+
+    return -1;
+}
+
+// Function to find the first available call id using a linear
+// implemenation. Returns -1 if all call ids are taken.
+async fn Generate_Linear(pool: &PgPool) -> i32 {
+    let mut id: i32 = -1;
+
+    // Iterate over all ids until we find one that is available
+    for i in MIN_ID..=MAX_ID {
+        let taken: bool = Check_Id_Exists(pool, i)
+            .await
+            .expect("Check_Id() exists function failed!");
+
+        if !taken {
+            id = i;
+            break;
+        }
+    }
+    return id;
+}
+
+// Generates a unique call id to be used and adds it to our DB
+pub async fn Get_Call_Id(pool: &PgPool, first_run: bool) -> Result<i32, sqlx::Error> {
+    // If it's the first time running we should initialise our DB
+    if first_run {
+        Init_DB(pool).await?;
+    }
+
+    let total: i64 = sqlx::query("SELECT COUNT(id) FROM ongoing_calls;")
+        .fetch_one(pool)
+        .await?
+        .get(0);
+
+    let id: i32;
+    if (total as f64) / (MAX_ID as f64) <= 0.25 {
+        id = Generate_PRNG(pool).await;
+    } else {
+        id = Generate_Linear(pool).await;
+    }
+
+    // If we find an available id we should add it to the DB as it will be used now
+    if id == -1 {
+        return Ok(id);
+    }
+
+    sqlx::query("INSERT INTO ongoing_calls VALUES ($1);")
+        .bind(id)
+        .execute(pool)
+        .await?;
+
+    Ok(id)
+}
+
+// HTTP helper functions
+// ----------------------
+
+// Function to return response in the HTTP endpoint
+pub fn Build_Response(message: String, error: bool) -> Response<Body> {
+    // If another method is given other than GET, DELETE or POST we return an error
+    let status: StatusCode = if error { StatusCode::METHOD_NOT_ALLOWED } else { StatusCode::OK };
+
+    return Response::builder()
+        .status(status)
+        .header("Content-Type", "text/plain")
+        .header("Access-Control-Allow-Origin", "*")
+        .header("Access-Control-Allow-Credentials", "true")
+        .header("Allow", "GET, POST, DELETE, OPTIONS")
+        .body(Body::from(message))
+        .expect("Couldn't build response!");
+}
+
+// Function to extract the "Call_Id" field from the HTTP request
+pub fn Extract_Call_Id(request_body: &Body) -> i32 {
+    // Read body and convert it into a string
+    let request_string: String = String::from_utf8(request_body.to_vec())
+        .expect("Failed to convert request body to string!");
+
+    // Turn string into JSON
+    let request_json: Call_Id_Request = serde_json::from_str(&request_string)
+        .expect("Couldn't deserialise JSON!");
+
+    return request_json.Call_Id;
+}
+
+// Function to handle OPTIONS preflight requests
+pub fn Handle_Preflight() -> Response<Body> {
+    return Build_Response("".to_string(), SUCCESS);
+}
 \end{minted}

@@ -11,7 +11,6 @@ import Registration from "./components/Registration.jsx"
 import Home from "./components/Home.jsx"
 import Video_Call from "./components/Video_Call.jsx"
 import Join_Call from "./components/Join_Call.jsx"
-import { End_Call, Get_Call_Id_From_URL } from "./utils/Query_Api.jsx"
 import Settings from "./components/Settings.jsx"
 
 // Path is an extension that goes after our URL,
@@ -37,7 +36,6 @@ const router = createBrowserRouter([
   {
     path: "/call",
     element: <Video_Call />,
-    onLeave: () => {End_Call( Get_Call_Id_From_URL() )}
   },
   {
     path: "/join",

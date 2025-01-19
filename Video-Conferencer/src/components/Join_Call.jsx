@@ -1,29 +1,21 @@
 import { ChevronLeft, UserPlus } from "lucide-react"
 import { REGEXP_ONLY_DIGITS } from "input-otp"
-import { Check_Ongoing } from "../utils/Query_Api"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import Video_Call from "./Video_Call"
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp"
 
-// Function to join a call
-async function Enter_Call(code)
-{
-  // Code must be 6 digits
-  if (code.length === 6) {
-    // Check if call with this id is actually ongoing
-    let Call_Ongoing = await Check_Ongoing(code)
-    if (!Call_Ongoing) return
-
-    window.location.href = `/call?code=${code}`
-  }
-}
-
-function Input_Code()
-{
+function Input_Code() {
   const [value, setValue] = useState("")
+  const [clicked, Set_Clicked] = useState(false)
+
+  useEffect(() => {
+    if (clicked && value.length == 6)
+      return <Video_Call code={value} />
+  }, [value])
 
   return (
     <center>
@@ -60,7 +52,7 @@ function Input_Code()
 
         <button
           className="flex items-center justify-center gap-[0.75vw] border-gray-700 border-t-[0.15vw] text-[1.5vw] rounded-[50vw] bg-black/75 text-sec px-[2.5vw] py-[0.75vw] hover:border-[0.15vw] hover:scale-[1.05] hover:bg-black transition-all"
-          onClick={() => Enter_Call(value)}
+          onClick={() => Set_Clicked(true)}
         >
           <UserPlus className="w-[1.5vw]" /> Join
         </button>

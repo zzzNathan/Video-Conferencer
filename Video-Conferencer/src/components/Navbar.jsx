@@ -1,4 +1,4 @@
-import { useUser } from '@clerk/clerk-react'
+import { useUser, SignedIn } from '@clerk/clerk-react'
 import { Settings } from 'lucide-react'
 
 // Makes the navigation bar design a component must be inside
@@ -31,9 +31,11 @@ function Navbar()
 
         <li className="p-[1.25vw] ml-[1vw] hover:opacity-65 transition-opacity text-sec saturate-50"> Help </li>
 
+        <SignedIn>
         <a href="/settings">
         <li className="p-[1.25vw] ml-[1vw] hover:opacity-65 transition-opacity text-sec mt-[0.35vw] saturate-50"> <Settings className="w-[1.45vw]"/> </li>
         </a>
+        </SignedIn>
 
       </ul>
     </nav>
