@@ -1,4 +1,4 @@
-module call-id-provider
+module Call-Manager
 
 go 1.20
 

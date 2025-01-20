@@ -25,7 +25,7 @@ export default function Video_Call({ code = "NULL" })
 
   // Get room code if user is creating a call
   useEffect(() => {
-    async function fetchRoomCode() {
+    async function Fetch_Room_Code() {
       if (code === "NULL") {
         setIsLoading(true)
         const response = await Get_Room_Code()
@@ -37,7 +37,7 @@ export default function Video_Call({ code = "NULL" })
       }
     }
 
-    fetchRoomCode()
+    Fetch_Room_Code()
   }, [code])
 
   if (isLoading || Main_Code === "NULL")

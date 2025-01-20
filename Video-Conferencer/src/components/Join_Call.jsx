@@ -15,7 +15,7 @@ function Input_Code() {
   useEffect(() => {
     if (clicked && value.length == 6)
       return <Video_Call code={value} />
-  }, [value])
+  }, [value, clicked])
 
   return (
     <center>

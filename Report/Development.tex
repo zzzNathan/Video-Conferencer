@@ -2425,6 +2425,210 @@ leaves the call. We do not want this, instead we would like
 the call to end if and only if the creator of the call leaves.\\
 \vspace{0.2cm}
 
+Unfortunately after testing this code out, I ran into some issues.
+Though I could connect to a call, the video wouldn't actually
+render and after some tinkering I wasn't able to resolve this issue.
+So instead I changed approach and chose to use the 100ms video
+conferencing SDK instead of the GetStream SDK. Showing each step
+of re-implementing the entire video conferencing system would simply
+be too time consuming, so we will instead provide a brief summary.
+\footnote{Some parts of this summary are overly-simplified.}
+\\ \vspace{0.2cm}
+
+Each time we create a new video conference we make a request to
+the 100ms API to create a new \textit{room}. A room is essentially
+a place where users can video conference. Only 1 video conference is
+allowed per room. We implement a backend in Go to make this request
+to the 100ms API and then return the \texttt{Guest\_Code} to the user,
+so that they can invite others to join their video conference. The
+backend consists of 2 files the \texttt{utils.go} file and the
+\texttt{provider.go} file. The \texttt{utils.go} file is comprised
+of a number of helper functions and constants, and the \texttt{provider.go}
+file is the main file which is run. This backend is hosted on vercel as
+a vercel function. \\ \vspace{0.2cm}
+
+\underline{utils.go}
+\begin{minted}[linenos, bgcolor=lightestgray]{go}
+package utils
+
+import (
+	...
+)
+...
+
+// Generate a 100ms management token with JWT, refer to
+// https://www.100ms.live/docs/get-started/v2/get-started/security-and-tokens#management-token-for-rest-api
+func Get_Management_Token() string {
+	Signing_Key := []byte(Secret_Key)
+
+	Expires_In         := uint32(24 * 3600)
+	Current_Time_Stamp := uint32(time.Now().UTC().Unix())
+	Expiry_Time_Stamp  := Current_Time_Stamp + Expires_In
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"access_key": Access_Key,
+		"type":       "management",
+		"version":    2,
+		"jti":        uuid.New().String(),
+		"iat":        Current_Time_Stamp,
+		"exp":        Expiry_Time_Stamp,
+		"nbf":        Current_Time_Stamp,
+	})
+
+	signedToken, _ := token.SignedString(Signing_Key)
+
+	return signedToken
+}
+
+// Room creation
+// --------------
+
+// Creates a new 100ms room and returns it's room id
+func Create_Room() (string, error) {
+	Token  := Get_Management_Token()
+	URL    := "https://api.100ms.live/v2/rooms"
+	client := &http.Client{}
+
+	// Create request
+	body := map[string]string{
+		"template_id": Template_Id,
+	}
+	body_JSON, _ := json.Marshal(body)
+
+	req, err := http.NewRequest("POST", URL, bytes.NewBuffer(body_JSON))
+	if err != nil {
+		return "", err
+	}
+
+	// Set headers
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Authorization", "Bearer " + Token)
+
+	// Send request
+	resp, err := client.Do(req)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+
+	// Handle errors
+    if resp.StatusCode != http.StatusOK {
+        return "", fmt.Errorf("Unexpected status code: %d", resp.StatusCode)
+    }
+
+    // Parse the response
+    var Room_Response RoomResponse
+    err = json.NewDecoder(resp.Body).Decode(&Room_Response)
+    if err != nil {
+        return "", fmt.Errorf("Error decoding response: %v", err)
+    }
+
+    return Room_Response.Id, nil
+}
+
+// Functions to get a room's host and guest codes
+// -----------------------------------------------
+
+// Return a new 100ms room code given a room id
+func Get_Room_Code(Room_Id string) (string, string, error) {
+	Token  := Get_Management_Token()
+	URL    := "https://api.100ms.live/v2/room-codes/room/" + Room_Id
+	client := &http.Client{}
+
+	// Create request
+	req, err := http.NewRequest("POST", URL, strings.NewReader(""))
+	if err != nil {
+		return "", "", err
+	}
+
+	// Set headers
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Authorization", "Bearer " + Token)
+
+	// Send request
+	resp, err := client.Do(req)
+	if err != nil {
+		return "", "", err
+	}
+	defer resp.Body.Close()
+
+	// Handle errors
+    if resp.StatusCode != http.StatusOK {
+        return "", "", fmt.Errorf("Unexpected status code: %d", resp.StatusCode)
+    }
+
+    // Parse JSON response
+	var response RoomCodeResponse
+	err = json.NewDecoder(resp.Body).Decode(&response)
+    if err != nil {
+        return "", "", fmt.Errorf("Error decoding response: %v", err)
+    }
+
+    // Extract codes
+    var Host_Code, Guest_Code string
+    for _, code := range response.Data {
+        if code.Role == "host" {
+            Host_Code = code.Code
+
+        } else if code.Role == "guest" {
+            Guest_Code = code.Code
+
+        }
+    }
+
+    return Host_Code, Guest_Code, nil
+}
+
+// Gives the room code for guests and hosts, in JSON format ready to be sent via HTTP
+func Get_Room_Code_HTTP(w *http.ResponseWriter, id string) {
+    // Get codes
+	Host_Code, Guest_Code, err := Get_Room_Code(id)
+    if err != nil {
+        http.Error(*w, err.Error(), http.StatusInternalServerError)
+        return
+    }
+
+    // Return the codes as JSON
+    response := map[string]string{
+        "Host_Code": Host_Code,
+        "Guest_Code": Guest_Code,
+    }
+
+    (*w).Header().Set("Content-Type", "application/json")
+    json.NewEncoder(*w).Encode(response)
+}
+\end{minted}
+
+\underline{provider.go}
+
+\begin{minted}[linenos, bgcolor=lightestgray]{go}
+package handler
+
+import "Call-Manager/libs"
+import (
+	"net/http"
+)
+
+// Entry point
+func Handler(w http.ResponseWriter, r *http.Request) {
+	// Settings CORS headers
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Allow", "POST, OPTIONS, GET")
+
+	// Handle OPTIONS preflight request
+	if r.Method == http.MethodOptions {
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+
+    // Handle GET requests, create room then return host and guest codes
+    if r.Method == http.MethodGet {
+    	Room_Id, _ := utils.Create_Room()
+        utils.Get_Room_Code_HTTP(&w, Room_Id)
+    }
+}
+\end{minted}
+
 Finally with this we have fully implemented video conferecing!
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
@@ -2432,12 +2636,14 @@ Finally with this we have fully implemented video conferecing!
 {\sffamily Tests:}
 
 \begin{itemize}
-  \item Video feed is working \\
-  \item Audio feed is working \\
-  \item Video call runs without crashing \\
+  \item Video feed is working \faCheck \\
+  \item Audio feed is working \faCheck \\
+  \item Video call runs without crashing \faCheck \\
 \end{itemize}
 
-{\sffamily Evidence:} \\ \vspace{0.2cm}
+{\sffamily Evidence: } \url{https://youtu.be/mX33jG6B1Ik} \\ \vspace{0.2cm}
+
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
 With this the main components of our software have
 been complete. With that we test the qualitative
@@ -2507,12 +2713,3 @@ export default Settings;
 This produced the following, \\ \vspace{0.2cm}
 
 {\sffamily Evidence:} \url{https://youtu.be/p1BOWjBdH0g}
-
-The next thing to think about was what settings we should
-include and how to implement them respectively. For the
-settings that relate to video conferencing since we are
-making use of the GetStream video conferencing SDK we would
-have to provide settings that are compatible with the
-features that the SDK provides. The full list of options
-and configurations for video conferences is availbable at
-\url{https://getstream.io/video/docs/api/call_types/settings/}.
