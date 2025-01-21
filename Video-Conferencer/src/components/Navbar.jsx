@@ -27,7 +27,9 @@ function Navbar()
 
 	<li className="ml-[auto] p-[1.25vw] hover:opacity-65 transition-opacity text-sec saturate-50"> <a href={link}> {text} </a> </li>
 
-        <li className="p-[1.25vw] ml-[1vw] hover:opacity-65 transition-opacity text-sec saturate-50"> Docs </li>
+	      <a href="https://video-conf-docs.vercel.app">
+          <li className="p-[1.25vw] ml-[1vw] hover:opacity-65 transition-opacity text-sec saturate-50"> Docs </li>
+				</a>
 
         <li className="p-[1.25vw] ml-[1vw] hover:opacity-65 transition-opacity text-sec saturate-50"> Help </li>
 
