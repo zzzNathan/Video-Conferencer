@@ -1,73 +1,72 @@
-import { ChevronLeft, UserPlus } from "lucide-react"
-import { REGEXP_ONLY_DIGITS } from "input-otp"
-import { useState, useEffect } from "react"
-import Video_Call from "./Video_Call"
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-} from "@/components/ui/input-otp"
+import { ChevronLeft } from "lucide-react"
+import { useState } from "react"
+import { Join_Video_Call } from "./Video_Call"
+import { Input } from "@/components/ui/input"
 
-function Input_Code() {
-  const [value, setValue] = useState("")
-  const [clicked, Set_Clicked] = useState(false)
+function Title()
+{
+  return ( <>
+    <div className="mx-[2vw] my-[2vw] text-ter">
+      <a href="/home">
+        <div className="text-ter mt-[2vw] ml-[-1vw] hover:opacity-50 transition-all"> <ChevronLeft className="w-[4vw]" />  </div>
+      </a>
+      <div className="text-[4vw] font-bold">Join meeting </div>
+    </div>
+  </>)
+}
 
-  useEffect(() => {
-    if (clicked && value.length == 6)
-      return <Video_Call code={value} />
-  }, [value, clicked])
-
+function Input_Code({ Value, Set_Value, Set_Clicked }) {
   return (
     <center>
-      <a href="/home">
-        <button className="flex flex-row items-center mr-auto p-[1.2vw] text-ter text-[1.45vw] hover:opacity-50 transition-all">
-          <ChevronLeft className="w-[1.45vw]" /> Back
-        </button>
-      </a>
-
-      <div className="flex flex-col items-center justify-center gap-[2vw] text-ter mt-[4.5vw] w-[31vw] pb-[1.75vw] rounded-[1.1vw] saturate-[.65] bg-white/10">
-        <div className="flex flex-col items-center justify-center text-ter w-[31vw] rounded-t-[1.1vw] saturate-[.65] bg-white/10 h-[3vw]">
-          <div className="text-[1.25vw] font-bold">Join meeting</div>
+      <div className="w-[40vw] h-[21vw] bg-black/70 rounded-[1.2vw]">
+        <div className="text-ter pt-[0.5vw] font-bold text-[1.5vw] mb-[3vw]">
+          Enter in your 10 character room code
         </div>
 
-        <div className="mx-auto text-ter/90 text-[1.5vw] mt-[-1.75vw] pt-[0.5vw]">
-          Please enter the 6 digit meeting code
+        <div className="flex flex-col items-start gap-[0.5vw] ml-[1.2vw] mb-[3vw]">
+          <div className="font-bold text-ter">Code</div>
+          <Input
+            className="w-[25vw] bg-black/50 text-white border-gray-600 focus:border-white placeholder:text-gray-400"
+            placeholder="xxx-xxxx-xxx"
+            value={Value}
+            onChange={(e) => Set_Value(e.target.value)}
+          />
         </div>
-
-        <InputOTP
-          maxLength={6}
-          pattern={REGEXP_ONLY_DIGITS}
-          value={value}
-          onChange={(value) => setValue(value)}
-        >
-          <InputOTPGroup>
-            <InputOTPSlot index={0} />
-            <InputOTPSlot index={1} />
-            <InputOTPSlot index={2} />
-            <InputOTPSlot index={3} />
-            <InputOTPSlot index={4} />
-            <InputOTPSlot index={5} />
-          </InputOTPGroup>
-        </InputOTP>
 
         <button
-          className="flex items-center justify-center gap-[0.75vw] border-gray-700 border-t-[0.15vw] text-[1.5vw] rounded-[50vw] bg-black/75 text-sec px-[2.5vw] py-[0.75vw] hover:border-[0.15vw] hover:scale-[1.05] hover:bg-black transition-all"
           onClick={() => Set_Clicked(true)}
+          className="rounded-[50vw] bg-black/90 text-white px-[1.75vw] py-[0.7vw] hover:border-[0.15vw] hover:scale-[1.05] hover:bg-black transition-all shadow-[0_0_1vw_0.05vw_rgba(255,255,255,0.3)] text-[1.3vw]"
         >
-          <UserPlus className="w-[1.5vw]" /> Join
+          Submit
         </button>
+
+        <div className="text-ter pt-[0.9vw]"> Make sure to include the dashes! </div>
       </div>
     </center>
-  );
+  )
 }
 
-function Join_Call()
-{
+function Join_Call() {
+  const [Value, Set_Value] = useState('')
+  const [Clicked, Set_Clicked] = useState(false)
+
+  // If code is valid and clicked, render only the video call
+  if (Value.length === 12 && Clicked) {
+    return <Join_Video_Call code={Value} />
+  }
+
+  // Otherwise render the join interface
   return (
     <div className="bg-grad/20 h-screen">
-      <Input_Code />
+      <Title />
+      <Input_Code
+        Value={Value}
+        Set_Value={Set_Value}
+        Set_Clicked={Set_Clicked}
+      />
+
     </div>
-  );
+  )
 }
 
-export default Join_Call;
+export default Join_Call

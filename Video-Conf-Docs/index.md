@@ -8,7 +8,7 @@ hero:
   tagline: "Video conferencing like you've never seen it before."
   actions:
     - theme: brand
-      text: Intro
+      text: Get Started
       link: /overview
 
 features:

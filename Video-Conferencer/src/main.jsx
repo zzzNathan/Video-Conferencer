@@ -9,7 +9,7 @@ import Landing from "./components/Landing.jsx"
 import Login from "./components/Login.jsx"
 import Registration from "./components/Registration.jsx"
 import Home from "./components/Home.jsx"
-import Video_Call from "./components/Video_Call.jsx"
+import { Video_Call } from "./components/Video_Call.jsx"
 import Join_Call from "./components/Join_Call.jsx"
 import Settings from "./components/Settings.jsx"
 

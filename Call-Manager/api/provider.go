@@ -1,6 +1,6 @@
 package handler
 
-import "Call-Manager/libs"
+import "Call-Manager/libs" // Call functions like utils.<function()>
 import (
     "net/http"
 )
@@ -9,7 +9,7 @@ import (
 func Handler(w http.ResponseWriter, r *http.Request) {
     // Settings CORS headers
     w.Header().Set("Access-Control-Allow-Origin", "*")
-    w.Header().Set("Allow", "POST, OPTIONS, GET")
+    w.Header().Set("Allow", "OPTIONS, GET")
 
     // Handle OPTIONS preflight request
     if r.Method == http.MethodOptions {

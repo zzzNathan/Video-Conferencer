@@ -1,4 +1,4 @@
-import { Settings, CircleHelp, Video, UserPlus, ChevronLeft, LogOut } from "lucide-react"
+import { Settings, CircleHelp, Video, UserPlus, ChevronLeft, LogOut, FileText } from "lucide-react"
 import { useUser, SignOutButton, SignedIn } from "@clerk/clerk-react"
 
 // Renders the sign out option only if the user is currently
@@ -41,6 +41,12 @@ function Top_Bar()
       </li>
       </a>
       </SignedIn>
+
+      <a href="https://video-conf-docs.vercel.app">
+        <li className="flex items-center justify-center flex-row mr-[3vw] text-[1.45vw] hover:opacity-65 transition-all">
+        <FileText className="w-[1.45vw]" />
+        </li>
+      </a>
 
       <li className="flex items-center justify-center flex-row mr-[2vw] text-[1.45vw] hover:opacity-65 transition-all">
         <CircleHelp className="w-[1.45vw]" />

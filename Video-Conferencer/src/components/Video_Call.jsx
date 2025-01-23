@@ -10,7 +10,16 @@ import {
 } from "@/components/ui/dialog"
 import { HMSPrebuilt } from '@100mslive/roomkit-react'
 
-export default function Video_Call({ code = "NULL" })
+export function Join_Video_Call({ code })
+{
+  return (
+    <div className="h-[100vh]">
+      <HMSPrebuilt roomCode={code} />
+    </div>
+  )
+}
+
+export function Video_Call({ code = "NULL" })
 {
   // State of the dialog box
   const [Open_Dialog, Set_Open_Dialog] = useState(false)
@@ -47,7 +56,7 @@ export default function Video_Call({ code = "NULL" })
 
     <Dialog open={Open_Dialog} onOpenChange={Set_Open_Dialog}>
       <DialogContent> <DialogHeader>
-        <DialogTitle>Your 6 digit call code</DialogTitle>
+        <DialogTitle>Your 10 character call code</DialogTitle>
         <DialogDescription>
           <div className="text-sec/70"> Share this with others to have them join the video-conference! </div>
 

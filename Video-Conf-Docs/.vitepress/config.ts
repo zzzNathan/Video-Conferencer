@@ -29,6 +29,10 @@ export default defineConfig({
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/zzzNathan/Video-Conferencer' }
-    ]
+    ],
+
+    search: {
+      provider: 'local'
+    }
   }
 })

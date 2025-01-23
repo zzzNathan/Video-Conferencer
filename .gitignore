@@ -501,7 +501,7 @@ dist
 .yarn/install-state.gz
 .pnp.\*
 
-# wrangler project
+# Wrangler project
 
 .dev.vars
 .wrangler/
@@ -510,3 +510,24 @@ dist
 
 .prettierrc
 .editorconfig
+
+# Vitepress
+
+/coverage
+/src/client/shared.ts
+/src/node/shared.ts
+*.log
+*.tgz
+.DS_Store
+.idea
+.temp
+.vite_opt_cache
+.vscode
+*dist/
+*cache/
+*deps/
+temp
+examples-temp
+node_modules
+pnpm-global
+*.timestamp-*.mjs
