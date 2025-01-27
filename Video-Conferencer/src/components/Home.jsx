@@ -1,30 +1,28 @@
-import { Settings, CircleHelp, Video, UserPlus, ChevronLeft, LogOut, FileText } from "lucide-react"
-import { useUser, SignOutButton, SignedIn } from "@clerk/clerk-react"
+import { CircleHelp, Video, UserPlus, ChevronLeft, LogOut } from "lucide-react"
+import { useUser, SignOutButton, SignedIn, UserButton } from "@clerk/clerk-react"
+import { dark } from '@clerk/themes'
 
-// Renders the sign out option only if the user is currently
-// signed in
-function Sign_Out_Button()
-{
+function Sign_Out_Button() {
   const { isSignedIn } = useUser()
 
-  // If user isn't signed in return an empty HTML element
   if (!isSignedIn) return <></>
 
   return (
-    <li className="mr-[3vw] flex items-center justify-center flex-row hover:opacity-65 transition-opacity">
+    <li className="flex items-center justify-center flex-row mr-[3vw] hover:opacity-65 transition-opacity">
       <SignOutButton redirectUrl={"/"}>
-        <button className="m-0 p-0 text-sec text-[1.45vw] border-none bg-transparent"> <LogOut className="w-[1.45vw]"/> </button>
+        <button className="flex items-center justify-center m-0 p-0 text-sec text-[1.45vw] border-none bg-transparent">
+          <LogOut className="w-[1.45vw]"/>
+        </button>
       </SignOutButton>
     </li>
   )
 }
 
-function Top_Bar()
-{
-  return (
-    <ul className="flex pt-[0.5vw] pb-[1vw] mb-[1.5vw] mt-0 mx-0 pl-[1.25vw] text-sec">
+function Top_Bar() {
+  return ( <>
+    <ul className="flex items-center pt-[0.5vw] pb-[1vw] mb-[1.5vw] mt-0 mx-0 pl-[1.25vw] text-sec">
       <a href="/">
-        <li className="flex items-center justify-center flex-row mr-[2vw] text-ter text-[1.45vw] hover:opacity-65 transition-all mt-[0.25vw]">
+        <li className="flex items-center justify-center flex-row mr-[2vw] text-ter text-[1.45vw] hover:opacity-65 transition-all">
           <ChevronLeft className="w-[1.45vw]"/>
         </li>
       </a>
@@ -32,56 +30,59 @@ function Top_Bar()
       <li className="flex items-center justify-center flex-row font-bold mr-auto text-ter text-[1.45vw]">
         Home
       </li>
+
       <Sign_Out_Button />
 
-      <SignedIn>
-      <a href="/settings">
       <li className="flex items-center justify-center flex-row mr-[3vw] text-[1.45vw] hover:opacity-65 transition-all">
-        <Settings className="w-[1.45vw]" />
-      </li>
-      </a>
-      </SignedIn>
-
-      <a href="https://video-conf-docs.vercel.app">
-        <li className="flex items-center justify-center flex-row mr-[3vw] text-[1.45vw] hover:opacity-65 transition-all">
-        <FileText className="w-[1.45vw]" />
-        </li>
-      </a>
-
-      <li className="flex items-center justify-center flex-row mr-[2vw] text-[1.45vw] hover:opacity-65 transition-all">
         <CircleHelp className="w-[1.45vw]" />
       </li>
+
+      <li className="flex items-center justify-center flex-row mr-[2vw]">
+        <UserButton appearance={{baseTheme: dark}} />
+      </li>
     </ul>
-  );
+    </>
+  )
 }
 
-// Makes the create call and join call components
-function Options()
-{
+function Options() {
   return (
-    <div className="flex flex-col items-center justify-start gap-[2vw] h-[80vh] w-[83vw] rounded-[1.5vw] mx-auto saturate-[.65] bg-white/10">
-      <div className="flex flex-col items-center justify-center text-ter w-[83vw] rounded-t-[1.5vw] saturate-[.65] bg-white/10 h-[3vw]">
-        <div className="text-[1.25vw] font-bold mr-auto ml-[1vw]">Meetings</div>
+    <center>
+      <div className="font-bold text-[3.4vw] bg-gradient-to-r from-orange-200 to-ter bg-clip-text text-transparent inline-block mt-[-1vw] mb-[1vw]">
+        Video-Conferencer
       </div>
 
-      <div className="text-sec font-bold text-[3vw] bg-gradient-to-r from-orange-200 to-ter bg-clip-text text-transparent inline-block mt-[15vh]">
-        Start connecting with others!
+      <div className="mb-[2vw] text-ter saturate-[40%] opacity-65 max-w-[70vw] text-[1.2vw] text-center">
+        Upon creating a video-conference you will be given a code 10
+        character code that looks like so "xxx-xxxx-xxx". Give this code to a friend and once they enter in the
+        same code <i>(make sure you include the dashes)</i> you will be connected!
       </div>
 
-      <div className="flex flex-row items-center justify-center gap-[2vw]">
+      <ul className="flex flex-row gap-[15vw] w-full justify-center text-ter saturate-[40%] text-[2vw]">
+
         <a href="/call">
-          <button className="flex items-center justify-center gap-[0.75vw] border-gray-700 border-t-[0.15vw] text-[1.5vw] rounded-[50vw] bg-black/75 text-sec px-[2.5vw] py-[0.75vw] hover:border-[0.15vw] hover:scale-[1.05] hover:bg-black transition-all">
-            <Video className="w-[1.5vw]" /> Create
-          </button>
+        <li className="flex flex-col items-center text-black bg-pink-300 rounded-[1vw] p-[1.2vw] hover:scale-[103%] transition-all">
+          <div className="flex flex-row items-center gap-[0.9vw]">
+            <Video className="w-[2vw]" /> Create
+          </div>
+          <div className="text-[1vw] mt-[0.5vw] opacity-75">
+            Start a new meeting
+          </div>
+        </li>
         </a>
 
         <a href="/join">
-          <button className="flex items-center justify-center gap-[0.75vw] border-gray-700 border-t-[0.15vw] text-[1.5vw] rounded-[50vw] bg-black/75 text-sec px-[2.5vw] py-[0.75vw] hover:border-[0.15vw] hover:scale-[1.05] hover:bg-black transition-all">
-            <UserPlus className="w-[1.5vw]" /> Join
-          </button>
+        <li className="flex flex-col items-center bg-black rounded-[1vw] p-[1.2vw] hover:scale-[103%] transition-all">
+          <div className="flex flex-row items-center gap-[0.9vw]">
+            <UserPlus className="w-[2vw]" /> Join
+          </div>
+          <div className="text-[1vw] mt-[0.5vw] opacity-75 max-w-[15vw] text-center">
+            Join a meeting by entering a 10 character code
+          </div>
+        </li>
         </a>
-      </div>
-    </div>
+      </ul>
+    </center>
   )
 }
 
