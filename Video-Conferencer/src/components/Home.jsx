@@ -1,5 +1,6 @@
-import { CircleHelp, Video, UserPlus, ChevronLeft, LogOut } from "lucide-react"
-import { useUser, SignOutButton, SignedIn, UserButton } from "@clerk/clerk-react"
+import { CircleHelp, Video, UserPlus, ArrowLeft, LogOut } from "lucide-react"
+import { useUser, SignOutButton, UserButton } from "@clerk/clerk-react"
+import { Card, CardContent } from "@/components/ui/card"
 import { dark } from '@clerk/themes'
 
 function Sign_Out_Button() {
@@ -20,14 +21,14 @@ function Sign_Out_Button() {
 
 function Top_Bar() {
   return ( <>
-    <ul className="flex items-center pt-[0.5vw] pb-[1vw] mb-[1.5vw] mt-0 mx-0 pl-[1.25vw] text-sec">
+    <ul className="flex items-center pt-[0.5vw] pb-[1vw] mb-[2.75vw] mt-0 mx-0 pl-[1.25vw] text-sec border-b-[0.09vw] border-neutral-200/15">
       <a href="/">
-        <li className="flex items-center justify-center flex-row mr-[2vw] text-ter text-[1.45vw] hover:opacity-65 transition-all">
-          <ChevronLeft className="w-[1.45vw]"/>
+        <li className="flex items-center justify-center flex-row mr-[2vw] text-ter/80 saturate-[75%] text-[1.45vw] hover:opacity-65 transition-all">
+          <ArrowLeft className="w-[1.45vw]"/>
         </li>
       </a>
 
-      <li className="flex items-center justify-center flex-row font-bold mr-auto text-ter text-[1.45vw]">
+      <li className="flex items-center justify-center flex-row font-bold mr-auto text-ter/80 saturate-[75%] text-[1.45vw]">
         Home
       </li>
 
@@ -48,7 +49,7 @@ function Top_Bar() {
 function Options() {
   return (
     <center>
-      <div className="font-bold text-[3.4vw] bg-gradient-to-r from-orange-200 to-ter bg-clip-text text-transparent inline-block mt-[-1vw] mb-[1vw]">
+      <div className="font-bold text-[3.6vw] bg-gradient-to-r from-orange-200 to-ter bg-clip-text text-transparent inline-block mt-[-1vw] mb-[1vw]">
         Video-Conferencer
       </div>
 
@@ -61,25 +62,31 @@ function Options() {
       <ul className="flex flex-row gap-[15vw] w-full justify-center text-ter saturate-[40%] text-[2vw]">
 
         <a href="/call">
-        <li className="flex flex-col items-center text-black bg-pink-300 rounded-[1vw] p-[1.2vw] hover:scale-[103%] transition-all">
-          <div className="flex flex-row items-center gap-[0.9vw]">
-            <Video className="w-[2vw]" /> Create
-          </div>
-          <div className="text-[1vw] mt-[0.5vw] opacity-75">
-            Start a new meeting
-          </div>
-        </li>
+          <Card className="bg-rose-300/20 border-rose-200/20 hover:bg-rose-50/20 transition-colors">
+            <CardContent className="p-[1.5vw]">
+              <div className="h-[4vw] w-[4vw] rounded-full bg-rose-200/20 flex items-center justify-center">
+                <Video className="h-[2vw] w-[2vw] text-rose-200" />
+              </div>
+              <div>
+                <h2 className="text-xl font-semibold text-white mb-[1vw]">Create Meeting</h2>
+                <p className="text-sm text-gray-400">Start a new video conference</p>
+              </div>
+            </CardContent>
+          </Card>
         </a>
 
         <a href="/join">
-        <li className="flex flex-col items-center bg-black rounded-[1vw] p-[1.2vw] hover:scale-[103%] transition-all">
-          <div className="flex flex-row items-center gap-[0.9vw]">
-            <UserPlus className="w-[2vw]" /> Join
-          </div>
-          <div className="text-[1vw] mt-[0.5vw] opacity-75 max-w-[15vw] text-center">
-            Join a meeting by entering a 10 character code
-          </div>
-        </li>
+          <Card className="bg-stone-800/40 border-rose-200/20 hover:bg-rose-50/20 transition-colors">
+            <CardContent className="p-[1.5vw]">
+              <div className="h-[4vw] w-[4vw] rounded-full bg-rose-200/20 flex items-center justify-center">
+                <UserPlus className="h-[2vw] w-[2vw] text-rose-200" />
+              </div>
+              <div>
+                <h2 className="text-xl font-semibold text-white mb-[1vw]">Join Meeting</h2>
+                <p className="text-sm text-gray-400">Enter a 10 character code</p>
+              </div>
+            </CardContent>
+          </Card>
         </a>
       </ul>
     </center>
