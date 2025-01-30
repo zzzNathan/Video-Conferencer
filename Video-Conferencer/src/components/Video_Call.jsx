@@ -60,9 +60,11 @@ export function Video_Call({ code = "NULL" })
         <DialogDescription>
           <div className="text-sec/70"> Share this with others to have them join the video-conference! </div>
 
-          <center><div className="font-bold text-[3vw] text-sec mt-[2vw]">
-            {Guest_Code}
-          </div></center>
+          <center>
+            <div className="font-bold text-[3vw] text-sec mt-[2vw]">
+              {Guest_Code}
+            </div>
+          </center>
 
         </DialogDescription>
       </DialogHeader> </DialogContent>

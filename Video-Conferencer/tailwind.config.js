@@ -11,6 +11,10 @@ export default {
   ],
   theme: {
   	extend: {
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+        display: ['Poppins', 'sans-serif']
+      },
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
@@ -26,7 +30,12 @@ export default {
   				'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
   				border: 'hsl(var(--sidebar-border))',
   				ring: 'hsl(var(--sidebar-ring))'
-  			}
+  			},
+        sec: "#B98DEE",
+     	  ter: "#FFC6E5",
+     	  black: "rgba(13,12,16,0.95)",
+     	  button: "#5c506a",
+     	  grad: "#423652",
   		},
   		animation: {
   			aurora: 'aurora 60s linear infinite',
@@ -50,17 +59,6 @@ export default {
   },
   plugins: [require("tailwindcss-animate"), addVariablesForColors],
   mode: 'jit',
-  theme: {
-    extend: {
-      colors: {
-          sec: "#B98DEE",
-	  ter: "#FFC6E5",
-	  black: "rgba(13,12,16,0.95)",
-	  button: "#5c506a",
-	  grad: "#423652",
-      },
-    }
-  },
 }
 
 // This plugin adds each Tailwind color as a global CSS variable, e.g. var(--gray-200).

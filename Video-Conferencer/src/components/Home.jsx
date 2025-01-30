@@ -21,7 +21,7 @@ function Sign_Out_Button() {
 
 function Top_Bar() {
   return ( <>
-    <ul className="flex items-center pt-[0.5vw] pb-[1vw] mb-[2.75vw] mt-0 mx-0 pl-[1.25vw] text-sec border-b-[0.09vw] border-neutral-200/15">
+    <ul className="flex items-center pt-[0.5vw] pb-[1vw] mb-[2.75vw] mt-0 mx-0 pl-[1.25vw] text-sec border-b-[0.09vw] border-neutral-950/65">
       <a href="/">
         <li className="flex items-center justify-center flex-row mr-[2vw] text-ter/80 saturate-[75%] text-[1.45vw] hover:opacity-65 transition-all">
           <ArrowLeft className="w-[1.45vw]"/>
@@ -53,8 +53,8 @@ function Options() {
         Video-Conferencer
       </div>
 
-      <div className="mb-[2vw] text-ter saturate-[40%] opacity-65 max-w-[70vw] text-[1.2vw] text-center">
-        Upon creating a video-conference you will be given a code 10
+      <div className="bg-black/70 rounded-[0.7vw] p-[0.7vw] mb-[2vw] text-ter saturate-[40%] opacity-65 max-w-[70vw] text-[1.2vw] text-center">
+        <b> Tip: </b> Upon creating a video-conference you will be given a code 10
         character code that looks like so "xxx-xxxx-xxx". Give this code to a friend and once they enter in the
         same code <i>(make sure you include the dashes)</i> you will be connected!
       </div>

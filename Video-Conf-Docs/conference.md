@@ -164,3 +164,34 @@ if err == nil {
 
 _Arguements:_
 - Room_Id `string`.
+
+Now on the front end all we have to do is call our API on our front end and connect to a video call using the host
+code, and display the guest-code to the user so that they can invite their friends.
+
+There are many ways to potentially achieve this, but after trial and error the method that I use on Video-Conferencer
+is arguably the easist. In our front end we have a file `utils/Query_Api.jsx` where we have defined a function
+`Get_Room_Code()` _(not to be confused with it's backend counter-part)_. All it does is call our API endpoint and
+return the result.
+
+```jsx
+// Function to get a room code from our API
+export async function Get_Room_Code() {
+  return axios.get(Get_Room_Code_API)
+}
+```
+
+We make the request in a `useEffect()` and once the result is returned we use the host or guest
+code to start the video conference using the 100ms pre-built UI component.
+
+Not only does the pre-built component make life a lot easier, since we don't have to make the UI
+from scratch, it makes the code a lot shorter and makes it more maintainable. Here's what it looks like in practise:
+
+```jsx
+export function Video_Call() {
+  return (
+    <div className="h-[100vh]">
+      <HMSPrebuilt roomCode={code} />
+    </div>
+  )
+}
+```
