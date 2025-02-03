@@ -1,7 +1,7 @@
 package utils
 
 import (
-    "Event-Manager/internal/models"
+    "Event-Manager/lib/models"
     "database/sql"
     "encoding/json"
     "os"

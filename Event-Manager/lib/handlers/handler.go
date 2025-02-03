@@ -1,8 +1,8 @@
 package handlers
 
 import (
-    "Event-Manager/internal/models"
-    "Event-Manager/internal/utils"
+    "Event-Manager/lib/models"
+    "Event-Manager/lib/utils"
     "encoding/json"
     "fmt"
     "net/http"
