@@ -9,8 +9,12 @@ import (
     "strconv"
 )
 
-// Each user can create at most 500 events
-const MAX_EVENTS = 500
+const (
+    MAX_EVENTS = 500
+    MAX_TITLE_LENGTH = 50
+    MAX_DESCRIPTION_LENGTH = 200
+    MAX_USER_ID_LENGTH = 255
+)
 
 // Main handler function that routes requests based on HTTP method
 func Handler(w http.ResponseWriter, r *http.Request) {
@@ -79,7 +83,31 @@ func Handle_Add_Event(w http.ResponseWriter, r *http.Request) {
         http.Error(w, "Invalid request body: "+err.Error(), http.StatusBadRequest)
         return
     }
+
+    // Override the User_Id from JSON with the one from header for security
     New_Event.User_ID = User_Id
+
+    // Validate required fields
+    if New_Event.Title == "" || New_Event.Description == "" || New_Event.Date.IsZero() {
+        http.Error(w, "Title, Description, and Date are required", http.StatusBadRequest)
+        return
+    }
+
+    // Validate field lengths
+    if len(New_Event.Title) > MAX_TITLE_LENGTH {
+        http.Error(w, fmt.Sprintf("Title must not exceed %d characters", MAX_TITLE_LENGTH), http.StatusBadRequest)
+        return
+    }
+
+    if len(User_Id) > MAX_USER_ID_LENGTH {
+        http.Error(w, fmt.Sprintf("User ID must not exceed %d characters", MAX_USER_ID_LENGTH), http.StatusBadRequest)
+        return
+    }
+
+    if len(New_Event.Description) > MAX_DESCRIPTION_LENGTH {
+        http.Error(w, fmt.Sprintf("Description must not exceed %d characters", MAX_DESCRIPTION_LENGTH), http.StatusBadRequest)
+        return
+    }
 
     // Add event to database
     err = utils.Add_Event(New_Event)
@@ -94,9 +122,9 @@ func Handle_Add_Event(w http.ResponseWriter, r *http.Request) {
 
 // Handle deleting an event
 func Handle_Delete_Event(w http.ResponseWriter, r *http.Request) {
-    // Get Event_Id and User_Id from request
-    Event_Id := r.URL.Query().Get("Event_Id")
-    User_Id  := r.Header.Get("User_Id")
+    // Get Event_Id and User_Id from headers
+    Event_Id := r.Header.Get("Event_Id")
+    User_Id := r.Header.Get("User_Id")
 
     if Event_Id == "" || User_Id == "" {
         http.Error(w, "Event ID and User ID are required", http.StatusBadRequest)

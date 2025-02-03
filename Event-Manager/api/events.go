@@ -1,4 +1,4 @@
-package handlers
+package handler
 
 import (
 	"Event-Manager/internal/handlers"
@@ -10,16 +10,17 @@ import (
 // - Upon a DELETE request we will delete the event with a given event id
 //
 // Examples:
-// POST {User_Id: "f21kj"} -> JSON object with all of user "f21kj"'s events
+// POST Header = {User_Id: "f21kj"} -> JSON object with all of user "f21kj"'s events
 //
-// PUT {
-//       User_Id: "123",
-//       Title: "...",
-//       Description: "...",
-//       Date: "..."
+// PUT
+//  Header = {User_Id: "12r21"}
+//  Data = {
+//    Title: "...",
+//    Description: "...",
+//    Date: "..." // YYYY-MM-DD fomat
 // } -> Adds this event to the DB
 //
-// DELETE {event_id: 1} -> Deletes event id 1 from our DB
+// DELETE Header = {User_Id: "123", Event_Id: 1} -> Deletes event id 1 from our DB
 
 // Entry point
 func Handler(w http.ResponseWriter, r *http.Request) {
