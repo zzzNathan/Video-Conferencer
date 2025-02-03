@@ -24,7 +24,7 @@ function Navbar() {
 
   return (
     <nav>
-      <ul className="flex list-none m-0 p-0 text-[1.45vw] mb-[0.1vw] mt-[-0.5vw] border-b-[0.09vw] border-neutral-950/65">
+      <ul className="flex list-none m-0 p-0 text-[1.40vw] mb-[0.1vw] mt-[-0.5vw] border-b-[0.09vw] border-neutral-950/65">
 
         <li className="p-[1.25vw] text-sec"> <b> Video-Conferencer </b> </li>
 

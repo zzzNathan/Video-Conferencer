@@ -22,6 +22,8 @@ export default defineConfig({
       {
         text: 'Conferencing',
         items: [
+          { text: 'Definititons', link: '/definitions' },
+          { text: 'Creating a room', link: '/create_room'},
           { text: 'Creating and Joining a call', link: '/conference' }
         ]
       }
