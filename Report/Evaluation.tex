@@ -7,17 +7,205 @@
 \chapter{Evaluation}
 \label{chap:evaluation}
 
+\section{Post-development testing}
+
+Since we have a few features that I didn't consider when I created the original post-development test plan we begin
+by creating a revised post-development test plan.
+
+\subsubsection{Test 1}
+
+{\sffamily Task:} Create an account.\\
+
+{\color{gray} \hrulefill}
+
+{\sffamily Test type: Normal.}
+
+\begin{enumerate}
+  \item Navigate to the sign up page.
+  \item Enter an adequate username into the username field.
+  \item Enter the password \texttt{if5\#@Jal} into the password field.
+  \item Click on the sign up button.
+\end{enumerate}
+
+{\sffamily Expected outcome:} User account created successfully. \\
+
+{\color{gray} \hrulefill}
+
+{\sffamily Test type: Extreme.}\\
+
+\begin{enumerate}
+\item Repeat the steps except use the password \texttt{AopS12v}.\\
+\end{enumerate}
+
+{\sffamily Expected outcome:} User account created successfully.\\
+
+{\color{gray} \hrulefill}
+
+{\sffamily Test type: Erroneous.} \\
+
+\begin{enumerate}
+\item Repeat the steps except use the password \texttt{123}.
+\end{enumerate}
+
+{\sffamily Expected outcome:} User account not created, display
+message saying password is too weak.\\
+
+{\color{gray} \hrulefill}
+
+\vspace{0.2cm}
+
+\subsubsection{Test 2}
+
+{\sffamily Task:} Log in to your account.\\
+
+{\color{gray} \hrulefill}
+
+{\sffamily Test type: Normal.}\\
+
+\begin{enumerate}
+  \item Navigate to the log in page.
+  \item Enter your actual username into the username field.
+  \item Enter your actual password into the password field.
+  \item Click on the log in button.
+\end{enumerate}
+
+{\sffamily Expected outcome:} User logged in successfully. \\
+
+{\color{gray} \hrulefill}
+
+{\sffamily Test type: Erroneous.}\\
+
+\begin{enumerate}
+  \item Repeat the steps except using the wrong password.
+\end{enumerate}
+
+{\sffamily Expected outcome:} User not logged in,
+message displaying "Wrong username or password!". \\
+
+{\color{gray} \hrulefill}
+
+\vspace{0.2cm}
+
+\subsubsection{Test 3}
+
+{\sffamily Task:} Create an event.\\
+
+{\color{gray} \hrulefill}
+
+{\sffamily Test type: Normal.} \\
+
+\begin{enumerate}
+  \item Navigate to the events page \\
+  \item Click on the create event button \\
+  \item Create an event, then refresh the page to check whether the event saved. \\
+\end{enumerate}
+
+{\sffamily Expected outcome: } Event that was created should still be present after refreshing page. \\
+
+{\color{gray} \hrulefill}
+
+\subsubsection{Test 4}
+
+{\sffamily Task:} Delete an event.\\
+
+{\color{gray} \hrulefill}
+
+{\sffamily Test type: Normal.} \\
+
+\begin{enumerate}
+  \item Navigate to the events page. \\
+  \item Delete the event you just created. \\
+  \item Refresh the page to verify the event was indeed deleted. \\
+\end{enumerate}
+
+{\sffamily Expected outcome: } Event was properly deleted, event doesn't show after refresh. \\
+
+{\color{gray} \hrulefill}
+
+\subsubsection{Test 5}
+
+{\sffamily Task:} Start a video call.\\
+
+{\color{gray} \hrulefill}
+
+{\sffamily Test type: Normal.}\\
+
+\begin{enumerate}
+  \item Connect a webcamera and microphone to your device (if necessary).
+  \item Navigate to the create call page.
+  \item Click on the create call button.
+\end{enumerate}
+
+{\sffamily Expected outcome:} Unique call code generated successfully
+and displayed to the user. User is able to view themselves in
+the video call.\\
+
+{\color{gray} \hrulefill}
+
+\vspace{0.2cm}
+
+\subsubsection{Test 6}
+
+{\sffamily Task:} Join a video call.\\ \vspace{0.2cm}
+
+\textit{This test requires 2 people. Both users should have a camera
+and microphone connected to their device. Both users should have a
+stable internet connection satisfying the requirements listed in section \ref{sec:hardware}}\\
+
+{\color{gray} \hrulefill}
+
+{\sffamily Test type: Normal.}\\
+
+\begin{enumerate}
+  \item Have person 1 complete the steps outlined in Test 5.
+  \item Person 1 should share the unique call code with person 2.
+  \item Person 2 should then navigate to the join call page and enter the code that they were given.
+  \item Person 2 should click on the join call button.
+\end{enumerate}
+
+{\sffamily Expected outcome:} Both users successfully joined the video call
+and can clearly see and hear each other.\\
+
+{\color{gray} \hrulefill} \\
+
+\subsubsection{Test 7}
+
+{\sffamily Task:} Log out.\\
+
+{\color{gray} \hrulefill}
+
+{\sffamily Test type: Normal.}\\
+
+\begin{enumerate}
+  \item Navigate to your account profile.
+  \item Click the log out button.
+\end{enumerate}
+
+{\sffamily Expected outcome:} User logged out. \\
+
+{\color{gray} \hrulefill}
+
+\vspace{0.2cm}
+
+Once again once we complete the post-development test plan we will fill in the following feedback form
+
+\begin{longtblr}[
+  caption={Post-development feedback form.}
+]{
+  colspec={X[1]X[4]X[2]X[4]},
+  row{1}={lightestgray}
+}
+  No & Question & Rating (1-10) & Additional comments \\
+  1 & How easy was the task to complete? & & \\
+  2 & How easy was it to navigate the site? & & \\
+  3 & How would you rate the design of the site? & & \\
+  4 & How would you rate the user experience of the site? & & \\
+  5 & Any additional comments or suggestions & N/A & \\
+\end{longtblr}
+
 \section{Evaluating success criteria}
 
-\begin{tblr}{
-  colspec={lXXX},
-  row{1}={lightestgray},
-  row{2}={lightestgray}
-}
-No & Criterion & Evaluation & \% \\
-{\sffamily Qualitative critera} & & & \\
-
-1 & System should be intuitive and easy to grasp & {
+\newcommand{\evalone}{%
 This web page is indeed designed in an intuitive and user
 friendly manner, this is demonstrated through
 it's clear structure and visual hierarchy.
@@ -29,7 +217,49 @@ login immediately after viewing the heading, if they so choose.
 Finally the user is provided with a variety of common actions
 in the top navigation bar, so they can quickly and efficiently
 access the information they require.
-\textit{Reference:} \url{https://youtu.be/Ii8QkbziWo4}} & 100\% \\
+\textit{Reference:} {\sffamily Test (16)} \url{https://youtu.be/Ii8QkbziWo4}
+}
 
-2 & The user's data should be properly secured & & \\
-\end{tblr}
+\newcommand{\evaltwo}{%
+For our log in
+system we make use of Clerk, a thoroughly tested and widely used
+API for handling the user log in feature. Since Clerk is an
+industry standard API we assume that their infastructure is indeed
+secure and compliant with GDPR. \textit{Reference:} Refer to
+\url{https://clerk.com/docs/security/overview} for details. \\ \vspace{0.1cm}
+
+On the other hand for our events system though no errors arised during
+iterative testing, we have not created a rigorous security test for
+this part of the back end code, hence why I have rated this criterion
+at 50\% completion.
+}
+
+\newcommand{\evalthree}{%
+Though this success criteria point is completely subjective, I do believe that the designs ended up being professional
+looking and aesthetically appealing. This claim is reinforced by the results of the survey we conducted. Indeed >89\%
+of our surveyees said they like the design fullfilling the criteria stated in success criteria 3.
+\textit{Reference:} {\sffamily Test (16)} \url{https://youtu.be/Ii8QkbziWo4}
+}
+
+\newcommand{\evalfour}{%
+I have met this success criteria completely by using the 100ms library to allow users to video conference with each
+other. As was discussed in the development section I tried a few different methods before landing on 100ms, however
+I believe that the solution I have found right now provides the simplest way of implementing video conferencing. The
+backend simply makes an HTTP request to the 100ms servers to ask for host and guest codes to a room, once we have
+recieved these codes we display a dialog box to the user informing them of the code that they can then share to others.
+Other users then simply navigate to the join call page, enter the code and they will have joined the video conference.
+\textit{Reference:} {\sffamily Test (15)}
+}
+
+\begin{longtblr}{
+  colspec={lXXr},
+  row{1}={lightestgray},
+  row{2}={lightestgray}
+}
+No & Criterion & Evaluation & \% \\
+{\sffamily Qualitative} & & & \\
+1 & System should be intuitive and easy to grasp & \evalone & 100\% \\
+2 & The user's data should be properly secured & \evaltwo & 50\% \\
+3 & The webpage design should be aesthetically pleasing & \evalthree & 100\% \\
+4 & Users should be able to create and join video conferences & \evalfour & 100\% \\
+\end{longtblr}

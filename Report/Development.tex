@@ -128,7 +128,7 @@ out their hex colour codes each time
 (see section \ref{sec:ui}). However the native CSS syntax
 looks something like this. (Taken from \url{https://www.w3schools.com/css/css3_variables.asp})
 
-\begin{minted}[linenos, bgcolor=lightestgray]{css}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{css}
 :root {
   --blue: #1e90ff;
   --white: #ffffff;
@@ -156,7 +156,7 @@ and sass code looked like this.
 
 \underline{main.html}
 
-\begin{minted}[linenos, bgcolor=lightestgray]{html}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{html}
 <!DOCTYPE html>
 <html>
 
@@ -187,7 +187,7 @@ and sass code looked like this.
 
 \underline{styles.sass}
 
-\begin{minted}[linenos, bgcolor=lightestgray]{sass}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{sass}
 // Colour definitions
 $Col_Main:       #69ca95
 $Col_Secondary:  #284333
@@ -267,7 +267,7 @@ system.\\ \vspace{0.2cm}
 Our code now looks like this.
 
 \underline{main.html}
-\begin{minted}[linenos, bgcolor=lightestgray]{html}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{html}
 ...
 
 <body>
@@ -300,7 +300,7 @@ Our code now looks like this.
 \end{minted}
 
 \underline{styles.sass}
-\begin{minted}[linenos, bgcolor=lightestgray]{sass}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{sass}
 ...
 
 // Setting font and background colour
@@ -415,7 +415,7 @@ the navigation bar. Here is the code of the 3rd prototype. \\
 
 \underline{main.html}
 
-\begin{minted}[linenos, bgcolor=lightestgray]{html}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{html}
   ...
   <link rel="stylesheet" href=
     "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -458,7 +458,7 @@ the navigation bar. Here is the code of the 3rd prototype. \\
 
 \underline{styles.sass}
 
-\begin{minted}[linenos, bgcolor=lightestgray]{sass}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{sass}
 // Colour definitions
 ...
 
@@ -575,7 +575,7 @@ is what the refined code looks like: \\ \vspace{0.2cm}
 
 \underline{main.html}
 
-\begin{minted}[linenos, bgcolor=lightestgray]{html}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{html}
 ...
 <body>
 
@@ -617,7 +617,7 @@ is what the refined code looks like: \\ \vspace{0.2cm}
 
 \underline{style\_main.sass}
 
-\begin{minted}[linenos, bgcolor=lightestgray]{sass}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{sass}
 @import url('https://fonts.googleapis.com/css?family=Inter')
 @import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
 
@@ -748,7 +748,7 @@ fly to improve upon the figma mock up design. \\ \vspace{0.2cm}
 
 \underline{login.html}
 
-\begin{minted}[linenos, bgcolor=lightestgray]{html}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{html}
 ...
 <body>
 
@@ -783,7 +783,7 @@ fly to improve upon the figma mock up design. \\ \vspace{0.2cm}
 
 \underline{styles\_login.sass}
 
-\begin{minted}[linenos, bgcolor=lightestgray]{sass}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{sass}
 @use './button_styling.sass'
 @import url('https://fonts.googleapis.com/css?family=Inter')
 @import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
@@ -925,7 +925,7 @@ Iteration 1. Here is what the routing logic looks like. \\
 
 \underline{main.jsx} \\ \vspace{0.2cm}
 
-\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{jsx}
 import { createRoot } from "react-dom/client"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Home from "./components/Home.jsx"
@@ -970,7 +970,7 @@ about any security issues, since the API has been thoroughly
 tested. Here's the implementation. \\ \vspace{0.2cm}
 
 \underline{Registration.jsx}
-\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{jsx}
 import { ReactTyped } from "react-typed"
 import { ClerkProvider, SignedOut, SignUp } from "@clerk/clerk-react"
 import { dark } from "@clerk/themes"
@@ -1010,7 +1010,7 @@ Here is what the code renders to:
 {\color{gray} \hrulefill}
 \vspace{0.2cm}
 
-{\sffamily Tests:}
+{\sffamily Tests: (1)}
 \begin{itemize}
   \item Site home page loads correctly \faCheck \\
   \item Correctly redirected to registration page \faCheck \\
@@ -1045,7 +1045,7 @@ Note that with this we have achieved success criteria 5 and 6. \\ \vspace{0.2cm}
 {\color{gray} \hrulefill}
 \vspace{0.2cm}
 
-{\sffamily Tests:}
+{\sffamily Tests: (2)}
 \begin{itemize}
   \item Site home page loads correctly \faCheck \\
   \item Correctly redirected to registration page \faCheck \\
@@ -1103,7 +1103,7 @@ and enhance the user experience. \\ \vspace{0.2cm}
 
 \underline{Login.jsx}
 
-\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{jsx}
 ...
 // Makes the typing headline animation
 function Headline ()
@@ -1194,7 +1194,7 @@ first sees after logging in our 'main' page.} \\
 
 \underline{Home.jsx}
 
-\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{jsx}
 import "../styles/Home.sass"
 import Clock from "./Clock.jsx"
 ...
@@ -1281,7 +1281,7 @@ with Cloudflare and began to implement my HTTP API. \\ \vspace{0.2cm}
 
 \underline{/backend/stream-token-provider/src/index.js} \\
 
-\begin{minted}[linenos, bgcolor=lightestgray]{js}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{js}
 ...
 
 // An HTTP endpoint that allows POST requests
@@ -1320,7 +1320,7 @@ async function Provide_Token(request, env)
 \end{minted}
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
-{\sffamily Tests:}
+{\sffamily Tests: (3)}
 
 \begin{itemize}
   \item HTML endpoint is accessible \faCheck \\
@@ -1342,7 +1342,7 @@ user id validation we can do is quite limited. We simply check
 whether or not the string length $s$ satisfies $0 < s \leq 512$.
 \\ \vspace{0.2cm}
 
-\begin{minted}[linenos, bgcolor=lightestgray]{js}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{js}
 ...
 const MAX_USER_ID_LENGTH = 512
 ...
@@ -1383,7 +1383,7 @@ more alignment issues. \\ \vspace{0.2cm}
 
 \underline{Landing.sass}
 
-\begin{minted}[linenos, bgcolor=lightestgray]{sass}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{sass}
 ...
 .Login_Button
   border-radius:    0.9vw
@@ -1501,7 +1501,7 @@ count the number of call ids in our table with a value of
 records whose \texttt{id} is 23 in our table. The implementation
 is as follows,
 
-\begin{minted}[linenos, bgcolor=lightestgray]{js}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{js}
 ...
 // Function to count the number call ids in use
 // If the id arguement is passed in then function will
@@ -1524,7 +1524,7 @@ async function Count_Elements(env, id = null)
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
-{\sffamily Tests:}
+{\sffamily Tests: (4)}
 
 \begin{itemize}
   \item HTTP endpoint is accessible \faCheck \\
@@ -1581,7 +1581,7 @@ $\left \lfloor tX \right \rfloor +l = \left \lfloor (u - l + 1)X \right \rfloor 
 This guarentees that we generate random integers
 in the interval $[l, u]$. The implementation looks like so,
 
-\begin{minted}[linenos, bgcolor=lightestgray]{js}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{js}
 ...
 // Generates a call id using a PRNG
 async function Generate_PRNG(env)
@@ -1603,7 +1603,7 @@ async function Generate_PRNG(env)
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
-{\sffamily Tests:}
+{\sffamily Tests: (5)}
 
 \begin{itemize}
   \item HTTP endpoint is accessible \faCheck \\
@@ -1618,7 +1618,7 @@ async function Generate_PRNG(env)
 The next algorithm I wrote was the \code{Generate\_Linear()}
 function. This was a rather trivial function to write,
 
-\begin{minted}[linenos, bgcolor=lightestgray]{js}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{js}
 ...
 // Generates a call id in linear time
 async function Generate_Linear(env)
@@ -1631,7 +1631,7 @@ async function Generate_Linear(env)
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
-{\sffamily Tests:}
+{\sffamily Tests: (6)}
 
 \begin{itemize}
   \item HTTP endpoint is accessible \faCheck \\
@@ -1645,7 +1645,7 @@ async function Generate_Linear(env)
 
 Finally putting all of this together we implement algorithm 7.
 
-\begin{minted}[linenos, bgcolor=lightestgray]{js}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{js}
 ...
 // Function to generate a unique call id
 async function Generate_Call_Id(env)
@@ -1668,7 +1668,7 @@ async function Generate_Call_Id(env)
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
-{\sffamily Tests:}
+{\sffamily Tests: (7)}
 
 \begin{itemize}
   \item HTTP endpoint is accessible \faCheck \\
@@ -1685,7 +1685,7 @@ remove a call id from our database. We use the same
 Cloudflare worker to perform this task. Here is the
 implementation,
 
-\begin{minted}[linenos, bgcolor=lightestgray]{js}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{js}
 ...
 // Function to remove a unique call id from the
 // database once a call has finished
@@ -1703,7 +1703,7 @@ async function Remove_Call_Id(request, env)
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
-{\sffamily Tests:}
+{\sffamily Tests: (8)}
 
 \begin{itemize}
   \item HTTP endpoint is accessible \faCheck \\
@@ -1735,14 +1735,14 @@ hence preventing the chance of SQL injection. \\ \vspace{0.2cm}
 
 For instance these 2 lines in our code changed from this
 
-\begin{minted}[linenos, bgcolor=lightestgray]{js}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{js}
 const query  = `DELETE FROM ${TABLE_NAME} WHERE id = ${body.Call_Id}`
 const result = await env.DB.prepare(query).run()
 \end{minted}
 
 to this,
 
-\begin{minted}[linenos, bgcolor=lightestgray]{js}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{js}
 const query  = `DELETE FROM ${TABLE_NAME} WHERE id = ?`
 const result = await env.DB.prepare(query).bind(body.Call_Id).run()
 \end{minted}
@@ -1772,7 +1772,7 @@ new one based on whether or not the \texttt{?code=...} url
 search parameter is passed in. Here is a snippet demonstrating
 how this is done,
 
-\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{jsx}
 // If we are joining call the code is passed via the url search params
 const Search_Params = new URLSearchParams(window.location.search)
 const code          = Search_Params.get("code")
@@ -1807,7 +1807,7 @@ function on the server and then send the result to us. We make
 use of the Javascript library Axios in order to simplify
 the syntax of making a HTTP request.
 
-\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{jsx}
 ...
 function Get_Call_Id()
 {
@@ -1832,7 +1832,7 @@ inside of a React \code{useEffect()}, since asynchronous code
 cannot be run in a React component otherwise. I wrote the
 following code to do so.
 
-\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{jsx}
 const [token, setToken]     = useState()
 const [loading, setLoading] = useState(true)
 const [client, setClient]   = useState()
@@ -1901,7 +1901,7 @@ useEffect(() => {
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
-{\sffamily Tests:}
+{\sffamily Tests: (9)}
 
 \begin{itemize}
   \item Code runs without errors \faCheck \\
@@ -1926,7 +1926,7 @@ needed to make HTTP calls to an API, with much nicer syntax
 than the React \code{useEffect()} solution. The revised code is
 listed below.
 
-\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{jsx}
 ...
 // Get Stream token
 const {
@@ -1997,7 +1997,7 @@ help me in re-writing the backend I wrote a library file with
 a few commonly used functions that I would be using in the
 main rust file.
 
-\begin{minted}[linenos, bgcolor=lightestgray]{rust}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{rust}
 use sqlx::{Connection, PgConnection};
 use dotenv::dotenv;
 
@@ -2043,7 +2043,7 @@ pub async fn Check_Id_Exists(connection: &mut PgConnection, id: i32) -> Result<b
 We begin by re-implementing the \code{Generate\_Linear()}
 function.
 
-\begin{minted}[linenos, bgcolor=lightestgray]{rust}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{rust}
 // Function to find the first available call id using a linear
 // implemenation. Returns -1 if all call ids are taken.
 async fn Generate_Linear(connection: &mut PgConnection) -> i32 {
@@ -2065,7 +2065,7 @@ async fn Generate_Linear(connection: &mut PgConnection) -> i32 {
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
-{\sffamily Tests:}
+{\sffamily Tests: (10)}
 
 \begin{itemize}
 \item HTTP endpoint is accessible \faCheck \\
@@ -2081,7 +2081,7 @@ few seconds to compile!)}
 
 We now proceed to re-implement the \code{Generate\_PRNG()} function
 
-\begin{minted}[linenos, bgcolor=lightestgray]{rust}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{rust}
 // Function to find the first available call id using a linear
 // implemenation. Returns -1 if we took too long to find a call id.
 async fn Generate_PRNG(connection: &mut PgConnection) -> i32 {
@@ -2106,7 +2106,7 @@ async fn Generate_PRNG(connection: &mut PgConnection) -> i32 {
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
-{\sffamily Tests:}
+{\sffamily Tests: (11)}
 
 \begin{itemize}
 \item HTTP endpoint is accessible \faCheck \\
@@ -2136,7 +2136,7 @@ type \mintinline{rust}{&mut PgConnection} we make use of an
 
 With that we re-implement algorithm 7 in rust.
 
-\begin{minted}[linenos, bgcolor=lightestgray]{rust}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{rust}
 // Generates a unique call id to be used and adds it to our DB
 async fn Get_Call_Id(pool: &PgPool, first_run: bool) -> Result<i32, sqlx::Error> {
     // If it's the first time running we should initialise our DB
@@ -2172,7 +2172,7 @@ async fn Get_Call_Id(pool: &PgPool, first_run: bool) -> Result<i32, sqlx::Error>
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
-{\sffamily Tests:}
+{\sffamily Tests: (12)}
 
 \begin{itemize}
 \item HTTP endpoint is accessible \faCheck \\
@@ -2189,7 +2189,7 @@ few seconds to compile!)}
 I then proceeded to implement the \code{Remove\_Call\_Id}
 function.
 
-\begin{minted}[linenos, bgcolor=lightestgray]{rust}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{rust}
 // Function to remove id from DB once a call has ended
 async fn Remove_Call_Id(pool: &PgPool, id: i32) -> Result<(), sqlx::Error> {
     sqlx::query("DELETE FROM ongoing_calls WHERE id=($1);")
@@ -2203,7 +2203,7 @@ async fn Remove_Call_Id(pool: &PgPool, id: i32) -> Result<(), sqlx::Error> {
 
 It gets called later on like so,
 
-\begin{minted}[linenos, bgcolor=lightestgray]{rust}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{rust}
 ...
 else if *req.method() == Method::POST {
     let call_id: i32 = Extract_Call_Id(req.body());
@@ -2217,7 +2217,7 @@ else if *req.method() == Method::POST {
 where \code{Extract\_Call\_Id()} is a new function in our
 library file that looks like so,
 
-\begin{minted}[linenos, bgcolor=lightestgray]{rust}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{rust}
 ...
 // Function to extract the "Call_Id" field from the HTTP request
 pub fn Extract_Call_Id(request_body: &Body) -> i32 {
@@ -2236,7 +2236,7 @@ pub fn Extract_Call_Id(request_body: &Body) -> i32 {
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
-{\sffamily Tests:}
+{\sffamily Tests: (13)}
 
 \begin{itemize}
 \item HTTP endpoint is accessible \faCheck \\
@@ -2264,7 +2264,7 @@ call id from the backend database. \\ \vspace{0.2cm}
 Since we wrote a good number of helper functions earlier the
 process of making this change was rather simple.
 
-\begin{minted}[linenos, bgcolor=lightestgray]{rust}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{rust}
 ...
 // Remove given call id
 else if *req.method() == Method::DELETE {
@@ -2286,7 +2286,7 @@ else if *req.method() == Method::POST {
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
-{\sffamily Tests:}
+{\sffamily Tests: (14)}
 
 \begin{itemize}
 \item HTTP endpoint is accessible \faCheck \\
@@ -2331,7 +2331,7 @@ into the URL for the query parameter \texttt{/?code=...} then
 make a \texttt{DELETE} request to our backend API, in order to
 ensure that the call id is correctly removed from our database.
 
-\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{jsx}
 // Function to retrieve the call id code from our url
 export function Get_Call_Id_From_URL()
 {
@@ -2350,7 +2350,7 @@ of our \texttt{Video-Conferencing} directory we make a folder
 called \texttt{utils} and we write a file called
 \texttt{Query\_Api.jsx}.
 
-\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{jsx}
 import axios from "axios"
 import { useSearchParams } from "react-router"
 
@@ -2418,7 +2418,7 @@ export async function End_Call(code)
 
 Then in our \texttt{main.jsx} file we write
 
-\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{jsx}
 ...
 const router = createBrowserRouter([
   ...
@@ -2460,7 +2460,7 @@ file is the main file which is run. This backend is hosted on vercel as
 a vercel function. \\ \vspace{0.2cm}
 
 \underline{utils.go}
-\begin{minted}[linenos, bgcolor=lightestgray]{go}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{go}
 package utils
 
 import (
@@ -2613,7 +2613,7 @@ func Get_Room_Code_HTTP(w *http.ResponseWriter, id string) {
 
 \underline{provider.go}
 
-\begin{minted}[linenos, bgcolor=lightestgray]{go}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{go}
 package handler
 
 import "Call-Manager/libs"
@@ -2647,7 +2647,7 @@ This completes development sub-tasks \circled{6}, \circled{7}, \circled{8} and
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
-{\sffamily Tests:}
+{\sffamily Tests: (15)}
 
 \begin{itemize}
   \item Video feed is working \faCheck \\
@@ -2658,7 +2658,6 @@ This completes development sub-tasks \circled{6}, \circled{7}, \circled{8} and
 
 {\sffamily Evidence: } \url{https://youtu.be/mX33jG6B1Ik} \\ \vspace{0.2cm}
 {\sffamily Evidence: } \url{https://youtu.be/D2J8Y2TnWjo} \\ \vspace{0.2cm}
-{\sffamily Evidence: } \url{} \\ \vspace{0.2cm}
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
@@ -2666,7 +2665,7 @@ With this the main components of our software have
 been complete. With that we test the qualitative
 success criterion 1, 3 and 5. \\ \vspace{0.2cm}
 
-{\sffamily Tests:}
+{\sffamily Tests: (16)}
 
 \begin{itemize}
   \item System is intuitive \faCheck \\
@@ -2676,6 +2675,13 @@ success criterion 1, 3 and 5. \\ \vspace{0.2cm}
 
 {\sffamily Evidence:} \url{https://youtu.be/Ii8QkbziWo4} \\ \vspace{0.2cm}
 
+I conducted a survey asking whether people liked the UI of Video-Conferencer, here were the results:
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.2]{Images/Survey.png}
+\end{figure}
+
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
 Now that we have some of our core features implemented I thought that I should begin writing the documentation for
@@ -2684,7 +2690,7 @@ order to create a documentation site as it was simple to setup and had a nice mo
 documentation will be sufficient to enable any future maintainers of the project to be able to understand the
 code written. The documentation is written in markdown and looks like so:
 
-\begin{minted}[linenos, bgcolor=lightestgray]{md}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{md}
 # Tools
 
 > [!NOTE]
@@ -2699,6 +2705,13 @@ number of services that allow us to host our applications on the cloud for free,
 within certain limits.
 ...
 \end{minted}
+
+{\sffamily Tests: (17)}
+
+\begin{itemize}
+  \item System has proper documentation \faCheck
+  \item Documentation is easy to read and access \faCheck
+\end{itemize}
 
 Here's what the site looks like: \\ \vspace{0.2cm}
 {\sffamily Evidence}  \url{https://youtu.be/vLu_vxBv6rM} \\ \vspace{0.2cm}
@@ -2735,3 +2748,219 @@ The specific code changes can be viewed at the Github link provided at the end o
 Here is a video to summarise/demonstrate these UI changes. \\ \vspace{0.2cm}
 
 {\sffamily Evidence:} \url{https://youtu.be/9vMbj_f_XJs} \\ \vspace{0.2cm}
+
+I then worked on implementing the backend code in order to implement the events page. We have a table called
+\texttt{Events} with the following structure. \\ \vspace{0.2cm}
+
+\begin{center}
+\begin{tikzpicture}
+
+\pic{entity={logins}{\sffamily Logins}{
+    \underline{Event\_Id} & \texttt{int} \\
+    User\_Id & \texttt{string} \\
+    Title & \texttt{string} \\
+    Description & \texttt{string} \\
+    Date & \texttt{date} \\
+  }};
+
+\end{tikzpicture}
+\end{center}
+
+\vspace{0.2cm}
+Here's a rough sketch of what's going on in the backend:
+
+\begin{itemize}
+\item When the front end loads, we make a \texttt{POST} request to our backend, this returns a list of all of a user's events and we render these events on the front end. \\
+\item When a user adds an event, we make a \texttt{PUT} request to our backend, this adds the new event data to our database. \\
+\item When a user deletes an event we make \texttt{DELETE} request to our backend, this deletes that event from our database. \\
+\end{itemize}
+
+Here we present a code snippet of the most important functions,
+
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{go}
+...
+// Get all of a user's events
+func Get_Events(User_Id string) (string, error) {
+    db, err := Connect()
+    if err != nil {
+        return "", err
+    }
+    defer db.Close() // Ensures connection closes once function returns
+
+    // Query to get events ordered by date
+    query := `
+        SELECT event_id, user_id, title, description, date
+        FROM events
+        WHERE user_id = $1
+        ORDER BY date DESC
+    `
+
+    // Execute query
+    rows, err := db.Query(query, User_Id)
+    if err != nil {
+        return "", err
+    }
+    defer rows.Close()
+
+    // Slice to hold all events
+    var events []models.Event
+
+    // Iterate through results
+    for rows.Next() {
+        var event models.Event
+        err := rows.Scan(
+            &event.Event_ID,
+            &event.User_ID,
+            &event.Title,
+            &event.Description,
+            &event.Date,
+        )
+        if err != nil {
+            return "", err
+        }
+        events = append(events, event)
+    }
+
+    // Check for errors from iterating over rows
+    if err = rows.Err(); err != nil {
+        return "", err
+    }
+
+    // Convert to JSON
+    Json_Data, err := json.Marshal(events)
+    if err != nil {
+        return "", err
+    }
+
+    return string(Json_Data), nil
+}
+
+// Get count of events for a user
+func Get_Event_Count(User_Id string) (int, error) {
+    db, err := Connect()
+    if err != nil {
+        return 0, err
+    }
+    defer db.Close()
+
+    var count int
+    query := `SELECT COUNT(*) FROM events WHERE user_id = $1`
+    err = db.QueryRow(query, User_Id).Scan(&count)
+    if err != nil {
+        return 0, err
+    }
+
+    return count, nil
+}
+
+// Add a new event to the database
+func Add_Event(Event models.Event) error {
+    db, err := Connect()
+    if err != nil {
+        return err
+    }
+    defer db.Close()
+
+    query := `
+        INSERT INTO events (user_id, title, description, date)
+        VALUES ($1, $2, $3, $4)
+    `
+
+    _, err = db.Exec(query, Event.User_ID, Event.Title, Event.Description, Event.Date)
+    return err
+}
+
+// Delete an event from the database
+func Delete_Event(Event_Id int, User_Id string) error {
+    db, err := Connect()
+    if err != nil {
+        return err
+    }
+    defer db.Close()
+
+    query := `
+        DELETE FROM events
+        WHERE event_id = $1 AND user_id = $2
+    `
+
+    _, err = db.Exec(query, Event_Id, User_Id)
+    return err
+}
+\end{minted}
+
+Given that our table was created with the following SQL,
+
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{sql}
+CREATE TABLE Events (
+    event_id SERIAL PRIMARY KEY,
+    user_id VARCHAR(255) NOT NULL,
+    title VARCHAR(50) NOT NULL,
+    description VARCHAR(200) NOT NULL,
+    date DATE NOT NULL
+);
+\end{minted}
+
+we do some \textbf{input validation} on the back end to ensure that the user only adds events that satisfy the restrictions for
+the datatypes in this table. Here is an example from the \code{Handle\_Add\_Event()} function:
+
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{go}
+...
+// Check event count
+Event_Count, err := utils.Get_Event_Count(User_Id)
+if err != nil {
+    http.Error(w, "Failed to get event count: "+err.Error(), http.StatusInternalServerError)
+    return
+}
+
+// Enforce event limit
+if Event_Count >= MAX_EVENTS {
+    http.Error(w, "Maximum event limit reached", http.StatusForbidden)
+    return
+}
+
+// Parse JSON body into Event struct
+var New_Event models.Event
+if err := json.NewDecoder(r.Body).Decode(&New_Event); err != nil {
+    http.Error(w, "Invalid request body: "+err.Error(), http.StatusBadRequest)
+    return
+}
+
+// Override the User_Id from JSON with the one from header for security
+New_Event.User_ID = User_Id
+
+// Validate required fields
+if New_Event.Title == "" || New_Event.Description == "" || New_Event.Date.IsZero() {
+    http.Error(w, "Title, Description, and Date are required", http.StatusBadRequest)
+    return
+}
+
+// Validate field lengths
+if len(New_Event.Title) > MAX_TITLE_LENGTH {
+    http.Error(w, fmt.Sprintf("Title must not exceed %d characters", MAX_TITLE_LENGTH), http.StatusBadRequest)
+    return
+}
+
+if len(User_Id) > MAX_USER_ID_LENGTH {
+    http.Error(w, fmt.Sprintf("User ID must not exceed %d characters", MAX_USER_ID_LENGTH), http.StatusBadRequest)
+    return
+}
+
+if len(New_Event.Description) > MAX_DESCRIPTION_LENGTH {
+    http.Error(w, fmt.Sprintf("Description must not exceed %d characters", MAX_DESCRIPTION_LENGTH), http.StatusBadRequest)
+    return
+}
+\end{minted}
+
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}
+
+{\sffamily Tests: (18)}
+
+\begin{itemize}
+  \item Users can properly add events to their account \faCheck
+  \item Users events are saved to the database and are properly loaded on the front end \faCheck
+  \item Users can properly delete events \faCheck
+\end{itemize}
+
+{\sffamily Evidence: } \url{https://youtu.be/yhekUnPFH08} \\ \vspace{0.2cm}
+
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}

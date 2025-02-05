@@ -1,4 +1,4 @@
-import { CircleHelp, Video, UserPlus, ArrowLeft, LogOut, Calendar, House } from "lucide-react"
+import { CircleHelp, Video, UserPlus, ArrowLeft, LogOut } from "lucide-react"
 import { useUser, SignOutButton, UserButton } from "@clerk/clerk-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { dark } from '@clerk/themes'

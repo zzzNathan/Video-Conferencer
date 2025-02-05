@@ -11,7 +11,7 @@ function Headline()
       className={"relative text-[4vw] ml-[4vw] mb-[0.75vw] inline-block bg-gradient-to-r from-ter to-sec text-transparent bg-clip-text select-none"}
       strings={[
         "Welcome to Video-Conferencer",
-	"Let's get started...",
+        "Let's get started...",
       ]}
       typeSpeed={100}
       startDelay={30}
@@ -29,20 +29,20 @@ function Registration()
     <Navbar />
     <Headline />
 
-      <SignedOut>
-        <center>
+    <SignedOut>
+      <center>
 
-	  <SignUp
-	    signInUrl="/login"
-	    forceRedirectUrl="/home"
-	    appearance={{
-	      baseTheme: dark,
-	      variables: {spacingUnit: "2vh"}
-	    }}
-	  />
+  	  <SignUp
+  	    signInUrl="/login"
+  	    forceRedirectUrl="/home"
+  	    appearance={{
+  	      baseTheme: dark,
+  	      variables: {spacingUnit: "2vh"}
+  	    }}
+  	  />
 
-	</center>
-      </SignedOut>
+      </center>
+    </SignedOut>
   </>
   )
 }

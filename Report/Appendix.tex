@@ -4,248 +4,399 @@
 
 \section{Front end}
 
-\underline{/src/main.jsx}
+\underline{src/components/Events.jsx}
 
-\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
-import { createRoot } from "react-dom/client"
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import { ClerkProvider } from "@clerk/clerk-react"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{jsx}
+import { CircleHelp, ArrowLeft, LogOut, X, Plus } from "lucide-react"
+import { useUser, SignOutButton, UserButton } from "@clerk/clerk-react"
+import { useState, useEffect } from "react"
+import { dark } from '@clerk/themes'
+import { Get_Events, Add_Event, Delete_Event } from "../utils/Query_Api"
+import Loading from "./Loading"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
 
-import "./index.css"
-
-import Landing from "./components/Landing.jsx"
-import Login from "./components/Login.jsx"
-import Registration from "./components/Registration.jsx"
-import Home from "./components/Home.jsx"
-import Video_Call from "./components/Video_Call.jsx"
-import Join_Call from "./components/Join_Call.jsx"
-import { End_Call, Get_Call_Id_From_URL } from "./utils/Query_Api.jsx"
-import Settings from "./components/Settings.jsx"
-
-// Path is an extension that goes after our URL,
-// once this extension is written the corresponding
-// React element will be loaded and rendered.
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Landing />
-  },
-  {
-    path: "/login",
-    element: <Login />
-  },
-  {
-    path: "/registration",
-    element:  <Registration />
-  },
-  {
-    path: "/home",
-    element: <Home />
-  },
-  {
-    path: "/call",
-    element: <Video_Call />,
-    onLeave: () => {End_Call( Get_Call_Id_From_URL() )}
-  },
-  {
-    path: "/join",
-    element: <Join_Call />
-  },
-  {
-    path: "/settings",
-    element: <Settings />
-  }
-])
-
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
-const Query_Client    = new QueryClient()
-
-createRoot(document.getElementById('root')).render(
-  <QueryClientProvider client={Query_Client}>
-
-  <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
-    <RouterProvider router={router} />
-  </ClerkProvider>
-
-  </QueryClientProvider>
-)
-\end{minted}
-
-\underline{/src/components/Landing.jsx}
-
-\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
-import Navbar from "./Navbar.jsx"
-
-function Landing()
-{
-  return (
-    <div className="w-screen h-screen flex flex-col">
-      <Navbar />
-
-      <div className="inline-block mb-[1.4vw]"></div>
-
-      <div className="flex flex-col items-center justify-center space-y-[-1vw] mb-[1vw]">
-        <h1 className="text-[7.4vw] font-bold bg-gradient-to-r from-ter to-sec text-transparent bg-clip-text mt-[4vw] inline-block saturate-150"> Video conferencing </h1>
-
-        <h2 className="text-sec text-[2.5vw]"> like you've <span className="text-ter">never</span> seen it before </h2>
-      </div>
-
-      <div className="inline-block mb-[1vw]"></div>
-
-      <div className="flex flex-row justify-center items-center space-x-[1.75vw] p-0 mb-auto pointer-events-auto">
-        <a href="/login"><button className="rounded-[50vw] bg-black/70 text-white px-[1.75vw] py-[0.7vw] hover:border-[0.15vw] hover:scale-[1.05] hover:bg-black transition-all shadow-[0_0_1vw_0.05vw_rgba(255,255,255,0.3)] text-[1.3vw]"> Login </button></a>
-
-        <a href="/registration">
-	        <button className="rounded-[50vw] bg-gradient-to-r from-ter to-sec/70 bg-gradient-to-bl from-bg/70 to-pink/70 text-black hover:border-[0.15vw] px-[1.75vw] border-t-[0.15vw] py-[0.7vw] transition-all text-[1.3vw] shadow-[0_0_1vw_0.05vw_rgba(255,255,255,0.3)]"> Sign up </button>
-        </a>
-      </div>
-
-    </div>
-  )
-}
-
-export default Landing
-\end{minted}
-
-\underline{/src/components/Navbar.jsx}
-
-\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
-import { useUser, SignedIn } from '@clerk/clerk-react'
-import { Settings } from 'lucide-react'
-
-// Makes the navigation bar design a component must be inside
-// a clerk provider
-function Navbar()
-{
-  // If user isn't signed in then they can be redirected
-  // to the registration page
-  const { isSignedIn } = useUser()
-  var link = "/registration"
-  var text = "Get started"
-
-  // If user is signed in then they can go straight
-  // to the home page
-  if (isSignedIn)
-  {
-    link = "/home"
-    text = "Home"
-  }
-
-  return (
-    <nav>
-      <ul className="flex list-none m-0 p-0 text-[1.45vw] mb-[0.1vw] mt-[-0.5vw]">
-
-        <li className="p-[1.25vw] text-sec"> <b> Video-Conferencer </b> </li>
-
-	<li className="ml-[auto] p-[1.25vw] hover:opacity-65 transition-opacity text-sec saturate-50"> <a href={link}> {text} </a> </li>
-
-        <li className="p-[1.25vw] ml-[1vw] hover:opacity-65 transition-opacity text-sec saturate-50"> Docs </li>
-
-        <li className="p-[1.25vw] ml-[1vw] hover:opacity-65 transition-opacity text-sec saturate-50"> Help </li>
-
-        <SignedIn>
-        <a href="/settings">
-        <li className="p-[1.25vw] ml-[1vw] hover:opacity-65 transition-opacity text-sec mt-[0.35vw] saturate-50"> <Settings className="w-[1.45vw]"/> </li>
-        </a>
-        </SignedIn>
-
-      </ul>
-    </nav>
-  )
-}
-
-export default Navbar
-\end{minted}
-
-\underline{/src/components/Home.jsx}
-
-\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
-import { Settings, CircleHelp, Video, UserPlus, ChevronLeft, LogOut } from "lucide-react"
-import { useUser, SignOutButton, SignedIn } from "@clerk/clerk-react"
-
-// Renders the sign out option only if the user is currently
-// signed in
-function Sign_Out_Button()
-{
+function Sign_Out_Button() {
   const { isSignedIn } = useUser()
 
-  // If user isn't signed in return an empty HTML element
   if (!isSignedIn) return <></>
 
   return (
-    <li className="mr-[3vw] flex items-center justify-center flex-row hover:opacity-65 transition-opacity">
+    <li className="flex items-center justify-center flex-row mr-[3vw] hover:opacity-65 transition-opacity">
       <SignOutButton redirectUrl={"/"}>
-        <button className="m-0 p-0 text-sec text-[1.45vw] border-none bg-transparent"> <LogOut className="w-[1.45vw]"/> </button>
+        <button className="flex items-center justify-center m-0 p-0 text-sec text-[1.40vw] border-none bg-transparent">
+          <LogOut className="w-[1.40vw]"/>
+        </button>
       </SignOutButton>
     </li>
   )
 }
 
-function Top_Bar()
-{
+function Top_Bar() {
   return (
-    <ul className="flex pt-[0.5vw] pb-[1vw] mb-[1.5vw] mt-0 mx-0 pl-[1.25vw] text-sec">
+    <ul className="flex items-center pt-[0.5vw] pb-[1vw] mb-[2.75vw] mt-0 mx-0 pl-[1.25vw] text-sec border-b-[0.09vw] border-neutral-950/65">
       <a href="/">
-        <li className="flex items-center justify-center flex-row mr-[2vw] text-ter text-[1.45vw] hover:opacity-65 transition-all mt-[0.25vw]">
-          <ChevronLeft className="w-[1.45vw]"/>
+        <li className="flex items-center justify-center flex-row mr-[2vw] text-[1.20vw] hover:opacity-65 transition-all">
+          <ArrowLeft className="w-[1.40vw]"/>
         </li>
       </a>
 
-      <li className="flex items-center justify-center flex-row font-bold mr-auto text-ter text-[1.45vw]">
-        Home
+      <li className="flex items-center justify-center text-zinc-400 flex-row text-[1.40vw] ml-[1vw] hover:text-sec transition-all">
+        <a href="/home">
+          Home
+        </a>
       </li>
+
+      <li className="flex items-center justify-center font-bold flex-row ml-[3vw] text-[1.40vw] mr-auto">
+        Events
+      </li>
+
       <Sign_Out_Button />
 
-      <SignedIn>
-      <a href="/settings">
-      <li className="flex items-center justify-center flex-row mr-[3vw] text-[1.45vw] hover:opacity-65 transition-all">
-        <Settings className="w-[1.45vw]" />
+      <li className="flex items-center justify-center flex-row mr-[3vw] text-[1.20vw] hover:opacity-65 transition-all">
+        <CircleHelp className="w-[1.40vw]" />
       </li>
-      </a>
-      </SignedIn>
 
-      <li className="flex items-center justify-center flex-row mr-[2vw] text-[1.45vw] hover:opacity-65 transition-all">
-        <CircleHelp className="w-[1.45vw]" />
+      <li className="flex items-center justify-center flex-row mr-[2vw] text-[1.4vw] scale-[0.9]">
+        <UserButton appearance={{baseTheme: dark}} size />
       </li>
     </ul>
   )
 }
 
-// Makes the create call and join call components
-function Options()
-{
+function Event_Item({ title, date, description, On_Delete }) {
+  // Format the date to show only YYYY-MM-DD
+  const formatted_date = new Date(date).toISOString().split('T')[0]
+
   return (
-    <div className="flex flex-col items-center justify-start gap-[2vw] h-[80vh] w-[83vw] rounded-[1.5vw] mx-auto saturate-[.65] bg-white/10">
-      <div className="flex flex-col items-center justify-center text-ter w-[83vw] rounded-t-[1.5vw] saturate-[.65] bg-white/10 h-[3vw]">
-        <div className="text-[1.25vw] font-bold mr-auto ml-[1vw]">Meetings</div>
+    <div className="bg-zinc-900/80 p-[1.5vw] rounded-[0.5vw] mb-[1vw] hover:bg-zinc-900/40 transition-colors relative group">
+      <button
+        onClick={On_Delete}
+        className="absolute top-[1vw] right-[1vw] opacity-0 group-hover:opacity-100 transition-opacity"
+      >
+        <X className="w-[1.2vw] h-[1.2vw] text-zinc-400 hover:text-red-400 transition-colors"/>
+      </button>
+      <h2 className="text-white text-[1.2vw] font-semibold mb-[0.5vw]">{title}</h2>
+      <p className="text-zinc-400 text-[1vw] mb-[0.5vw]">{formatted_date}</p>
+      <p className="text-zinc-300 text-[0.9vw]">{description}</p>
+    </div>
+  )
+}
+
+function Add_Event_Button({ onClick }) {
+  return (
+    <button
+      className="absolute bottom-[2vw] right-[2vw] bg-sec hover:bg-ter/80 transition-all rounded-full p-[1vw] shadow-lg hover:scale-110 active:scale-95"
+      onClick={onClick}
+    >
+      <Plus className="w-[2vw] h-[2vw] text-black" />
+    </button>
+  )
+}
+
+function No_Events_Message() {
+  return (
+    <div className="flex flex-col items-center justify-center h-full">
+      <div className="text-zinc-400 text-center">
+        <p className="text-[1.4vw] mb-[1vw]">No events found</p>
+        <p className="text-[1vw] text-zinc-500">
+          Click the plus icon to create your first event!
+        </p>
+      </div>
+    </div>
+  )
+}
+
+function Events_Page() {
+  const [events, Set_Events] = useState([])
+  const [loading, Set_Loading] = useState(true)
+  const [adding_event, Set_Adding_Event] = useState(false)
+  const [error, Set_Error] = useState(null)
+  const { user } = useUser()
+
+  // Dialog state
+  const [Open_Dialog, Set_Open_Dialog] = useState(false)
+  const [New_Event, Set_New_Event] = useState({
+    Title: "",
+    Description: "",
+    Date: ""
+  })
+
+  // Fetch events when component mounts or user changes
+  useEffect(() => {
+    async function Fetch_Events() {
+      if (!user) return
+
+      try {
+        const response = await Get_Events(user.id)
+        Set_Events(response.data || [])
+        Set_Error(null)
+      } catch (error) {
+        console.error('Failed to fetch events:', error)
+        Set_Error('Failed to load events')
+        Set_Events([])
+      } finally {
+        Set_Loading(false)
+      }
+    }
+
+    Fetch_Events()
+  }, [user])
+
+  const Handle_Add_Event = async () => {
+    // Validate form
+    if (!New_Event.Title || !New_Event.Description || !New_Event.Date) {
+      Set_Error('Please fill in all fields')
+      return
+    }
+
+    Set_Adding_Event(true)
+    try {
+      await Add_Event(
+        user.id,
+        New_Event.Title,
+        New_Event.Description,
+        New_Event.Date
+      )
+
+      // Refresh events list
+      const response = await Get_Events(user.id)
+      Set_Events(response.data || [])
+
+      // Close dialog and reset form
+      Set_Open_Dialog(false)
+      Set_New_Event({ Title: "", Description: "", Date: "" })
+      Set_Error(null)
+    } catch (error) {
+      console.error('Failed to add event:', error)
+      Set_Error('Failed to add event')
+    } finally {
+      Set_Adding_Event(false)
+    }
+  }
+
+  const Handle_Delete_Event = async (Event_Id) => {
+    try {
+      await Delete_Event(user.id, Event_Id)
+      Set_Events(events.filter(event => event.Event_Id !== Event_Id))
+    } catch (error) {
+      console.error('Failed to delete event:', error)
+    }
+  }
+
+  if (loading || !user) return <Loading />
+
+  return ( <>
+    <Top_Bar />
+
+    <Dialog open={Open_Dialog} onOpenChange={Set_Open_Dialog}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Add New Event</DialogTitle>
+          <DialogDescription>
+            <div className="text-sec/70">Fill in the details for your new event</div>
+
+            {error && (
+              <div className="text-red-400 text-[1vw] mt-[1vw]">{error}</div>
+            )}
+
+            <div className="mt-[2vw] space-y-[1vw]">
+              <div>
+                <label className="text-sec text-[1vw]">Title</label>
+                <input
+                  type="text"
+                  value={New_Event.Title}
+                  onChange={(e) => Set_New_Event({...New_Event, Title: e.target.value})}
+                  className="w-full p-[0.5vw] rounded bg-zinc-900 text-white text-[1vw]"
+                  placeholder="Event title"
+                  maxLength={50}
+                />
+              </div>
+
+              <div>
+                <label className="text-sec text-[1vw]">Description</label>
+                <textarea
+                  value={New_Event.Description}
+                  onChange={(e) => Set_New_Event({...New_Event, Description: e.target.value})}
+                  className="w-full p-[0.5vw] rounded bg-zinc-900 text-white text-[1vw]"
+                  placeholder="Event description"
+                  rows="3"
+                  maxLength={200}
+                />
+              </div>
+
+              <div>
+                <label className="text-sec text-[1vw]">Date</label>
+                <input
+                  type="date"
+                  value={New_Event.Date}
+                  onChange={(e) => Set_New_Event({...New_Event, Date: e.target.value})}
+                  className="w-full p-[0.5vw] rounded bg-zinc-900 text-white text-[1vw]"
+                  min={new Date().toISOString().split('T')[0]}
+                />
+              </div>
+
+              <button
+                onClick={Handle_Add_Event}
+                disabled={adding_event}
+                className="w-full bg-sec hover:bg-ter/80 text-black p-[0.75vw] rounded text-[1vw] transition-colors disabled:opacity-50"
+              >
+                {adding_event ? 'Adding...' : 'Add Event'}
+              </button>
+            </div>
+          </DialogDescription>
+        </DialogHeader>
+      </DialogContent>
+    </Dialog>
+
+    <div className="flex justify-center items-center">
+      <div className="w-[85vw] h-[80vh] rounded-[1vw] bg-slate-950 p-[1vw] relative">
+        <h1 className="text-[3.5vw] text-left bg-gradient-to-r from-orange-200 to-ter bg-clip-text text-transparent inline-block font-bold">
+          Upcoming events
+        </h1>
+        <h3 className="text-[1.3vw] text-ter/70 saturate-50 mb-[2vw]">
+          Click on the plus icon to add an event, hover over an event and click the X to remove
+          an event.
+        </h3>
+
+        <div className="overflow-y-auto h-[calc(70vh-8vw)] pr-[1vw]">
+          {events.length === 0 ? (
+            <No_Events_Message />
+          ) : (
+            events.map((event) => (
+              <Event_Item
+                key={event.Event_Id}
+                title={event.Title}
+                date={event.Date}
+                description={event.Description}
+                On_Delete={() => Handle_Delete_Event(event.Event_Id)}
+              />
+            ))
+          )}
+        </div>
+
+        <Add_Event_Button onClick={() => Set_Open_Dialog(true)} />
+      </div>
+    </div>
+  </> )
+}
+
+export default Events_Page
+\end{minted}
+
+\underline{src/components/Home.jsx}
+
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{jsx}
+import { CircleHelp, Video, UserPlus, ArrowLeft, LogOut } from "lucide-react"
+import { useUser, SignOutButton, UserButton } from "@clerk/clerk-react"
+import { Card, CardContent } from "@/components/ui/card"
+import { dark } from '@clerk/themes'
+
+function Sign_Out_Button() {
+  const { isSignedIn } = useUser()
+
+  if (!isSignedIn) return <></>
+
+  return (
+    <li className="flex items-center justify-center flex-row mr-[3vw] hover:opacity-65 transition-opacity">
+      <SignOutButton redirectUrl={"/"}>
+        <button className="flex items-center justify-center m-0 p-0 text-sec text-[1.40vw] border-none bg-transparent">
+          <LogOut className="w-[1.40vw]"/>
+        </button>
+      </SignOutButton>
+    </li>
+  )
+}
+
+function Top_Bar() {
+  return ( <>
+    <ul className="flex items-center pt-[0.5vw] pb-[1vw] mb-[2.75vw] mt-0 mx-0 pl-[1.25vw] text-sec border-b-[0.09vw] border-neutral-950/65">
+      <a href="/">
+        <li className="flex items-center justify-center flex-row mr-[2vw] text-[1.20vw] hover:opacity-65 transition-all">
+          <ArrowLeft className="w-[1.40vw]"/>
+        </li>
+      </a>
+
+      <li className="flex items-center justify-center font-bold flex-row text-[1.40vw] ml-[1vw]">
+        Home
+      </li>
+
+        <li className="flex items-center justify-center text-zinc-400 flex-row ml-[3vw] text-[1.40vw] mr-auto hover:text-sec transition-all">
+          <a href="/events">
+            Events
+          </a>
+        </li>
+
+      <Sign_Out_Button />
+
+      <li className="flex items-center justify-center flex-row mr-[3vw] text-[1.20vw] hover:opacity-65 transition-all">
+        <CircleHelp className="w-[1.40vw]" />
+      </li>
+
+      <li className="flex items-center justify-center flex-row mr-[2vw] text-[1.4vw] scale-[0.9]">
+        <UserButton appearance={{baseTheme: dark}} size />
+      </li>
+    </ul>
+    </>
+  )
+}
+
+function Options() {
+  return (
+    <center>
+      <div className="font-bold text-[3.6vw] bg-gradient-to-r from-orange-200 to-ter bg-clip-text text-transparent inline-block mt-[-1vw] mb-[1vw]">
+        Video-Conferencer
       </div>
 
-      <div className="text-sec font-bold text-[3vw] bg-gradient-to-r from-orange-200 to-ter bg-clip-text text-transparent inline-block mt-[15vh]">
-        Start connecting with others!
+      <div className="bg-black/70 rounded-[0.7vw] p-[0.7vw] mb-[2vw] text-ter saturate-[40%] opacity-65 max-w-[70vw] text-[1.2vw] text-center">
+        <b> Tip: </b> Upon creating a video-conference you will be given a code 10
+        character code that looks like so "xxx-xxxx-xxx". Give this code to a friend and once they enter in the
+        same code <i>(make sure you include the dashes)</i> you will be connected!
       </div>
 
-      <div className="flex flex-row items-center justify-center gap-[2vw]">
+      <ul className="flex flex-row gap-[9vw] w-full justify-center text-ter saturate-[40%] text-[2vw]">
+
         <a href="/call">
-          <button className="flex items-center justify-center gap-[0.75vw] border-gray-700 border-t-[0.15vw] text-[1.5vw] rounded-[50vw] bg-black/75 text-sec px-[2.5vw] py-[0.75vw] hover:border-[0.15vw] hover:scale-[1.05] hover:bg-black transition-all">
-            <Video className="w-[1.5vw]" /> Create
-          </button>
+          <Card className="bg-rose-200/20 border-0 hover:bg-rose-50/20 transition-colors">
+            <CardContent className="p-[1.5vw]">
+              <div className="h-[4vw] w-[4vw] rounded-full bg-rose-200/20 flex items-center justify-center">
+                <Video className="h-[2vw] w-[2vw] text-rose-200" />
+              </div>
+              <div>
+                <h2 className="text-xl font-semibold text-white mb-[0.5vw]">Create Meeting</h2>
+                <p className="text-sm text-gray-400">Start a new video conference</p>
+              </div>
+            </CardContent>
+          </Card>
         </a>
 
         <a href="/join">
-          <button className="flex items-center justify-center gap-[0.75vw] border-gray-700 border-t-[0.15vw] text-[1.5vw] rounded-[50vw] bg-black/75 text-sec px-[2.5vw] py-[0.75vw] hover:border-[0.15vw] hover:scale-[1.05] hover:bg-black transition-all">
-            <UserPlus className="w-[1.5vw]" /> Join
-          </button>
+          <Card className="bg-zinc-900/60 border-0 hover:bg-zinc-900/30 transition-colors">
+            <CardContent className="p-[1.5vw]">
+              <div className="h-[4vw] w-[4vw] rounded-full bg-zinc-700/20 flex items-center justify-center">
+                <UserPlus className="h-[2vw] w-[2vw] text-rose-200" />
+              </div>
+              <div>
+                <h2 className="text-xl font-semibold text-white mb-[0.5vw]">Join Meeting</h2>
+                <p className="text-sm text-gray-400">Enter a 10 character code</p>
+              </div>
+            </CardContent>
+          </Card>
         </a>
-      </div>
-    </div>
+      </ul>
+    </center>
   )
 }
 
 // Renders the home page
 function Home()
 {
-  return (<>
+  return ( <>
     <div className="bg-grad/20 h-screen">
       <Top_Bar />
       <Options />
@@ -258,97 +409,112 @@ export default Home
 
 \underline{src/components/Join\_Call.jsx}
 
-\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
-import { ChevronLeft, UserPlus } from "lucide-react"
-import { REGEXP_ONLY_DIGITS } from "input-otp"
-import { Check_Ongoing } from "../utils/Query_Api"
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{jsx}
+import { ArrowLeft } from "lucide-react"
 import { useState } from "react"
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-} from "@/components/ui/input-otp"
+import { Join_Video_Call } from "./Video_Call"
+import { Input } from "@/components/ui/input"
 
-// Function to join a call
-async function Enter_Call(code)
-{
-  // Code must be 6 digits
-  if (code.length === 6) {
-    // Check if call with this id is actually ongoing
-    let Call_Ongoing = await Check_Ongoing(code)
-    if (!Call_Ongoing) return
-
-    window.location.href = `/call?code=${code}`
-  }
-}
-
-function Input_Code()
-{
-  const [value, setValue] = useState("")
-
+function Input_Code({ Value, Set_Value, Set_Clicked }) {
   return (
-    <center>
-      <a href="/home">
-        <button className="flex flex-row items-center mr-auto p-[1.2vw] text-ter text-[1.45vw] hover:opacity-50 transition-all">
-          <ChevronLeft className="w-[1.45vw]" /> Back
-        </button>
-      </a>
-
-      <div className="flex flex-col items-center justify-center gap-[2vw] text-ter mt-[4.5vw] w-[31vw] pb-[1.75vw] rounded-[1.1vw] saturate-[.65] bg-white/10">
-        <div className="flex flex-col items-center justify-center text-ter w-[31vw] rounded-t-[1.1vw] saturate-[.65] bg-white/10 h-[3vw]">
-          <div className="text-[1.25vw] font-bold">Join meeting</div>
-        </div>
-
-        <div className="mx-auto text-ter/90 text-[1.5vw] mt-[-1.75vw] pt-[0.5vw]">
-          Please enter the 6 digit meeting code
-        </div>
-
-        <InputOTP
-          maxLength={6}
-          pattern={REGEXP_ONLY_DIGITS}
-          value={value}
-          onChange={(value) => setValue(value)}
-        >
-          <InputOTPGroup>
-            <InputOTPSlot index={0} />
-            <InputOTPSlot index={1} />
-            <InputOTPSlot index={2} />
-            <InputOTPSlot index={3} />
-            <InputOTPSlot index={4} />
-            <InputOTPSlot index={5} />
-          </InputOTPGroup>
-        </InputOTP>
-
+    <div className="w-full flex justify-center mt-[20vh]">
+      <div className="w-[30vw]">
+        <h1 className="text-ter font-bold text-[2.5vw]"> Join call </h1>
+        <h2 className="text-ter/75 saturate-[65%] mb-[0.75vw]"> Enter in your 10 character code. </h2>
+        <Input
+          className="w-[30vw] bg-black/50 text-white border-gray-600 focus:border-white placeholder:text-gray-400 mb-[2.3vw]"
+          placeholder="xxx-xxxx-xxx"
+          value={Value}
+          onChange={(e) => Set_Value(e.target.value)}
+        />
         <button
-          className="flex items-center justify-center gap-[0.75vw] border-gray-700 border-t-[0.15vw] text-[1.5vw] rounded-[50vw] bg-black/75 text-sec px-[2.5vw] py-[0.75vw] hover:border-[0.15vw] hover:scale-[1.05] hover:bg-black transition-all"
-          onClick={() => Enter_Call(value)}
+          className="w-[30vw] h-[5vh] bg-sec/70 rounded-[0.5vw] hover:bg-sec transition-all mb-[0.5vw]"
+          onClick={() => Set_Clicked(true)}
         >
-          <UserPlus className="w-[1.5vw]" /> Join
+          Join
         </button>
+
+        <div className="text-ter/75 saturate-[65%] mb-[0.75vw]"> <i> Make sure you include the dashes! </i> </div>
       </div>
-    </center>
+    </div>
   )
 }
 
-function Join_Call()
-{
-  return (
-    <div className="bg-grad/20 h-screen">
-      <Input_Code />
+function Join_Call() {
+  const [Value, Set_Value] = useState('')
+  const [Clicked, Set_Clicked] = useState(false)
+
+  // If code is valid and clicked, render only the video call
+  if (Value.length === 12 && Clicked) {
+    return <Join_Video_Call code={Value} />
+  }
+
+  // Otherwise render the join interface
+  return ( <>
+    <div className="border-b-[0.09vw] border-neutral-950/65">
+      <a href="/home">
+        <ArrowLeft className="w-[1.4vw] m-[1vw] text-ter/60 hover:text-ter/40 transition-all" />
+      </a>
     </div>
+
+    <Input_Code
+      Value={Value}
+      Set_Value={Set_Value}
+      Set_Clicked={Set_Clicked}
+    />
+  </>
   )
 }
 
 export default Join_Call
 \end{minted}
 
-\underline{Landing.jsx}
+\underline{src/components/Landing.jsx}
 
-\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{jsx}
 import Navbar from "./Navbar.jsx"
+import { ChevronRight } from 'lucide-react'
+import { useUser } from '@clerk/clerk-react'
 
+// Buttons to create account or sign back in
+function New_User_Buttons()
+{
+  return (
+    <div className="flex flex-row justify-center items-center space-x-[1.75vw] p-0 mb-auto pointer-events-auto">
+      <a href="/login">
+        <button className="rounded-[50vw] bg-black/70 text-white px-[1.75vw] py-[0.7vw] hover:border-[0.15vw] hover:scale-[1.05] hover:bg-black transition-all shadow-[0_0_1vw_0.05vw_rgba(255,255,255,0.3)] text-[1.3vw]">
+          Login
+        </button>
+      </a>
+
+      <a href="/registration">
+        <button className="rounded-[50vw] bg-gradient-to-r from-ter to-sec/70 bg-gradient-to-bl from-bg/70 to-pink/70 text-black hover:border-[0.15vw] px-[1.75vw] border-t-[0.15vw] py-[0.7vw] transition-all text-[1.3vw] shadow-[0_0_1vw_0.05vw_rgba(255,255,255,0.3)]">
+          Sign up
+        </button>
+      </a>
+    </div>
+  )
+}
+
+// Button to go to home page for users that are logged in
+function Existing_User_Buttons()
+{
+  return (
+    <div className="flex flex-row justify-center items-center space-x-[1.75vw] p-0 mb-auto pointer-events-auto">
+      <a href="/home">
+        <button className="rounded-[50vw] bg-black/70 text-white px-[1.75vw] py-[0.7vw] hover:border-[0.15vw] hover:scale-[1.05] hover:bg-black transition-all shadow-[0_0_1vw_0.05vw_rgba(255,255,255,0.3)] text-[1.3vw] flex items-center">
+          Enter <ChevronRight className="w-[1.3vw]" />
+        </button>
+      </a>
+    </div>
+  )
+}
+
+// Render the landing page
 function Landing()
 {
+  const { isSignedIn } = useUser()
+
   return (
     <div className="w-screen h-screen flex flex-col">
       <Navbar />
@@ -363,14 +529,7 @@ function Landing()
 
       <div className="inline-block mb-[1vw]"></div>
 
-      <div className="flex flex-row justify-center items-center space-x-[1.75vw] p-0 mb-auto pointer-events-auto">
-        <a href="/login"><button className="rounded-[50vw] bg-black/70 text-white px-[1.75vw] py-[0.7vw] hover:border-[0.15vw] hover:scale-[1.05] hover:bg-black transition-all shadow-[0_0_1vw_0.05vw_rgba(255,255,255,0.3)] text-[1.3vw]"> Login </button></a>
-
-        <a href="/registration">
-	        <button className="rounded-[50vw] bg-gradient-to-r from-ter to-sec/70 bg-gradient-to-bl from-bg/70 to-pink/70 text-black hover:border-[0.15vw] px-[1.75vw] border-t-[0.15vw] py-[0.7vw] transition-all text-[1.3vw] shadow-[0_0_1vw_0.05vw_rgba(255,255,255,0.3)]"> Sign up </button>
-        </a>
-      </div>
-
+      {isSignedIn ? <Existing_User_Buttons /> : <New_User_Buttons />}
     </div>
   )
 }
@@ -378,9 +537,9 @@ function Landing()
 export default Landing
 \end{minted}
 
-\underline{Loading.jsx}
+\underline{src/components/Loading.jsx}
 
-\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{jsx}
 import CircleLoader from "react-spinners/CircleLoader"
 
 function Loading()
@@ -404,9 +563,9 @@ function Loading()
 export default Loading
 \end{minted}
 
-\underline{Login.jsx}
+\underline{src/components/Login.jsx}
 
-\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{jsx}
 import { ReactTyped } from "react-typed"
 import { SignedOut, SignIn } from "@clerk/clerk-react"
 import { dark } from "@clerk/themes"
@@ -420,7 +579,7 @@ function Headline ()
       className={"relative text-[4vw] ml-[4vw] mb-[0.75vw] inline-block bg-gradient-to-r from-ter to-sec text-transparent bg-clip-text select-none"}
       strings={[
         "Welcome back :)",
-	"Log back in here,",
+        "Log back in here,",
       ]}
       typeSpeed={120}
       startDelay={30}
@@ -439,12 +598,12 @@ function Login () {
     <SignedOut> <center>
 
       <SignIn
-	signUpUrl="/registration"
-	forceRedirectUrl="/home"
-	appearance={{
-	  baseTheme: dark,
-          variables: {spacingUnit: "2vh"}
-	}}
+        signUpUrl="/registration"
+        forceRedirectUrl="/home"
+        appearance={{
+          baseTheme: dark,
+            variables: {spacingUnit: "2vh"}
+        }}
       />
 
     </center> </SignedOut>
@@ -455,9 +614,57 @@ function Login () {
 export default Login
 \end{minted}
 
-\underline{Registration.jsx}
+\underline{src/components/Navbar.jsx}
 
-\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{jsx}
+import { useUser } from '@clerk/clerk-react'
+import { useState, useEffect } from 'react'
+
+// Makes the navigation bar design a component must be inside
+// a clerk provider
+function Navbar() {
+  // If user isn't signed in then they can be redirected
+  // to the registration page
+  const { isSignedIn } = useUser()
+  const [link, Set_link] = useState("/registration")
+  const [text, Set_text] = useState("Get started")
+
+  // Do this action whenever isSignedIn updates, this occurs when Clerk hasn't loaded in
+  // properly
+  useEffect(() => {
+    // If user is signed in then they can go straight
+    // to the home page
+    if (isSignedIn)
+    {
+      Set_link("/home")
+      Set_text("Home")
+    }
+  }, [isSignedIn])
+
+  return (
+    <nav>
+      <ul className="flex list-none m-0 p-0 text-[1.40vw] mb-[0.1vw] mt-[-0.5vw] border-b-[0.09vw] border-neutral-950/65">
+
+        <li className="p-[1.25vw] text-sec"> <b> Video-Conferencer </b> </li>
+
+        <li className="ml-[auto] p-[1.25vw] hover:opacity-65 transition-opacity text-sec saturate-50"> <a href={link}> {text} </a> </li>
+
+	      <a href="https://video-conf-docs.vercel.app">
+          <li className="p-[1.25vw] ml-[1vw] hover:opacity-65 transition-opacity text-sec saturate-50"> Docs </li>
+		  </a>
+
+        <li className="p-[1.25vw] ml-[1vw] hover:opacity-65 transition-opacity text-sec saturate-50"> Help </li>
+      </ul>
+    </nav>
+  )
+}
+
+export default Navbar
+\end{minted}
+
+\underline{src/components/Registration.jsx}
+
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{jsx}
 import { ReactTyped } from "react-typed"
 import { SignedOut, SignUp } from "@clerk/clerk-react"
 import { dark } from "@clerk/themes"
@@ -471,7 +678,7 @@ function Headline()
       className={"relative text-[4vw] ml-[4vw] mb-[0.75vw] inline-block bg-gradient-to-r from-ter to-sec text-transparent bg-clip-text select-none"}
       strings={[
         "Welcome to Video-Conferencer",
-	"Let's get started...",
+        "Let's get started...",
       ]}
       typeSpeed={100}
       startDelay={30}
@@ -489,20 +696,20 @@ function Registration()
     <Navbar />
     <Headline />
 
-      <SignedOut>
-        <center>
+    <SignedOut>
+      <center>
 
-	  <SignUp
-	    signInUrl="/login"
-	    forceRedirectUrl="/home"
-	    appearance={{
-	      baseTheme: dark,
-	      variables: {spacingUnit: "2vh"}
-	    }}
-	  />
+  	  <SignUp
+  	    signInUrl="/login"
+  	    forceRedirectUrl="/home"
+  	    appearance={{
+  	      baseTheme: dark,
+  	      variables: {spacingUnit: "2vh"}
+  	    }}
+  	  />
 
-	</center>
-      </SignedOut>
+      </center>
+    </SignedOut>
   </>
   )
 }
@@ -510,51 +717,12 @@ function Registration()
 export default Registration
 \end{minted}
 
-\underline{Settings.jsx}
+\underline{src/components/Video\_Call.jsx}
 
-\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-
-function Sidebar()
-{
-  return (
-    <div className="ml-[5vw] mt-[1vw] mb-[1.5vw] text-sec text-[2.6vw] font-bold"> Settings </div>
-  )
-}
-
-function Settings()
-{
-  return <>
-    <Sidebar />
-
-    <center>
-    <Tabs defaultValue="Video" className="w-[90vw]">
-      <TabsList className="grid w-full grid-cols-3">
-        <TabsTrigger className="data-[state=active]:bg-sec" value="Video">Video</TabsTrigger>
-        <TabsTrigger className="data-[state=active]:bg-sec" value="Audio">Audio</TabsTrigger>
-        <TabsTrigger className="data-[state=active]:bg-sec" value="Accessibility">Accessibility</TabsTrigger>
-      </TabsList>
-      <TabsContent value="Video"><div className="text-sec">Make changes to the video settings here.</div></TabsContent>
-      <TabsContent value="Audio"><div className="text-sec">Make changes to the audio settings here.</div></TabsContent>
-      <TabsContent value="Accessibility"><div className="text-sec">Make changes to the accessibility settings here.</div></TabsContent>
-    </Tabs>
-    </center>
-  </>
-}
-
-export default Settings;
-\end{minted}
-
-\underline{Video\_Call.jsx}[linenos, bgcolor=lightestgray]
-
-\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
-import { useUser } from "@clerk/clerk-react"
+\begin{minted}[linenos, bgcolor=lightestgray, breaklines, breakanywhere]{jsx}
 import { useEffect, useState } from "react"
-import { useQuery } from "@tanstack/react-query"
-import { useSearchParams } from "react-router-dom"
-import { Get_Stream_Token, Get_Call_Id, End_Call } from "../utils/Query_Api.jsx"
+import { Get_Room_Code } from "../utils/Query_Api.jsx"
 import Loading from "./Loading.jsx"
-import "@stream-io/video-react-sdk/dist/css/styles.css"
 import {
   Dialog,
   DialogContent,
@@ -562,21 +730,18 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import {
-  CallControls,
-  StreamCall,
-  StreamTheme,
-  StreamVideo,
-  SpeakerLayout,
-  StreamVideoClient
-} from "@stream-io/video-react-sdk"
+import { HMSPrebuilt } from '@100mslive/roomkit-react'
 
-const apiKey = import.meta.env.VITE_STREAM_API_KEY
+export function Join_Video_Call({ code })
+{
+  return (
+    <div className="h-[100vh]">
+      <HMSPrebuilt roomCode={code} />
+    </div>
+  )
+}
 
-const CREATE = true
-const JOIN   = false
-
-function Video_Call()
+export function Video_Call({ code = "NULL" })
 {
   // State of the dialog box
   const [Open_Dialog, Set_Open_Dialog] = useState(false)
@@ -584,492 +749,52 @@ function Video_Call()
     Set_Open_Dialog(true)
   }, [])
 
-  // State of the call code that is to be displayed to user
-  const [Display_Code, Set_Display_Code] = useState()
+  const [Host_Code, setHost_Code] = useState(code)
+  const [Guest_Code, setGuest_Code] = useState(code)
+  const [isLoading, setIsLoading] = useState(false)
+  const [Main_Code, setMain_Code] = useState(code)
 
-  // If we are joining call the code is passed via the url search params
-  const [Search_Params, Set_Search_Params] = useSearchParams()
-  var   code          = Search_Params.get("code")
-  var   creating      = CREATE // Are we creating or joining the call
-
-  // If a code was provided then we must be joining the call
-  if (code !== null)
-    creating = JOIN
-
-  // Get user details from Clerk,
-  // these take a second to load in
-  const { user, isLoaded } = useUser()
-
-  // Get Stream token
-  const {
-    data:      Stream_Token,
-    isLoading: Stream_Token_Loading,
-    error:     Stream_Token_Error
-
-  } = useQuery({
-    // user?.id only access the attribute id if
-    // user isnt undefined
-    queryKey: ["stream_token", user?.id],
-    queryFn:  () => Get_Stream_Token(user?.id),
-    enabled:  !!isLoaded && !!user // Only run if Clerk is
-	                           // loaded
-  })
-
-  // Get call code, There are 2 cases:
-  // ----------------------------------
-  // 1) The user is creating a call, in this case we must
-  //    retrieve a unique call code from our API.
-  //
-  // 2) The user is joining a call, in this case we take
-  //    the code inputted, it is found in the URL search
-  //    parameter "...?code=<...>".
-  const {
-    data:      Call_Code,
-    isLoading: Call_Code_Loading,
-    error:     Call_Code_Error
-
-  } = useQuery({
-
-    queryKey: ["call_id"],
-    queryFn:  () => Get_Call_Id(),
-    enabled: !code && creating==CREATE, // Only run if code is null, that is no
-                     // search parameter was passed into URL
-    onSuccess: (Call_Code) => {
-      code = Call_Code.toString()
-      Set_Display_Code(Call_Code)
-      Search_Params.set("code", Call_Code)
-      Set_Search_Params(Search_Params)
-    }
-
-  })
-
-  // Update Display_Code when Call_Code changes
+  // Get room code if user is creating a call
   useEffect(() => {
-    if (Call_Code) {
-      Set_Display_Code(Call_Code)
+    async function Fetch_Room_Code() {
+      if (code === "NULL") {
+        setIsLoading(true)
+        const response = await Get_Room_Code()
 
-      const params = new URLSearchParams(Search_Params)
-      params.set("code", Call_Code)
-      Set_Search_Params(params)
-    }
-  }, [Call_Code])
-
-  const [client, setClient] = useState()
-  const [call, setCall]     = useState()
-
-  // Setup GetStream video client once the token is initialised
-  useEffect(() => {
-
-    // If token isn't yet initialised don't do anything
-    if (Stream_Token_Loading || Call_Code_Loading || !isLoaded || !user) return
-
-    // Initialise client and connect user
-    const Stream_User   = { id: user.id, name: user.firstName }
-    const Stream_Client = new StreamVideoClient({ apiKey, Stream_Token, Stream_User })
-
-    Stream_Client.connectUser(Stream_User, Stream_Token)
-
-    // Create and join call
-    const Stream_Call = Stream_Client.call("default", code)
-    Stream_Call.getOrCreate()
-
-    setClient(Stream_Client)
-    setCall(Stream_Call)
-
-    // Disconnect user and leave call on cleanup
-    return () => {
-      client.disconnectUser()
-      call.leave()
-      setCall(undefined)
-      setClient(undefined)
+        setHost_Code(response.data.Host_Code)
+        setGuest_Code(response.data.Guest_Code)
+        setMain_Code(response.data.Host_Code)
+        setIsLoading(false)
+      }
     }
 
-  }, [Stream_Token])
+    Fetch_Room_Code()
+  }, [code])
 
-  if (Stream_Token_Loading || Call_Code_Loading)
+  if (isLoading || Main_Code === "NULL")
     return <Loading />
 
-  return (
-    <>
-      <Dialog open={Open_Dialog} onOpenChange={Set_Open_Dialog}>
-        <DialogContent> <DialogHeader>
-          <DialogTitle>Your 6 digit call code</DialogTitle>
-          <DialogDescription>
-            <div className="text-sec/70"> Share this with others to have them join the video-conference! </div>
-
-            <center><div className="font-bold text-[3vw] text-sec mt-[2vw]">
-              {Display_Code}
-            </div></center>
-
-         </DialogDescription>
-        </DialogHeader> </DialogContent>
-      </Dialog>
-
-    <StreamVideo client={client}>
-      <StreamTheme>
-
-        <StreamCall call={call}>
-          <SpeakerLayout participantsBarPosition="right"/>
-          <CallControls />
-        </StreamCall>
-
-      </StreamTheme>
-    </StreamVideo>
-    </>
-  )
-}
-
-export default Video_Call
-\end{minted}
-
-\section{Backend}
-
-\underline{stream-token-provider/src/index.js}
-
-\begin{minted}[linenos, bgcolor=lightestgray]{js}
-// Provides users with their unique GetStream user
-// tokens
-
-import StatusCodes from "http-status-codes"
-import { StreamClient } from "@stream-io/node-sdk"
-
-const MAX_USER_ID_LENGTH = 512
-const RESPONSE_HEADERS   = {
-  "Content-Type": "application/json",
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type"
-}
-
-// Validate the user id given is correct
-function Validate_User_Id(User_Id)
-{
-  if (User_Id.length > MAX_USER_ID_LENGTH ||
-      User_Id.length == 0)
-    return false
-
-  return true
-}
-
-// Code to generate unique user GetStream token
-async function Generate_Token(User_Id, Api_Key, Secret)
-{
-  const client = new StreamClient(Api_Key, Secret)
-
-  // Create user
-  const newUser = { id: User_Id, role: "user" }
-  await client.upsertUsers([newUser])
-
-  // Generate token
-  const token = client.generateUserToken({ user_id: User_Id })
-
-  return token
-}
-
-// An HTTP endpoint that allows POST requests
-// with a user id given in the request. Will return
-// a unique user token that can be used to begin
-// video conferencing
-async function Provide_Token(request, env)
-{
-  const apiKey = env.STREAM_API_KEY
-  const secret = env.STREAM_API_SECRET
-
-  // Ignore preflight requests
-  if (request.method === "OPTIONS")
-    return new Response(null, { headers: RESPONSE_HEADERS })
-
-  // Ensure that the request is a POST
-  if (request.method !== "POST")
-    return new Response("Method not allowed",
-      {
-        status:  StatusCodes.METHOD_NOT_ALLOWED,
-        headers: RESPONSE_HEADERS
-      }
-    )
-
-  try
-  {
-    const { User_Id } = await request.json()
-
-    // Ensure that a valid user id is actually provided
-    if (!Validate_User_Id(User_Id))
-      return new Response("Bad Request: Proper userId is required",
-        {
-          status:  StatusCodes.BAD_REQUEST,
-          headers: RESPONSE_HEADERS
-        }
-      )
-
-    // Generate and send token
-    const token = await Generate_Token(User_Id, apiKey, secret)
-
-    return new Response(JSON.stringify({ token }), {
-      headers: RESPONSE_HEADERS,
-    })
-
-  }
-
-  catch (error)
-  {
-    return new Response(`Error: ${error.message}`,
-      {
-        status: StatusCodes.INTERNAL_SERVER_ERROR,
-        headers: RESPONSE_HEADERS
-      }
-    )
-  }
-}
-
-export default
-{
-  async fetch(request, env)
-  {
-    return Provide_Token(request, env)
-  }
-}
-\end{minted}
-
-\underline{call-id-provider/api/id-provider.rs}
-
-\begin{minted}[linenos, bgcolor=lightestgray]{rust}
-// NOTE: When deploying to Vercel you must select node version 18 otherwise you will
-// see an error, this is not an issue on our end, rather it is on Vercel's end.
-// See (https://vercel.com/guides/serverless-function-contains-invalid-runtime-error)
-
-use vercel_runtime::{run, Body, Error, Request, Response};
-use sqlx::PgPool;
-use http::Method;
-use id_provider_lib::{
-    Build_Response, Check_Id_Exists, Create_Pool, Extract_Call_Id, Get_Call_Id, Handle_Preflight, Remove_Call_Id, FAIL, SUCCESS
-};
-
-// Entry point
-#[tokio::main]
-async fn main() -> Result<(), Error> {
-    run(handler).await
-}
-
-// Handling GET, DELETE and POST requests
-pub async fn handler(req: Request) -> Result<Response<Body>, Error> {
-    let pool:   PgPool = Create_Pool().await;
-    let result: String;
-
-    // Get unique call id
-    if *req.method() == Method::GET {
-        let id: i32 = Get_Call_Id(&pool, false).await?;
-
-        result = format!("{}", id);
-    }
-
-    // Handle preflight requests for POST
-    else if *req.method() == Method::OPTIONS {
-        return Ok( Handle_Preflight() );
-    }
-
-    // Remove given call id
-    else if *req.method() == Method::DELETE {
-        let id: i32 = Extract_Call_Id(req.body());
-        Remove_Call_Id(&pool, id).await?;
-
-        result = "Successfully removed call id!".to_string();
-    }
-
-    // Check if given call id exists in our DB
-    else if *req.method() == Method::POST {
-        let id:     i32  = Extract_Call_Id(req.body());
-        let exists: bool = Check_Id_Exists(&pool, id).await?;
-
-        result = if exists { "YES".to_string() } else { "NO".to_string() };
-    }
-
-    else {
-        result = "Method not allowed!".to_string();
-
-        return Ok( Build_Response(result, FAIL) );
-    }
-
-    Ok( Build_Response(result, SUCCESS) )
-}
-\end{minted}
-
-\underline{call-id-provider/lib/id-provider-lib.rs}
-
-\begin{minted}[linenos, bgcolor=lightestgray]{rust}
-use vercel_runtime::{Body, Response, StatusCode};
-use sqlx::{PgPool, Row};
-use dotenv::dotenv;
-use serde::Deserialize;
-use rand::Rng;
-
-const SCHEMA: &str = "CREATE TABLE IF NOT EXISTS ongoing_calls(id INTEGER NOT NULL);";
-const MIN_ID:      i32 = 1;
-const MAX_ID:      i32 = 999_999;
-const MAX_ITERS:   i32 = 1_000_000;
-pub const SUCCESS: bool = false; // Used as the error arg in Build_Response()
-pub const FAIL:    bool = true;  // ^^
-
-// The format of the POST requests
-#[derive(Deserialize)]
-struct Call_Id_Request {
-    Call_Id: i32
-}
-
-// DB helper functions
-// --------------------
-
-// Returns a pool of connections to our DB
-pub async fn Create_Pool() -> PgPool {
-    dotenv().ok(); // Load environment variables
-
-    let conn_URI: String = std::env::var("DB_CONNECTION")
-        .expect("Couldn't get connection URI!");
-
-    let pool: PgPool = PgPool::connect_lazy(&conn_URI)
-        .expect("Couldn't connect to DB!");
-
-    return pool;
-}
-
-// Function to initialise DB if it hasn't been already
-async fn Init_DB(pool: &PgPool) -> Result<(), sqlx::Error> {
-    sqlx::query(&*SCHEMA)
-        .execute(pool)
-        .await?;
-
-    Ok(())
-}
-
-// Function to check if a given call id exists in our DB
-pub async fn Check_Id_Exists(pool: &PgPool, id: i32) -> Result<bool, sqlx::Error> {
-    // Get the number of rows affected, if this is 0 then the id clearly
-    // doesn't exist in our DB
-    let count: i64 = sqlx::query("SELECT COUNT(id) FROM ongoing_calls WHERE id = ($1);")
-        .bind(id)
-        .fetch_one(pool)
-        .await?
-        .get(0);
-
-    if count == 0 {Ok(false)}
-    else          {Ok(true)}
-}
-
-// Function to remove id from DB once a call has ended
-pub async fn Remove_Call_Id(pool: &PgPool, id: i32) -> Result<(), sqlx::Error> {
-    sqlx::query("DELETE FROM ongoing_calls WHERE id=($1);")
-        .bind(id)
-        .execute(pool)
-        .await?;
-
-    Ok(())
-}
-
-// Function to find the first available call id using a random
-// implemenation. Returns -1 if we took too long to find a call id.
-async fn Generate_PRNG(pool: &PgPool) -> i32 {
-    let taken:     bool = true;
-    let mut iters: i32  = 0;
-
-    // Keep iterating until we find an available id
-    while taken && iters <= MAX_ITERS {
-        let ran: i32 = rand::thread_rng().gen_range(MIN_ID..=MAX_ID);
-
-        let exists: bool = Check_Id_Exists(pool, ran)
-            .await
-            .expect("Check_Id() exists function failed!");
-
-        if !exists {return ran;}
-
-        iters += 1;
-    }
-
-    return -1;
-}
-
-// Function to find the first available call id using a linear
-// implemenation. Returns -1 if all call ids are taken.
-async fn Generate_Linear(pool: &PgPool) -> i32 {
-    let mut id: i32 = -1;
-
-    // Iterate over all ids until we find one that is available
-    for i in MIN_ID..=MAX_ID {
-        let taken: bool = Check_Id_Exists(pool, i)
-            .await
-            .expect("Check_Id() exists function failed!");
-
-        if !taken {
-            id = i;
-            break;
-        }
-    }
-    return id;
-}
-
-// Generates a unique call id to be used and adds it to our DB
-pub async fn Get_Call_Id(pool: &PgPool, first_run: bool) -> Result<i32, sqlx::Error> {
-    // If it's the first time running we should initialise our DB
-    if first_run {
-        Init_DB(pool).await?;
-    }
-
-    let total: i64 = sqlx::query("SELECT COUNT(id) FROM ongoing_calls;")
-        .fetch_one(pool)
-        .await?
-        .get(0);
-
-    let id: i32;
-    if (total as f64) / (MAX_ID as f64) <= 0.25 {
-        id = Generate_PRNG(pool).await;
-    } else {
-        id = Generate_Linear(pool).await;
-    }
-
-    // If we find an available id we should add it to the DB as it will be used now
-    if id == -1 {
-        return Ok(id);
-    }
-
-    sqlx::query("INSERT INTO ongoing_calls VALUES ($1);")
-        .bind(id)
-        .execute(pool)
-        .await?;
-
-    Ok(id)
-}
-
-// HTTP helper functions
-// ----------------------
-
-// Function to return response in the HTTP endpoint
-pub fn Build_Response(message: String, error: bool) -> Response<Body> {
-    // If another method is given other than GET, DELETE or POST we return an error
-    let status: StatusCode = if error { StatusCode::METHOD_NOT_ALLOWED } else { StatusCode::OK };
-
-    return Response::builder()
-        .status(status)
-        .header("Content-Type", "text/plain")
-        .header("Access-Control-Allow-Origin", "*")
-        .header("Access-Control-Allow-Credentials", "true")
-        .header("Allow", "GET, POST, DELETE, OPTIONS")
-        .body(Body::from(message))
-        .expect("Couldn't build response!");
-}
-
-// Function to extract the "Call_Id" field from the HTTP request
-pub fn Extract_Call_Id(request_body: &Body) -> i32 {
-    // Read body and convert it into a string
-    let request_string: String = String::from_utf8(request_body.to_vec())
-        .expect("Failed to convert request body to string!");
-
-    // Turn string into JSON
-    let request_json: Call_Id_Request = serde_json::from_str(&request_string)
-        .expect("Couldn't deserialise JSON!");
-
-    return request_json.Call_Id;
-}
-
-// Function to handle OPTIONS preflight requests
-pub fn Handle_Preflight() -> Response<Body> {
-    return Build_Response("".to_string(), SUCCESS);
+  return ( <>
+
+    <Dialog open={Open_Dialog} onOpenChange={Set_Open_Dialog}>
+      <DialogContent> <DialogHeader>
+        <DialogTitle>Your 10 character call code</DialogTitle>
+        <DialogDescription>
+          <div className="text-sec/70"> Share this with others to have them join the video-conference! </div>
+
+          <center>
+            <div className="font-bold text-[3vw] text-sec mt-[2vw]">
+              {Guest_Code}
+            </div>
+          </center>
+
+        </DialogDescription>
+      </DialogHeader> </DialogContent>
+    </Dialog>
+
+    <div className="h-[100vh]">
+      <HMSPrebuilt roomCode={Main_Code} />
+    </div>
+  </> )
 }
 \end{minted}

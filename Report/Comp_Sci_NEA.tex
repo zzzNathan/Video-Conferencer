@@ -1,18 +1,25 @@
-%&preamble
-
-% Precompiles the preamble,
-% Source: https://tex.stackexchange.com/questions/15604/how-to-speed-up-pdflatex-for-a-very-large-document-on-macos-x/15606#15606
-
-% Setup:
-% ——————
-% 1) Place all your packages into a file called preamble.tex
-% 2) Execute this in your command line <pdflatex -shell-escape -ini -jobname="preamble" "&pdflatex preamble.tex\dump">
-% 3) Add this to the top of your main tex file <%&preamble>
-% 4) Compile your document with <pdflatex -shell-escape <file_name_here>.tex>
-
 % Give them no reason to mark you down.
 
+\input{Settings.tex}
+
 \begin{document}
+% Title page
+\author{\Large \bfseries{Jonathan Kasongo}}
+\title {\Huge\sffamily{\bfseries Video conferencing}}
+\date{
+  \vspace{0.5cm}
+  \sffamily{\bfseries OCR A-level Computer Science NEA}\\
+  \vspace{12cm}
+  \hspace*{-9.5cm}
+  \begin{tblr}{ll}
+    \textbf{Full name:} & Jonathan Kasongo\\
+    \textbf{Candidate number:} & N/A\\
+    \textbf{Centre number:} & N/A\\
+    \textbf{Centre name:} & Harris Academy Purley\\
+    \textbf{Qualification code:} & H446\\
+  \end{tblr}
+}
+
 \maketitle
 
 \tableofcontents

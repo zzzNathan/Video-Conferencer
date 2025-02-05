@@ -2,11 +2,11 @@
 
 % Load packages
 \usepackage{fancyhdr, tcolorbox, xcolor, amsthm, xurl,
-            tabularray, algorithmicx, algorithm, minted, 
-            hyperref, tikz, graphicx, amssymb, amsfonts,
-            titlesec, lmodern, biblatex, erd, amsmath, 
-     	    fontawesome, caption, pgfplots, subfig, svg,
-            multicol, flowchart, makeshape}
+            tabularray, algorithmicx, algorithm, minted,
+            tikz, graphicx, amssymb, amsfonts,
+            titlesec, lmodern, biblatex, erd, amsmath,
+            fontawesome, caption, pgfplots, subfig, svg,
+            multicol, flowchart, makeshape, hyperref}
 \usepackage[noend]{algpseudocode}
 \usepackage[T1]{fontenc}
 \usepackage[htt]{hyphenat}
@@ -16,23 +16,6 @@
 \usepackage[toc, page]{appendix}
 \usepackage[document] {ragged2e}
 \usepackage[protrusion=true,expansion=true,final]{microtype}
-
-% Title page
-\author{\Large \bfseries{Jonathan Kasongo}}
-\title {\Huge\sffamily{\bfseries Video conferencing}}
-\date{
-  \vspace{0.5cm}
-  \sffamily{\bfseries OCR A-level Computer Science NEA}\\
-  \vspace{12cm}
-  \hspace*{-9.5cm}
-  \begin{tblr}{ll}
-    \textbf{Full name:} & Jonathan Kasongo\\
-    \textbf{Candidate number:} & N/A\\
-    \textbf{Centre number:} & N/A\\
-    \textbf{Centre name:} & Harris Academy Purley\\
-    \textbf{Qualification code:} & H446\\
-  \end{tblr}
-}
 
 % Colours
 \definecolor{lightgray}   {gray}{0.93}
@@ -80,21 +63,21 @@
 }
 \tcbset {
   base/.style={
-    arc=0mm, 
+    arc=0mm,
     bottomtitle=0.5mm,
     boxrule=0mm,
-    colbacktitle=black!10!white, 
-    coltitle=black, 
-    fonttitle=\bfseries, 
+    colbacktitle=black!10!white,
+    coltitle=black,
+    fonttitle=\bfseries,
     left=2.5mm,
     leftrule=1mm,
     right=3.5mm,
     title={#1},
-    toptitle=0.75mm, 
+    toptitle=0.75mm,
   }
 }
 \newtcolorbox{mainbox}[1]{
-  colframe=sallegreen, 
+  colframe=sallegreen,
   base={#1}
 }
 \newtcolorbox{proofbox}[1]{
@@ -104,7 +87,7 @@
 
 % Title and section formatting
 \titleformat{\chapter}[display]{}{\filleft\scshape\chaptername\enspace\thechapter}{-2pt}
-{\filright \Huge \bfseries \sffamily \color{orange!35!black} 
+{\filright \Huge \bfseries \sffamily \color{orange!35!black}
 \color{black}}[\vskip4.5pt\titlerule]
 \titleformat{name=\chapter, numberless}[block]{}{}{0pt}{\filright \Huge \bfseries \sffamily}[\vskip4.5pt\titlerule]
 \titlespacing{\chapter}{0pt}{-15pt}{25.5pt}
@@ -112,4 +95,3 @@
 \titleformat{\section}[hang]{\Large\bfseries\sffamily}{\color{purple}\S\thesection}{0.8em}{}[]
 \titleformat{\subsection}[hang]{\large\bfseries\sffamily}{\color{purple}\P\thesubsection}{0.8em}{}[]
 \titleformat*{\subsubsection}{\bfseries\sffamily}
-
