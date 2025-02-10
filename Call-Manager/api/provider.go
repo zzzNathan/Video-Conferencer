@@ -5,13 +5,18 @@ import (
     "net/http"
 )
 
-// Entry point
+// - Upon a GET request we will create a 100ms room, and then return the host and guest codes 
+//   to the user
+//
+// Examples:
+// GET -> {Host_Code: '<Host code here>', Guest_Code: '<Guest code here>'}
+
+// Entry point into API
 func Handler(w http.ResponseWriter, r *http.Request) {
-    // Settings CORS headers
     w.Header().Set("Access-Control-Allow-Origin", "*")
     w.Header().Set("Allow", "OPTIONS, GET")
 
-    // Handle OPTIONS preflight request
+    // To handle preflight requests we just send nothing in the body with our headers
     if r.Method == http.MethodOptions {
         w.WriteHeader(http.StatusOK)
         return

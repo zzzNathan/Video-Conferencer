@@ -1,8 +1,8 @@
 package handler
 
 import (
-	"Event-Manager/lib/handlers"
-	"net/http"
+    "Event-Manager/lib/handlers"
+    "net/http"
 )
 
 // - Upon a POST request we will return all of a user's events in JSON format
@@ -22,9 +22,8 @@ import (
 //
 // DELETE Header = {User_Id: "123", Event_Id: 1} -> Deletes event id 1 from our DB
 
-// Entry point
+// Entry point into API
 func Handler(w http.ResponseWriter, r *http.Request) {
-	// Add CORS headers
     w.Header().Set("Access-Control-Allow-Origin", "*")  // Allow all origins
     w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
     w.Header().Set("Access-Control-Allow-Headers", "Content-Type, User_Id, Event_Id")

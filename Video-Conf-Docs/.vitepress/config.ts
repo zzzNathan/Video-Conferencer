@@ -26,6 +26,9 @@ export default defineConfig({
           { text: 'Creating a room', link: '/create_room'},
           { text: 'Creating and Joining a call', link: '/conference' }
         ]
+      },
+      {
+        text: 'Events'
       }
     ],
 

@@ -2633,11 +2633,11 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-    // Handle GET requests, create room then return host and guest codes
-    if r.Method == http.MethodGet {
-    	Room_Id, _ := utils.Create_Room()
-        utils.Get_Room_Code_HTTP(&w, Room_Id)
-    }
+	// Handle GET requests, create room then return host and guest codes
+	if r.Method == http.MethodGet {
+    		Room_Id, _ := utils.Create_Room()
+     		utils.Get_Room_Code_HTTP(&w, Room_Id)
+	}
 }
 \end{minted}
 

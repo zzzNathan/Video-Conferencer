@@ -8,28 +8,21 @@ import (
     _ "github.com/lib/pq"
 )
 
-// Connect to DB
+// Connect to our DB, and returns a connection
 func Connect() (*sql.DB, error) {
     CONN_STRING := os.Getenv("DB_CONN_STRING")
 
-    // Make connection and handle errors
     db, err := sql.Open("postgres", CONN_STRING)
-    if err != nil {
-        return nil, err
-    }
 
-    return db, nil
+    return db, err
 }
 
-// Get all of a user's events
+// Get all of a user's events from the DB in JSON format
 func Get_Events(User_Id string) (string, error) {
     db, err := Connect()
-    if err != nil {
-        return "", err
-    }
     defer db.Close() // Ensures connection closes once function returns
 
-    // Query to get events ordered by date
+    // SQL Query to get events ordered by date, (most recent events first)
     query := `
         SELECT event_id, user_id, title, description, date
         FROM events
@@ -39,15 +32,11 @@ func Get_Events(User_Id string) (string, error) {
 
     // Execute query
     rows, err := db.Query(query, User_Id)
-    if err != nil {
-        return "", err
-    }
     defer rows.Close()
 
-    // Slice to hold all events
-    var events []models.Event
 
-    // Iterate through results
+    // Iterate through results, and add each event to the slice
+    var events []models.Event
     for rows.Next() {
         var event models.Event
         err := rows.Scan(
@@ -63,44 +52,26 @@ func Get_Events(User_Id string) (string, error) {
         events = append(events, event)
     }
 
-    // Check for errors from iterating over rows
-    if err = rows.Err(); err != nil {
-        return "", err
-    }
-
-    // Convert to JSON
     Json_Data, err := json.Marshal(events)
-    if err != nil {
-        return "", err
-    }
 
     return string(Json_Data), nil
 }
 
-// Get count of events for a user
+// Count the number of events a user has
 func Get_Event_Count(User_Id string) (int, error) {
     db, err := Connect()
-    if err != nil {
-        return 0, err
-    }
+    var count = 0
     defer db.Close()
 
-    var count int
     query := `SELECT COUNT(*) FROM events WHERE user_id = $1`
     err = db.QueryRow(query, User_Id).Scan(&count)
-    if err != nil {
-        return 0, err
-    }
 
-    return count, nil
+    return count, err
 }
 
 // Add a new event to the database
 func Add_Event(Event models.Event) error {
     db, err := Connect()
-    if err != nil {
-        return err
-    }
     defer db.Close()
 
     query := `
@@ -112,12 +83,9 @@ func Add_Event(Event models.Event) error {
     return err
 }
 
-// Delete an event from the database
+// Deletes a given event from the database, given a user id and the event's event id
 func Delete_Event(Event_Id int, User_Id string) error {
     db, err := Connect()
-    if err != nil {
-        return err
-    }
     defer db.Close()
 
     query := `

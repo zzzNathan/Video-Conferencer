@@ -12,8 +12,8 @@ import (
     "github.com/golang-jwt/jwt/v4"
 )
 
-var Secret_Key = os.Getenv("MS_SECRET")
-var Access_Key = os.Getenv("MS_ACCESS")
+var Secret_Key  = os.Getenv("MS_SECRET")
+var Access_Key  = os.Getenv("MS_ACCESS")
 var Template_Id = os.Getenv("MS_TEMPLATE_ID")
 
 // The format of the JSON data that is returned from the
@@ -68,13 +68,13 @@ func Get_Management_Token() string {
 // Room creation
 // --------------
 
-// Creates a new 100ms room and returns it's room id
+// Creates a new 100ms room and returns it's room id, used for the Get_Room_Code() function
 func Create_Room() (string, error) {
     Token  := Get_Management_Token()
     URL    := "https://api.100ms.live/v2/rooms"
     client := &http.Client{}
 
-    // Create request
+    // Create the POST request in order to create a room
     body := map[string]string{
         "template_id": Template_Id,
     }
@@ -85,23 +85,21 @@ func Create_Room() (string, error) {
         return "", err
     }
 
-    // Set headers
     req.Header.Set("Content-Type", "application/json")
     req.Header.Set("Authorization", "Bearer " + Token)
 
-    // Send request
+    // Send request to 100ms API endpoint
     resp, err := client.Do(req)
     if err != nil {
         return "", err
     }
     defer resp.Body.Close()
 
-    // Handle errors
     if resp.StatusCode != http.StatusOK {
         return "", fmt.Errorf("Unexpected status code: %d", resp.StatusCode)
     }
 
-    // Parse the response
+    // Parse the response and return the room id
     var Room_Response RoomResponse
     err = json.NewDecoder(resp.Body).Decode(&Room_Response)
     if err != nil {
@@ -114,42 +112,38 @@ func Create_Room() (string, error) {
 // Functions to get a room's host and guest codes
 // -----------------------------------------------
 
-// Return a new 100ms room code given a room id
+// Return a the host and guest codes given a room id in JSON format.
 func Get_Room_Code(Room_Id string) (string, string, error) {
-    Token  := Get_Management_Token()
+    Management_Token := Get_Management_Token()
     URL    := "https://api.100ms.live/v2/room-codes/room/" + Room_Id
     client := &http.Client{}
 
-    // Create request
+    // Make request to the 100ms API and send it
     req, err := http.NewRequest("POST", URL, strings.NewReader(""))
     if err != nil {
         return "", "", err
     }
 
-    // Set headers
     req.Header.Set("Content-Type", "application/json")
-    req.Header.Set("Authorization", "Bearer " + Token)
+    req.Header.Set("Authorization", "Bearer " + Management_Token)
 
-    // Send request
     resp, err := client.Do(req)
     if err != nil {
         return "", "", err
     }
     defer resp.Body.Close()
 
-    // Handle errors
     if resp.StatusCode != http.StatusOK {
         return "", "", fmt.Errorf("Unexpected status code: %d", resp.StatusCode)
     }
 
-    // Parse JSON response
+    // Reads in response and then returns codes
     var response RoomCodeResponse
     err = json.NewDecoder(resp.Body).Decode(&response)
     if err != nil {
         return "", "", fmt.Errorf("Error decoding response: %v", err)
     }
 
-    // Extract codes
     var Host_Code, Guest_Code string
     for _, code := range response.Data {
         if code.Role == "host" {
@@ -166,14 +160,9 @@ func Get_Room_Code(Room_Id string) (string, string, error) {
 
 // Gives the room code for guests and hosts, in JSON format ready to be sent via HTTP
 func Get_Room_Code_HTTP(w *http.ResponseWriter, id string) {
-    // Get codes
     Host_Code, Guest_Code, err := Get_Room_Code(id)
-    if err != nil {
-        http.Error(*w, err.Error(), http.StatusInternalServerError)
-        return
-    }
 
-    // Return the codes as JSON
+    // Return the codes in JSON format
     response := map[string]string{
         "Host_Code": Host_Code,
         "Guest_Code": Guest_Code,

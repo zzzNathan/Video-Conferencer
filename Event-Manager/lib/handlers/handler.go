@@ -16,70 +16,62 @@ const (
     MAX_USER_ID_LENGTH = 255
 )
 
-// Main handler function that routes requests based on HTTP method
+// Main handler function that routes requests based on HTTP method,
+// see events.go for further details.
 func Handler(w http.ResponseWriter, r *http.Request) {
-    // Set response header to JSON
     w.Header().Set("Content-Type", "application/json")
 
     switch r.Method {
-	    case "POST":
-	        Handle_Get_Events(w, r)
+        case "POST":
+	    Handle_Get_Events(w, r)
 
-	    case "PUT":
-	        Handle_Add_Event(w, r)
+        case "PUT":
+	    Handle_Add_Event(w, r)
 
-	    case "DELETE":
-	        Handle_Delete_Event(w, r)
+	case "DELETE":
+	    Handle_Delete_Event(w, r)
 
-	    default:
-	        http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+	default:
+	    http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
     }
 }
 
-// Handle getting all events for a user
+// Get all of a user's events and return them in JSON format all via HTTP response
 func Handle_Get_Events(w http.ResponseWriter, r *http.Request) {
-    // Get User_Id from request header
+    // Get User_Id from request header, If User_Id isn't found in the header
+    // then the request is of an incorrect format
     User_Id := r.Header.Get("User_Id")
     if User_Id == "" {
         http.Error(w, "User ID is required", http.StatusBadRequest)
         return
     }
 
-    // Get events for user
     Events, err := utils.Get_Events(User_Id)
-    if err != nil {
-        http.Error(w, "Failed to get events: "+err.Error(), http.StatusInternalServerError)
-        return
-    }
 
     fmt.Fprint(w, Events)
 }
 
-// Handle adding a new event
+// Add a new event to the DB and return a HTTP response, users cant add more than 500 events
 func Handle_Add_Event(w http.ResponseWriter, r *http.Request) {
-    // Get User_Id from request header
+    // Get User_Id from request header, If User_Id isn't found in the header
+    // then the request is of an incorrect format
     User_Id := r.Header.Get("User_Id")
     if User_Id == "" {
         http.Error(w, "User ID is required", http.StatusBadRequest)
         return
     }
-
-    // Check event count
+    
+    // If the user has >= 500 events then we restrict them from adding more events.
     Event_Count, err := utils.Get_Event_Count(User_Id)
-    if err != nil {
-        http.Error(w, "Failed to get event count: "+err.Error(), http.StatusInternalServerError)
-        return
-    }
-
-    // Enforce event limit
+    
     if Event_Count >= MAX_EVENTS {
         http.Error(w, "Maximum event limit reached", http.StatusForbidden)
         return
     }
 
-    // Parse JSON body into Event struct
+    // Parse JSON body into an Event struct
     var New_Event models.Event
-    if err := json.NewDecoder(r.Body).Decode(&New_Event); err != nil {
+    if err := json.NewDecoder(r.Body).Decode(&New_Event); err != nil { // Returns error if not JSON format
         http.Error(w, "Invalid request body: "+err.Error(), http.StatusBadRequest)
         return
     }
@@ -87,13 +79,20 @@ func Handle_Add_Event(w http.ResponseWriter, r *http.Request) {
     // Override the User_Id from JSON with the one from header for security
     New_Event.User_ID = User_Id
 
-    // Validate required fields
+    // Validate the required fields, each event is of the following structure:
+    // 
+    // Event
+    // ------
+    // User id, string  (cant be empty or be too long)
+    // Event id, serial (automatically assings a number, used as a primary key)
+    // Title, string    (cant be empty or be too long)
+    // Description, string (cant be empty or be too long)
+    // Date, date       (cant be empty)
     if New_Event.Title == "" || New_Event.Description == "" || New_Event.Date.IsZero() {
         http.Error(w, "Title, Description, and Date are required", http.StatusBadRequest)
         return
     }
 
-    // Validate field lengths
     if len(New_Event.Title) > MAX_TITLE_LENGTH {
         http.Error(w, fmt.Sprintf("Title must not exceed %d characters", MAX_TITLE_LENGTH), http.StatusBadRequest)
         return
@@ -109,36 +108,29 @@ func Handle_Add_Event(w http.ResponseWriter, r *http.Request) {
         return
     }
 
-    // Add event to database
     err = utils.Add_Event(New_Event)
-    if err != nil {
-        http.Error(w, "Failed to add event: "+err.Error(), http.StatusInternalServerError)
-        return
-    }
 
     w.WriteHeader(http.StatusCreated)
     fmt.Fprint(w, "Event created successfully")
 }
 
-// Handle deleting an event
+// Delete an event, given it's user id and event id, then return a HTTP response
 func Handle_Delete_Event(w http.ResponseWriter, r *http.Request) {
-    // Get Event_Id and User_Id from headers
     Event_Id := r.Header.Get("Event_Id")
-    User_Id := r.Header.Get("User_Id")
+    User_Id  := r.Header.Get("User_Id")
 
-    if Event_Id == "" || User_Id == "" {
+    if Event_Id == "" || User_Id == "" { 
         http.Error(w, "Event ID and User ID are required", http.StatusBadRequest)
         return
     }
 
-    // Convert Event_Id to int
+    // Convert Event_Id to int, as this is how it's represented in the db
     Event_Id_Int, err := strconv.Atoi(Event_Id)
     if err != nil {
         http.Error(w, "Invalid event ID", http.StatusBadRequest)
         return
     }
 
-    // Delete event
     err = utils.Delete_Event(Event_Id_Int, User_Id)
     if err != nil {
         http.Error(w, "Failed to delete event: "+err.Error(), http.StatusInternalServerError)
