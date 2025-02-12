@@ -140,7 +140,7 @@ function Events_Page() {
   }, [user])
 
   const Handle_Add_Event = async () => {
-    // Validate form
+    // Validate form data
     if (!New_Event.Title || !New_Event.Description || !New_Event.Date) {
       Set_Error('Please fill in all fields')
       return

@@ -2951,6 +2951,19 @@ if len(New_Event.Description) > MAX_DESCRIPTION_LENGTH {
 }
 \end{minted}
 
+We also do some input validation on the front end,
+
+\begin{minted}[linenos, bgcolor=lightestgray]{jsx}
+...
+const Handle_Add_Event = async () => {
+    // Validate form data
+    if (!New_Event.Title || !New_Event.Description || !New_Event.Date) {
+      Set_Error('Please fill in all fields')
+      return
+    }
+...
+\end{minted}
+
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
 {\sffamily Tests: (18)}
@@ -2964,3 +2977,11 @@ if len(New_Event.Description) > MAX_DESCRIPTION_LENGTH {
 {\sffamily Evidence: } \url{https://youtu.be/yhekUnPFH08} \\ \vspace{0.2cm}
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
+
+With that we end the refinement iteration, the system is now production ready for our client. \\ \vspace{0.2cm}
+
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}
+
+Look at github commit \texttt{yo} to see the state of the project after our 4th iteration. \\ \vspace{0.2cm}
+
+Alternatively click the following link to view the state of our project at this point in development: \\
