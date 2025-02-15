@@ -1,4 +1,4 @@
-import { CircleHelp, Video, UserPlus, ArrowLeft, LogOut } from "lucide-react"
+import { Video, UserPlus, ArrowLeft, LogOut } from "lucide-react"
 import { useUser, SignOutButton, UserButton } from "@clerk/clerk-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { dark } from '@clerk/themes'
@@ -9,10 +9,10 @@ function Sign_Out_Button() {
   if (!isSignedIn) return <></>
 
   return (
-    <li className="flex items-center justify-center flex-row mr-[3vw] hover:opacity-65 transition-opacity">
+    <li className="flex items-center justify-center flex-row mr-6 hover:opacity-65 transition-opacity">
       <SignOutButton redirectUrl={"/"}>
-        <button className="flex items-center justify-center m-0 p-0 text-sec text-[1.40vw] border-none bg-transparent">
-          <LogOut className="w-[1.40vw]"/>
+        <button className="flex items-center justify-center m-0 p-0 text-sec border-none bg-transparent">
+          <LogOut className="w-[14px]"/>
         </button>
       </SignOutButton>
     </li>
@@ -21,18 +21,18 @@ function Sign_Out_Button() {
 
 function Top_Bar() {
   return ( <>
-    <ul className="flex items-center pt-[0.5vw] pb-[1vw] mb-[2.75vw] mt-0 mx-0 pl-[1.25vw] text-sec border-b-[0.09vw] border-neutral-950/65">
+    <ul className="flex items-center pt-2 pb-6 mt-0 px-6 mx-0 mb-6 text-sec">
       <a href="/">
-        <li className="flex items-center justify-center flex-row mr-[2vw] text-[1.20vw] hover:opacity-65 transition-all">
-          <ArrowLeft className="w-[1.40vw]"/>
+        <li className="flex items-center justify-center flex-row mr-2 text-sm hover:opacity-65 transition-all">
+          <ArrowLeft className="w-[14px]"/>
         </li>
       </a>
 
-      <li className="flex items-center justify-center font-bold flex-row text-[1.40vw] ml-[1vw]">
+      <li className="flex items-center justify-center font-bold flex-row text-sm ml-6">
         Home
       </li>
 
-        <li className="flex items-center justify-center text-zinc-400 flex-row ml-[3vw] text-[1.40vw] mr-auto hover:text-sec transition-all">
+        <li className="flex items-center justify-center text-zinc-400 flex-row ml-6 text-sm mr-auto hover:text-sec transition-all">
           <a href="/events">
             Events
           </a>
@@ -40,11 +40,7 @@ function Top_Bar() {
 
       <Sign_Out_Button />
 
-      <li className="flex items-center justify-center flex-row mr-[3vw] text-[1.20vw] hover:opacity-65 transition-all">
-        <CircleHelp className="w-[1.40vw]" />
-      </li>
-
-      <li className="flex items-center justify-center flex-row mr-[2vw] text-[1.4vw] scale-[0.9]">
+      <li className="flex items-center justify-center flex-row text-sm scale-[0.75]">
         <UserButton appearance={{baseTheme: dark}} size />
       </li>
     </ul>
@@ -55,26 +51,22 @@ function Top_Bar() {
 function Options() {
   return (
     <center>
-      <div className="font-bold text-[3.6vw] bg-gradient-to-r from-orange-200 to-ter bg-clip-text text-transparent inline-block mt-[-1vw] mb-[1vw]">
-        Video-Conferencer
-      </div>
-
-      <div className="bg-black/70 rounded-[0.7vw] p-[0.7vw] mb-[2vw] text-ter saturate-[40%] opacity-65 max-w-[70vw] text-[1.2vw] text-center">
+      <div className="bg-black/70 rounded-[0.7vw] p-2 mb-6 text-ter saturate-[40%] opacity-65 w-[800px] border-[1px] border-sec/40 text-sm">
         <b> Tip: </b> Upon creating a video-conference you will be given a code 10
         character code that looks like so "xxx-xxxx-xxx". Give this code to a friend and once they enter in the
         same code <i>(make sure you include the dashes)</i> you will be connected!
       </div>
 
-      <ul className="flex flex-row gap-[9vw] w-full justify-center text-ter saturate-[40%] text-[2vw]">
-
+      <ul className="flex flex-row gap-6 w-full justify-center text-ter saturate-[40%]">
         <a href="/call">
           <Card className="bg-rose-200/20 border-0 hover:bg-rose-50/20 transition-colors">
-            <CardContent className="p-[1.5vw]">
-              <div className="h-[4vw] w-[4vw] rounded-full bg-rose-200/20 flex items-center justify-center">
-                <Video className="h-[2vw] w-[2vw] text-rose-200" />
+            <CardContent className="h-48 w-96 p-6 flex flex-col gap-6">
+              <div className="h-12 w-12 mb-[-8px] rounded-full bg-rose-200/20 flex items-center justify-center">
+                <Video className="w-6 text-rose-200" />
               </div>
-              <div>
-                <h2 className="text-xl font-semibold text-white mb-[0.5vw]">Create Meeting</h2>
+
+              <div className="flex flex-col items-start">
+                <h2 className="text-xl font-semibold text-white mb-1">Create Meeting</h2>
                 <p className="text-sm text-gray-400">Start a new video conference</p>
               </div>
             </CardContent>
@@ -83,12 +75,13 @@ function Options() {
 
         <a href="/join">
           <Card className="bg-zinc-900/60 border-0 hover:bg-zinc-900/30 transition-colors">
-            <CardContent className="p-[1.5vw]">
-              <div className="h-[4vw] w-[4vw] rounded-full bg-zinc-700/20 flex items-center justify-center">
-                <UserPlus className="h-[2vw] w-[2vw] text-rose-200" />
+            <CardContent className="h-48 w-96 p-6 flex flex-col gap-6">
+              <div className="h-12 w-12 mb-[-8px] rounded-full bg-zinc-700/20 flex items-center justify-center">
+                <UserPlus className="w-6 text-rose-200" />
               </div>
-              <div>
-                <h2 className="text-xl font-semibold text-white mb-[0.5vw]">Join Meeting</h2>
+
+              <div className="flex flex-col items-start">
+                <h2 className="text-xl font-semibold text-white mb-1">Join Meeting</h2>
                 <p className="text-sm text-gray-400">Enter a 10 character code</p>
               </div>
             </CardContent>
@@ -103,7 +96,7 @@ function Options() {
 function Home()
 {
   return ( <>
-    <div className="bg-grad/20 h-screen">
+    <div className="bg-[#201e29] h-screen">
       <Top_Bar />
       <Options />
     </div>

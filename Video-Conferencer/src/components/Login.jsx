@@ -8,7 +8,7 @@ function Headline ()
 {
   return (
     <ReactTyped
-      className={"relative text-[4vw] ml-[4vw] mb-[0.75vw] inline-block bg-gradient-to-r from-ter to-sec text-transparent bg-clip-text select-none"}
+      className={"relative text-5xl ml-12 mb-6 leading-snug inline-block bg-gradient-to-r from-ter to-sec text-transparent bg-clip-text select-none"}
       strings={[
         "Welcome back :)",
         "Log back in here,",

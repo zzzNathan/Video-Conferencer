@@ -18,10 +18,10 @@ function Sign_Out_Button() {
   if (!isSignedIn) return <></>
 
   return (
-    <li className="flex items-center justify-center flex-row mr-[3vw] hover:opacity-65 transition-opacity">
+    <li className="flex items-center justify-center flex-row mr-6 hover:opacity-65 transition-opacity">
       <SignOutButton redirectUrl={"/"}>
-        <button className="flex items-center justify-center m-0 p-0 text-sec text-[1.40vw] border-none bg-transparent">
-          <LogOut className="w-[1.40vw]"/>
+        <button className="flex items-center justify-center m-0 p-0 text-sec border-none bg-transparent">
+          <LogOut className="w-[14px]"/>
         </button>
       </SignOutButton>
     </li>
@@ -29,34 +29,31 @@ function Sign_Out_Button() {
 }
 
 function Top_Bar() {
-  return (
-    <ul className="flex items-center pt-[0.5vw] pb-[1vw] mb-[2.75vw] mt-0 mx-0 pl-[1.25vw] text-sec border-b-[0.09vw] border-neutral-950/65">
-      <a href="/">
-        <li className="flex items-center justify-center flex-row mr-[2vw] text-[1.20vw] hover:opacity-65 transition-all">
-          <ArrowLeft className="w-[1.40vw]"/>
+  return ( <>
+    <ul className="flex items-center pt-2 pb-6 mt-0 px-6 mx-0 mb-6 text-sec">
+      <a href="/home">
+        <li className="flex items-center justify-center flex-row mr-2 text-sm hover:opacity-65 transition-all">
+          <ArrowLeft className="w-[14px]"/>
         </li>
       </a>
 
-      <li className="flex items-center justify-center text-zinc-400 flex-row text-[1.40vw] ml-[1vw] hover:text-sec transition-all">
-        <a href="/home">
+      <a href="/home">
+        <li className="flex items-center text-zinc-400 justify-center flex-row text-sm ml-6 transition-all hover:opacity-65 hover:text-sec">
           Home
-        </a>
-      </li>
+        </li>
+      </a>
 
-      <li className="flex items-center justify-center font-bold flex-row ml-[3vw] text-[1.40vw] mr-auto">
+      <li className="flex items-center text-sec justify-center font-bold flex-row ml-6 text-sm mr-auto">
         Events
       </li>
 
       <Sign_Out_Button />
 
-      <li className="flex items-center justify-center flex-row mr-[3vw] text-[1.20vw] hover:opacity-65 transition-all">
-        <CircleHelp className="w-[1.40vw]" />
-      </li>
-
-      <li className="flex items-center justify-center flex-row mr-[2vw] text-[1.4vw] scale-[0.9]">
+      <li className="flex items-center justify-center flex-row text-sm scale-[0.75]">
         <UserButton appearance={{baseTheme: dark}} size />
       </li>
     </ul>
+    </>
   )
 }
 
@@ -246,11 +243,11 @@ function Events_Page() {
     </Dialog>
 
     <div className="flex justify-center items-center">
-      <div className="w-[85vw] h-[80vh] rounded-[1vw] bg-slate-950 p-[1vw] relative">
-        <h1 className="text-[3.5vw] text-left bg-gradient-to-r from-orange-200 to-ter bg-clip-text text-transparent inline-block font-bold">
+      <div className="w-[85vw] h-[80vh] rounded-[1vw] bg-neutral-950 px-4 py-3 relative">
+        <h1 className="text-4xl text-left bg-gradient-to-r from-orange-200 to-ter bg-clip-text text-transparent inline-block leading-snug font-bold">
           Upcoming events
         </h1>
-        <h3 className="text-[1.3vw] text-ter/70 saturate-50 mb-[2vw]">
+        <h3 className="text-sm text-ter/70 saturate-50 mb-6">
           Click on the plus icon to add an event, hover over an event and click the X to remove
           an event.
         </h3>

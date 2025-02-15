@@ -1077,7 +1077,7 @@ iteration. \\ \vspace{0.2cm}
 Alternatively click the following link to view the state of
 the project at this point in development: \\
 \href{https://github.com/zzzNathan/Video-Conferencer/tree/243560c390c019ab39903850ef3dba99ed98df18}{
-\texttt{VideoConferencer-Iteration2}}.
+\texttt{VideoConferencer-Iteration2}}. \\ \vspace{0.2cm}
 
 \newpage
 
@@ -1113,7 +1113,7 @@ function Headline ()
       className={"Headline"}
       strings={[
         "Welcome back :)",
-	"    Log back in here,",
+        "Log back in here,",
       ]}
       typeSpeed={120}
       startDelay={30}
@@ -1160,6 +1160,23 @@ Here's what the code renders to: \\
 \caption{Rendering the login page.}
 
 \end{figure}
+
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}
+
+{\sffamily Tests: (3)}
+
+\begin{itemize}
+\item User can register an account \faCheck
+\item User can sign in to their account \faCheck
+\item User can logout of their account \faCheck
+\end{itemize}
+
+{\sffamily Evidence: } \url{https://youtu.be/Fdg2HYeOV4Q} \\ \vspace{0.2cm}
+
+\textit{Note: I had intitially forgotten to run this test so I came back and ran it at a later date, hence why the
+system may look different.}
+
+{\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
 \textit{Description:} I design and implement the page that
 users will see after logging in to their account. \\
@@ -1320,7 +1337,7 @@ async function Provide_Token(request, env)
 \end{minted}
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
-{\sffamily Tests: (3)}
+{\sffamily Tests: (4)}
 
 \begin{itemize}
   \item HTML endpoint is accessible \faCheck \\
@@ -1524,7 +1541,7 @@ async function Count_Elements(env, id = null)
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
-{\sffamily Tests: (4)}
+{\sffamily Tests: (5)}
 
 \begin{itemize}
   \item HTTP endpoint is accessible \faCheck \\
@@ -1603,7 +1620,7 @@ async function Generate_PRNG(env)
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
-{\sffamily Tests: (5)}
+{\sffamily Tests: (6)}
 
 \begin{itemize}
   \item HTTP endpoint is accessible \faCheck \\
@@ -1631,7 +1648,7 @@ async function Generate_Linear(env)
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
-{\sffamily Tests: (6)}
+{\sffamily Tests: (7)}
 
 \begin{itemize}
   \item HTTP endpoint is accessible \faCheck \\
@@ -1668,7 +1685,7 @@ async function Generate_Call_Id(env)
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
-{\sffamily Tests: (7)}
+{\sffamily Tests: (8)}
 
 \begin{itemize}
   \item HTTP endpoint is accessible \faCheck \\
@@ -1703,7 +1720,7 @@ async function Remove_Call_Id(request, env)
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
-{\sffamily Tests: (8)}
+{\sffamily Tests: (9)}
 
 \begin{itemize}
   \item HTTP endpoint is accessible \faCheck \\
@@ -1901,7 +1918,7 @@ useEffect(() => {
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
-{\sffamily Tests: (9)}
+{\sffamily Tests: (10)}
 
 \begin{itemize}
   \item Code runs without errors \faCheck \\
@@ -2065,7 +2082,7 @@ async fn Generate_Linear(connection: &mut PgConnection) -> i32 {
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
-{\sffamily Tests: (10)}
+{\sffamily Tests: (11)}
 
 \begin{itemize}
 \item HTTP endpoint is accessible \faCheck \\
@@ -2106,7 +2123,7 @@ async fn Generate_PRNG(connection: &mut PgConnection) -> i32 {
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
-{\sffamily Tests: (11)}
+{\sffamily Tests: (12)}
 
 \begin{itemize}
 \item HTTP endpoint is accessible \faCheck \\
@@ -2172,7 +2189,7 @@ async fn Get_Call_Id(pool: &PgPool, first_run: bool) -> Result<i32, sqlx::Error>
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
-{\sffamily Tests: (12)}
+{\sffamily Tests: (13)}
 
 \begin{itemize}
 \item HTTP endpoint is accessible \faCheck \\
@@ -2236,7 +2253,7 @@ pub fn Extract_Call_Id(request_body: &Body) -> i32 {
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
-{\sffamily Tests: (13)}
+{\sffamily Tests: (14)}
 
 \begin{itemize}
 \item HTTP endpoint is accessible \faCheck \\
@@ -2286,7 +2303,7 @@ else if *req.method() == Method::POST {
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
-{\sffamily Tests: (14)}
+{\sffamily Tests: (15)}
 
 \begin{itemize}
 \item HTTP endpoint is accessible \faCheck \\
@@ -2647,7 +2664,7 @@ This completes development sub-tasks \circled{6}, \circled{7}, \circled{8} and
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
-{\sffamily Tests: (15)}
+{\sffamily Tests: (16)}
 
 \begin{itemize}
   \item Video feed is working \faCheck \\
@@ -2665,7 +2682,7 @@ With this the main components of our software have
 been complete. With that we test the qualitative
 success criterion 1, 3 and 5. \\ \vspace{0.2cm}
 
-{\sffamily Tests: (16)}
+{\sffamily Tests: (17)}
 
 \begin{itemize}
   \item System is intuitive \faCheck \\
@@ -2706,7 +2723,7 @@ within certain limits.
 ...
 \end{minted}
 
-{\sffamily Tests: (17)}
+{\sffamily Tests: (18)}
 
 \begin{itemize}
   \item System has proper documentation \faCheck
@@ -2982,6 +2999,7 @@ With that we end the refinement iteration, the system is now production ready fo
 
 {\color{gray} \hrulefill} \\ \vspace{0.2cm}
 
-Look at github commit \texttt{yo} to see the state of the project after our 4th iteration. \\ \vspace{0.2cm}
+Look at github commit \texttt{3bc8b0669f858431c08b600c32f00d97771319ef} to see the state of the project after our 4th iteration. \\ \vspace{0.2cm}
 
 Alternatively click the following link to view the state of our project at this point in development: \\
+\href{https://github.com/zzzNathan/Video-Conferencer/tree/3bc8b0669f858431c08b600c32f00d97771319ef}{\texttt{VideoConferencer-Iteration5}}

@@ -39,7 +39,7 @@ function Join_Call() {
 
   // Otherwise render the join interface
   return ( <>
-    <div className="border-b-[0.09vw] border-neutral-950/65">
+    <div>
       <a href="/home">
         <ArrowLeft className="w-[1.4vw] m-[1vw] text-ter/60 hover:text-ter/40 transition-all" />
       </a>

@@ -33,7 +33,11 @@ by creating a revised post-development test plan.
 
 {\sffamily Task:} Create an account.\\
 
-{\color{gray} \hrulefill}
+{\color{gray} \hrulefill} \\
+
+{\textit{Note that this test allows our user to see our login pages. This links to the usability feature
+"Log in/Sign up page}}
+\\ \vspace{0.2cm}
 
 {\sffamily Test type: Normal.}
 
@@ -76,6 +80,9 @@ message saying password is too weak.\\
 {\sffamily Task:} Log in to your account.\\
 
 {\color{gray} \hrulefill}
+
+{\textit{Note that this test allows our user to see our login pages. This links to the usability feature
+"Log in/Sign up page}} \\ \vspace{0.2cm}
 
 {\sffamily Test type: Normal.}\\
 
@@ -254,7 +261,8 @@ Here is Daniel's feedback form: \\ \vspace{0.2cm}
 \end{longtblr}
 
 From our post-developement testing we have \textbf{clearly} provided annotated evidence of post development testing
-for function and robustness. \\
+for function and robustness. Note that by getting Daniel's feedback form and by analysing his comments we gain
+invaluable feedback for our usability features. \\
 
 \section{Evaluating success criteria}
 
@@ -359,10 +367,42 @@ maintenance or due to an outage. In such a case we could notify our user on the 
 of the 100ms servers.
 }
 
-\begin{longtblr}{
-  colspec={lXXr},
+\newcommand{\evaleight}{%
+I believe that we have partially achieved success criteria 8. The explanation of the success criteria explicitly
+states that we will measure the success of this criterion by conducting a test with 6 different participants, however
+during our iterative and post-developement testing we only conducted tests with at most 2 different participants. The
+system should be able to theoretically handle 6 participants easily, however due to various time and resource
+constraints I was unable to conduct the test with 6 participants. We know that the system should theoretically be able
+to handle $\geq$ 6 participants by analysing the following page and looking at the free tier specifically
+\url{https://www.100ms.live/pricing}, moreover we have evidence to show that video conferencing with 2 people was
+smooth and worked without issues. \textit{Reference: See Daniel's post-development testing.}\\ \vspace{0.1cm}
+
+We now propose a potential resolution for this issue. We could ask some friends or family to try and help conduct this
+test but aligning the schedules of 6 people for this 1 test could be tough. If this approach doesn't work we could
+potentially create an online posting looking for testers, and give them some monetary incentive if they accept to be a
+part of the testing.
+}
+
+\newcommand{\evalnine}{%
+I believe that we have partially completed success criterion 9. In a similar manner to the previous criterion, the
+system should theoretically be able to handle 500 user accounts. We know this by analysing this page specifically at
+the free tier \textit{Reference:} \url{https://clerk.com/pricing}. Indeed according to this page we should be able to
+handle 10000 monthly user accounts. However we have failed to conduct proper rigorous tests in order to acertain
+whether or not system performance degrades after a certain number of users. \\ \vspace{0.1cm}
+
+We now propose a potential solution to this issue. Getting 500 actual users to register an account could be
+logistically difficult, so alternatively we could write a script that makes bots to register accounts on our website
+programatically.
+}
+
+\begin{longtblr}[
+  caption={Evaluation of the success criteria.}
+]{
+  colspec={l X[2] X[6] r},
   row{1}={lightestgray},
-  row{2}={lightestgray}
+  row{2}={lightestgray},
+  row{8}={lightestgray},
+  rowhead=1
 }
 No & Criterion & Evaluation & \% \\
 {\sffamily Qualitative} & & & \\
@@ -371,6 +411,157 @@ No & Criterion & Evaluation & \% \\
 3 & The webpage design should be aesthetically pleasing & \evalthree & 100\% \\
 4 & Users should be able to create and join video conferences & \evalfour & 100\% \\
 5 & Users should be able to create, login and logout of their own accounts & \evalfive & 100\% \\
+{\sffamily Quantitative} & & & \\
 6 & User passwords should be of an adequate strength & \evalsix & 50\% \\
 7 & The video call latency should not exceed 150ms & \evalseven & 0\% \\
+8 & The system should be able to handle video conferences with more than 2 participants & \evaleight & 50\% \\
+9 & The system should be able to store at least 500 user accounts & \evalnine & 50\% \\
 \end{longtblr}
+
+\section{Evaluation of the usability features}
+
+\newcommand{\usaone}{%
+I believe that we have completed this feature completely, as we recall designing and implementing
+the home page in the development section. The final design uses React and JSX to render the front end.
+\textit{Reference:} \sffamily{Test (2)}
+}
+
+\newcommand{\usatwo}{%
+I believe that we have completed this feature completely, as we have designed and implemented
+a log in page as well as a sign up page in our development section. The final design makes use of the Clerk SDK to
+hanle the registration and login logic, and the front end is implemented with React. \textit{Reference:}
+\sffamily{Test (3)}
+}
+
+\newcommand{\usathree}{%
+I believe that we have not completed this feature. Due to time constraints we unfortunately
+could not get to creating a helper document. \\ \vspace{0.1cm} We note that this issue is rather easy to fix, since
+we could simply ask the IT staff at my client's workplace to create the document. This will fully resolve the issue.
+}
+
+\newcommand{\usafour}{%
+I believe that we have not completed this feature. Due to time constraints we were not able to implement
+this feature. \\ \vspace{0.1cm} Implementing macros inside the video conferencing system is not a trivial task at all,
+since we are making use of the 100ms library. From my understanding the 100ms library
+}
+
+\newcommand{\usafive}{%
+I believe that we have not completed this feature. Due to time constraints we were not able to
+implement this feature.
+}
+
+% Give evidence via video, commentate them with usability features
+\begin{longtblr}[
+  caption={Evaluation of the usability features.}
+]{
+  colspec={l X[2] X[6] r},
+  row{1}={lightestgray},
+  rowhead=1
+}
+No & Feature & Evaluation & \% \\
+1 & Home page & \usaone & 100\% \\
+
+2 & Log in/Sign up page & \usatwo & 100\% \\
+
+3 & Help PDF document & \usathree & 0\% \\
+
+4 & Macros & \usafour & 0\% \\
+
+5 & Video tutorial & \usafive & 0\% \\
+\end{longtblr}
+
+\section{Limitations}
+
+We begin by discussing the limitations that we considered in our analysis section \ref{sec:limitations}.
+
+\subsection{Initial limitations}
+
+\subsubsection{Internet}
+
+Indeed as we explored in our analysis an internet connection is necessary for the user to be able to access our system.
+As previously discussed we notice that the requirement of having a stable internet connection could potentially
+restrict some users with poor economic situations from using our system. Indeed this opposes the initial motivation
+for this project: to create an \textit{accessible} video conferencing application. \\ \vspace{0.2cm}
+
+Though the requirement to have a stable internet connection has it's negatives, we argue that it is necessary since
+there are no realistic solutions to this limitation. Indeed in order to conduct video conferencing users will have to
+send video and/or audio data to the other users in the conference one way or another, there is no arguing this fact.
+In this time period \footnote{At the time of writing the year is currently 2025} we have 2 main methods of data
+communication. The first is to send signals over a WAN like the internet. The second is to physically connect devices
+together in a LAN. If the first option is off the table we can only employ the second option. We note that the second
+option requires a much more tedious setup as well as requires each user to be in relatively close proximity to all
+the other users in the video conference. These inconveniences far outweigh the inconveniece of having to purchase and
+install a stable internet connection.
+
+\subsubsection{Passwords}
+
+We previously discussed the issue of users forgetting their own passwords and getting logged out of their accounts.
+Though we understand that we can never fix this issue totally, we argue that we have derived a partial solution.
+\\ \vspace{0.2cm}
+
+In using the Clerk library in order to handle our user management systems, we note that they allow our users to be
+able to login to our system using their google accounts. Using their google accounts the user doesn't need to remember
+their password as they may simply click on the "Continue with Google" button after which they will be able to easily
+sign in using their Gmail. \\ \vspace{0.2cm}
+
+\subsubsection{Signalling servers}
+
+When we initially wrote the limitations section, I assumed that I would be working with WebRTC library in order to
+facilitate the implementation of video conferencing in our application. However in the final solution we note that we
+instead make use of the 100ms video conferencing library. Not only does this library provide a much simpler method
+to implement video conferencing it also renders the system much more maintainable as our maintainers will have a lot
+less work to complete if the system isn't too complex. \\ \vspace{0.2cm}
+
+With that it is easy to see that this limitation no longer applies to us.
+
+\subsubsection{Social engineering}
+
+We construct a philosophical arguement to justify the claim that we can never truly guarentee that this issue is
+resolved. Due to human nature we understand that in the 21st century we can never completely eliminate the effect of
+evil. Robert Greene argues in his book \textit{The 48 Laws of Power} that humans act only for their own benefit
+\cite{power}, so if a situation arises in which someone obtains sufficient motivation to commit an act of evil,
+in this case the use of social engineering to obtain somebody else's password, then in their eyes such an act doesn't
+become morally injust anymore. Thomas Hobbes reinforces this school of thought in his book \textit{Leviathan} \cite{lev}.
+He argues that man is naturally self-interested, implying that what we might think of as evil could be an inevitable
+result of man's struggle for survival. Moreover we note that every human sees the world differently and consequently
+has their own morals and views as a result of their experiences. As man wanders through life and encounters new
+experiences his thoughts and morals will constantly morph and shift. In this manner our struggle against evil is not
+a discrete one-time battle but is rather a continous everlasting commitment to fighting for one's own views of morally
+just and injust.
+\\ \vspace{0.2cm}
+
+In order stop humans from commiting such acts we would have to monitor and restrict the actions of each and every one
+of the $\approx$ 8 million people on earth. Such drastic measures would not only be \textbf{extremely} resource
+intensive for my client and his small team but would also be morally dubious to the point where it could perhaps
+illicit global-scale actions in response. This reasoning alone is enough to justify the fact that this limitation can
+never \textbf{truly} be fixed. \\ \vspace{0.2cm}
+
+We now discuss some new limitations that were not considered in the analysis section.
+
+\subsection{New limitiations}
+
+\subsubsection{Helper document}
+
+Unfortunately we were unable to create the helper document that we spoke of in section \ref{sec:usability} due to
+time constraints in our development sections. Since we lack a \textit{user guide} it may be difficult for new users
+to understand where everything is and what features exist in the system, this was highlighted in Daniel's critique:
+\textit{"I would suggest tutorial pop ups under
+under some icons on the first time through
+when someone makes an account so they
+can see where everything is."} However we hope that the simple design of our system compensates for the
+lack of a helper document as most users should be able to understand how to use and navigate the software, this
+conclusion is justified by the feedback we recieved from Daniel during our post-development testing, where he
+explicity mentioned how easy the software was to use: \textit{"Very easy as the layout was very clear."}. \\
+\vspace{0.2cm}
+
+Thankfully this limitation can easily be remedied by asking one of the IT staff at our client's place of work to create
+a helper document, and then implement a button on the navbar that allows the users to click and have the helper
+document open up in another tab.
+
+\subsubsection{Landing page}
+
+The final landing page design ended up being simple and professional looking, however there are still improvements
+to be made. The landing page should demonstrate some of the core features of our application whilst remaining
+professional looking, modern and eye-catching.
+
+\section{Maintenance}
