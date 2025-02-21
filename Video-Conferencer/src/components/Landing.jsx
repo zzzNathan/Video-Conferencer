@@ -46,7 +46,7 @@ function Landing()
       <Navbar />
 
       <div className="flex flex-col">
-        <h1 className="text-7xl ml-6 mt-24 mb-4 font-bold bg-gradient-to-r from-ter to-sec text-transparent bg-clip-text inline-block saturate-150 flex flex-col">
+        <h1 className="text-7xl ml-12 mt-24 mb-4 font-bold bg-gradient-to-r from-ter to-sec text-transparent bg-clip-text inline-block saturate-150 flex flex-col">
           <span> Simplifying </span>
           <span> video calls for all</span>
         </h1>

@@ -75,12 +75,12 @@ func Create_Room() (string, error) {
     client := &http.Client{}
 
     // Create the POST request in order to create a room
-    body := map[string]string{
+    req_body := map[string]string{
         "template_id": Template_Id,
     }
-    body_JSON, _ := json.Marshal(body)
+    req_body_JSON, _ := json.Marshal(body)
 
-    req, err := http.NewRequest("POST", URL, bytes.NewBuffer(body_JSON))
+    req, err := http.NewRequest("POST", URL, bytes.NewBuffer(req_body_JSON))
     if err != nil {
         return "", err
     }
@@ -88,18 +88,14 @@ func Create_Room() (string, error) {
     req.Header.Set("Content-Type", "application/json")
     req.Header.Set("Authorization", "Bearer " + Token)
 
-    // Send request to 100ms API endpoint
+    // Send request to 100ms API endpoint, then read the response and 
+    // return the room id
     resp, err := client.Do(req)
     if err != nil {
         return "", err
     }
     defer resp.Body.Close()
 
-    if resp.StatusCode != http.StatusOK {
-        return "", fmt.Errorf("Unexpected status code: %d", resp.StatusCode)
-    }
-
-    // Parse the response and return the room id
     var Room_Response RoomResponse
     err = json.NewDecoder(resp.Body).Decode(&Room_Response)
     if err != nil {
