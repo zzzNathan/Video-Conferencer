@@ -1,4 +1,4 @@
-import { CircleHelp, ArrowLeft, LogOut, X, Plus } from "lucide-react"
+import { ArrowLeft, LogOut, X, Plus } from "lucide-react"
 import { useUser, SignOutButton, UserButton } from "@clerk/clerk-react"
 import { useState, useEffect } from "react"
 import { dark } from '@clerk/themes'
@@ -57,8 +57,10 @@ function Top_Bar() {
   )
 }
 
+// Function to render an individual event item card
 function Event_Item({ title, date, description, On_Delete }) {
-  // Format the date to show only YYYY-MM-DD
+  // Since the database stores dates including hours, minutes and seconds
+  // We format the date to show only YYYY-MM-DD
   const formatted_date = new Date(date).toISOString().split('T')[0]
 
   return (
@@ -100,6 +102,11 @@ function No_Events_Message() {
   )
 }
 
+// Renders the events page
+// This function renders the main UI as well as handles
+// - Fetching the events
+// - Adding new events
+// - Deleting events
 function Events_Page() {
   const [events, Set_Events] = useState([])
   const [loading, Set_Loading] = useState(true)
@@ -107,7 +114,6 @@ function Events_Page() {
   const [error, Set_Error] = useState(null)
   const { user } = useUser()
 
-  // Dialog state
   const [Open_Dialog, Set_Open_Dialog] = useState(false)
   const [New_Event, Set_New_Event] = useState({
     Title: "",
@@ -115,35 +121,37 @@ function Events_Page() {
     Date: ""
   })
 
-  // Fetch events when component mounts or user changes
-  useEffect(() => {
-    async function Fetch_Events() {
-      if (!user) return
+  // Get events from DB in order to render them to the screen
+  const Fetch_Events = async () => {
+    if (!user) return
 
-      try {
-        const response = await Get_Events(user.id)
-        Set_Events(response.data || [])
-        Set_Error(null)
-      } catch (error) {
-        console.error('Failed to fetch events:', error)
-        Set_Error('Failed to load events')
-        Set_Events([])
-      } finally {
-        Set_Loading(false)
-      }
+    try {
+      const response = await Get_Events(user.id)
+      Set_Events(response.data || [])
+      Set_Error(null)
+
+    } catch (error) {
+      console.error('Failed to fetch events:', error)
+      Set_Error('Failed to load events')
+      Set_Events([])
+
+    } finally {
+      Set_Loading(false)
     }
+  }
 
-    Fetch_Events()
-  }, [user])
-
+  // When user wants to add an event...
   const Handle_Add_Event = async () => {
-    // Validate form data
+
+    // ...We first validate the fields data (users can't add an empty event)
     if (!New_Event.Title || !New_Event.Description || !New_Event.Date) {
       Set_Error('Please fill in all fields')
       return
     }
 
-    Set_Adding_Event(true)
+    Set_Adding_Event(true) // Loading upon adding an event
+
+    // Actually add event to DB
     try {
       await Add_Event(
         user.id,
@@ -152,30 +160,41 @@ function Events_Page() {
         New_Event.Date
       )
 
-      // Refresh events list
+      // Refresh events list, after new event was added
       const response = await Get_Events(user.id)
       Set_Events(response.data || [])
 
-      // Close dialog and reset form
+      // Close dialog and reset form, once event was correctly added to the
+      // events page
       Set_Open_Dialog(false)
       Set_New_Event({ Title: "", Description: "", Date: "" })
       Set_Error(null)
+
     } catch (error) {
       console.error('Failed to add event:', error)
       Set_Error('Failed to add event')
+
     } finally {
       Set_Adding_Event(false)
     }
   }
 
+  // Delete a given event, given the user id of the user who's event it was and
+  // given the event id of that event
   const Handle_Delete_Event = async (Event_Id) => {
     try {
       await Delete_Event(user.id, Event_Id)
       Set_Events(events.filter(event => event.Event_Id !== Event_Id))
+
     } catch (error) {
       console.error('Failed to delete event:', error)
     }
   }
+
+  // Fetch events when component initially mounts
+  useEffect(() => {
+    Fetch_Events()
+  }, [user])
 
   if (loading || !user) return <Loading />
 

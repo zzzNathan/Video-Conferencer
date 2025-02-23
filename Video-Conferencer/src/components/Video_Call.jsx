@@ -19,23 +19,24 @@ export function Join_Video_Call({ code })
   )
 }
 
-export function Video_Call({ code = "NULL" })
+export function Video_Call()
 {
-  // State of the dialog box
   const [Open_Dialog, Set_Open_Dialog] = useState(false)
   useEffect(() => {
     Set_Open_Dialog(true)
   }, [])
 
-  const [Host_Code, setHost_Code] = useState(code)
-  const [Guest_Code, setGuest_Code] = useState(code)
+  const [Host_Code, setHost_Code] = useState("NULL")
+  const [Guest_Code, setGuest_Code] = useState("NULL")
   const [isLoading, setIsLoading] = useState(false)
-  const [Main_Code, setMain_Code] = useState(code)
+  const [Main_Code, setMain_Code] = useState("NULL")
 
-  // Get room code if user is creating a call
+  // Fetches a host + guest code from our backend,
+  // once both have been fetched the video conference can start
+  // and we display a dialog box with the guest code.
   useEffect(() => {
     async function Fetch_Room_Code() {
-      if (code === "NULL") {
+      if (Host_Code === "NULL") {
         setIsLoading(true)
         const response = await Get_Room_Code()
 
@@ -47,7 +48,7 @@ export function Video_Call({ code = "NULL" })
     }
 
     Fetch_Room_Code()
-  }, [code])
+  }, [Host_Code])
 
   if (isLoading || Main_Code === "NULL")
     return <Loading />

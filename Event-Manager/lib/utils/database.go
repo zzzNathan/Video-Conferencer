@@ -30,12 +30,11 @@ func Get_Events(User_Id string) (string, error) {
         ORDER BY date DESC
     `
 
-    // Execute query
     rows, err := db.Query(query, User_Id)
     defer rows.Close()
 
-
     // Iterate through results, and add each event to the slice
+    // then return all of their events in a json object
     var events []models.Event
     for rows.Next() {
         var event models.Event

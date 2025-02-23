@@ -16,9 +16,13 @@ var Secret_Key  = os.Getenv("MS_SECRET")
 var Access_Key  = os.Getenv("MS_ACCESS")
 var Template_Id = os.Getenv("MS_TEMPLATE_ID")
 
+// JSON structures
+// ----------------
+
 // The format of the JSON data that is returned from the
-// 100ms get room code API
-type RoomCode struct {
+// 100ms get room code API, used to parse in the data coming
+// from the API and then retrieve the room id and response
+type Room_Code struct {
     Code      string    `json:"code"`
     RoomID    string    `json:"room_id"`
     Role      string    `json:"role"`
@@ -27,17 +31,14 @@ type RoomCode struct {
     UpdatedAt time.Time `json:"updated_at"`
 }
 
-type RoomCodeResponse struct {
-    Data []RoomCode `json:"data"`
-}
-
-// JSON format of the incoming POST requests
-type RequestBody struct {
-    Room_Id string `json:"Room_Id"`
+// JSON format of the response of the 100ms api
+// call when getting the room host and guest codes
+type Room_Code_Response struct {
+    Data []Room_Code `json:"data"`
 }
 
 // The response from the 100ms room creation api call
-type RoomResponse struct {
+type Room_Response_Struct struct {
     Id string `json:"id"`
 }
 
@@ -78,7 +79,7 @@ func Create_Room() (string, error) {
     req_body := map[string]string{
         "template_id": Template_Id,
     }
-    req_body_JSON, _ := json.Marshal(body)
+    req_body_JSON, _ := json.Marshal(req_body)
 
     req, err := http.NewRequest("POST", URL, bytes.NewBuffer(req_body_JSON))
     if err != nil {
@@ -88,7 +89,7 @@ func Create_Room() (string, error) {
     req.Header.Set("Content-Type", "application/json")
     req.Header.Set("Authorization", "Bearer " + Token)
 
-    // Send request to 100ms API endpoint, then read the response and 
+    // Send request to 100ms API endpoint, then read the response and
     // return the room id
     resp, err := client.Do(req)
     if err != nil {
@@ -96,7 +97,7 @@ func Create_Room() (string, error) {
     }
     defer resp.Body.Close()
 
-    var Room_Response RoomResponse
+    var Room_Response Room_Response_Struct
     err = json.NewDecoder(resp.Body).Decode(&Room_Response)
     if err != nil {
         return "", fmt.Errorf("Error decoding response: %v", err)
@@ -133,8 +134,8 @@ func Get_Room_Code(Room_Id string) (string, string, error) {
         return "", "", fmt.Errorf("Unexpected status code: %d", resp.StatusCode)
     }
 
-    // Reads in response and then returns codes
-    var response RoomCodeResponse
+    // Reads in response from the API and then returns codes
+    var response Room_Code_Response
     err = json.NewDecoder(resp.Body).Decode(&response)
     if err != nil {
         return "", "", fmt.Errorf("Error decoding response: %v", err)
@@ -164,6 +165,7 @@ func Get_Room_Code_HTTP(w *http.ResponseWriter, id string) {
         "Guest_Code": Guest_Code,
     }
 
+    // Set headers and send request off
     (*w).Header().Set("Content-Type", "application/json")
     json.NewEncoder(*w).Encode(response)
 }
