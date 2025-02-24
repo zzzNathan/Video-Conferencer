@@ -5,11 +5,16 @@
 
 #### You might be looking for: [Website](https://video-conferencer.vercel.app/) • [Docs](https://video-conf-docs.vercel.app/)
 
-> Note: This project is still in active development! ⛏️
-
 ### Context:
-Video Conferencer was created as part of my A-Level Computer Science coursework project. The report is written in
-Latex and is available in the Report folder. It is intended to be a simplified version of Zoom so that anyone and
-everyone can start video conferencing easily.
+Video Conferencer was created as part of my A-Level Computer Science coursework project. It is intended to be a simplified
+version of Zoom so that anyone and everyone can start video 
+conferencing easily.
 
 It is written using React and Go and is deployed using Vercel.
+
+### Features: 
+
+- 📷 Real-time video conferencing with audio and video
+- 📅 Add future events to your personal calendar
+- 📄 Documentation site made with Vitepress
+- 📲 Simple and intuitive design

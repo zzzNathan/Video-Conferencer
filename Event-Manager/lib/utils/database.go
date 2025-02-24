@@ -23,14 +23,14 @@ func Get_Events(User_Id string) (string, error) {
     defer db.Close() // Ensures connection closes once function returns
 
     // SQL Query to get events ordered by date, (most recent events first)
-    query := `
+    Get_Events_Query := `
         SELECT event_id, user_id, title, description, date
         FROM events
         WHERE user_id = $1
         ORDER BY date DESC
     `
 
-    rows, err := db.Query(query, User_Id)
+    rows, err := db.Query(Get_Events_Query, User_Id)
     defer rows.Close()
 
     // Iterate through results, and add each event to the slice
@@ -62,8 +62,8 @@ func Get_Event_Count(User_Id string) (int, error) {
     var count = 0
     defer db.Close()
 
-    query := `SELECT COUNT(*) FROM events WHERE user_id = $1`
-    err = db.QueryRow(query, User_Id).Scan(&count)
+    Count_Events_Query := `SELECT COUNT(*) FROM events WHERE user_id = $1`
+    err = db.QueryRow(Count_Events_Query, User_Id).Scan(&count)
 
     return count, err
 }
@@ -73,12 +73,12 @@ func Add_Event(Event models.Event) error {
     db, err := Connect()
     defer db.Close()
 
-    query := `
+    Add_Events_Query := `
         INSERT INTO events (user_id, title, description, date)
         VALUES ($1, $2, $3, $4)
     `
 
-    _, err = db.Exec(query, Event.User_ID, Event.Title, Event.Description, Event.Date)
+    _, err = db.Exec(Add_Events_Query, Event.User_ID, Event.Title, Event.Description, Event.Date)
     return err
 }
 
@@ -87,11 +87,11 @@ func Delete_Event(Event_Id int, User_Id string) error {
     db, err := Connect()
     defer db.Close()
 
-    query := `
+    Del_Events_Query := `
         DELETE FROM events
         WHERE event_id = $1 AND user_id = $2
     `
 
-    _, err = db.Exec(query, Event_Id, User_Id)
+    _, err = db.Exec(Del_Eventes_Query, Event_Id, User_Id)
     return err
 }

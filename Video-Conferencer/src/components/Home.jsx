@@ -1,7 +1,7 @@
 import { Video, UserPlus, ArrowLeft, LogOut } from "lucide-react"
 import { useUser, SignOutButton, UserButton } from "@clerk/clerk-react"
 import { Card, CardContent } from "@/components/ui/card"
-import { dark } from '@clerk/themes'
+import { dark } from "@clerk/themes"
 
 function Sign_Out_Button() {
   const { isSignedIn } = useUser()

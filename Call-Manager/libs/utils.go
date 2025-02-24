@@ -42,7 +42,9 @@ type Room_Response_Struct struct {
     Id string `json:"id"`
 }
 
-// Generate a 100ms management token with JWT, refer to
+// Generate a 100ms management token with JWT, 
+// 
+// Reference: 
 // https://www.100ms.live/docs/get-started/v2/get-started/security-and-tokens#management-token-for-rest-api
 func Get_Management_Token() string {
     Signing_Key := []byte(Secret_Key)
@@ -91,10 +93,7 @@ func Create_Room() (string, error) {
 
     // Send request to 100ms API endpoint, then read the response and
     // return the room id
-    resp, err := client.Do(req)
-    if err != nil {
-        return "", err
-    }
+    resp, _ := client.Do(req)
     defer resp.Body.Close()
 
     var Room_Response Room_Response_Struct
@@ -124,15 +123,8 @@ func Get_Room_Code(Room_Id string) (string, string, error) {
     req.Header.Set("Content-Type", "application/json")
     req.Header.Set("Authorization", "Bearer " + Management_Token)
 
-    resp, err := client.Do(req)
-    if err != nil {
-        return "", "", err
-    }
+    resp, _ := client.Do(req)
     defer resp.Body.Close()
-
-    if resp.StatusCode != http.StatusOK {
-        return "", "", fmt.Errorf("Unexpected status code: %d", resp.StatusCode)
-    }
 
     // Reads in response from the API and then returns codes
     var response Room_Code_Response

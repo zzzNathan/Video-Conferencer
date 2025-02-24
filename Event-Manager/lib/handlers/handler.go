@@ -71,7 +71,10 @@ func Handle_Add_Event(w http.ResponseWriter, r *http.Request) {
 
     // Parse JSON body into an Event struct
     var New_Event models.Event
-    if err := json.NewDecoder(r.Body).Decode(&New_Event); err != nil { // Returns error if not JSON format
+
+    // Check whether or not proper JSON format was given
+    err := json.NewDecoder(r.Body).Decode(&New_Event)
+    if err != nil {
         http.Error(w, "Invalid request body: "+err.Error(), http.StatusBadRequest)
         return
     }

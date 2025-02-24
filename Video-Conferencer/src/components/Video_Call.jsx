@@ -28,7 +28,7 @@ export function Video_Call()
 
   const [Host_Code, setHost_Code] = useState("NULL")
   const [Guest_Code, setGuest_Code] = useState("NULL")
-  const [isLoading, setIsLoading] = useState(false)
+  const [is_Loading, setIs_Loading] = useState(false)
   const [Main_Code, setMain_Code] = useState("NULL")
 
   // Fetches a host + guest code from our backend,
@@ -37,20 +37,20 @@ export function Video_Call()
   useEffect(() => {
     async function Fetch_Room_Code() {
       if (Host_Code === "NULL") {
-        setIsLoading(true)
+        setIs_Loading(true)
         const response = await Get_Room_Code()
 
         setHost_Code(response.data.Host_Code)
         setGuest_Code(response.data.Guest_Code)
         setMain_Code(response.data.Host_Code)
-        setIsLoading(false)
+        setIs_Loading(false)
       }
     }
 
     Fetch_Room_Code()
   }, [Host_Code])
 
-  if (isLoading || Main_Code === "NULL")
+  if (is_Loading || Main_Code === "NULL")
     return <Loading />
 
   return ( <>

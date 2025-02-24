@@ -1,5 +1,5 @@
-import { useUser } from '@clerk/clerk-react'
-import { useState, useEffect } from 'react'
+import { useUser } from "@clerk/clerk-react"
+import { useState, useEffect } from "react"
 
 // The status of 100ms servers
 function Status()

@@ -25,7 +25,7 @@ import (
 // Entry point into API
 func Handler(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Access-Control-Allow-Origin", "*")  // Allow all origins
-    w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+    w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, PUT, DELETE")
     w.Header().Set("Access-Control-Allow-Headers", "Content-Type, User_Id, Event_Id")
 
     // Handle preflight requests

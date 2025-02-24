@@ -1,7 +1,7 @@
 import { ArrowLeft, LogOut, X, Plus } from "lucide-react"
 import { useUser, SignOutButton, UserButton } from "@clerk/clerk-react"
 import { useState, useEffect } from "react"
-import { dark } from '@clerk/themes'
+import { dark } from "@clerk/themes"
 import { Get_Events, Add_Event, Delete_Event } from "../utils/Query_Api"
 import Loading from "./Loading"
 import {
